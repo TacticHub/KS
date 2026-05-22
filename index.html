@@ -382,7 +382,7 @@
   .chat-bubble.loading { color: var(--text-dim); font-style: italic; }
   .chat-bubble h3 { color: var(--gold); font-family: 'Cinzel',serif; font-size:1rem; margin: 12px 0 6px; }
   .chat-bubble h3:first-child { margin-top: 0; }
-  .chat-bubble strong { color: var(--text); }
+  .chat-bubble strong { color: #fff; }
   .chat-bubble ul { margin: 8px 0 8px 20px; }
   .chat-bubble li { margin-bottom: 4px; }
   .chat-bubble p { margin-bottom: 8px; }
@@ -870,6 +870,344 @@
   .badge-s { background: rgba(201,168,76,0.25); color: var(--gold); }
   .badge-a { background: rgba(95,160,216,0.2); color: var(--blue-bright); }
   .badge-b { background: rgba(74,140,63,0.2); color: var(--green-bright); }
+
+  /* ── HERO DATABASE ── */
+  .hdb-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+    align-items: center;
+  }
+  .hdb-search {
+    background: rgba(255,255,255,0.75);
+    border: 1px solid rgba(212,137,26,0.25);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.78rem;
+    padding: 7px 12px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 180px;
+    -webkit-appearance: none;
+  }
+  .hdb-search:focus { border-color: var(--gold); }
+  .hdb-search::placeholder { color: var(--text-muted); }
+  .hdb-filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .hdb-filter-btn {
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(212,137,26,0.2);
+    border-radius: 16px;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.05em;
+    padding: 4px 11px;
+    transition: all 0.18s;
+    -webkit-appearance: none;
+    white-space: nowrap;
+  }
+  .hdb-filter-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .hdb-filter-btn.active { background: rgba(212,137,26,0.15); border-color: var(--gold); color: var(--gold); }
+  .hdb-filter-btn.active.f-inf  { background: rgba(95,160,216,0.15);  border-color: var(--blue-bright);  color: var(--blue-bright); }
+  .hdb-filter-btn.active.f-cav  { background: rgba(109,194,95,0.15);  border-color: var(--green-bright); color: var(--green-bright); }
+  .hdb-filter-btn.active.f-mark { background: rgba(240,128,128,0.15); border-color: #f08080; color: #f08080; }
+  .hdb-filter-btn.active.f-bear { background: rgba(192,104,32,0.15);  border-color: var(--orange); color: var(--orange); }
+  .hdb-filter-btn.active.f-f2p  { background: rgba(74,140,63,0.15);   border-color: var(--green-bright); color: var(--green-bright); }
+  .hdb-filter-btn.active.f-future { background: rgba(122,74,154,0.15); border-color: var(--purple-bright); color: var(--purple-bright); }
+  .hdb-table-wrap { overflow-x: auto; border-radius: 8px; margin-bottom: 10px; }
+  .hdb-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.84rem;
+    min-width: 700px;
+  }
+  .hdb-table thead tr {
+    background: rgba(212,137,26,0.1);
+    border-bottom: 2px solid rgba(212,137,26,0.3);
+  }
+  .hdb-table th {
+    font-size: 0.62rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 9px 10px;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s;
+  }
+  .hdb-table th:hover { color: var(--gold-light); }
+  .hdb-table th .sort-arrow { opacity: 0.35; margin-left: 4px; font-size: 0.55rem; }
+  .hdb-th-wrap { display: flex; flex-direction: column; gap: 1px; }
+  .hdb-th-label { white-space: nowrap; display: flex; align-items: center; gap: 3px; }
+  .hdb-th-sub {
+    font-size: 0.51rem;
+    letter-spacing: 0.03em;
+    text-transform: none;
+    color: var(--text-muted);
+    font-weight: 400;
+    white-space: nowrap;
+    opacity: 0.8;
+    line-height: 1.2;
+  }
+  .hdb-table th:hover .hdb-th-sub { color: var(--gold-light); opacity: 1; }
+  .hdb-table th.sort-asc .sort-arrow,
+  .hdb-table th.sort-desc .sort-arrow { opacity: 1; color: var(--gold-light); }
+  .hdb-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid rgba(212,137,26,0.07);
+    vertical-align: middle;
+    line-height: 1.4;
+  }
+  .hdb-table tbody tr { transition: background 0.15s; cursor: pointer; }
+  .hdb-table tbody tr:hover { background: rgba(212,137,26,0.05); }
+  .hdb-table tbody tr.hdb-hidden { display: none; }
+  .hdb-table tbody tr.hdb-future-row { opacity: 0.55; }
+  .hdb-table tbody tr.hdb-expanded { background: rgba(212,137,26,0.04); }
+  .hdb-hero-name-cell { display: flex; align-items: center; gap: 9px; min-width: 110px; }
+  .hdb-portrait {
+    width: 34px; height: 34px;
+    border-radius: 6px;
+    background: rgba(212,137,26,0.12);
+    border: 1px solid rgba(212,137,26,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .hdb-portrait img { width: 100%; height: 100%; object-fit: cover; border-radius: 5px; }
+  .hdb-portrait-future { opacity: 0.5; filter: grayscale(1); }
+  .hdb-name { font-weight: 700; color: var(--text); font-size: 0.82rem; }
+  .hdb-name-future { color: var(--text-muted); }
+  .hdb-gen-badge {
+    display: inline-block;
+    font-size: 0.58rem;
+    letter-spacing: 0.05em;
+    padding: 2px 7px;
+    border-radius: 8px;
+    font-family: 'Lato', sans-serif;
+    white-space: nowrap;
+  }
+  .hdb-gen-1 { background: rgba(212,137,26,0.15); color: var(--gold); border: 1px solid rgba(212,137,26,0.25); }
+  .hdb-gen-2 { background: rgba(95,160,216,0.15); color: var(--blue-bright); border: 1px solid rgba(95,160,216,0.2); }
+  .hdb-gen-3 { background: rgba(109,194,95,0.15); color: var(--green-bright); border: 1px solid rgba(109,194,95,0.2); }
+  .hdb-gen-future { background: rgba(122,74,154,0.15); color: var(--purple-bright); border: 1px solid rgba(160,106,200,0.2); }
+  .hdb-troop-badge {
+    display: inline-block;
+    font-size: 0.6rem;
+    padding: 2px 7px;
+    border-radius: 8px;
+    white-space: nowrap;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.03em;
+  }
+  .hdb-inf  { background: rgba(95,160,216,0.14);  color: var(--blue-bright);  border: 1px solid rgba(95,160,216,0.2); }
+  .hdb-cav  { background: rgba(109,194,95,0.14);  color: var(--green-bright); border: 1px solid rgba(109,194,95,0.2); }
+  .hdb-mark { background: rgba(240,128,128,0.14); color: #f08080;             border: 1px solid rgba(240,128,128,0.2); }
+  .hdb-util { background: rgba(201,168,76,0.14);  color: var(--gold);         border: 1px solid rgba(201,168,76,0.2); }
+  .hdb-rating {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px; height: 20px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+  }
+  .hdb-r-s  { background: rgba(212,137,26,0.2);   color: var(--gold); }
+  .hdb-r-a  { background: rgba(95,160,216,0.2);   color: var(--blue-bright); }
+  .hdb-r-b  { background: rgba(109,194,95,0.2);   color: var(--green-bright); }
+  .hdb-r-c  { background: rgba(192,104,32,0.15);  color: var(--orange); }
+  .hdb-r-d  { background: rgba(50,58,82,0.3);     color: var(--text-muted); }
+  .hdb-acq-badge {
+    font-size: 0.6rem;
+    padding: 2px 7px;
+    border-radius: 8px;
+    font-family: 'Lato', sans-serif;
+    white-space: nowrap;
+    display: inline-block;
+  }
+  .hdb-acq-roulette { background: rgba(122,74,154,0.15); color: var(--purple-bright); border: 1px solid rgba(160,106,200,0.2); }
+  .hdb-acq-hall     { background: rgba(212,137,26,0.15); color: var(--gold);          border: 1px solid rgba(212,137,26,0.25); }
+  .hdb-acq-event    { background: rgba(95,160,216,0.15); color: var(--blue-bright);   border: 1px solid rgba(95,160,216,0.2); }
+  .hdb-acq-free     { background: rgba(74,140,63,0.15);  color: var(--green-bright);  border: 1px solid rgba(109,194,95,0.2); }
+  .hdb-avail-yes  { color: var(--green-bright); font-size: 0.75rem; font-family:'Lato',sans-serif; }
+  .hdb-avail-no   { color: var(--text-muted);   font-size: 0.75rem; font-family:'Lato',sans-serif; font-style: italic; }
+  .hdb-expand-icon { color: var(--gold); font-size: 0.75rem; margin-left: 6px; transition: transform 0.2s; display: inline-block; }
+  .hdb-expanded .hdb-expand-icon { transform: rotate(90deg); }
+  .hdb-detail-row td {
+    padding: 0;
+    border-bottom: 2px solid rgba(212,137,26,0.15);
+  }
+  .hdb-detail-panel {
+    background: rgba(255,248,235,0.6);
+    padding: 16px 18px;
+    border-left: 3px solid var(--gold);
+    display: none;
+  }
+  .hdb-detail-row.open .hdb-detail-panel { display: block; }
+  .hdb-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .hdb-detail-block { }
+  .hdb-detail-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: 'Lato', sans-serif;
+    margin-bottom: 5px;
+  }
+  .hdb-detail-content {
+    font-size: 0.83rem;
+    color: var(--text);
+    line-height: 1.5;
+    font-family: 'Merriweather', Georgia, serif;
+  }
+  .hdb-detail-content ul { padding-left: 16px; margin: 0; }
+  .hdb-detail-content li { margin-bottom: 2px; }
+  .hdb-tag {
+    display: inline-block;
+    font-size: 0.58rem;
+    padding: 2px 7px;
+    border-radius: 8px;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.04em;
+    margin: 2px 2px 2px 0;
+    background: rgba(201,168,76,0.1);
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.2);
+  }
+  .hdb-invest-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .hdb-invest-item {
+    background: rgba(255,244,224,0.9);
+    border: 1px solid rgba(212,137,26,0.15);
+    border-radius: 6px;
+    padding: 7px 11px;
+    font-size: 0.78rem;
+    font-family: 'Lato', sans-serif;
+  }
+  .hdb-invest-tier { font-size: 0.58rem; color: var(--text-muted); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 2px; }
+  .hdb-invest-val  { color: var(--gold); font-weight: 700; }
+  .hdb-rating-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+  .hdb-rating-item { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+  .hdb-rating-label { font-size: 0.55rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-family: 'Lato', sans-serif; }
+  .hdb-rating-pill {
+    min-width: 32px; height: 22px;
+    border-radius: 5px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 6px;
+  }
+  .hdb-legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,248,235,0.7);
+    border: 1px solid rgba(212,137,26,0.15);
+    border-radius: 6px;
+    padding: 8px 14px;
+    margin-bottom: 10px;
+  }
+  .hdb-legend-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .hdb-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+  }
+  .hdb-legend-desc {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+  }
+  .hdb-legend-divider {
+    color: var(--text-muted);
+    opacity: 0.4;
+    font-size: 1rem;
+    margin: 0 2px;
+  }
+  .hdb-legend-note {
+    font-family: 'Merriweather', Georgia, serif;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+  @media (max-width: 480px) {
+    .hdb-legend { gap: 7px; padding: 8px 10px; }
+    .hdb-legend-note { display: none; }
+  }
+
+  .hdb-future-banner {
+    background: rgba(122,74,154,0.08);
+    border: 1px solid rgba(160,106,200,0.2);
+    border-radius: 8px;
+    padding: 14px 18px;
+    text-align: center;
+    margin-top: 24px;
+    margin-bottom: 8px;
+  }
+  .hdb-future-banner-title {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--purple-bright);
+    margin-bottom: 4px;
+  }
+  .hdb-future-banner-sub {
+    font-size: 0.83rem;
+    color: var(--text-muted);
+    font-family: 'Merriweather', Georgia, serif;
+    font-style: italic;
+  }
+  .hdb-no-results {
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 24px;
+    font-size: 0.9rem;
+    display: none;
+  }
+  @media (max-width: 768px) {
+    .hdb-detail-grid { grid-template-columns: 1fr 1fr; }
+    .hdb-search { width: 150px; }
+  }
+  @media (max-width: 480px) {
+    .hdb-detail-grid { grid-template-columns: 1fr; }
+    .hdb-search { width: 100%; }
+    .hdb-controls { flex-direction: column; align-items: flex-start; }
+    .hdb-table { min-width: 560px; }
+  }
 
   /* ── ETERNITY'S REACH STAGES ── */
   .er-stage-grid {
@@ -1444,32 +1782,68 @@
 <section id="heroes">
   <div class="section-header">
     <span class="section-icon">&#x2694;&#xFE0F;</span>
-    <h2>Hero Development</h2>
+    <h2>Hero Database</h2>
   </div>
   <div class="callout callout-tip">
     <span class="callout-label">&#x2714; Core Principle</span>
-    Focus resources on <strong>one primary rally hero</strong> first. A maxed main hero beats three mediocre ones every time.
+    Focus resources on <strong>one primary rally hero</strong> first. A maxed main hero beats three mediocre ones every time. Click any row to expand full strategy details.
   </div>
-  <h3>Top Hero Tier List (Bear Hunt / Rally)</h3>
-  <div class="hero-grid">
-    <div class="hero-card"><div class="hero-name">Prince William</div><div class="hero-role">Rally Leader</div><span class="hero-badge badge-s">S Tier</span></div>
-    <div class="hero-card"><div class="hero-name">Quinn</div><div class="hero-role">Archer Support</div><span class="hero-badge badge-s">S Tier</span></div>
-    <div class="hero-card"><div class="hero-name">Chenko</div><div class="hero-role">Lethality Boost</div><span class="hero-badge badge-s">S Tier</span></div>
-    <div class="hero-card"><div class="hero-name">Helga</div><div class="hero-role">Alliance Buff</div><span class="hero-badge badge-a">A Tier</span></div>
-    <div class="hero-card"><div class="hero-name">Amadeus</div><div class="hero-role">Rally / Solo</div><span class="hero-badge badge-a">A Tier</span></div>
-    <div class="hero-card"><div class="hero-name">Diana</div><div class="hero-role">Cavalry Lead</div><span class="hero-badge badge-a">A Tier</span></div>
-    <div class="hero-card"><div class="hero-name">Rosa</div><div class="hero-role">Garrison / Defense</div><span class="hero-badge badge-b">B Tier</span></div>
-    <div class="hero-card"><div class="hero-name">Jaeger</div><div class="hero-role">Infantry Lead</div><span class="hero-badge badge-b">B Tier</span></div>
+
+  <!-- CONTROLS -->
+  <div class="hdb-controls">
+    <input class="hdb-search" id="hdbSearch" type="text" placeholder="&#x1F50D; Search heroes…" oninput="hdbApplyFilters()" />
+    <span style="font-family:'Lato',sans-serif;font-size:0.65rem;letter-spacing:0.07em;color:var(--text-muted);text-transform:uppercase;margin-left:4px;">
+      <span id="hdbCount"></span>
+    </span>
   </div>
-  <h3>Leveling Strategy</h3>
-  <ul class="tips">
-    <li>Complete Expedition missions with your hero &mdash; XP is the primary level-up method</li>
-    <li>Hero Skills: prioritize <strong>Conquest Skills</strong> (combat) over Expedition Skills for war</li>
-    <li>Use duplicate hero shards to unlock Star upgrades &mdash; massive stat gains</li>
-    <li>Charms: Eternity's Reach is the main source. Prioritize Attack and Lethality charms</li>
-    <li>Hero Gear: Rally Leader's gear matters most &mdash; gear only applies when leading, not joining</li>
-    <li>Second and third heroes should provide Lethality bonuses to rally joiners</li>
-  </ul>
+  <div class="hdb-filter-row" id="hdbFilters">
+    <button class="hdb-filter-btn active" data-filter="all" onclick="hdbSetFilter(this,'all')">All Heroes</button>
+    <button class="hdb-filter-btn f-inf"  data-filter="Infantry"  onclick="hdbSetFilter(this,'Infantry')">&#x1F6E1; Infantry</button>
+    <button class="hdb-filter-btn f-cav"  data-filter="Cavalry"   onclick="hdbSetFilter(this,'Cavalry')">&#x1F40E; Cavalry</button>
+    <button class="hdb-filter-btn f-mark" data-filter="Archer"  onclick="hdbSetFilter(this,'Archer')">&#x1F3F9; Archer</button>
+    <button class="hdb-filter-btn"        data-filter="rally"     onclick="hdbSetFilter(this,'rally')">&#x2694; Rally</button>
+    <button class="hdb-filter-btn"        data-filter="garrison"  onclick="hdbSetFilter(this,'garrison')">&#x1F3F0; Garrison</button>
+    <button class="hdb-filter-btn f-bear" data-filter="bear"      onclick="hdbSetFilter(this,'bear')">&#x1F43B; Bear</button>
+    <button class="hdb-filter-btn f-f2p"  data-filter="f2p"       onclick="hdbSetFilter(this,'f2p')">&#x1F4B0; F2P</button>
+    <button class="hdb-filter-btn"        data-filter="gen1"      onclick="hdbSetFilter(this,'gen1')">Gen 1</button>
+    <button class="hdb-filter-btn"        data-filter="gen2"      onclick="hdbSetFilter(this,'gen2')">Gen 2</button>
+    <button class="hdb-filter-btn"        data-filter="gen3"      onclick="hdbSetFilter(this,'gen3')">Gen 3</button>
+    <button class="hdb-filter-btn f-future" data-filter="future"  onclick="hdbSetFilter(this,'future')">&#x1F512; Future</button>
+  </div>
+
+  <!-- RATING LEGEND -->
+  <div class="hdb-legend">
+    <span class="hdb-legend-label">Rating scale:</span>
+    <span class="hdb-legend-item"><span class="hdb-rating hdb-r-s">S</span><span class="hdb-legend-desc">Best in class</span></span>
+    <span class="hdb-legend-item"><span class="hdb-rating hdb-r-a">A</span><span class="hdb-legend-desc">Strong pick</span></span>
+    <span class="hdb-legend-item"><span class="hdb-rating hdb-r-b">B</span><span class="hdb-legend-desc">Situational</span></span>
+    <span class="hdb-legend-item"><span class="hdb-rating hdb-r-c">C</span><span class="hdb-legend-desc">Limited use</span></span>
+    <span class="hdb-legend-item"><span class="hdb-rating hdb-r-d">D</span><span class="hdb-legend-desc">Avoid</span></span>
+    <span class="hdb-legend-divider">&#xB7;</span>
+    <span class="hdb-legend-note">Click any row to expand full hero details</span>
+  </div>
+
+  <!-- TABLE -->
+  <div class="hdb-table-wrap">
+    <table class="hdb-table" id="hdbTable">
+      <thead>
+        <tr>
+          <th data-col="name"  onclick="hdbSort('name')"><div class="hdb-th-wrap"><span class="hdb-th-label">Hero <span class="sort-arrow">&#x25BC;</span></span><span class="hdb-th-sub">Name &amp; portrait</span></div></th>
+          <th data-col="gen"   onclick="hdbSort('generation')"><div class="hdb-th-wrap"><span class="hdb-th-label">Gen <span class="sort-arrow">&#x25BC;</span></span><span class="hdb-th-sub">Generation</span></div></th>
+          <th data-col="troop" onclick="hdbSort('troopType')"><div class="hdb-th-wrap"><span class="hdb-th-label">Troop <span class="sort-arrow">&#x25BC;</span></span><span class="hdb-th-sub">Army type</span></div></th>
+          <th data-col="role"  onclick="hdbSort('primaryRole')"><div class="hdb-th-wrap"><span class="hdb-th-label">Role <span class="sort-arrow">&#x25BC;</span></span><span class="hdb-th-sub">Primary use</span></div></th>
+          <th data-col="pvp"   onclick="hdbSort('pvpRating')"><div class="hdb-th-wrap"><span class="hdb-th-label">PvP <span class="sort-arrow">&#x25BC;</span></span><span class="hdb-th-sub">Player vs Player</span></div></th>
+          <th data-col="pve"   onclick="hdbSort('pveRating')"><div class="hdb-th-wrap"><span class="hdb-th-label">PvE <span class="sort-arrow">&#x25BC;</span></span><span class="hdb-th-sub">Player vs Environment</span></div></th>
+          <th data-col="bear"  onclick="hdbSort('bearRating')"><div class="hdb-th-wrap"><span class="hdb-th-label">Bear <span class="sort-arrow">&#x25BC;</span></span><span class="hdb-th-sub">Bear Hunt score</span></div></th>
+          <th data-col="f2p"   onclick="hdbSort('f2pRating')"><div class="hdb-th-wrap"><span class="hdb-th-label">F2P <span class="sort-arrow">&#x25BC;</span></span><span class="hdb-th-sub">Free-to-Play value</span></div></th>
+          <th data-col="acq"   onclick="hdbSort('acquisitionMethod')"><div class="hdb-th-wrap"><span class="hdb-th-label">Acquisition <span class="sort-arrow">&#x25BC;</span></span><span class="hdb-th-sub">How to obtain</span></div></th>
+          <th data-col="avail" onclick="hdbSort('availableNow')"><div class="hdb-th-wrap"><span class="hdb-th-label">Status <span class="sort-arrow">&#x25BC;</span></span><span class="hdb-th-sub">Server availability</span></div></th>
+        </tr>
+      </thead>
+      <tbody id="hdbBody"></tbody>
+    </table>
+  </div>
+  <div class="hdb-no-results" id="hdbNoResults">No heroes match current filters.</div>
 </section>
 
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
@@ -2906,6 +3280,698 @@ function saveGiftCodes() {
 
 // Init on load
 document.addEventListener('DOMContentLoaded', _loadGiftCodes);
+
+// ── HERO DATABASE ──
+const HERO_DATA = [
+  // ── GEN 1 ──
+  {
+    id: 'jabel', name: 'Jabel', generation: 1, rarity: 'Legendary',
+    troopType: 'Cavalry', primaryRole: 'Rally', secondaryRole: 'Garrison',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day 1',
+    availableNow: true,
+    emoji: '⚔️',
+    shortDescription: 'The original Cavalry rally commander. Provides solid HP and Defense buffs making her a reliable early rally anchor and one of the few free Legendary heroes available from day two.',
+    strengths: ['Strong Infantry HP bonus', 'Reliable conquest skill kit', 'Easy to obtain from early roulette'],
+    weaknesses: ['Outscaled by Gen 2+ rally options for high-level PvP', 'No Lethality bonuses in base kit', 'Widget is defensive rather than offensive'],
+    bestUses: ['Infantry rally leader (early to mid game)', 'Garrison defense commander', 'Sub-hero for infantry HP stacking'],
+    bestPairings: ['Chenko (Lethality)', 'Quinn (Archer support)', 'Gordon (HP buffer)'],
+    pvpRating: 'B', pveRating: 'C', bearRating: 'C', f2pRating: 'B',
+    widgetPriority: 'Low — invest in Chenko or Amadeus widget first',
+    recommendedInvestment: { f2p: '3-star', midSpender: '4-star', whale: '5-star for garrison builds' },
+    expeditionSkills: 'Increases garrison troop HP; useful for steady Expedition XP',
+    conquestSkills: 'Infantry HP +15% / Infantry Defense +12% — solid frontline buffer',
+    widget: 'Infantry Defense buff; low priority for offensive players',
+    notes: 'Gen 1 starting hero. Good foundation but outpaced at higher levels. Still viable as a joiner in infantry-heavy rallies.',
+    tags: ['Infantry', 'Rally', 'Garrison', 'Early Game']
+  },
+  {
+    id: 'quinn', name: 'Quinn', generation: 1, rarity: 'Epic',
+    troopType: 'Archer', primaryRole: 'Rally', secondaryRole: 'Bear',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day 1',
+    availableNow: true,
+    emoji: '🏹',
+    shortDescription: 'Top-tier Archer Epic hero. Quinn provides Archer Lethality and Attack buffs that directly translate to Bear Hunt damage and PvP killing power.',
+    strengths: ['High Archer Lethality bonus', 'Dual-purpose PvP + Bear Hunt kit', 'Strong widget value for rally leaders', 'Consistent meta across all server ages'],
+    weaknesses: ['Widget investment required to reach S-tier performance', 'Less effective as a joiner without conquest skill support'],
+    bestUses: ['Archer rally leader for Bear Hunt', 'PvP Archer rally commander', 'Primary investment target for Archer-focused accounts'],
+    bestPairings: ['Chenko (Lethality stack)', 'Yeonwoo (Bear Hunt support)', 'Amane (Archer buff joiner)'],
+    pvpRating: 'S', pveRating: 'A', bearRating: 'S', f2pRating: 'A',
+    widgetPriority: 'High — Quinn widget significantly boosts Archer Lethality for rally',
+    recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max widget' },
+    expeditionSkills: 'Archer Attack bonus; moderate expedition value',
+    conquestSkills: 'Archer Lethality +18% / Archer Attack +12% — top offensive kit',
+    widget: 'Archer Lethality +X% for rally — major damage increase. Prioritize for Bear Hunt leaders.',
+    notes: 'S-tier Bear Hunt lead. Best Archer rally leader in Gen 1. Remains viable into late game with widget investment.',
+    tags: ['Archer', 'Rally', 'Bear', 'S-Tier', 'Long-Term Viable']
+  },
+  {
+    id: 'howard', name: 'Howard', generation: 1, rarity: 'Epic',
+    troopType: 'Infantry', primaryRole: 'PvE', secondaryRole: 'Garrison',
+    acquisitionMethod: 'Hero Hall', releaseTiming: 'Day 1',
+    availableNow: true,
+    emoji: '🐴',
+    shortDescription: 'Early Infantry hero focused on damage reduction. Howard\'s damage mitigation skill is genuinely useful in PvP and pairs well with Quinn to minimize troop losses.',
+    strengths: ['Freely obtainable via Hero Hall', 'Decent cavalry HP buff', 'Good starter garrison hero'],
+    weaknesses: ['SR rarity limits ceiling', 'No Lethality kit', 'Outpaced quickly by SSR cavalry options'],
+    bestUses: ['Early garrison filler', 'PvE cavalry marches', 'Expedition fodder'],
+    bestPairings: ['Quinn (damage reduction synergy)', 'Gordon (Cavalry defense layer)'],
+    pvpRating: 'D', pveRating: 'C', bearRating: 'D', f2pRating: 'B',
+    widgetPriority: 'Skip — invest in SSR heroes',
+    recommendedInvestment: { f2p: '3-star for skills', midSpender: 'Skip', whale: 'Skip' },
+    expeditionSkills: 'Cavalry Speed — minor utility',
+    conquestSkills: 'Cavalry HP +10% — limited combat value',
+    widget: 'Minor cavalry buff; not worth investment',
+    notes: 'Free SR hero. Keep for expedition XP but do not invest resources.',
+    tags: ['Cavalry', 'Garrison', 'Early Game', 'Free']
+  },
+  {
+    id: 'chenko', name: 'Chenko', generation: 1, rarity: 'Epic',
+    troopType: 'Cavalry', primaryRole: 'Rally', secondaryRole: 'Bear',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day 1',
+    availableNow: true,
+    emoji: '🎯',
+    shortDescription: 'The Lethality king. Chenko provides the highest flat Archer Lethality bonuses in Gen 1 and is the primary march companion for all Bear Hunt builds. Must-invest for any Archer-focused governor.',
+    strengths: ['Highest Archer Lethality bonus in Gen 1', 'Widget multiplies rally damage significantly', 'Synergizes with every Archer rally leader', 'Excellent F2P value — shards available from multiple sources'],
+    weaknesses: ['No HP or Defense kit — pure offense', 'Dependent on Archer rally leader to activate widget value'],
+    bestUses: ['Sub-hero 1 in every Bear Hunt rally', 'Archer joiner march companion', 'Primary Lethality stacker'],
+    bestPairings: ['Quinn (primary leader)', 'Yeonwoo (secondary support)', 'Amadeus (late game lead)'],
+    pvpRating: 'A', pveRating: 'S', bearRating: 'S', f2pRating: 'S',
+    widgetPriority: 'Highest priority — Chenko widget is the best DPS investment for Bear Hunt',
+    recommendedInvestment: { f2p: '5-star', midSpender: '5-star + widget', whale: 'Max widget priority' },
+    expeditionSkills: 'Archer Lethality — stacks with conquest kit',
+    conquestSkills: 'Archer Lethality +20% / Archer Attack +10% — best offensive joiner kit in Gen 1',
+    widget: 'Archer Lethality +X% for march — the most impactful widget in Gen 1 for damage output.',
+    notes: 'Non-negotiable investment. Every serious Bear Hunt player should max Chenko. March priority: Lead = Quinn or Amadeus, Sub 1 = Chenko, Sub 2 = Yeonwoo.',
+    tags: ['Archer', 'Rally', 'Bear', 'S-Tier', 'Widget Priority', 'F2P Friendly', 'Long-Term Viable']
+  },
+  {
+    id: 'gordon', name: 'Gordon', generation: 1, rarity: 'Epic',
+    troopType: 'Cavalry', primaryRole: 'Garrison', secondaryRole: 'Rally',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day 1',
+    availableNow: true,
+    emoji: '🛡️',
+    shortDescription: 'Defensive Cavalry Epic hero. Gordon is a free-to-play staple who provides solid defensive buffs, making him a reliable early garrison and rally joiner for new players.',
+    strengths: ['Strong Infantry HP + Defense combination', 'Best Gen 1 garrison hero', 'Good for KvK city defense'],
+    weaknesses: ['Low offensive contribution', 'Outpaced by Gen 2+ garrison options', 'Widget focused on HP rather than Lethality'],
+    bestUses: ['City garrison defender during KvK', 'Infantry rally sub-hero for HP stacking', 'War Academy-heavy defensive builds'],
+    bestPairings: ['Jabel (Infantry stack)', 'Helga (Alliance buff layer)'],
+    pvpRating: 'B', pveRating: 'C', bearRating: 'D', f2pRating: 'B',
+    widgetPriority: 'Low — only invest if running infantry garrison as primary strategy',
+    recommendedInvestment: { f2p: '3-star', midSpender: '4-star for garrison', whale: '5-star for infantry garrison meta' },
+    expeditionSkills: 'Infantry Defense — modest value',
+    conquestSkills: 'Infantry HP +15% / Infantry Defense +10% — best Gen 1 defensive kit',
+    widget: 'Infantry HP increase — situationally useful for garrison leads',
+    notes: 'Solid defensive hero. Not the best use of Roulette tickets vs Quinn/Chenko, but viable if built for garrison KvK.',
+    tags: ['Infantry', 'Garrison', 'Defense', 'KvK']
+  },
+  {
+    id: 'seth', name: 'Seth', generation: 1, rarity: 'Rare',
+    troopType: 'Infantry', primaryRole: 'Rally', secondaryRole: 'PvP',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day 1',
+    availableNow: true,
+    emoji: '🗡️',
+    shortDescription: 'Early Infantry rally hero with decent Attack buffs. Serviceable in early-to-mid game marches before Legendary heroes dominate.',
+    strengths: ['Cavalry Attack buff', 'Serviceable early rally leader', 'Decent PvP contribution'],
+    weaknesses: ['No Lethality kit', 'Outclassed by Diana at Gen 2', 'Widget value is low compared to Archer options'],
+    bestUses: ['Cavalry rally leader (early game)', 'PvP cavalry march', 'KvK joiner for cavalry-heavy builds'],
+    bestPairings: ['Forrest (Infantry stack)', 'Howard (Infantry layer)'],
+    pvpRating: 'B', pveRating: 'C', bearRating: 'D', f2pRating: 'C',
+    widgetPriority: 'Skip in favor of Diana or Archer heroes',
+    recommendedInvestment: { f2p: '3-star for conquest skills', midSpender: 'Skip', whale: 'Skip' },
+    expeditionSkills: 'Cavalry Speed buff — minor',
+    conquestSkills: 'Cavalry Attack +12% — functional but not meta-defining',
+    widget: 'Cavalry Attack; limited return on investment',
+    notes: 'Solid free Infantry pick. Forrest fills a similar role with slightly better utility. Prioritize Roulette tickets on Jabel/Quinn/Chenko.',
+    tags: ['Cavalry', 'Rally', 'PvP', 'Early Game']
+  },
+
+  // ── GEN 2 ──
+  {
+    id: 'diana', name: 'Diana', generation: 1, rarity: 'Epic',
+    troopType: 'Archer', primaryRole: 'Rally', secondaryRole: 'PvP',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~60',
+    availableNow: true,
+    emoji: '🐎',
+    shortDescription: 'Solid Archer Epic hero with a damage-dealing skill and Attack Speed buff. Diana is accessible and useful as an early Archer rally joiner, though she is more of a utility pick than a long-term carry.',
+    strengths: ['Cavalry Lethality + Attack combined kit', 'Strong PvP rally output', 'Good widget for cavalry marches', 'Remains viable in late game'],
+    weaknesses: ['Cavalry meta is server-age dependent', 'Not useful for Bear Hunt', 'Requires Cavalry troop investment to maximize value'],
+    bestUses: ['Cavalry rally leader for PvP', 'KvK rally commander', 'Alliance Championship cavalry lane'],
+    bestPairings: ['Quinn (Archer lead)', 'Yeonwoo (Archer support)', 'Amane (Archer joiner)'],
+    pvpRating: 'A', pveRating: 'B', bearRating: 'D', f2pRating: 'B',
+    widgetPriority: 'Medium — prioritize for cavalry main accounts',
+    recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max widget for cavalry rally' },
+    expeditionSkills: 'Cavalry Lethality — stacks with conquest kit',
+    conquestSkills: 'Cavalry Lethality +18% / Cavalry Attack +12% — best cavalry offensive kit in Gen 2',
+    widget: 'Cavalry Lethality boost for rally — high value for cavalry-focused governors',
+    notes: 'Best cavalry rally leader available. If you run cavalry, Diana is the investment. Less valuable for Archer-first accounts.',
+    tags: ['Cavalry', 'Rally', 'PvP', 'KvK', 'Long-Term Viable']
+  },
+  {
+    id: 'olive', name: 'Olive', generation: 1, rarity: 'Rare',
+    troopType: 'Archer', primaryRole: 'Garrison', secondaryRole: 'Rally',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~60',
+    availableNow: true,
+    emoji: '🏰',
+    shortDescription: 'Gen 2 garrison specialist with Alliance-wide HP buffs. Olive shines as a garrison defender and provides passive alliance-member HP bonuses when placed in garrison, making her uniquely team-oriented.',
+    strengths: ['Alliance-wide HP buff when in garrison (passive)', 'High Infantry HP base stats', 'Unique buff affects all alliance members nearby'],
+    weaknesses: ['Limited offensive kit', 'Niche role — best in KvK defense, less in offense', 'Not a Bear Hunt hero'],
+    bestUses: ['KvK city garrison', 'Alliance Championship fortress defense', 'Coordinated garrison buff strategy with R4/R5'],
+    bestPairings: ['Gordon (Infantry stack)', 'Jabel (HP layer)', 'Helga (Alliance-wide buff)'],
+    pvpRating: 'B', pveRating: 'C', bearRating: 'D', f2pRating: 'B',
+    widgetPriority: 'Low to Medium — only for dedicated garrison defenders',
+    recommendedInvestment: { f2p: '3-star', midSpender: '4-star for garrison', whale: '5-star for garrison KvK' },
+    expeditionSkills: 'Infantry HP — minor expedition value',
+    conquestSkills: 'Infantry HP +18% / All Troops HP +8% — best garrison sustain in Gen 2',
+    widget: 'Garrison HP boost; activates when hero is placed as garrison commander',
+    notes: 'Underrated utility. The alliance-wide HP buff from her garrison placement is meaningful in coordinated KvK play. R4/R5 should consider using Olive for fortress defense.',
+    tags: ['Infantry', 'Garrison', 'Alliance Buff', 'KvK', 'Defense']
+  },
+  {
+    id: 'forrest', name: 'Forrest', generation: 1, rarity: 'Rare',
+    troopType: 'Infantry', primaryRole: 'Rally', secondaryRole: 'Bear',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~60',
+    availableNow: true,
+    emoji: '🌿',
+    shortDescription: 'Infantry Rare hero with march speed and rally capacity utility. Useful early filler for Infantry marches; outpaced quickly by Legendary options.',
+    strengths: ['Rally capacity bonus', 'March Speed buff (rare in hero kits)', 'Pairs excellently with Diana', 'Cavalry Lethality support kit'],
+    weaknesses: ['Not a primary rally leader', 'Outclassed by Petra for cavalry rally in Gen 3', 'Widget value moderate'],
+    bestUses: ['Early Infantry march filler', 'Rally capacity padding', 'Expedition XP source'],
+    bestPairings: ['Diana (primary)', 'Edwin (HP layer)', 'Petra (upgrade path)'],
+    pvpRating: 'B', pveRating: 'B', bearRating: 'C', f2pRating: 'B',
+    widgetPriority: 'Low — Diana widget first',
+    recommendedInvestment: { f2p: '3-star', midSpender: '4-star', whale: '5-star for cavalry builds' },
+    expeditionSkills: 'March Speed — useful for timed events',
+    conquestSkills: 'Cavalry Lethality +12% / Rally Capacity +5000 — unique capacity value',
+    widget: 'Cavalry support + rally capacity; niche but useful for rally leaders',
+    notes: 'Good sub-hero. Rally capacity buff is underrated — extra troops in the march translates directly to more damage. Pair with Diana.',
+    tags: ['Cavalry', 'Rally', 'Support', 'March Speed']
+  },
+  {
+    id: 'edwin', name: 'Edwin', generation: 1, rarity: 'Rare',
+    troopType: 'Cavalry', primaryRole: 'PvE', secondaryRole: 'Garrison',
+    acquisitionMethod: 'Hero Hall', releaseTiming: 'Day ~60',
+    availableNow: true,
+    emoji: '🗡️',
+    shortDescription: 'Free Cavalry Rare hero obtainable through the Hero Hall. Edwin provides Cavalry HP buffs useful for early garrison and expedition play without Roulette investment.',
+    strengths: ['Free via Hero Hall', 'Infantry HP kit', 'Good expedition partner'],
+    weaknesses: ['SR rarity caps ceiling', 'No offensive value', 'Outpaced by Gen 2 SSR options quickly'],
+    bestUses: ['Early garrison filler', 'Expedition partner for XP', 'Budget infantry HP stack'],
+    bestPairings: ['Olive (garrison combo)', 'Gordon (HP synergy)'],
+    pvpRating: 'D', pveRating: 'C', bearRating: 'D', f2pRating: 'B',
+    widgetPriority: 'Skip',
+    recommendedInvestment: { f2p: '3-star for skills only', midSpender: 'Skip', whale: 'Skip' },
+    expeditionSkills: 'Infantry HP — minor',
+    conquestSkills: 'Infantry Defense +8% — limited',
+    widget: 'Not worth investing in',
+    notes: 'Free SR. Upgrade to 3-star for the conquest skill unlock, then deprioritize for resource allocation.',
+    tags: ['Infantry', 'Garrison', 'Free', 'Early Game']
+  },
+  {
+    id: 'yeonwoo', name: 'Yeonwoo', generation: 1, rarity: 'Epic',
+    troopType: 'Archer', primaryRole: 'Bear', secondaryRole: 'Rally',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~60',
+    availableNow: true,
+    emoji: '🏹',
+    shortDescription: 'The second-best Bear Hunt sub-hero behind Chenko. Yeonwoo provides Archer Lethality and a unique Bear damage modifier that makes her a core slot in any optimized Bear Hunt march.',
+    strengths: ['Archer Lethality bonus', 'Bear-specific damage modifier', 'Excellent sub-hero value without widget investment', 'One of the best F2P sub-hero options'],
+    weaknesses: ['Less effective in PvP rallies vs pure Lethality kits', 'Widget priority lower than Chenko'],
+    bestUses: ['Sub-hero 2 in Bear Hunt rally (Chenko is Sub 1)', 'Archer rally joiner companion', 'F2P Archer damage stacker'],
+    bestPairings: ['Quinn (lead)', 'Chenko (Sub 1)', 'Amane (Sub 3)'],
+    pvpRating: 'B', pveRating: 'S', bearRating: 'S', f2pRating: 'S',
+    widgetPriority: 'Medium — after Chenko widget',
+    recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max widget eventually' },
+    expeditionSkills: 'Archer Lethality — stacks',
+    conquestSkills: 'Archer Lethality +16% / Beast Damage +12% — top Bear Hunt sub kit',
+    widget: 'Archer/Beast Lethality — good second widget after Chenko',
+    notes: 'Standard march order: Lead Quinn/Amadeus, Sub 1 Chenko, Sub 2 Yeonwoo. Near-mandatory for optimized Bear Hunt.',
+    tags: ['Archer', 'Bear', 'Rally', 'F2P Friendly', 'Long-Term Viable', 'Widget Priority']
+  },
+  {
+    id: 'amane', name: 'Amane', generation: 1, rarity: 'Epic',
+    troopType: 'Archer', primaryRole: 'Rally', secondaryRole: 'Bear',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~60',
+    availableNow: true,
+    emoji: '✨',
+    shortDescription: 'Archer Epic hero with Attack and Lethality support. Amane fills the Sub 3 slot in Bear Hunt marches and provides a combat proc that boosts the entire rally for a round.',
+    strengths: ['Archer Attack + Lethality dual kit', 'Combat proc adds round-based rally boost', 'Good as Sub 3 when Chenko and Yeonwoo are filled', 'Above-average F2P value'],
+    weaknesses: ['Combat proc is RNG-dependent', 'Lower ceiling than Chenko/Yeonwoo', 'Not a primary rally leader'],
+    bestUses: ['Sub 3 in Bear Hunt march', 'PvP Archer rally support', 'Backup rally joiner'],
+    bestPairings: ['Quinn (lead)', 'Chenko (Sub 1)', 'Yeonwoo (Sub 2)'],
+    pvpRating: 'B', pveRating: 'A', bearRating: 'A', f2pRating: 'A',
+    widgetPriority: 'Low — Chenko and Yeonwoo first',
+    recommendedInvestment: { f2p: '4-star', midSpender: '4-star', whale: '5-star' },
+    expeditionSkills: 'Archer Attack — moderate',
+    conquestSkills: 'Archer Attack +14% / Archer Lethality +10% — solid Sub 3 kit',
+    widget: 'Moderate Archer buff; invest only after Chenko and Yeonwoo widgeted',
+    notes: 'The natural third slot in the BBQ Bear Hunt march: Quinn → Chenko → Yeonwoo → Amane.',
+    tags: ['Archer', 'Rally', 'Bear', 'F2P Friendly']
+  },
+
+  // ── GEN 3 ──
+  {
+    id: 'petra', name: 'Petra', generation: 3, rarity: 'Legendary',
+    troopType: 'Cavalry', primaryRole: 'Rally', secondaryRole: 'Bear',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~120',
+    availableNow: true,
+    emoji: '⚡',
+    shortDescription: 'Top-tier Gen 3 Cavalry rally leader. Petra combines Cavalry Lethality with a unique rally burst ability making her the best cavalry option for late-game PvP and KvK pushes.',
+    strengths: ['Best Cavalry Lethality kit in the game', 'Rally burst ability on conquest skill', 'Remains meta into late game', 'Widget has strong multiplier'],
+    weaknesses: ['Requires Day ~120 to unlock', 'Cavalry account investment needed', 'High roulette ticket cost'],
+    bestUses: ['Cavalry rally lead for KvK', 'Alliance Championship cavalry lane', 'Late-game PvP rally commander'],
+    bestPairings: ['Diana (sub)', 'Forrest (capacity)', 'Jaeger (infantry layer)'],
+    pvpRating: 'S', pveRating: 'B', bearRating: 'A', f2pRating: 'B',
+    widgetPriority: 'High for cavalry accounts',
+    recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max widget' },
+    expeditionSkills: 'Cavalry Lethality and Speed — dual utility',
+    conquestSkills: 'Cavalry Lethality +22% / Rally Burst proc — best cavalry offensive kit',
+    widget: 'Cavalry Lethality boost for rally — top priority for cavalry-focused governors',
+    notes: 'If running cavalry as your primary army type, Petra is the long-term rally lead to build toward.',
+    tags: ['Cavalry', 'Rally', 'PvP', 'KvK', 'S-Tier', 'Long-Term Viable']
+  },
+  {
+    id: 'fahd', name: 'Fahd', generation: 1, rarity: 'Epic',
+    troopType: 'Cavalry', primaryRole: 'Rally', secondaryRole: 'Garrison',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~120',
+    availableNow: true,
+    emoji: '🛡️',
+    shortDescription: 'Cavalry Epic hero with offensive and defensive stats. Fahd provides Cavalry Lethality making him a useful Cavalry rally joiner, and his damage reduction is a welcome survivability layer.',
+    strengths: ['Infantry Lethality — first infantry hero with offensive kit', 'Dual offense/defense stats', 'Strong for PvP infantry builds', 'Better garrison value than Gen 1 options'],
+    weaknesses: ['Infantry meta is less dominant than Archer/Cavalry', 'Widget priority depends on troop strategy', 'Outclassed by Amadeus for pure Archer play'],
+    bestUses: ['Infantry rally leader', 'Garrison KvK commander', 'Alliance Championship infantry lane'],
+    bestPairings: ['Jabel (HP layer)', 'Gordon (defense stack)', 'Helga (alliance buff)'],
+    pvpRating: 'A', pveRating: 'B', bearRating: 'C', f2pRating: 'B',
+    widgetPriority: 'Medium for infantry accounts',
+    recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max for infantry mains' },
+    expeditionSkills: 'Infantry Lethality — useful expedition bonus',
+    conquestSkills: 'Infantry Lethality +18% / Infantry HP +14% — only infantry hero with Lethality',
+    widget: 'Infantry Lethality for rally — important for infantry-first accounts',
+    notes: 'First infantry hero to bring Lethality to the table. Significant upgrade for infantry-primary players.',
+    tags: ['Infantry', 'Rally', 'Garrison', 'PvP']
+  },
+  {
+    id: 'saul', name: 'Saul', generation: 1, rarity: 'Legendary',
+    troopType: 'Archer', primaryRole: 'Bear', secondaryRole: 'PvE',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~120',
+    availableNow: true,
+    emoji: '🎯',
+    shortDescription: 'Gen 3 Beast specialist. Saul provides dedicated Beast Damage bonuses that stack multiplicatively with Chenko and Yeonwoo, making him the highest Bear Hunt DPS option when fully built.',
+    strengths: ['Highest Beast Damage modifier in Gen 3', 'Stacks with Chenko and Yeonwoo for multiplicative gains', 'Dedicated Bear Hunt kit', 'Strong widget for damage output'],
+    weaknesses: ['Niche — limited PvP value', 'Widget investment required to reach peak DPS', 'Not useful outside Bear Hunt and PvE'],
+    bestUses: ['Sub-hero in optimized Bear Hunt march', 'Beast farming for resources', 'Max Bear Hunt score events'],
+    bestPairings: ['Quinn/Amadeus (lead)', 'Chenko (Sub 1)', 'Yeonwoo (Sub 2)', 'Saul (Sub 3 replaces Amane)'],
+    pvpRating: 'C', pveRating: 'S', bearRating: 'S', f2pRating: 'B',
+    widgetPriority: 'High if prioritizing Bear Hunt score',
+    recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max widget for Bear meta' },
+    expeditionSkills: 'Beast Damage — direct Bear Hunt value',
+    conquestSkills: 'Beast Damage +20% / Archer Lethality +12% — top Bear Hunt DPS kit',
+    widget: 'Beast Damage multiplier — best Bear Hunt widget in Gen 3',
+    notes: 'Replaces Amane as Sub 3 when fully built. For pure Bear Hunt optimization: Quinn → Chenko → Yeonwoo → Saul.',
+    tags: ['Archer', 'Bear', 'PvE', 'S-Tier Bear', 'Widget Priority']
+  },
+  {
+    id: 'marlin', name: 'Marlin', generation: 2, rarity: 'Legendary',
+    troopType: 'Archer', primaryRole: 'PvP', secondaryRole: 'Rally',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~120',
+    availableNow: true,
+    emoji: '🐴',
+    shortDescription: 'Archer Legendary (Gen 2) with a proc-based burst skill that activates mid-combat. Marlin adds Archer AoE damage to PvP rallies and KvK pushes.',
+    strengths: ['Cavalry burst proc for PvP', 'Fast combat resolution benefit', 'Good KvK rally value', 'Pairs well with Petra'],
+    weaknesses: ['Proc-based — RNG element', 'Less consistent than flat Lethality', 'Moderate Bear Hunt value'],
+    bestUses: ['Sub-hero in Petra cavalry rally', 'PvP fast-hit marches', 'KvK burst attack'],
+    bestPairings: ['Jaeger (Archer lead)', 'Quinn (Archer support)', 'Amane (Archer joiner)'],
+    pvpRating: 'A', pveRating: 'B', bearRating: 'C', f2pRating: 'C',
+    widgetPriority: 'Low — Petra widget first',
+    recommendedInvestment: { f2p: '3-star', midSpender: '4-star', whale: '5-star for cavalry PvP' },
+    expeditionSkills: 'Cavalry Attack — moderate',
+    conquestSkills: 'Cavalry Attack +14% / Burst proc 30% trigger rate — situational PvP value',
+    widget: 'Moderate cavalry buff; secondary priority after Petra',
+    notes: 'Good complementary hero for cavalry PvP. Not a primary investment target unless running cavalry main.',
+    tags: ['Cavalry', 'PvP', 'Rally', 'KvK']
+  },
+  {
+    id: 'zoe', name: 'Zoe', generation: 2, rarity: 'Legendary',
+    troopType: 'Infantry', primaryRole: 'Rally', secondaryRole: 'PvP',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~120',
+    availableNow: true,
+    emoji: '🏹',
+    shortDescription: 'Infantry Legendary (Gen 2) with a unique HP heal and high base Health. Zoe is an exceptional long-term investment — her healing and HP bonuses have no direct F2P replacement through Gen 5.',
+    strengths: ['Enemy Defense reduction debuff — rare and powerful', 'Archer Lethality + debuff combination', 'Counters heavy HP/Defense stacking defenders', 'Strong for coordinated KvK pushes'],
+    weaknesses: ['Debuff requires skill to be active during combat window', 'Lower raw Lethality than Chenko/Yeonwoo', 'Widget less impactful than core Lethality heroes'],
+    bestUses: ['Sub-hero in KvK Archer rally vs. whale defenders', 'Coordinated attack on fortified cities', 'Alliance Championship attacking lane'],
+    bestPairings: ['Amadeus (lead)', 'Chenko (Lethality)', 'Yeonwoo (Beast/Archer)'],
+    pvpRating: 'A', pveRating: 'B', bearRating: 'B', f2pRating: 'B',
+    widgetPriority: 'Medium for KvK-focused accounts',
+    recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max for KvK offense' },
+    expeditionSkills: 'Archer Attack — moderate',
+    conquestSkills: 'Archer Lethality +14% / Enemy Defense -12% — unique debuff value',
+    widget: 'Archer/enemy debuff combo; useful for KvK but not Bear Hunt priority',
+    notes: 'The enemy Defense debuff makes Zoe disproportionately powerful against high-investment defenders. Flag for KvK rally builds.',
+    tags: ['Archer', 'Rally', 'PvP', 'KvK', 'Debuff']
+  },
+  {
+    id: 'helga', name: 'Helga', generation: 1, rarity: 'Legendary',
+    troopType: 'Infantry', primaryRole: 'Rally', secondaryRole: 'Alliance Buff',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~120',
+    availableNow: true,
+    emoji: '⚔️',
+    shortDescription: 'Alliance-wide combat buff specialist. Helga is unique in providing bonus stats to all alliance members within range, making her a force multiplier during coordinated alliance events like Alliance Championship and KvK.',
+    strengths: ['Alliance-wide combat buff (unique mechanic)', 'Amplifies all alliance members simultaneously', 'Strong in coordinated alliance play', 'Long-term meta relevance in war events'],
+    weaknesses: ['Buff requires proximity to other alliance members to activate', 'Less impactful in solo play', 'Not a Bear Hunt hero'],
+    bestUses: ['Alliance Championship rally support', 'KvK coordinated war formation', 'Alliance event buff anchor', 'Placed by R4/R5 to maximize alliance-wide effect'],
+    bestPairings: ['Olive (garrison buff stack)', 'Fahd (infantry), any rally lead'],
+    pvpRating: 'A', pveRating: 'C', bearRating: 'C', f2pRating: 'B',
+    widgetPriority: 'Medium — R4/R5 leaders should prioritize this widget',
+    recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max widget for alliance events' },
+    expeditionSkills: 'All Troops Attack — alliance-wide passive',
+    conquestSkills: 'All Alliance Members Lethality +8% in range — unique alliance multiplier',
+    widget: 'Alliance buff multiplier — activates when Helga leads and alliance members are nearby',
+    notes: 'R4/R5 recommended investment. Helga creates a meaningful advantage during synchronized alliance pushes in Championship and KvK.',
+    tags: ['Infantry', 'Rally', 'Alliance Buff', 'KvK', 'Alliance Championship', 'Long-Term Viable']
+  },
+  {
+    id: 'hilde', name: 'Hilde', generation: 2, rarity: 'Legendary',
+    troopType: 'Cavalry', primaryRole: 'Garrison', secondaryRole: 'Rally',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~120',
+    availableNow: true,
+    emoji: '🏰',
+    shortDescription: 'Cavalry Legendary (Gen 2) garrison commander with a counter-attack skill. Hilde penalizes attackers when garrisoned, making city sieges more costly for the aggressor.',
+    strengths: ['Unique counter-attack mechanic', 'Best Gen 3 garrison hero for KvK defense', 'Synergizes with high HP builds', 'Deters serial attackers'],
+    weaknesses: ['Passive — only useful when garrisoned', 'No offensive contribution outside garrison', 'Counter-attack damage scales with garrison size'],
+    bestUses: ['City garrison during KvK', 'Alliance fortress defense', 'High-value player base protection'],
+    bestPairings: ['Olive (HP stack)', 'Gordon (defense layer)', 'Helga (buff overlay)'],
+    pvpRating: 'B', pveRating: 'D', bearRating: 'D', f2pRating: 'C',
+    widgetPriority: 'Low unless dedicated KvK defender',
+    recommendedInvestment: { f2p: '3-star', midSpender: '4-star for garrison mains', whale: '5-star + widget for garrison priority' },
+    expeditionSkills: 'Infantry Defense — garrison-relevant',
+    conquestSkills: 'Counter-attack +10% damage / Infantry HP +16% — unique defensive proc',
+    widget: 'Counter-attack amplifier — significant for dedicated garrison play',
+    notes: 'Niche but powerful for the right role. R4/R5 should consider Hilde for protecting high-value cities during KvK war phases.',
+    tags: ['Infantry', 'Garrison', 'Defense', 'KvK']
+  },
+  {
+    id: 'jaeger', name: 'Jaeger', generation: 3, rarity: 'Legendary',
+    troopType: 'Archer', primaryRole: 'Rally', secondaryRole: 'PvP',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~120',
+    availableNow: true,
+    emoji: '⚔️',
+    shortDescription: 'Archer Legendary (Gen 3) with a Defense penetration skill. Jaeger bypasses a portion of enemy Defense, making him potent against fortified tank builds in KvK.',
+    strengths: ['Defense penetration skill — counters tank builds', 'Infantry Lethality', 'PvP anti-whale utility', 'Good for coordinated infantry pushes'],
+    weaknesses: ['Niche — most effective against high-Defense defenders', 'Not a Bear Hunt hero', 'Lower base stats than Fahd for standard infantry play'],
+    bestUses: ['Infantry rally vs. high-Defense defenders', 'KvK anti-tank march', 'Alliance Championship infantry lane attack'],
+    bestPairings: ['Fahd (Lethality layer)', 'Zoe (debuff stack)', 'any Archer lead'],
+    pvpRating: 'A', pveRating: 'C', bearRating: 'D', f2pRating: 'C',
+    widgetPriority: 'Low to Medium',
+    recommendedInvestment: { f2p: '3-star', midSpender: '4-star', whale: '5-star for infantry PvP' },
+    expeditionSkills: 'Infantry Attack — moderate',
+    conquestSkills: 'Defense Penetration +10% / Infantry Lethality +14% — anti-tank specialty',
+    widget: 'Defense penetration amplifier — situationally powerful',
+    notes: 'Situationally elite against fortified targets. Less value on servers where defenders prioritize HP over Defense.',
+    tags: ['Infantry', 'Rally', 'PvP', 'KvK', 'Anti-Tank']
+  },
+  {
+    id: 'eric', name: 'Eric', generation: 3, rarity: 'Legendary',
+    troopType: 'Infantry', primaryRole: 'PvP', secondaryRole: 'Rally',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~120',
+    availableNow: true,
+    emoji: '🏹',
+    shortDescription: 'Infantry Legendary (Gen 3) with a multi-target skill that deals bonus damage across multiple enemy lines. Eric excels in PvP rallies where enemy troop composition is mixed.',
+    strengths: ['Multi-target Archer skill unique in Gen 3', 'Strong vs. mixed troop compositions', 'Archer Lethality base kit', 'Useful in PvP and Alliance Championship'],
+    weaknesses: ['Multi-target proc is RNG timing dependent', 'Moderate Bear Hunt value', 'Competes with strong Archer sub-heroes in Bear Hunt slots'],
+    bestUses: ['PvP Archer rally sub-hero', 'Alliance Championship attacking march', 'KvK anti-mixed formation'],
+    bestPairings: ['Amadeus (lead)', 'Chenko (Lethality)', 'Zoe (debuff)'],
+    pvpRating: 'A', pveRating: 'B', bearRating: 'B', f2pRating: 'B',
+    widgetPriority: 'Medium for PvP-focused accounts',
+    recommendedInvestment: { f2p: '4-star', midSpender: '4-star', whale: '5-star for PvP builds' },
+    expeditionSkills: 'Archer Attack — moderate',
+    conquestSkills: 'Archer Lethality +16% / Multi-line damage proc — PvP specialty',
+    widget: 'Archer PvP damage boost; secondary to core Bear Hunt heroes',
+    notes: 'Good PvP option. In Bear Hunt lineups, Saul edges Eric out for the Sub 3 slot due to Beast Damage bonus.',
+    tags: ['Archer', 'PvP', 'Rally', 'Alliance Championship']
+  },
+  {
+    id: 'amadeus', name: 'Amadeus', generation: 1, rarity: 'Legendary',
+    troopType: 'Infantry', primaryRole: 'Rally', secondaryRole: 'Bear',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~120',
+    availableNow: true,
+    emoji: '🎖️',
+    shortDescription: 'Top-tier Infantry Legendary hero. Amadeus combines high Lethality with an alliance-wide combat buff on his conquest skill, making him the premier rally lead for Bear Hunt and coordinated PvP.',
+    strengths: ['Highest Archer Lethality in Gen 3', 'Alliance buff on conquest skill (passive)', 'Dominant Bear Hunt AND PvP lead', 'Widget multiplier is best-in-class for Archer builds', 'Long-term endgame viability'],
+    weaknesses: ['Day ~120 server age required', 'Roulette-heavy investment for stars', 'Requires Chenko + Yeonwoo support to reach full potential'],
+    bestUses: ['Primary Archer rally leader (all content)', 'Bear Hunt rally lead (replaces Quinn at 4+ star)', 'PvP and KvK rally commander', 'Alliance Championship main rally lead'],
+    bestPairings: ['Chenko (Sub 1 always)', 'Yeonwoo (Sub 2)', 'Saul (Bear) or Zoe (PvP)'],
+    pvpRating: 'S', pveRating: 'S', bearRating: 'S', f2pRating: 'B',
+    widgetPriority: 'Top priority once unlocked — surpasses Quinn widget',
+    recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max widget — number one priority' },
+    expeditionSkills: 'Archer Lethality + Alliance Attack — dual-value kit',
+    conquestSkills: 'Archer Lethality +25% / Alliance members gain +5% Lethality aura — best overall rally kit in game',
+    widget: 'Archer Lethality amplifier — highest impact widget in BBQ Beach Party for active rally leaders. Replace Quinn as primary lead at 4-star.',
+    notes: 'THE long-term investment for BBQ Beach Party. Every governor building toward Bear Hunt or KvK should have Amadeus as their primary hero goal at Day ~120+. March: Amadeus → Chenko → Yeonwoo → Saul.',
+    tags: ['Archer', 'Rally', 'Bear', 'PvP', 'S-Tier', 'Widget Priority', 'Long-Term Viable', 'Alliance Championship', 'KvK']
+  }
+];
+
+// ── HERO DB RENDER ENGINE ──
+let hdbActiveFilter = 'all';
+let hdbSortCol = 'generation';
+let hdbSortDir = 'asc';
+let hdbOpenId = null;
+
+function hdbRatingClass(r) {
+  if (!r || r === '—') return 'hdb-r-d';
+  return { S: 'hdb-r-s', A: 'hdb-r-a', B: 'hdb-r-b', C: 'hdb-r-c', D: 'hdb-r-d' }[r] || 'hdb-r-d';
+}
+function hdbRatingBadge(r) {
+  if (!r || r === '—') return '<span class="hdb-rating hdb-r-d">—</span>';
+  return `<span class="hdb-rating ${hdbRatingClass(r)}">${r}</span>`;
+}
+function hdbGenClass(g, available) {
+  if (!available) return 'hdb-gen-future';
+  return { 1: 'hdb-gen-1', 2: 'hdb-gen-2', 3: 'hdb-gen-3' }[g] || 'hdb-gen-future';
+}
+function hdbTroopClass(t) {
+  return { Infantry: 'hdb-inf', Cavalry: 'hdb-cav', Archer: 'hdb-mark', Utility: 'hdb-util' }[t] || 'hdb-util';
+}
+function hdbAcqClass(a) {
+  if (!a) return 'hdb-acq-hall';
+  if (a.toLowerCase().includes('roulette')) return 'hdb-acq-roulette';
+  if (a.toLowerCase().includes('hall')) return 'hdb-acq-hall';
+  if (a.toLowerCase().includes('event')) return 'hdb-acq-event';
+  return 'hdb-acq-free';
+}
+
+function hdbRenderDetail(h) {
+  const inv = h.recommendedInvestment || {};
+  const tags = (h.tags || []).map(t => `<span class="hdb-tag">${t}</span>`).join('');
+  const str = (h.strengths || []).map(s => `<li>${s}</li>`).join('');
+  const weak = (h.weaknesses || []).map(w => `<li>${w}</li>`).join('');
+  const uses = (h.bestUses || []).map(u => `<li>${u}</li>`).join('');
+  const pairs = (h.bestPairings || []).map(p => `<li>${p}</li>`).join('');
+
+  return `
+    <div class="hdb-detail-panel">
+      <div style="margin-bottom:12px;">
+        <div class="hdb-detail-label" style="margin-bottom:6px;">Overview</div>
+        <div class="hdb-detail-content" style="margin-bottom:8px;">${h.shortDescription || ''}</div>
+        <div>${tags}</div>
+      </div>
+      <div class="hdb-rating-row" style="margin-bottom:14px;">
+        ${['pvpRating','pveRating','bearRating','f2pRating'].map(k => {
+          const labels = {pvpRating:'PvP',pveRating:'PvE',bearRating:'Bear',f2pRating:'F2P'};
+          return `<div class="hdb-rating-item">
+            <span class="hdb-rating-label">${labels[k]}</span>
+            <span class="hdb-rating-pill ${hdbRatingClass(h[k])}">${h[k] || '—'}</span>
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="hdb-detail-grid">
+        <div class="hdb-detail-block">
+          <div class="hdb-detail-label">Strengths</div>
+          <div class="hdb-detail-content"><ul>${str}</ul></div>
+        </div>
+        <div class="hdb-detail-block">
+          <div class="hdb-detail-label">Weaknesses</div>
+          <div class="hdb-detail-content"><ul>${weak}</ul></div>
+        </div>
+        <div class="hdb-detail-block">
+          <div class="hdb-detail-label">Best Uses</div>
+          <div class="hdb-detail-content"><ul>${uses}</ul></div>
+        </div>
+        <div class="hdb-detail-block">
+          <div class="hdb-detail-label">Conquest Skills</div>
+          <div class="hdb-detail-content">${h.conquestSkills || '—'}</div>
+        </div>
+        <div class="hdb-detail-block">
+          <div class="hdb-detail-label">Expedition Skills</div>
+          <div class="hdb-detail-content">${h.expeditionSkills || '—'}</div>
+        </div>
+        <div class="hdb-detail-block">
+          <div class="hdb-detail-label">Widget</div>
+          <div class="hdb-detail-content">${h.widget || '—'}</div>
+        </div>
+        <div class="hdb-detail-block">
+          <div class="hdb-detail-label">Widget Priority</div>
+          <div class="hdb-detail-content">${h.widgetPriority || '—'}</div>
+        </div>
+        <div class="hdb-detail-block">
+          <div class="hdb-detail-label">Best Pairings</div>
+          <div class="hdb-detail-content"><ul>${pairs}</ul></div>
+        </div>
+        <div class="hdb-detail-block">
+          <div class="hdb-detail-label">Acquisition</div>
+          <div class="hdb-detail-content">${h.acquisitionMethod || '—'} &bull; ${h.releaseTiming || '—'}</div>
+        </div>
+      </div>
+      <div>
+        <div class="hdb-detail-label" style="margin-bottom:6px;">Recommended Investment</div>
+        <div class="hdb-invest-row">
+          ${inv.f2p ? `<div class="hdb-invest-item"><div class="hdb-invest-tier">F2P</div><div class="hdb-invest-val">${inv.f2p}</div></div>` : ''}
+          ${inv.midSpender ? `<div class="hdb-invest-item"><div class="hdb-invest-tier">Mid-Spender</div><div class="hdb-invest-val">${inv.midSpender}</div></div>` : ''}
+          ${inv.whale ? `<div class="hdb-invest-item"><div class="hdb-invest-tier">Whale</div><div class="hdb-invest-val">${inv.whale}</div></div>` : ''}
+        </div>
+      </div>
+      ${h.notes ? `<div style="margin-top:12px;font-family:'Merriweather',Georgia,serif;font-size:0.8rem;color:var(--text-muted);font-style:italic;border-top:1px solid rgba(212,137,26,0.1);padding-top:10px;">${h.notes}</div>` : ''}
+    </div>`;
+}
+
+function hdbRenderTable(heroes) {
+  const tbody = document.getElementById('hdbBody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  heroes.forEach(h => {
+    // Main row
+    const tr = document.createElement('tr');
+    tr.id = 'hdb-row-' + h.id;
+    tr.className = h.availableNow === false ? 'hdb-future-row' : '';
+    if (hdbOpenId === h.id) tr.className += ' hdb-expanded';
+    tr.innerHTML = `
+      <td>
+        <div class="hdb-hero-name-cell">
+          <div class="hdb-portrait ${h.availableNow === false ? 'hdb-portrait-future' : ''}">
+            ${h.image ? `<img src="${h.image}" alt="${h.name}">` : `<span>${h.emoji || '⚔️'}</span>`}
+          </div>
+          <span class="hdb-name ${h.availableNow === false ? 'hdb-name-future' : ''}">${h.name}</span>
+          <span class="hdb-expand-icon">▶</span>
+        </div>
+      </td>
+      <td><span class="hdb-gen-badge ${hdbGenClass(h.generation, h.availableNow)}">Gen ${h.generation}</span></td>
+      <td><span class="hdb-troop-badge ${hdbTroopClass(h.troopType)}">${h.troopType}</span></td>
+      <td style="font-size:0.8rem;color:var(--text);">${h.primaryRole}${h.secondaryRole ? '<br><span style="font-size:0.7rem;color:var(--text-muted);">'+h.secondaryRole+'</span>' : ''}</td>
+      <td>${hdbRatingBadge(h.pvpRating)}</td>
+      <td>${hdbRatingBadge(h.pveRating)}</td>
+      <td>${hdbRatingBadge(h.bearRating)}</td>
+      <td>${hdbRatingBadge(h.f2pRating)}</td>
+      <td><span class="hdb-acq-badge ${hdbAcqClass(h.acquisitionMethod)}">${h.acquisitionMethod || '—'}</span></td>
+      <td>${h.availableNow !== false
+        ? '<span class="hdb-avail-yes">✓ Available</span>'
+        : `<span class="hdb-avail-no">🔒 ${h.releaseTiming || 'Future'}</span>`}</td>`;
+    tbody.appendChild(tr);
+
+    // Detail row
+    const detailTr = document.createElement('tr');
+    detailTr.id = 'hdb-detail-' + h.id;
+    detailTr.className = 'hdb-detail-row' + (hdbOpenId === h.id ? ' open' : '');
+    const detailTd = document.createElement('td');
+    detailTd.colSpan = 10;
+    detailTd.innerHTML = hdbRenderDetail(h);
+    detailTr.appendChild(detailTd);
+    tbody.appendChild(detailTr);
+
+    // Toggle on click
+    tr.addEventListener('click', function() {
+      const wasOpen = hdbOpenId === h.id;
+      hdbOpenId = wasOpen ? null : h.id;
+      document.querySelectorAll('#hdbBody tr.hdb-expanded').forEach(r => r.classList.remove('hdb-expanded'));
+      document.querySelectorAll('#hdbBody tr.hdb-detail-row.open').forEach(r => r.classList.remove('open'));
+      if (!wasOpen) {
+        tr.classList.add('hdb-expanded');
+        detailTr.classList.add('open');
+      }
+    });
+  });
+}
+
+function hdbFilterHeroes() {
+  const search = (document.getElementById('hdbSearch')?.value || '').toLowerCase();
+  const f = hdbActiveFilter;
+
+  return HERO_DATA.filter(h => {
+    // Search
+    if (search) {
+      const haystack = [h.name, h.troopType, h.primaryRole, h.secondaryRole, h.acquisitionMethod,
+        ...(h.tags || []), h.shortDescription].join(' ').toLowerCase();
+      if (!haystack.includes(search)) return false;
+    }
+    // Filter
+    if (f === 'all') return true;
+    if (f === 'future') return h.availableNow === false;
+    if (f === 'gen1') return h.generation === 1 && h.availableNow !== false;
+    if (f === 'gen2') return h.generation === 2 && h.availableNow !== false;
+    if (f === 'gen3') return h.generation === 3 && h.availableNow !== false;
+    if (f === 'Infantry' || f === 'Cavalry' || f === 'Archer') return h.troopType === f;
+    if (f === 'rally') return (h.primaryRole === 'Rally' || h.secondaryRole === 'Rally') && h.availableNow !== false;
+    if (f === 'garrison') return (h.primaryRole === 'Garrison' || h.secondaryRole === 'Garrison') && h.availableNow !== false;
+    if (f === 'bear') return (h.bearRating === 'S' || h.bearRating === 'A') && h.availableNow !== false;
+    if (f === 'f2p') return (h.f2pRating === 'S' || h.f2pRating === 'A') && h.availableNow !== false;
+    return true;
+  });
+}
+
+function hdbSort(col) {
+  if (hdbSortCol === col) {
+    hdbSortDir = hdbSortDir === 'asc' ? 'desc' : 'asc';
+  } else {
+    hdbSortCol = col;
+    hdbSortDir = 'asc';
+  }
+  // Update header arrows
+  document.querySelectorAll('#hdbTable th').forEach(th => {
+    th.classList.remove('sort-asc', 'sort-desc');
+    if (th.dataset.col === col) th.classList.add(hdbSortDir === 'asc' ? 'sort-asc' : 'sort-desc');
+  });
+  hdbApplyFilters();
+}
+
+function hdbSetFilter(btn, filter) {
+  hdbActiveFilter = filter;
+  document.querySelectorAll('.hdb-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  hdbApplyFilters();
+}
+
+function hdbApplyFilters() {
+  let heroes = hdbFilterHeroes();
+  const ratingOrder = { S: 4, A: 3, B: 2, C: 1, D: 0, '—': -1 };
+
+  heroes.sort((a, b) => {
+    let av = a[hdbSortCol], bv = b[hdbSortCol];
+    // Rating columns
+    if (['pvpRating','pveRating','bearRating','f2pRating'].includes(hdbSortCol)) {
+      av = ratingOrder[av] ?? -1; bv = ratingOrder[bv] ?? -1;
+    }
+    // Nulls last
+    if (av == null) return 1; if (bv == null) return -1;
+    if (typeof av === 'string') av = av.toLowerCase();
+    if (typeof bv === 'string') bv = bv.toLowerCase();
+    if (av < bv) return hdbSortDir === 'asc' ? -1 : 1;
+    if (av > bv) return hdbSortDir === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  hdbRenderTable(heroes);
+
+  const noResults = document.getElementById('hdbNoResults');
+  const count = document.getElementById('hdbCount');
+  if (noResults) noResults.style.display = heroes.length === 0 ? 'block' : 'none';
+  if (count) count.textContent = heroes.length + ' hero' + (heroes.length !== 1 ? 'es' : '');
+}
+
+// Boot
+document.addEventListener('DOMContentLoaded', function() {
+  hdbApplyFilters();
+  // Set default sort indicator
+  const defTh = document.querySelector('#hdbTable th[data-col="gen"]');
+  if (defTh) defTh.classList.add('sort-asc');
+});
 </script>
 
 </body>
