@@ -1311,6 +1311,195 @@
     margin-bottom: 8px;
   }
 
+  /* ── TRUE GOLD ── */
+  .tg-phase-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .tg-phase-card {
+    background: rgba(255,248,235,0.9);
+    border-radius: 8px;
+    padding: 14px 16px;
+    border-top: 3px solid;
+  }
+  .tg-phase-card.tg-early  { border-color: var(--green-bright); }
+  .tg-phase-card.tg-mid    { border-color: var(--gold); }
+  .tg-phase-card.tg-late   { border-color: var(--orange); }
+  .tg-phase-card.tg-temper { border-color: var(--purple-bright); }
+  .tg-phase-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .tg-early  .tg-phase-label { color: var(--green-bright); }
+  .tg-mid    .tg-phase-label { color: var(--gold); }
+  .tg-late   .tg-phase-label { color: var(--orange); }
+  .tg-temper .tg-phase-label { color: var(--purple-bright); }
+  .tg-phase-title { font-family: 'Lato', sans-serif; font-size: 0.92rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .tg-phase-desc  { font-size: 0.83rem; color: var(--text-dim); line-height: 1.5; }
+
+  .tg-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 2px 8px;
+    border-radius: 8px;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+  .tg-p1   { background: rgba(212,137,26,0.2);  color: var(--gold);          border: 1px solid rgba(212,137,26,0.3); }
+  .tg-p2   { background: rgba(95,160,216,0.18); color: var(--blue-bright);   border: 1px solid rgba(95,160,216,0.25); }
+  .tg-p3   { background: rgba(109,194,95,0.18); color: var(--green-bright);  border: 1px solid rgba(109,194,95,0.25); }
+  .tg-skip { background: rgba(50,58,82,0.3);    color: var(--text-muted);    border: 1px solid rgba(255,255,255,0.08); }
+  .tg-warn { background: rgba(192,104,32,0.18); color: var(--orange);        border: 1px solid rgba(192,104,32,0.25); }
+  .tg-good { background: rgba(74,140,63,0.18);  color: var(--green-bright);  border: 1px solid rgba(109,194,95,0.25); }
+
+  .tg-table-wrap { overflow-x: auto; border-radius: 8px; margin: 8px 0 16px; }
+  .tg-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.83rem;
+    min-width: 560px;
+  }
+  .tg-table thead tr { background: rgba(212,137,26,0.1); border-bottom: 2px solid rgba(212,137,26,0.3); }
+  .tg-table th {
+    font-size: 0.62rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 9px 12px;
+    text-align: left;
+    white-space: nowrap;
+  }
+  .tg-table td { padding: 8px 12px; border-bottom: 1px solid rgba(212,137,26,0.07); vertical-align: middle; line-height: 1.4; color: var(--text); }
+  .tg-table tbody tr:hover { background: rgba(212,137,26,0.04); }
+  .tg-table tbody tr.tg-highlight { background: rgba(212,137,26,0.07); }
+
+  .tg-cost-num { font-weight: 700; color: var(--gold); font-variant-numeric: tabular-nums; }
+  .tg-total-row td { font-weight: 700; background: rgba(212,137,26,0.08) !important; color: var(--text); border-top: 2px solid rgba(212,137,26,0.2); }
+
+  .tg-source-row { cursor: pointer; }
+  .tg-source-row:hover { background: rgba(212,137,26,0.05); }
+  .tg-source-detail { display: none; background: rgba(255,248,235,0.6); border-left: 3px solid var(--gold); padding: 10px 14px; font-size: 0.82rem; color: var(--text-dim); line-height: 1.5; font-family: 'Merriweather', Georgia, serif; }
+  .tg-source-detail.open { display: block; }
+
+  .tg-step-list { list-style: none; padding: 0; counter-reset: tg-step; }
+  .tg-step-list li {
+    counter-increment: tg-step;
+    padding: 10px 14px 10px 48px;
+    border-bottom: 1px solid rgba(212,137,26,0.08);
+    position: relative;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+  .tg-step-list li:last-child { border-bottom: none; }
+  .tg-step-list li::before {
+    content: counter(tg-step);
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px; height: 24px;
+    background: rgba(212,137,26,0.15);
+    border: 1px solid rgba(212,137,26,0.3);
+    border-radius: 50%;
+    color: var(--gold);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tg-mistake-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 12px 0;
+  }
+  .tg-mistake-card {
+    background: rgba(192,104,32,0.07);
+    border: 1px solid rgba(192,104,32,0.2);
+    border-left: 3px solid var(--orange);
+    border-radius: 6px;
+    padding: 12px 14px;
+  }
+  .tg-mistake-title {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--orange);
+    margin-bottom: 5px;
+    letter-spacing: 0.03em;
+  }
+  .tg-mistake-desc { font-size: 0.83rem; color: var(--text-dim); line-height: 1.5; }
+
+  .tg-compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 14px 0;
+  }
+  .tg-compare-card {
+    background: rgba(255,248,235,0.9);
+    border: 1px solid rgba(212,137,26,0.15);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .tg-compare-card.f2p-card  { border-top: 3px solid var(--green-bright); }
+  .tg-compare-card.spend-card { border-top: 3px solid var(--purple-bright); }
+  .tg-compare-title {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .f2p-card .tg-compare-title   { color: var(--green-bright); }
+  .spend-card .tg-compare-title { color: var(--purple-bright); }
+  .tg-compare-list { list-style: none; padding: 0; }
+  .tg-compare-list li { padding: 5px 0 5px 18px; position: relative; font-size: 0.85rem; color: var(--text-dim); border-bottom: 1px solid rgba(212,137,26,0.06); line-height: 1.45; }
+  .tg-compare-list li:last-child { border-bottom: none; }
+  .tg-compare-list li::before { content: '▸'; color: var(--gold); position: absolute; left: 0; }
+
+  .tg-crucible-box {
+    background: rgba(201,168,76,0.07);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+  .tg-prob-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .tg-prob-item {
+    background: rgba(255,248,235,0.9);
+    border: 1px solid rgba(212,137,26,0.15);
+    border-radius: 6px;
+    padding: 7px 12px;
+    text-align: center;
+    min-width: 70px;
+  }
+  .tg-prob-val  { font-family: 'Lato', sans-serif; font-size: 1rem; font-weight: 700; color: var(--gold); }
+  .tg-prob-pct  { font-family: 'Lato', sans-serif; font-size: 0.62rem; color: var(--text-muted); margin-top: 2px; }
+
+  @media (max-width: 768px) {
+    .tg-phase-grid   { grid-template-columns: 1fr 1fr; }
+    .tg-mistake-grid { grid-template-columns: 1fr; }
+    .tg-compare-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .tg-phase-grid { grid-template-columns: 1fr; }
+  }
+
   /* ══════════════════════════════════
      MOBILE RESPONSIVE — TABLET ≤768px
   ══════════════════════════════════ */
@@ -1620,6 +1809,7 @@
 
     <div class="sidebar-divider">Strategy</div>
     <a href="#kvk"><span class="nav-icon">&#x2694;</span>KvK</a>
+    <a href="#truegold"><span class="nav-icon">&#x1F947;</span>True Gold</a>
     <a href="#pets"><span class="nav-icon">&#x1F43E;</span>Pets</a>
     <a href="#transfer"><span class="nav-icon">&#x1F30D;</span>Kingdom Transfer</a>
     <a href="#f2p"><span class="nav-icon">&#x1F4B0;</span>F2P Strategy</a>
@@ -2519,6 +2709,197 @@
     <li>Set a daily target for mission completion &mdash; consistent daily play is the main limiter, not spending</li>
     <li>Post an end-of-event reminder to spend remaining currency before it converts to bread</li>
   </ul>
+</section>
+
+<div class="divider">&#x2756; &#x2756; &#x2756;</div>
+
+<!-- TRUE GOLD -->
+<section id="truegold">
+  <div class="section-header">
+    <span class="section-icon">&#x1F947;</span>
+    <h2>True Gold Progression</h2>
+  </div>
+  <div class="callout callout-info">
+    <span class="callout-label">&#x1F4CB; What Is True Gold?</span>
+    True Gold (Truegold) is the rare resource that unlocks building upgrades beyond Level 30. Once your kingdom reaches <strong>Day 70 (the Age of Truegold)</strong>, the TG progression system opens. Buildings advance through <strong>TG1–TG5</strong> using regular Truegold, then <strong>TG6–TG8</strong> using Tempered Truegold. Each TG tier consists of <strong>5 sub-stages</strong> — you must complete all 5 to reach the next tier. This is the primary late-game bottleneck and the single biggest power gap between accounts.
+  </div>
+
+  <!-- PHASE OVERVIEW -->
+  <h3>Progression Phases at a Glance</h3>
+  <div class="tg-phase-grid">
+    <div class="tg-phase-card tg-early">
+      <div class="tg-phase-label">Phase 1 — Day 70+</div>
+      <div class="tg-phase-title">TG1–TG2 Entry</div>
+      <div class="tg-phase-desc">Truegold unlocks. Town Center is the first gate. Rush TC to TG1 then immediately upgrade troop buildings to unlock T10 troops. Daily income is low — plan every spend carefully.</div>
+    </div>
+    <div class="tg-phase-card tg-mid">
+      <div class="tg-phase-label">Phase 2 — Day 150+</div>
+      <div class="tg-phase-title">TG3–TG5 + Crucible</div>
+      <div class="tg-phase-desc">Truegold Crucible unlocks at TG5 (~Day 150) providing ~10.5 free Truegold daily. TG3 is a major milestone — costs jump sharply. Focus barracks/range/stable for T11 troop unlock.</div>
+    </div>
+    <div class="tg-phase-card tg-late">
+      <div class="tg-phase-label">Phase 3 — Day 310+</div>
+      <div class="tg-phase-title">TG6–TG8 Tempered</div>
+      <div class="tg-phase-desc">Tempered Truegold gates TG6–TG8. Produced only via Super Refinement in the Crucible — weekly capped. Cannot be purchased. The great equalizer between F2P and spenders.</div>
+    </div>
+  </div>
+
+  <!-- UNLOCK REQUIREMENTS TABLE -->
+  <h3>Upgrade Cost Reference (Truegold per Building)</h3>
+  <div class="callout callout-tip">
+    <span class="callout-label">&#x2139; How to Read This Table</span>
+    Each cell shows the Truegold cost for <strong>one sub-stage</strong>. Each TG tier has 5 sub-stages, so multiply by 5 for the full tier cost. The Town Center must always be upgraded first — it gates all other buildings at each TG tier.
+  </div>
+  <div class="tg-table-wrap">
+    <table class="tg-table" id="tgCostTable">
+      <thead>
+        <tr>
+          <th>Building</th>
+          <th>TG1 (×5)</th>
+          <th>TG2 (×5)</th>
+          <th>TG3 (×5)</th>
+          <th>TG4 (×5)</th>
+          <th>TG5 (×5)</th>
+          <th>Full TG1–5 Total</th>
+          <th>Unlocks</th>
+        </tr>
+      </thead>
+      <tbody id="tgCostBody"></tbody>
+    </table>
+  </div>
+
+  <!-- SOURCES TABLE -->
+  <h3>Truegold Sources</h3>
+  <div class="tg-table-wrap">
+    <table class="tg-table" id="tgSourceTable">
+      <thead>
+        <tr>
+          <th>Source</th>
+          <th>Consistency</th>
+          <th>F2P Viable</th>
+          <th>Est. Amount</th>
+          <th>Priority</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody id="tgSourceBody"></tbody>
+    </table>
+  </div>
+
+  <!-- CRUCIBLE -->
+  <h3>Truegold Crucible — Daily Refinement</h3>
+  <div class="tg-crucible-box">
+    <p style="font-size:0.88rem;color:var(--text);margin-bottom:10px;">Unlocks at kingdom TG Level 5 (~Day 150). Free to build. No upgrades. Converts standard resources into Truegold via 5 daily refinements. <strong>Never skip a day</strong> — this compounds significantly over time.</p>
+    <div style="font-family:'Lato',sans-serif;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">Refinement odds per roll</div>
+    <div class="tg-prob-row">
+      <div class="tg-prob-item"><div class="tg-prob-val">1</div><div class="tg-prob-pct">40% chance</div></div>
+      <div class="tg-prob-item"><div class="tg-prob-val">2</div><div class="tg-prob-pct">30% chance</div></div>
+      <div class="tg-prob-item"><div class="tg-prob-val">3</div><div class="tg-prob-pct">15% chance</div></div>
+      <div class="tg-prob-item"><div class="tg-prob-val">4</div><div class="tg-prob-pct">10% chance</div></div>
+      <div class="tg-prob-item"><div class="tg-prob-val">5</div><div class="tg-prob-pct">5% chance</div></div>
+      <div class="tg-prob-item" style="border-color:rgba(212,137,26,0.3);background:rgba(212,137,26,0.1);"><div class="tg-prob-val" style="color:var(--gold);">~10.5</div><div class="tg-prob-pct">avg/day (5 rolls)</div></div>
+    </div>
+    <div style="margin-top:12px;font-size:0.82rem;color:var(--text-muted);">
+      <strong style="color:var(--text-dim);">Daily resource cost for 5 refinements:</strong> 5k + 10k + 20k + 30k + 40k = <strong style="color:var(--gold);">105,000 of each resource</strong> (Bread, Wood, Stone, Iron). Keep resource stockpiles healthy or you will miss refinements.
+    </div>
+  </div>
+
+  <!-- UPGRADE PRIORITY -->
+  <h3>Upgrade Priority Matrix</h3>
+  <div class="tg-table-wrap">
+    <table class="tg-table" id="tgPriorityTable">
+      <thead>
+        <tr>
+          <th>Building / System</th>
+          <th>TG1–2 Priority</th>
+          <th>TG3–5 Priority</th>
+          <th>TG6–8 Priority</th>
+          <th>F2P Value</th>
+          <th>Combat Value</th>
+          <th>Stop Point</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody id="tgPriorityBody"></tbody>
+    </table>
+  </div>
+
+  <!-- RECOMMENDED ORDER -->
+  <h3>Recommended Upgrade Order</h3>
+  <ol class="tg-step-list" id="tgStepList"></ol>
+
+  <!-- F2P VS SPENDER -->
+  <h3>F2P vs. Spender Strategy</h3>
+  <div class="tg-compare-grid">
+    <div class="tg-compare-card f2p-card">
+      <div class="tg-compare-title">&#x1F4B0; F2P Approach</div>
+      <ul class="tg-compare-list">
+        <li>Focus exclusively on Town Center + one troop building type (your primary army)</li>
+        <li>Never spread Truegold across all 3 troop buildings simultaneously — pick Barracks, Range, or Stable based on your hero</li>
+        <li>Do all 5 Crucible refinements every day without exception — 10.5 TG/day compounds to ~3,800/year</li>
+        <li>Stack Truegold from events before pushing a tier — save for the full 5-stage cost before starting</li>
+        <li>Embassy and Command Center are low priority until TG3+ — troop power first</li>
+        <li>Tempered Truegold (TG6+) is the great equalizer — F2P who never miss Super Refinement can keep pace with moderate spenders</li>
+      </ul>
+    </div>
+    <div class="tg-compare-card spend-card">
+      <div class="tg-compare-title">&#x1F4B3; Spender Approach</div>
+      <ul class="tg-compare-list">
+        <li>Rush Town Center TG3 first — unlocks T11 troop research and significantly widens the power gap</li>
+        <li>Upgrade all three troop buildings (Barracks/Range/Stable) in parallel once TC TG3 is reached</li>
+        <li>Embassy TG2+ for KvK reinforcement capacity — meaningful for alliance war impact</li>
+        <li>Command Center TG upgrade for rally capacity — priority for rally leaders</li>
+        <li>Avoid whale trap: buying raw Truegold packs before TG5 Crucible is inefficient — event TG has better pack value</li>
+        <li>Tempered TG (TG6+) cannot be bought directly regardless of spend — Super Refinement caps apply to everyone equally</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- COMMON MISTAKES -->
+  <h3>&#x26A0; Common Mistakes</h3>
+  <div class="tg-mistake-grid">
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Spreading Truegold Too Thin</div>
+      <div class="tg-mistake-desc">Upgrading all 3 troop buildings simultaneously at TG1 before TC is at TG2+ is a major stall. Pick your primary troop type (your hero's type) and complete that building to TG3 before touching the others.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Skipping Daily Crucible Refinements</div>
+      <div class="tg-mistake-desc">Missing even 1–2 days per week costs ~1,500 Truegold per year. The Crucible is passive income — never let it sit idle. Set a daily reminder if needed.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Upgrading Embassy Before Troops</div>
+      <div class="tg-mistake-desc">Embassy TG upgrades improve reinforcement capacity — useful but not urgent. Troop building upgrades unlock higher tier troops which directly multiply your combat power. Troops first, Embassy after TG3.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Starting a TG Tier Without Enough Stockpiled</div>
+      <div class="tg-mistake-desc">Each tier requires 5 sub-stage upgrades. Starting TG3 without the full 5× cost stockpiled leaves you stalled mid-upgrade during KvK or critical events. Save the complete tier cost before beginning.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Ignoring Tempered Truegold Prep (TG5 Players)</div>
+      <div class="tg-mistake-desc">Super Refinement for Tempered TG unlocks around Day 310. Many players reach this wall unprepared. As soon as Crucible is available, understand the system — the weekly cap makes early starts essential.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Buying Raw Truegold Packs Before Events</div>
+      <div class="tg-mistake-desc">Event-reward Truegold (Armament Competition, Strongest Governor, KoP Shop) has dramatically better value per gem/dollar than raw packs. Always exhaust event sources before purchasing directly.</div>
+    </div>
+  </div>
+
+  <!-- LONG TERM ROADMAP -->
+  <h3>Long-Term Progression Roadmap</h3>
+  <div class="tg-table-wrap">
+    <table class="tg-table">
+      <thead>
+        <tr><th>Phase</th><th>Kingdom Age</th><th>TG Target</th><th>Primary Focus</th><th>Key Unlock</th><th>Bottleneck</th></tr>
+      </thead>
+      <tbody>
+        <tr class="tg-highlight"><td><span class="tg-badge tg-p3">Entry</span></td><td>Day 70–100</td><td>TC TG1</td><td>Town Center TG1 → primary troop building TG1</td><td>T10 troops</td><td>Low Truegold income — event dependency</td></tr>
+        <tr><td><span class="tg-badge tg-p2">Early</span></td><td>Day 100–150</td><td>TC TG2</td><td>TC TG2 → push primary troop building to TG2</td><td>T10 upgrades</td><td>Truegold scarcity — prioritize ruthlessly</td></tr>
+        <tr class="tg-highlight"><td><span class="tg-badge tg-p1">Mid</span></td><td>Day 150–200</td><td>TC TG3 + Crucible</td><td>Crucible opens. TC TG3 is the major milestone — enables T11 research</td><td>T11 troops + Crucible income</td><td>TG3 cost jump — 238 TG per sub-stage for TC</td></tr>
+        <tr><td><span class="tg-badge tg-p1">Growth</span></td><td>Day 200–310</td><td>TG4–TG5</td><td>Push all priority buildings to TG5. Crucible provides steady daily income</td><td>Max T11 troops</td><td>Resource cost for Crucible refinements</td></tr>
+        <tr class="tg-highlight"><td><span class="tg-badge tg-warn">Advanced</span></td><td>Day 310+</td><td>TG6–TG8</td><td>Tempered Truegold era begins. Super Refinement weekly cap controls pace for everyone</td><td>T12+ troops</td><td>Weekly Tempered TG cap — affects all players equally</td></tr>
+      </tbody>
+    </table>
+  </div>
 </section>
 
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
@@ -4023,12 +4404,150 @@ function hdbApplyFilters() {
   if (count) count.textContent = heroes.length + ' hero' + (heroes.length !== 1 ? 'es' : '');
 }
 
-// Boot
+// ── TRUE GOLD DATA ENGINE ──
+const TG_COST_DATA = [
+  { building: 'Town Center',    tg1: 132, tg2: 158, tg3: 238, tg4: 280, tg5: 335, unlocks: 'Gates all other TG upgrades — always first', priority: true },
+  { building: 'Barracks',       tg1: 59,  tg2: 71,  tg3: 107, tg4: 126, tg5: 150, unlocks: 'T10 / T11 Infantry troops' },
+  { building: 'Range',          tg1: 59,  tg2: 71,  tg3: 107, tg4: 126, tg5: 150, unlocks: 'T10 / T11 Archer troops' },
+  { building: 'Stable',         tg1: 59,  tg2: 71,  tg3: 107, tg4: 126, tg5: 150, unlocks: 'T10 / T11 Cavalry troops' },
+  { building: 'Embassy',        tg1: 33,  tg2: 39,  tg3: 59,  tg4: 70,  tg5: 83,  unlocks: 'Alliance reinforcement capacity' },
+  { building: 'Command Center', tg1: 26,  tg2: 31,  tg3: 47,  tg4: 56,  tg5: 67,  unlocks: 'Rally & march capacity' },
+  { building: 'Infirmary',      tg1: 26,  tg2: 31,  tg3: 47,  tg4: 56,  tg5: 67,  unlocks: 'Hospital capacity & heal speed' },
+  { building: 'War Academy',    tg1: 0,   tg2: 71,  tg3: 107, tg4: 126, tg5: 150, unlocks: 'T11 troop research (starts at TG2)' },
+];
+
+const TG_SOURCE_DATA = [
+  { source: 'Truegold Crucible',          consistency: 'Daily',    f2p: true,  amount: '~10.5/day',     priority: 'Must Do', notes: 'Unlocks at kingdom TG5 (~Day 150). 5 refinements/day. Never skip — compounds to ~3,800/year.' },
+  { source: 'Watchtower Intel Missions',  consistency: 'Daily',    f2p: true,  amount: 'Small amounts', priority: 'Must Do', notes: 'Requires TC Level 30. Free passive income — complete these daily alongside Crucible.' },
+  { source: 'Armament Competition',       consistency: 'Event',    f2p: true,  amount: 'Medium',        priority: 'High',    notes: 'One of the best F2P event sources. Prioritize spending stamina during this event window.' },
+  { source: 'Strongest Governor',         consistency: 'Event',    f2p: true,  amount: 'Medium',        priority: 'High',    notes: 'Score-based rewards include meaningful Truegold. Plan upgrade timing around this event.' },
+  { source: 'Kingdom of Power Shop',      consistency: 'Weekly',   f2p: true,  amount: 'Small–Medium',  priority: 'High',    notes: 'Spend KoP points here first before packs. Best F2P purchase efficiency in the shop.' },
+  { source: 'Kingdom of Power Event',     consistency: 'Event',    f2p: true,  amount: 'Medium',        priority: 'High',    notes: 'Event scoring rewards often include Truegold bundles. Active alliance participation required.' },
+  { source: 'Cesares Fury',               consistency: 'Event',    f2p: true,  amount: 'Small–Medium',  priority: 'Medium',  notes: 'BBQ Beach Party regularly places well here. Coordinate rally timing for max alliance score.' },
+  { source: 'Alliance Brawl',             consistency: 'Event',    f2p: true,  amount: 'Small',         priority: 'Medium',  notes: 'Participation rewards include Truegold. Requires active alliance engagement.' },
+  { source: 'Merchant Empire',            consistency: 'Event',    f2p: true,  amount: 'Small',         priority: 'Medium',  notes: 'Trade route event. Moderate Truegold if you complete the full merchant chain.' },
+  { source: 'Buccaneer Bounty',           consistency: 'Event',    f2p: true,  amount: 'Small',         priority: 'Medium',  notes: 'Hunt pirate targets for treasure rewards. Reliable small amounts of free Truegold.' },
+  { source: 'Golden Glaives',             consistency: 'Event',    f2p: true,  amount: 'Small',         priority: 'Medium',  notes: 'Combat event. Rewards scale with performance — coordinated alliance effort recommended.' },
+  { source: 'Mystic Divination',          consistency: 'Event',    f2p: true,  amount: 'Variable',      priority: 'Medium',  notes: 'RNG-based rewards. Truegold is possible but not guaranteed — treat as bonus income.' },
+  { source: 'Call of the Sovereign',      consistency: 'Event',    f2p: true,  amount: 'Small',         priority: 'Low',     notes: 'Occasional event. Collect when available but do not plan upgrades around it.' },
+  { source: 'Alliance Mobilization',      consistency: 'Event',    f2p: true,  amount: 'Small',         priority: 'Low',     notes: 'Alliance-wide participation event. Small but free.' },
+  { source: 'Daily Missions',             consistency: 'Daily',    f2p: true,  amount: 'Tiny',          priority: 'Low',     notes: 'Included in daily task rewards. Small amounts but consistent — never leave these incomplete.' },
+  { source: 'Packs (Direct Purchase)',    consistency: 'Purchase', f2p: false, amount: 'Large',         priority: 'Situational', notes: 'Worst value before TG5 Crucible is online. Event-reward Truegold always better value per dollar.' },
+];
+
+const TG_PRIORITY_DATA = [
+  { building: 'Town Center',    p1: 'Must First', p2: 'Must First', p3: 'Must First', f2p: 'S', combat: 'S', stop: 'Never stop — always the gate', notes: 'Always upgrade TC before any other building at each tier. It is the prerequisite for everything else.' },
+  { building: 'Barracks (Infantry)', p1: 'High',  p2: 'High',  p3: 'High',  f2p: 'A', combat: 'A', stop: 'Match your hero type', notes: 'Only prioritize if Infantry is your primary hero type. Upgrade to TG3 for T11 infantry unlock.' },
+  { building: 'Range (Archer)',  p1: 'High',  p2: 'High',  p3: 'High',  f2p: 'S', combat: 'S', stop: 'Match your hero type', notes: 'Archer-focused accounts (Quinn/Amadeus) should prioritize Range above Barracks/Stable. T11 Archers are meta.' },
+  { building: 'Stable (Cavalry)', p1: 'High', p2: 'High',  p3: 'High',  f2p: 'B', combat: 'A', stop: 'Match your hero type', notes: 'Cavalry accounts (Petra/Diana) prioritize Stable. Do not upgrade all 3 troop buildings simultaneously.' },
+  { building: 'War Academy',     p1: 'Skip',  p2: 'Medium', p3: 'High',  f2p: 'A', combat: 'S', stop: 'TG5 minimum', notes: 'Starts at TG2. Enables T11 troop research tiers — major long-term power compound. Prioritize after primary troop building.' },
+  { building: 'Embassy',         p1: 'Skip',  p2: 'Low',    p3: 'Medium', f2p: 'B', combat: 'B', stop: 'TG3 for KvK impact', notes: 'Increases alliance reinforcement capacity. KvK-relevant but not a combat-power multiplier. After troops.' },
+  { building: 'Command Center',  p1: 'Skip',  p2: 'Low',    p3: 'Medium', f2p: 'C', combat: 'B', stop: 'TG2 for rally leaders', notes: 'March/rally capacity increase. Only priority if you are a consistent rally leader. F2P can skip until TG4+.' },
+  { building: 'Infirmary',       p1: 'Skip',  p2: 'Skip',   p3: 'Low',   f2p: 'C', combat: 'C', stop: 'Last priority', notes: 'Hospital capacity increase. Important for KvK survival but lowest combat ROI per Truegold spent.' },
+];
+
+const TG_STEPS = [
+  { step: 'Save Truegold before spending any', desc: 'Do not start a TG tier until you have the full 5-stage cost stockpiled. TG3 Town Center requires 5 × 238 = 1,190 TG — have it all before you start.' },
+  { step: 'Town Center TG1 first — always', desc: 'TC is the prerequisite gate for every other building TG upgrade. No exceptions.' },
+  { step: 'Identify your primary troop type', desc: 'Match your Truegold investment to your hero\'s troop type. Quinn/Amadeus → Range (Archers). Petra/Diana → Stable (Cavalry). Fahd/Jabel → Barracks (Infantry). Do not split evenly.' },
+  { step: 'Push primary troop building to TG1', desc: 'Unlocks T10 troops immediately. This is the first real power spike. Complete this right after TC TG1.' },
+  { step: 'Town Center TG2 → primary troop building TG2', desc: 'Follow the TC-first pattern at every tier. TG2 costs are moderate — push through without long gaps.' },
+  { step: 'Build the Truegold Crucible at TG5 (~Day 150)', desc: 'It\'s free and instant. Start all 5 daily refinements immediately and never miss a day from this point forward.' },
+  { step: 'Town Center TG3 — the major milestone', desc: 'TG3 is the biggest cost jump (238 TG per sub-stage). This unlocks T11 troop research in the War Academy. Plan major Truegold-earning events around this push.' },
+  { step: 'War Academy TG2 → primary troop building TG3', desc: 'War Academy TG2 unlocks research tiers. Primary troop building TG3 unlocks actual T11 troops. Do these in order after TC TG3.' },
+  { step: 'Push to TG4–TG5 with Crucible income', desc: 'Crucible + events provide steady income. Continue TC-first pattern at TG4 and TG5. Embassy and Command Center can be upgraded here if resources allow.' },
+  { step: 'Prepare for Tempered Truegold (Day 310+)', desc: 'TG6+ requires Tempered TG from Super Refinement. Understand the weekly cap system before Day 310 — early preparation is essential. The players who arrive at this wall prepared are the ones who progress fastest.' },
+];
+
+function tgBadge(val) {
+  const map = {
+    'Must First': 'tg-p1', 'High': 'tg-p1', 'Medium': 'tg-p2', 'Low': 'tg-p3',
+    'Skip': 'tg-skip', 'S': 'tg-p1', 'A': 'tg-p2', 'B': 'tg-p3', 'C': 'tg-skip',
+    'Must Do': 'tg-p1', 'Situational': 'tg-warn'
+  };
+  return `<span class="tg-badge ${map[val] || 'tg-skip'}">${val}</span>`;
+}
+
+function tgF2pBadge(val) {
+  return val ? '<span class="tg-badge tg-good">✓ F2P</span>' : '<span class="tg-badge tg-skip">Paid</span>';
+}
+
+function tgInitCosts() {
+  const tbody = document.getElementById('tgCostBody');
+  if (!tbody) return;
+  let totalRow = { tg1:0, tg2:0, tg3:0, tg4:0, tg5:0 };
+  tbody.innerHTML = TG_COST_DATA.map(r => {
+    const total = (r.tg1 + r.tg2 + r.tg3 + r.tg4 + r.tg5) * 5;
+    ['tg1','tg2','tg3','tg4','tg5'].forEach(k => totalRow[k] += r[k] * 5);
+    const rowClass = r.priority ? 'tg-highlight' : '';
+    const n = v => v === 0 ? '<span style="color:var(--text-muted)">—</span>' : `<span class="tg-cost-num">${v}</span> <span style="font-size:0.7rem;color:var(--text-muted)">= ${v*5} total</span>`;
+    return `<tr class="${rowClass}">
+      <td><strong>${r.building}</strong>${r.priority ? ' <span class="tg-badge tg-p1" style="margin-left:4px">Gate</span>' : ''}</td>
+      <td>${n(r.tg1)}</td><td>${n(r.tg2)}</td><td>${n(r.tg3)}</td><td>${n(r.tg4)}</td><td>${n(r.tg5)}</td>
+      <td><span class="tg-cost-num">${total.toLocaleString()}</span></td>
+      <td style="font-size:0.78rem;color:var(--text-muted);">${r.unlocks}</td>
+    </tr>`;
+  }).join('');
+  const grandTotal = Object.values(totalRow).reduce((a,b)=>a+b,0);
+  tbody.innerHTML += `<tr class="tg-total-row">
+    <td>ALL BUILDINGS TOTAL</td>
+    <td><span class="tg-cost-num">${totalRow.tg1.toLocaleString()}</span></td>
+    <td><span class="tg-cost-num">${totalRow.tg2.toLocaleString()}</span></td>
+    <td><span class="tg-cost-num">${totalRow.tg3.toLocaleString()}</span></td>
+    <td><span class="tg-cost-num">${totalRow.tg4.toLocaleString()}</span></td>
+    <td><span class="tg-cost-num">${totalRow.tg5.toLocaleString()}</span></td>
+    <td><span class="tg-cost-num">${grandTotal.toLocaleString()}</span></td>
+    <td style="font-size:0.78rem;color:var(--text-muted);">Complete TG1–TG5 all buildings</td>
+  </tr>`;
+}
+
+function tgInitSources() {
+  const tbody = document.getElementById('tgSourceBody');
+  if (!tbody) return;
+  tbody.innerHTML = TG_SOURCE_DATA.map(r => `
+    <tr>
+      <td><strong>${r.source}</strong></td>
+      <td><span style="font-size:0.8rem;color:var(--text-dim)">${r.consistency}</span></td>
+      <td>${tgF2pBadge(r.f2p)}</td>
+      <td style="font-size:0.82rem;color:var(--text)">${r.amount}</td>
+      <td>${tgBadge(r.priority)}</td>
+      <td style="font-size:0.78rem;color:var(--text-muted);max-width:260px;">${r.notes}</td>
+    </tr>`).join('');
+}
+
+function tgInitPriority() {
+  const tbody = document.getElementById('tgPriorityBody');
+  if (!tbody) return;
+  tbody.innerHTML = TG_PRIORITY_DATA.map(r => `
+    <tr>
+      <td><strong>${r.building}</strong></td>
+      <td>${tgBadge(r.p1)}</td>
+      <td>${tgBadge(r.p2)}</td>
+      <td>${tgBadge(r.p3)}</td>
+      <td>${tgBadge(r.f2p)}</td>
+      <td>${tgBadge(r.combat)}</td>
+      <td style="font-size:0.78rem;color:var(--text-muted)">${r.stop}</td>
+      <td style="font-size:0.78rem;color:var(--text-muted);max-width:220px">${r.notes}</td>
+    </tr>`).join('');
+}
+
+function tgInitSteps() {
+  const list = document.getElementById('tgStepList');
+  if (!list) return;
+  list.innerHTML = TG_STEPS.map(s => `
+    <li><strong>${s.step}</strong> — ${s.desc}</li>`).join('');
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+  // Hero database boot
   hdbApplyFilters();
-  // Set default sort indicator
   const defTh = document.querySelector('#hdbTable th[data-col="gen"]');
   if (defTh) defTh.classList.add('sort-asc');
+  // True Gold tables boot
+  tgInitCosts();
+  tgInitSources();
+  tgInitPriority();
+  tgInitSteps();
 });
 </script>
 
