@@ -740,6 +740,34 @@
   .it-pri-low  { color: var(--text-muted); }
   .it-pri-role { color: var(--purple-bright);   font-style: italic; }
   .it-no-results { text-align: center; color: var(--text-muted); font-style: italic; padding: 20px; display: none; }
+  /* ── TRANSPARENCY NOTICE ── */
+  .transparency-notice {
+    background: rgba(212,137,26,0.07);
+    border: 1px solid rgba(212,137,26,0.2);
+    border-left: 4px solid var(--gold);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 0 0 32px;
+    font-family: 'Merriweather', Georgia, serif;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+  .transparency-notice strong {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.63rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .transparency-notice ul {
+    margin: 6px 0 0 18px;
+    padding: 0;
+  }
+  .transparency-notice li { margin-bottom: 2px; }
+
   /* ── MAIN CONTENT ── */
   main { padding: 40px 0 60px; background: transparent; }
   main p, main li, main td { color: var(--text); }
@@ -1947,6 +1975,17 @@
 <main>
 <div class="container">
 
+<!-- TRANSPARENCY NOTICE -->
+<div class="transparency-notice">
+  <strong>&#x2139; About This Guide</strong>
+  This guide combines community-tested strategies, player experiences, and public Kingshot resources. Much of the content is AI-assisted and has been reviewed by alliance leadership, but it is not an official Kingshot publication.
+  <ul>
+    <li>Some mechanics are based on community testing rather than official developer formulas and may change with future patches.</li>
+    <li>Specific numbers (percentages, point values, skill values) should be verified in-game before making major decisions.</li>
+    <li>When in doubt, check the current in-game event description or community resources such as <a href="https://v2.kingshot.net" target="_blank" style="color:var(--gold);">v2.kingshot.net</a>.</li>
+  </ul>
+</div>
+
 <!-- CITY BUILDING -->
 <section id="city">
   <div class="section-header">
@@ -2107,7 +2146,7 @@
   </div>
   <div class="callout callout-info">
     <span class="callout-label">&#x1F3A5; Credit</span>
-    This section is based on research by <strong>StratGameSloth</strong>, a dedicated Kingshot content creator whose videos break down verified game mechanics. Subscribe at <a href="https://www.youtube.com/@StratGameSloth" target="_blank" style="color:var(--gold);">youtube.com/@StratGameSloth</a> - all content verified by the DarkKnights community.
+    This section is based on research by <strong>StratGameSloth</strong>, a dedicated Kingshot content creator whose videos break down verified game mechanics. Subscribe at <a href="https://www.youtube.com/@StratGameSloth" target="_blank" style="color:var(--gold);">youtube.com/@StratGameSloth</a> - mechanics cross-referenced with community testing.
   </div>
 
   <h3>How Combat Actually Works (Round-by-Round)</h3>
@@ -2205,6 +2244,10 @@
     <span class="callout-label">&#x26A0; Permanent Loss Risk</span>
     Not all casualties are equal. Lightly Injured troops return automatically. Injured troops fill your hospital. Losses are <strong>permanently deleted</strong>. Always check the table below before committing to an attack.
   </div>
+  <div class="callout callout-info" style="margin-bottom:12px;">
+    <span class="callout-label">&#x2139; Note</span>
+    Exact casualty percentages vary by kingdom age and event version and are not independently verified. The categories below reflect general game mechanics. <strong>Always verify current event rules in-game before committing troops.</strong>
+  </div>
   <div class="island-table-wrap">
     <table class="island-table">
       <thead>
@@ -2216,20 +2259,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr><td><strong>Hunting Beasts / Terrors</strong></td><td>98%</td><td>2%</td><td style="color:var(--green-bright);">0%</td></tr>
-        <tr><td><strong>Attacking a Player City</strong></td><td>55%</td><td>10%</td><td style="color:#e05555;font-weight:700;">35% ☠️</td></tr>
-        <tr><td><strong>Defending Your City</strong></td><td>65%</td><td>35%</td><td style="color:var(--green-bright);">0%</td></tr>
-        <tr><td><strong>Sanctuary / Fortress</strong></td><td>70%</td><td>30%</td><td style="color:var(--green-bright);">0%</td></tr>
-        <tr><td><strong>Resource Tiles / Flags</strong></td><td>65%</td><td>35%</td><td style="color:var(--green-bright);">0%</td></tr>
-        <tr><td><strong>Level 1–3 Outposts</strong></td><td>70–90%</td><td>10–30%</td><td style="color:var(--green-bright);">0%</td></tr>
-        <tr><td><strong>Level 4 Outpost ⚠️</strong></td><td>60%</td><td>30%</td><td style="color:#e05555;font-weight:700;">10% ☠️</td></tr>
+        <tr><td><strong>Hunting Beasts / Terrors</strong></td><td>Nearly all</td><td>Very few</td><td style="color:var(--green-bright);">None</td></tr>
+        <tr><td><strong>Attacking a Player City</strong></td><td>Majority</td><td>Some</td><td style="color:#e05555;font-weight:700;">Yes — significant ☠️</td></tr>
+        <tr><td><strong>Defending Your City</strong></td><td>Majority</td><td>Some</td><td style="color:var(--green-bright);">None</td></tr>
+        <tr><td><strong>Sanctuary / Fortress</strong></td><td>Majority</td><td>Some</td><td style="color:var(--green-bright);">None</td></tr>
+        <tr><td><strong>Resource Tiles / Flags</strong></td><td>Majority</td><td>Some</td><td style="color:var(--green-bright);">None</td></tr>
+        <tr><td><strong>Level 1–3 Outposts</strong></td><td>Most to nearly all</td><td>Very few to some</td><td style="color:var(--green-bright);">None</td></tr>
+        <tr><td><strong>Level 4 Outpost ⚠️</strong></td><td>Majority</td><td>Some</td><td style="color:#e05555;font-weight:700;">Yes — both sides ☠️</td></tr>
       </tbody>
     </table>
   </div>
   <ul class="tips" style="margin-top:12px;">
-    <li><strong>Level 4 Outposts are traps</strong> - both attacker AND defender suffer 10% permanent losses. Confirm the tooltip before committing troops</li>
-    <li><strong>Player city attacks are expensive</strong> - 35% of casualties are permanently deleted. Never attack a city for minor gains</li>
-    <li><strong>Infirmary overflow = permanent deaths</strong> - once your hospital is full, Injured troops convert to permanent losses. Always free beds before a major war</li>
+    <li><strong>Level 4 Outposts are traps</strong> — both attacker AND defender can suffer permanent losses. Confirm the tooltip before committing troops</li>
+    <li><strong>City attacks and certain PvP structures can cause permanent troop losses</strong> — never attack a city unless you are prepared to absorb those losses</li>
+    <li><strong>Infirmary overflow = permanent deaths</strong> — once your hospital is full, Injured troops convert to permanent losses. Always free beds before a major war</li>
   </ul>
 </section>
 
@@ -2634,13 +2677,14 @@
   </div>
   <h3>What Scores Big Points</h3>
   <div class="card card-gold">
-    <p><strong>Hero Roulette spins</strong> are the largest single point spike &mdash; each spin awards ~90,000 points. Save all roulette tokens for the Hero Development stage.</p>
+    <p><strong>Hero Roulette spins</strong> are generally a high-value scoring activity during the Hero Development stage. Save all roulette tokens for that stage rather than spinning freely beforehand.</p>
     <p style="margin-top:8px;"><strong>Troop training</strong> scales heavily by tier &mdash; high-tier troops earn dramatically more points per unit. Train during the Train Troops stage only.</p>
+    <p style="margin-top:8px; font-style:italic; color:var(--text-muted);">Point values may vary by kingdom age and event version. Always verify current event rules in-game.</p>
   </div>
   <h3>Member Stage Rules</h3>
   <ul class="tips">
     <li><strong>Construction &amp; Research stages:</strong> Queue long upgrades to complete during the stage; use alliance help to shorten timers</li>
-    <li><strong>Hero Development stage:</strong> Hold all roulette tokens and hero shard ascensions until this stage opens &mdash; highest point value</li>
+    <li><strong>Hero Development stage:</strong> Hold all roulette tokens and hero shard ascensions until this stage opens &mdash; this stage typically rewards hero spending most heavily</li>
     <li><strong>Train Troops stage:</strong> Train only during this stage; higher tier troops earn far more points per unit</li>
     <li><strong>Gear &amp; Charm stages:</strong> Stockpile upgrade materials in advance and spend them only when the correct stage is active</li>
     <li>Check with your R4/R5 before spending large resources &mdash; the alliance may be running a coordinated push that requires certain members to hold off</li>
@@ -3346,7 +3390,7 @@ VIKING VENGEANCE: Biweekly alliance defense event - 20 waves over ~40 minutes. W
 
 ALLIANCE CHAMPIONSHIP: Weekly event - six alliances compete across five rounds. Members register into one of three lanes. Win condition: take 2 of 3 lanes each round. Strategy: deliberately build two strong lanes and one sacrifice lane. Only first 20 strongest members per lane count toward power score. Default troop formation: 50% Infantry / 20% Lancers / 30% Marksman. Assign a single lane planner for the whole event. Registration buff policy: pick ONE policy and stick to it - some guides say buff up before registering; others say buffing inflates matchmaking power into harder brackets.
 
-HALL OF GOVERNORS: Biweekly multi-stage scoring event, primarily in first and second generations of a kingdom. Later kingdoms may see Strongest Governor instead. Biggest score drivers: Hero Roulette spins (~90,000 points each - save all roulette tokens for Hero Development stage), high-tier troop training. Two alliance modes: Mode A = milestone-first (everyone clears milestones without draining stockpiles); Mode B = planned leaderboard push (1-3 designated pushers spike on troop day and roulette day while rest do milestones only). Stage-by-stage rule: only spend upgrade materials, roulette tokens, and shards during their corresponding stage windows.
+HALL OF GOVERNORS: Biweekly multi-stage scoring event, primarily in first and second generations of a kingdom. Later kingdoms may see Strongest Governor instead. Biggest score drivers: Hero Roulette spins (generally a high-value activity during Hero Development stage — point values vary by kingdom age and event version; verify in-game), high-tier troop training. Two alliance modes: Mode A = milestone-first (everyone clears milestones without draining stockpiles); Mode B = planned leaderboard push (1-3 designated pushers spike on troop day and roulette day while rest do milestones only). Stage-by-stage rule: only spend upgrade materials, roulette tokens, and shards during their corresponding stage windows.
 
 ALL OUT: Two-day PvP kill event every few weeks. Points scale by troop tier. Safe F2P scoring: attack resource gathering tiles instead of cities - tile hits generate points without risking permanent troop deaths. City attacks can permanently kill troops. Keep shield active when offline. Garrison troops in alliance structures when idle. Recovery after losses: batch heal in small increments so alliance help can reduce timers rather than burning speed-ups on large heal blocks. Always read and enforce server NAP/political rules before the event.
 
@@ -3362,7 +3406,7 @@ KINGDOM TRANSFER: Every 40-60 days a transfer window opens. Players can move the
 
 GIFT CODES: Gift codes provide free gems, speed-ups, and resources. Currently active: FIREFRIDAY (expires Mar 30 2026). Redeem at v2.kingshot.net/gift-codes/redeem (enter Player ID then paste code). Auto Redeem all codes at once: v2.kingshot.net/auto-redeem. Full active code list: v2.kingshot.net/gift-codes. New codes appear on official Kingshot Discord, social media, and kingshot.net. R4/R5 should post new codes in BBQ Beach Party Discord #resources immediately when they drop.
 
-COMBAT MECHANICS (verified by StratGameSloth - youtube.com/@StratGameSloth): Combat is a hidden simulation. Round-by-round sequence: (1) Troops deploy Infantry→Cavalry→Archers. (2) All attack the frontmost enemy line. Exception: 20% of Cavalry bypass frontline every round to snipe Archers directly - this is why your Archers die even when you win. (3) Lethality vs Health determines removals. (4) When a line hits zero, all attacks retarget the next line. (5) Repeat until one side has zero troops. STAT PRIORITY: S-tier = Lethality (kills units) and Health/HP (absorbs damage). A-tier = Defense. B-tier = Attack. Speed is fixed at 11 for all troops - currently useless. INVESTMENT ORDER: 1st Archer Lethality, 2nd Infantry Health (buff HP not Defense - infantry have more base HP than Defense so HP buffs give more raw survivability), 3rd Infantry Defense/Archer Attack, 4th Cavalry (lowest ROI in current patch). Charms boost Health+Lethality; Governor Gear covers Attack+Defense - choose based on what you need. BUFF MATH: Standard buffs (Gear, Charms, research, buildings) are additive. Special buffs (hero abilities, widgets, Kingdom titles, consumable 12h/24h boosts) are multiplicative. With 200% Standard and 40% Special: result is 320% not 240%. Stronger standard buffs = bigger special buff multiplier. Debuffs are negative special buffs = disproportionately powerful vs whales. CRITICAL CONSUMABLE RULE: Only rally leaders and garrison defenders should use 12h/24h buff consumables - rally joiners' consumables do NOTHING. RALLY LAWS: (1) Rally captain's build applies to entire rally - their heroes, research, skins, titles, consumables. (2) Joiners bring bodies not buffs - send high-tier troops in correct ratio, don't burn consumables. (3) Widgets only activate for rally/garrison leader, not joiners. (4) Flat skill bonuses stack; proc-based abilities don't add linearly. TROOP RATIOS: Bear Hunt/PvE = 10/10/80 (Infantry/Cavalry/Archer). Rally/City Attack = 45/25/30. PvP Defense = 55/20/25. CASUALTY TYPES: Attacking player city = 35% permanent loss (avoid unless worth it). Level 4 Outposts = 10% permanent loss for BOTH sides (traps). Hunting beasts = 0% permanent loss. Infirmary overflow converts Injured to permanent deaths - keep hospital beds free before war.
+COMBAT MECHANICS (verified by StratGameSloth - youtube.com/@StratGameSloth): Combat is a hidden simulation. Round-by-round sequence: (1) Troops deploy Infantry→Cavalry→Archers. (2) All attack the frontmost enemy line. Exception: 20% of Cavalry bypass frontline every round to snipe Archers directly - this is why your Archers die even when you win. (3) Lethality vs Health determines removals. (4) When a line hits zero, all attacks retarget the next line. (5) Repeat until one side has zero troops. STAT PRIORITY: S-tier = Lethality (kills units) and Health/HP (absorbs damage). A-tier = Defense. B-tier = Attack. Speed is fixed at 11 for all troops - currently useless. INVESTMENT ORDER: 1st Archer Lethality, 2nd Infantry Health (buff HP not Defense - infantry have more base HP than Defense so HP buffs give more raw survivability), 3rd Infantry Defense/Archer Attack, 4th Cavalry (lowest ROI in current patch). Charms boost Health+Lethality; Governor Gear covers Attack+Defense - choose based on what you need. BUFF MATH: Standard buffs (Gear, Charms, research, buildings) are additive. Special buffs (hero abilities, widgets, Kingdom titles, consumable 12h/24h boosts) are multiplicative. With 200% Standard and 40% Special: result is 320% not 240%. Stronger standard buffs = bigger special buff multiplier. Debuffs are negative special buffs = disproportionately powerful vs whales. CRITICAL CONSUMABLE RULE: Only rally leaders and garrison defenders should use 12h/24h buff consumables - rally joiners' consumables do NOTHING. RALLY LAWS: (1) Rally captain's build applies to entire rally - their heroes, research, skins, titles, consumables. (2) Joiners bring bodies not buffs - send high-tier troops in correct ratio, don't burn consumables. (3) Widgets only activate for rally/garrison leader, not joiners. (4) Flat skill bonuses stack; proc-based abilities don't add linearly. TROOP RATIOS: Bear Hunt/PvE = 10/10/80 (Infantry/Cavalry/Archer). Rally/City Attack = 45/25/30. PvP Defense = 55/20/25. CASUALTY TYPES: City attacks and certain PvP structures can cause permanent troop losses — avoid unless you are prepared to absorb them. Hunting beasts causes no permanent losses. Level 4 Outposts can cause permanent losses for both attacker and defender — check the tooltip before committing. Infirmary overflow converts Injured to permanent deaths — keep hospital beds free before war. Always verify current event rules in-game.
 
 STRATAGAMESLOTH: Dedicated Kingshot YouTube channel at youtube.com/@StratGameSloth. 100% Kingshot content, verified strategy. Source of our Combat Mechanics deep dive section. Community-verified as reliable. Calculators - Hero Shard Calculator (plan roulette for HoG), Troop Training Calculator (HoG train day planning), Building Calculator (upgrade costs/time), Forgehammer Calculator (gear mastery planning from Bear Hunt), Governor Gear Calculator, VIP Calculator, Truegold Simulator, Truegold Planner. Planning tools - War Academy interactive tech tree with research cost calculator, Event Calendar, Appointment Planner (ministry rotations for R4/R5), Transfer Planner, KvK Match Tracker (K#1620 data included), Kingdom Age Tracker (426+ kingdoms), Interactive Game Map, Message Templates. Databases - Buildings Database, Pets Database, War Academy Database, Hero Stat Comparison tool. Gift Codes - live list with auto-redeem at v2.kingshot.net/auto-redeem.
 `;
@@ -3705,19 +3749,19 @@ const HERO_DATA = [
     availableNow: true,
     emoji: '⚔️',
     image: 'https://tactichub.github.io/BBQ1620/images/heroes/Jabel.jpg',
-    shortDescription: 'The original Cavalry rally commander. Provides solid HP and Defense buffs making her a reliable early rally anchor and one of the few free Legendary heroes available from day two.',
-    strengths: ['Strong Infantry HP bonus', 'Reliable conquest skill kit', 'Easy to obtain from early roulette'],
+    shortDescription: 'The original Cavalry rally commander. Provides HP and Defense buffs for Cavalry marches, making her a reliable early rally anchor and one of the few Legendary heroes available from the early roulette.',
+    strengths: ['Cavalry-focused HP and Defense kit', 'Reliable conquest skill support', 'Easy to obtain from early roulette'],
     weaknesses: ['Outscaled by Gen 2+ rally options for high-level PvP', 'No Lethality bonuses in base kit', 'Widget is defensive rather than offensive'],
-    bestUses: ['Infantry rally leader (early to mid game)', 'Garrison defense commander', 'Sub-hero for infantry HP stacking'],
-    bestPairings: ['Chenko (Lethality)', 'Quinn (Archer support)', 'Gordon (HP buffer)'],
+    bestUses: ['Cavalry rally support (early to mid game)', 'Cavalry garrison commander', 'Sub-hero for Cavalry HP stacking'],
+    bestPairings: ['Chenko (Lethality support)', 'Gordon (Cavalry defense layer)', 'Diana (Cavalry rally lead)'],
     pvpRating: 'B', pveRating: 'C', bearRating: 'C', f2pRating: 'B',
     widgetPriority: 'Low - invest in Chenko or Amadeus widget first',
     recommendedInvestment: { f2p: '3-star', midSpender: '4-star', whale: '5-star for garrison builds' },
     expeditionSkills: 'Increases garrison troop HP; useful for steady Expedition XP',
-    conquestSkills: 'Infantry HP +15% / Infantry Defense +12% - solid frontline buffer',
-    widget: 'Infantry Defense buff; low priority for offensive players',
-    notes: 'Gen 1 starting hero. Good foundation but outpaced at higher levels. Still viable as a joiner in infantry-heavy rallies.',
-    tags: ['Infantry', 'Rally', 'Garrison', 'Early Game']
+    conquestSkills: 'Cavalry HP and Defense support — exact skill values unverified; check in-game',
+    widget: 'Cavalry Defense buff; low priority for offensive players',
+    notes: 'Gen 1 starting Cavalry hero. Good foundation but outpaced at higher levels. Still viable as a joiner in Cavalry-heavy marches.',
+    tags: ['Cavalry', 'Rally', 'Garrison', 'Early Game']
   },
   {
     id: 'quinn', name: 'Quinn', generation: 1, rarity: 'Epic',
@@ -3726,19 +3770,19 @@ const HERO_DATA = [
     availableNow: true,
     emoji: '🏹',
     image: 'https://tactichub.github.io/BBQ1620/images/heroes/Quinn.jpg',
-    shortDescription: 'Top-tier Archer Epic hero. Quinn provides Archer Lethality and Attack buffs that directly translate to Bear Hunt damage and PvP killing power.',
-    strengths: ['High Archer Lethality bonus', 'Dual-purpose PvP + Bear Hunt kit', 'Strong widget value for rally leaders', 'Consistent meta across all server ages'],
-    weaknesses: ['Widget investment required to reach S-tier performance', 'Less effective as a joiner without conquest skill support'],
-    bestUses: ['Archer rally leader for Bear Hunt', 'PvP Archer rally commander', 'Primary investment target for Archer-focused accounts'],
+    shortDescription: 'Strong Archer Epic hero. Quinn provides Archer Lethality and Attack support that contribute to Bear Hunt damage and PvP effectiveness.',
+    strengths: ['Archer Lethality and Attack kit', 'Dual-purpose PvP + Bear Hunt utility', 'Good early investment for Archer-focused accounts'],
+    weaknesses: ['Widget investment required for higher-tier performance', 'Less effective as a joiner without conquest skill support'],
+    bestUses: ['Archer rally leader for Bear Hunt (early to mid game)', 'PvP Archer rally support', 'Primary investment target for Archer-focused accounts before Amadeus unlocks'],
     bestPairings: ['Chenko (Lethality stack)', 'Yeonwoo (Bear Hunt support)', 'Amane (Archer buff joiner)'],
     pvpRating: 'S', pveRating: 'A', bearRating: 'S', f2pRating: 'A',
-    widgetPriority: 'High - Quinn widget significantly boosts Archer Lethality for rally',
+    widgetPriority: 'High - Quinn widget boosts Archer Lethality meaningfully for rally',
     recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max widget' },
     expeditionSkills: 'Archer Attack bonus; moderate expedition value',
-    conquestSkills: 'Archer Lethality +18% / Archer Attack +12% - top offensive kit',
-    widget: 'Archer Lethality +X% for rally - major damage increase. Prioritize for Bear Hunt leaders.',
-    notes: 'S-tier Bear Hunt lead. Best Archer rally leader in Gen 1. Remains viable into late game with widget investment.',
-    tags: ['Archer', 'Rally', 'Bear', 'S-Tier', 'Long-Term Viable']
+    conquestSkills: 'Archer Lethality and Attack support — exact skill values unverified; check in-game',
+    widget: 'Archer Lethality boost for rally — a meaningful damage increase for Bear Hunt leaders.',
+    notes: 'Strong Bear Hunt lead in Gen 1. Remains viable into mid game with widget investment. Transition to Amadeus as primary lead around Day ~120.',
+    tags: ['Archer', 'Rally', 'Bear', 'Long-Term Viable']
   },
   {
     id: 'howard', name: 'Howard', generation: 1, rarity: 'Epic',
@@ -3747,19 +3791,19 @@ const HERO_DATA = [
     availableNow: true,
     emoji: '🐴',
     image: 'https://tactichub.github.io/BBQ1620/images/heroes/Howard.jpg',
-    shortDescription: 'Early Infantry hero focused on damage reduction. Howard\'s damage mitigation skill is genuinely useful in PvP and pairs well with Quinn to minimize troop losses.',
-    strengths: ['Freely obtainable via Hero Hall', 'Decent cavalry HP buff', 'Good starter garrison hero'],
-    weaknesses: ['SR rarity limits ceiling', 'No Lethality kit', 'Outpaced quickly by SSR cavalry options'],
-    bestUses: ['Early garrison filler', 'PvE cavalry marches', 'Expedition fodder'],
-    bestPairings: ['Quinn (damage reduction synergy)', 'Gordon (Cavalry defense layer)'],
+    shortDescription: 'Early Infantry hero with damage mitigation utility. Howard is freely obtainable and provides some defensive value in early garrison and PvP, making him a useful F2P placeholder.',
+    strengths: ['Freely obtainable via Hero Hall', 'Infantry defensive kit useful early game', 'Good starter filler hero for Infantry marches'],
+    weaknesses: ['Rarity limits long-term ceiling', 'No Lethality kit', 'Outpaced quickly by Legendary Infantry options'],
+    bestUses: ['Early Infantry garrison filler', 'Expedition XP source', 'Budget Infantry HP support before Legendary heroes arrive'],
+    bestPairings: ['Jabel (early Cavalry support)', 'Gordon (defensive layer)'],
     pvpRating: 'D', pveRating: 'C', bearRating: 'D', f2pRating: 'B',
-    widgetPriority: 'Skip - invest in SSR heroes',
+    widgetPriority: 'Skip - invest in Legendary heroes',
     recommendedInvestment: { f2p: '3-star for skills', midSpender: 'Skip', whale: 'Skip' },
-    expeditionSkills: 'Cavalry Speed - minor utility',
-    conquestSkills: 'Cavalry HP +10% - limited combat value',
-    widget: 'Minor cavalry buff; not worth investment',
-    notes: 'Free SR hero. Keep for expedition XP but do not invest resources.',
-    tags: ['Cavalry', 'Garrison', 'Early Game', 'Free']
+    expeditionSkills: 'Infantry support — moderate early utility',
+    conquestSkills: 'Infantry defensive support — exact skill values unverified; check in-game',
+    widget: 'Not worth investing in',
+    notes: 'Free Infantry hero. Upgrade to 3-star for conquest skill unlock, then deprioritize. Do not invest resources beyond that.',
+    tags: ['Infantry', 'Garrison', 'Early Game', 'Free']
   },
   {
     id: 'chenko', name: 'Chenko', generation: 1, rarity: 'Epic',
@@ -3768,19 +3812,19 @@ const HERO_DATA = [
     availableNow: true,
     emoji: '🎯',
     image: 'https://tactichub.github.io/BBQ1620/images/heroes/Chenko.jpg',
-    shortDescription: 'The Lethality king. Chenko provides the highest flat Archer Lethality bonuses in Gen 1 and is the primary march companion for all Bear Hunt builds. Must-invest for any Archer-focused governor.',
-    strengths: ['Highest Archer Lethality bonus in Gen 1', 'Widget multiplies rally damage significantly', 'Synergizes with every Archer rally leader', 'Excellent F2P value - shards available from multiple sources'],
-    weaknesses: ['No HP or Defense kit - pure offense', 'Dependent on Archer rally leader to activate widget value'],
-    bestUses: ['Sub-hero 1 in every Bear Hunt rally', 'Archer joiner march companion', 'Primary Lethality stacker'],
+    shortDescription: 'High-priority Cavalry support hero. Chenko is widely used as a Bear Hunt joiner and sub-hero in Archer rally marches due to his Lethality support kit. One of the best F2P investments in Gen 1.',
+    strengths: ['Strong Lethality support kit for Bear Hunt joiners', 'Widget adds meaningful damage to rally marches', 'Excellent F2P value — shards available from multiple sources', 'Core sub-hero slot in optimized Bear Hunt marches'],
+    weaknesses: ['No HP or Defense kit — pure offense support', 'Best value realized when paired with Archer rally leader'],
+    bestUses: ['Sub-hero in Bear Hunt rally marches', 'Joiner march companion for Archer rally leaders', 'Primary early Lethality support investment'],
     bestPairings: ['Quinn (primary leader)', 'Yeonwoo (secondary support)', 'Amadeus (late game lead)'],
     pvpRating: 'A', pveRating: 'S', bearRating: 'S', f2pRating: 'S',
     widgetPriority: 'Highest priority - Chenko widget is the best DPS investment for Bear Hunt',
     recommendedInvestment: { f2p: '5-star', midSpender: '5-star + widget', whale: 'Max widget priority' },
-    expeditionSkills: 'Archer Lethality - stacks with conquest kit',
-    conquestSkills: 'Archer Lethality +20% / Archer Attack +10% - best offensive joiner kit in Gen 1',
-    widget: 'Archer Lethality +X% for march - the most impactful widget in Gen 1 for damage output.',
+    expeditionSkills: 'Lethality support — stacks with conquest kit',
+    conquestSkills: 'Lethality-focused support kit — exact skill values unverified; check in-game',
+    widget: 'Lethality boost for march — the most impactful widget in Gen 1 for Bear Hunt damage output.',
     notes: 'Non-negotiable investment. Every serious Bear Hunt player should max Chenko. March priority: Lead = Quinn or Amadeus, Sub 1 = Chenko, Sub 2 = Yeonwoo.',
-    tags: ['Archer', 'Rally', 'Bear', 'S-Tier', 'Widget Priority', 'F2P Friendly', 'Long-Term Viable']
+    tags: ['Cavalry', 'Rally', 'Bear', 'S-Tier', 'Widget Priority', 'F2P Friendly', 'Long-Term Viable']
   },
   {
     id: 'gordon', name: 'Gordon', generation: 1, rarity: 'Epic',
@@ -3789,19 +3833,19 @@ const HERO_DATA = [
     availableNow: true,
     emoji: '🛡️',
     image: 'https://tactichub.github.io/BBQ1620/images/heroes/Gordon.jpg',
-    shortDescription: 'Defensive Cavalry Epic hero. Gordon is a free-to-play staple who provides solid defensive buffs, making him a reliable early garrison and rally joiner for new players.',
-    strengths: ['Strong Infantry HP + Defense combination', 'Best Gen 1 garrison hero', 'Good for KvK city defense'],
+    shortDescription: 'Defensive Cavalry Epic hero. Gordon is a free-to-play staple who provides Cavalry-focused defensive buffs, making him a reliable early garrison and Cavalry rally joiner for new players.',
+    strengths: ['Cavalry HP and Defense combination', 'Accessible early via roulette', 'Solid for early Cavalry garrison and KvK defense'],
     weaknesses: ['Low offensive contribution', 'Outpaced by Gen 2+ garrison options', 'Widget focused on HP rather than Lethality'],
-    bestUses: ['City garrison defender during KvK', 'Infantry rally sub-hero for HP stacking', 'War Academy-heavy defensive builds'],
-    bestPairings: ['Jabel (Infantry stack)', 'Helga (Alliance buff layer)'],
+    bestUses: ['City garrison defender during KvK', 'Cavalry rally sub-hero for HP stacking', 'Early defensive Cavalry builds'],
+    bestPairings: ['Jabel (Cavalry stack)', 'Diana (Cavalry rally lead)'],
     pvpRating: 'B', pveRating: 'C', bearRating: 'D', f2pRating: 'B',
-    widgetPriority: 'Low - only invest if running infantry garrison as primary strategy',
-    recommendedInvestment: { f2p: '3-star', midSpender: '4-star for garrison', whale: '5-star for infantry garrison meta' },
-    expeditionSkills: 'Infantry Defense - modest value',
-    conquestSkills: 'Infantry HP +15% / Infantry Defense +10% - best Gen 1 defensive kit',
-    widget: 'Infantry HP increase - situationally useful for garrison leads',
-    notes: 'Solid defensive hero. Not the best use of Roulette tickets vs Quinn/Chenko, but viable if built for garrison KvK.',
-    tags: ['Infantry', 'Garrison', 'Defense', 'KvK']
+    widgetPriority: 'Low - only invest if running Cavalry garrison as primary strategy',
+    recommendedInvestment: { f2p: '3-star', midSpender: '4-star for garrison', whale: '5-star for Cavalry garrison KvK' },
+    expeditionSkills: 'Cavalry Defense — modest value',
+    conquestSkills: 'Cavalry HP and Defense support — exact skill values unverified; check in-game',
+    widget: 'Cavalry HP increase — situationally useful for garrison leads',
+    notes: 'Solid defensive Cavalry hero. Not the best use of Roulette tickets vs Quinn/Chenko, but viable if built for Cavalry garrison in KvK.',
+    tags: ['Cavalry', 'Garrison', 'Defense', 'KvK']
   },
   {
     id: 'seth', name: 'Seth', generation: 1, rarity: 'Rare',
@@ -3810,105 +3854,105 @@ const HERO_DATA = [
     availableNow: true,
     emoji: '🗡️',
     image: 'https://tactichub.github.io/BBQ1620/images/heroes/Seth.jpg',
-    shortDescription: 'Early Infantry rally hero with decent Attack buffs. Serviceable in early-to-mid game marches before Legendary heroes dominate.',
-    strengths: ['Cavalry Attack buff', 'Serviceable early rally leader', 'Decent PvP contribution'],
-    weaknesses: ['No Lethality kit', 'Outclassed by Diana at Gen 2', 'Widget value is low compared to Archer options'],
-    bestUses: ['Cavalry rally leader (early game)', 'PvP cavalry march', 'KvK joiner for cavalry-heavy builds'],
+    shortDescription: 'Early Infantry Rare hero with Attack support. Serviceable in early-to-mid game Infantry marches before Legendary heroes dominate.',
+    strengths: ['Infantry Attack support', 'Serviceable early rally filler', 'Decent early PvP contribution'],
+    weaknesses: ['No Lethality kit', 'Outclassed quickly by Legendary Infantry options', 'Widget value is low compared to higher rarity heroes'],
+    bestUses: ['Early Infantry march filler', 'Expedition XP source', 'Budget Infantry support before Legendary heroes'],
     bestPairings: ['Forrest (Infantry stack)', 'Howard (Infantry layer)'],
     pvpRating: 'B', pveRating: 'C', bearRating: 'D', f2pRating: 'C',
-    widgetPriority: 'Skip in favor of Diana or Archer heroes',
+    widgetPriority: 'Skip in favor of Legendary Infantry or Archer heroes',
     recommendedInvestment: { f2p: '3-star for conquest skills', midSpender: 'Skip', whale: 'Skip' },
-    expeditionSkills: 'Cavalry Speed buff - minor',
-    conquestSkills: 'Cavalry Attack +12% - functional but not meta-defining',
-    widget: 'Cavalry Attack; limited return on investment',
-    notes: 'Solid free Infantry pick. Forrest fills a similar role with slightly better utility. Prioritize Roulette tickets on Jabel/Quinn/Chenko.',
-    tags: ['Cavalry', 'Rally', 'PvP', 'Early Game']
+    expeditionSkills: 'Infantry support — minor early utility',
+    conquestSkills: 'Infantry Attack support — exact skill values unverified; check in-game',
+    widget: 'Infantry Attack; limited return on investment',
+    notes: 'Solid free Infantry pick for early game. Prioritize Roulette tickets on Jabel/Quinn/Chenko instead.',
+    tags: ['Infantry', 'Rally', 'Early Game']
   },
 
   // ── GEN 2 ──
   {
-    id: 'diana', name: 'Diana', generation: 1, rarity: 'Epic',
+    id: 'diana', name: 'Diana', generation: 2, rarity: 'Epic',
     troopType: 'Archer', primaryRole: 'Rally', secondaryRole: 'PvP',
     acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~60',
     availableNow: true,
-    emoji: '🐎',
+    emoji: '🏹',
     image: 'https://tactichub.github.io/BBQ1620/images/heroes/Diana.jpg',
-    shortDescription: 'Solid Archer Epic hero with a damage-dealing skill and Attack Speed buff. Diana is accessible and useful as an early Archer rally joiner, though she is more of a utility pick than a long-term carry.',
-    strengths: ['Cavalry Lethality + Attack combined kit', 'Strong PvP rally output', 'Good widget for cavalry marches', 'Remains viable in late game'],
-    weaknesses: ['Cavalry meta is server-age dependent', 'Not useful for Bear Hunt', 'Requires Cavalry troop investment to maximize value'],
-    bestUses: ['Cavalry rally leader for PvP', 'KvK rally commander', 'Alliance Championship cavalry lane'],
+    shortDescription: 'Solid Archer Epic hero with Attack and damage support. Diana is accessible and useful as an early Archer rally joiner, though she is more of a utility pick than a long-term primary lead.',
+    strengths: ['Archer Attack and support kit', 'Useful early PvP rally contribution', 'Good early investment for Archer accounts'],
+    weaknesses: ['Not a Bear Hunt priority hero', 'Outpaced as primary lead when Amadeus unlocks', 'Requires Archer troop investment to maximize value'],
+    bestUses: ['Archer rally support (early to mid game)', 'PvP Archer march joiner', 'Expedition XP source'],
     bestPairings: ['Quinn (Archer lead)', 'Yeonwoo (Archer support)', 'Amane (Archer joiner)'],
     pvpRating: 'A', pveRating: 'B', bearRating: 'D', f2pRating: 'B',
-    widgetPriority: 'Medium - prioritize for cavalry main accounts',
-    recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max widget for cavalry rally' },
-    expeditionSkills: 'Cavalry Lethality - stacks with conquest kit',
-    conquestSkills: 'Cavalry Lethality +18% / Cavalry Attack +12% - best cavalry offensive kit in Gen 2',
-    widget: 'Cavalry Lethality boost for rally - high value for cavalry-focused governors',
-    notes: 'Best cavalry rally leader available. If you run cavalry, Diana is the investment. Less valuable for Archer-first accounts.',
-    tags: ['Cavalry', 'Rally', 'PvP', 'KvK', 'Long-Term Viable']
+    widgetPriority: 'Low to Medium - prioritize Quinn and Chenko first',
+    recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max widget if Archer main' },
+    expeditionSkills: 'Archer support — moderate expedition value',
+    conquestSkills: 'Archer Attack and support — exact skill values unverified; check in-game',
+    widget: 'Archer combat boost — secondary priority after core Bear Hunt heroes',
+    notes: 'Useful Archer filler in early and mid game. Less valuable for Bear Hunt-focused accounts; prioritize Chenko and Yeonwoo first.',
+    tags: ['Archer', 'Rally', 'PvP', 'Early Game']
   },
   {
-    id: 'olive', name: 'Olive', generation: 1, rarity: 'Rare',
-    troopType: 'Archer', primaryRole: 'Garrison', secondaryRole: 'Rally',
+    id: 'olive', name: 'Olive', generation: 2, rarity: 'Rare',
+    troopType: 'Archer', primaryRole: 'Development', secondaryRole: 'Support',
     acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~60',
     availableNow: true,
-    emoji: '🏰',
+    emoji: '🏹',
     image: 'https://tactichub.github.io/BBQ1620/images/heroes/Olive.jpg',
-    shortDescription: 'Gen 2 garrison specialist with Alliance-wide HP buffs. Olive shines as a garrison defender and provides passive alliance-member HP bonuses when placed in garrison, making her uniquely team-oriented.',
-    strengths: ['Alliance-wide HP buff when in garrison (passive)', 'High Infantry HP base stats', 'Unique buff affects all alliance members nearby'],
-    weaknesses: ['Limited offensive kit', 'Niche role - best in KvK defense, less in offense', 'Not a Bear Hunt hero'],
-    bestUses: ['KvK city garrison', 'Alliance Championship fortress defense', 'Coordinated garrison buff strategy with R4/R5'],
-    bestPairings: ['Gordon (Infantry stack)', 'Jabel (HP layer)', 'Helga (Alliance-wide buff)'],
-    pvpRating: 'B', pveRating: 'C', bearRating: 'D', f2pRating: 'B',
-    widgetPriority: 'Low to Medium - only for dedicated garrison defenders',
-    recommendedInvestment: { f2p: '3-star', midSpender: '4-star for garrison', whale: '5-star for garrison KvK' },
-    expeditionSkills: 'Infantry HP - minor expedition value',
-    conquestSkills: 'Infantry HP +18% / All Troops HP +8% - best garrison sustain in Gen 2',
-    widget: 'Garrison HP boost; activates when hero is placed as garrison commander',
-    notes: 'Underrated utility. The alliance-wide HP buff from her garrison placement is meaningful in coordinated KvK play. R4/R5 should consider using Olive for fortress defense.',
-    tags: ['Infantry', 'Garrison', 'Alliance Buff', 'KvK', 'Defense']
+    shortDescription: 'Archer Rare hero. Olive is a development-tier hero useful for early Archer march filler and expedition XP while working toward higher-rarity Archer options.',
+    strengths: ['Low roulette cost to acquire', 'Filler Archer support early game', 'Usable for expedition XP'],
+    weaknesses: ['Rare rarity caps ceiling significantly', 'Limited offensive kit', 'Not a Bear Hunt or PvP priority'],
+    bestUses: ['Early Archer march filler', 'Expedition XP source', 'Development placeholder before Epic/Legendary Archer heroes'],
+    bestPairings: ['Quinn (Archer lead)', 'Chenko (Lethality support)'],
+    pvpRating: 'D', pveRating: 'C', bearRating: 'D', f2pRating: 'C',
+    widgetPriority: 'Skip - invest in higher-rarity Archer heroes',
+    recommendedInvestment: { f2p: '3-star for skills', midSpender: 'Skip', whale: 'Skip' },
+    expeditionSkills: 'Archer support — minor early value',
+    conquestSkills: 'Archer support — exact skill values unverified; check in-game',
+    widget: 'Not worth investing in',
+    notes: 'Development Rare. Upgrade to 3-star for skill unlocks, then deprioritize for resource allocation toward Quinn, Chenko, and Yeonwoo.',
+    tags: ['Archer', 'Development', 'Early Game', 'Free']
   },
   {
-    id: 'forrest', name: 'Forrest', generation: 1, rarity: 'Rare',
-    troopType: 'Infantry', primaryRole: 'Rally', secondaryRole: 'Bear',
+    id: 'forrest', name: 'Forrest', generation: 2, rarity: 'Rare',
+    troopType: 'Infantry', primaryRole: 'Development', secondaryRole: 'Support',
     acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~60',
     availableNow: true,
     emoji: '🌿',
     image: 'https://tactichub.github.io/BBQ1620/images/heroes/Forrest.jpg',
-    shortDescription: 'Infantry Rare hero with march speed and rally capacity utility. Useful early filler for Infantry marches; outpaced quickly by Legendary options.',
-    strengths: ['Rally capacity bonus', 'March Speed buff (rare in hero kits)', 'Pairs excellently with Diana', 'Cavalry Lethality support kit'],
-    weaknesses: ['Not a primary rally leader', 'Outclassed by Petra for cavalry rally in Gen 3', 'Widget value moderate'],
-    bestUses: ['Early Infantry march filler', 'Rally capacity padding', 'Expedition XP source'],
-    bestPairings: ['Diana (primary)', 'Edwin (HP layer)', 'Petra (upgrade path)'],
-    pvpRating: 'B', pveRating: 'B', bearRating: 'C', f2pRating: 'B',
-    widgetPriority: 'Low - Diana widget first',
-    recommendedInvestment: { f2p: '3-star', midSpender: '4-star', whale: '5-star for cavalry builds' },
-    expeditionSkills: 'March Speed - useful for timed events',
-    conquestSkills: 'Cavalry Lethality +12% / Rally Capacity +5000 - unique capacity value',
-    widget: 'Cavalry support + rally capacity; niche but useful for rally leaders',
-    notes: 'Good sub-hero. Rally capacity buff is underrated - extra troops in the march translates directly to more damage. Pair with Diana.',
-    tags: ['Cavalry', 'Rally', 'Support', 'March Speed']
+    shortDescription: 'Infantry Rare hero with some march utility. Useful early filler for Infantry marches; outpaced quickly by Legendary options.',
+    strengths: ['Rally capacity support', 'March utility early game', 'Low roulette cost to obtain'],
+    weaknesses: ['Not a primary rally leader', 'Rare rarity caps ceiling', 'Outclassed quickly by Legendary Infantry heroes'],
+    bestUses: ['Early Infantry march filler', 'Expedition XP source', 'Development placeholder before Legendary Infantry heroes'],
+    bestPairings: ['Seth (Infantry stack)', 'Howard (Infantry layer)'],
+    pvpRating: 'D', pveRating: 'C', bearRating: 'D', f2pRating: 'C',
+    widgetPriority: 'Skip - invest in Legendary Infantry or Archer heroes',
+    recommendedInvestment: { f2p: '3-star', midSpender: 'Skip', whale: 'Skip' },
+    expeditionSkills: 'March support — minor early utility',
+    conquestSkills: 'Infantry support — exact skill values unverified; check in-game',
+    widget: 'Not worth investing in',
+    notes: 'Development Rare. Upgrade for conquest skill unlocks, then deprioritize in favor of Legendary Infantry options.',
+    tags: ['Infantry', 'Development', 'Early Game']
   },
   {
-    id: 'edwin', name: 'Edwin', generation: 1, rarity: 'Rare',
-    troopType: 'Cavalry', primaryRole: 'PvE', secondaryRole: 'Garrison',
+    id: 'edwin', name: 'Edwin', generation: 2, rarity: 'Rare',
+    troopType: 'Cavalry', primaryRole: 'Development', secondaryRole: 'Garrison',
     acquisitionMethod: 'Hero Hall', releaseTiming: 'Day ~60',
     availableNow: true,
     emoji: '🗡️',
     image: 'https://tactichub.github.io/BBQ1620/images/heroes/Edwin.jpg',
-    shortDescription: 'Free Cavalry Rare hero obtainable through the Hero Hall. Edwin provides Cavalry HP buffs useful for early garrison and expedition play without Roulette investment.',
-    strengths: ['Free via Hero Hall', 'Infantry HP kit', 'Good expedition partner'],
-    weaknesses: ['SR rarity caps ceiling', 'No offensive value', 'Outpaced by Gen 2 SSR options quickly'],
-    bestUses: ['Early garrison filler', 'Expedition partner for XP', 'Budget infantry HP stack'],
-    bestPairings: ['Olive (garrison combo)', 'Gordon (HP synergy)'],
+    shortDescription: 'Free Cavalry Rare hero obtainable through the Hero Hall. Edwin provides early Cavalry support useful for expedition play without Roulette investment.',
+    strengths: ['Free via Hero Hall', 'Cavalry HP and Defense support early game', 'Good expedition partner for XP'],
+    weaknesses: ['Rare rarity caps ceiling', 'No offensive Lethality value', 'Outpaced by Gen 2+ Legendary Cavalry options quickly'],
+    bestUses: ['Early Cavalry garrison filler', 'Expedition partner for XP', 'Development placeholder before Legendary Cavalry heroes'],
+    bestPairings: ['Jabel (Cavalry stack)', 'Gordon (Cavalry defense layer)'],
     pvpRating: 'D', pveRating: 'C', bearRating: 'D', f2pRating: 'B',
     widgetPriority: 'Skip',
     recommendedInvestment: { f2p: '3-star for skills only', midSpender: 'Skip', whale: 'Skip' },
-    expeditionSkills: 'Infantry HP - minor',
-    conquestSkills: 'Infantry Defense +8% - limited',
+    expeditionSkills: 'Cavalry support — minor early value',
+    conquestSkills: 'Cavalry defensive support — exact skill values unverified; check in-game',
     widget: 'Not worth investing in',
-    notes: 'Free SR. Upgrade to 3-star for the conquest skill unlock, then deprioritize for resource allocation.',
-    tags: ['Infantry', 'Garrison', 'Free', 'Early Game']
+    notes: 'Free Rare Cavalry. Upgrade to 3-star for the conquest skill unlock, then deprioritize for resource allocation.',
+    tags: ['Cavalry', 'Development', 'Garrison', 'Free', 'Early Game']
   },
   {
     id: 'yeonwoo', name: 'Yeonwoo', generation: 1, rarity: 'Epic',
@@ -3926,7 +3970,7 @@ const HERO_DATA = [
     widgetPriority: 'Medium - after Chenko widget',
     recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max widget eventually' },
     expeditionSkills: 'Archer Lethality - stacks',
-    conquestSkills: 'Archer Lethality +16% / Beast Damage +12% - top Bear Hunt sub kit',
+    conquestSkills: 'Archer Lethality and Beast Damage support — exact skill values unverified; check in-game',
     widget: 'Archer/Beast Lethality - good second widget after Chenko',
     notes: 'Standard march order: Lead Quinn/Amadeus, Sub 1 Chenko, Sub 2 Yeonwoo. Near-mandatory for optimized Bear Hunt.',
     tags: ['Archer', 'Bear', 'Rally', 'F2P Friendly', 'Long-Term Viable', 'Widget Priority']
@@ -3938,18 +3982,18 @@ const HERO_DATA = [
     availableNow: true,
     emoji: '✨',
     image: 'https://tactichub.github.io/BBQ1620/images/heroes/Amane.jpg',
-    shortDescription: 'Archer Epic hero with Attack and Lethality support. Amane fills the Sub 3 slot in Bear Hunt marches and provides a combat proc that boosts the entire rally for a round.',
-    strengths: ['Archer Attack + Lethality dual kit', 'Combat proc adds round-based rally boost', 'Good as Sub 3 when Chenko and Yeonwoo are filled', 'Above-average F2P value'],
-    weaknesses: ['Combat proc is RNG-dependent', 'Lower ceiling than Chenko/Yeonwoo', 'Not a primary rally leader'],
+    shortDescription: 'Archer Epic hero with Attack and Lethality support. Amane is a useful Archer damage-support hero for Bear Hunt joiner setups, filling the Sub 3 slot when Chenko and Yeonwoo are already in the march.',
+    strengths: ['Archer Attack and Lethality dual kit', 'Useful Sub 3 slot in Bear Hunt march when Chenko and Yeonwoo are filled', 'Above-average F2P value'],
+    weaknesses: ['Lower ceiling than Chenko/Yeonwoo', 'Not a primary rally leader', 'Combat proc timing is situational'],
     bestUses: ['Sub 3 in Bear Hunt march', 'PvP Archer rally support', 'Backup rally joiner'],
     bestPairings: ['Quinn (lead)', 'Chenko (Sub 1)', 'Yeonwoo (Sub 2)'],
     pvpRating: 'B', pveRating: 'A', bearRating: 'A', f2pRating: 'A',
     widgetPriority: 'Low - Chenko and Yeonwoo first',
     recommendedInvestment: { f2p: '4-star', midSpender: '4-star', whale: '5-star' },
-    expeditionSkills: 'Archer Attack - moderate',
-    conquestSkills: 'Archer Attack +14% / Archer Lethality +10% - solid Sub 3 kit',
+    expeditionSkills: 'Archer Attack — moderate',
+    conquestSkills: 'Archer Attack and Lethality support — exact skill values unverified; check in-game',
     widget: 'Moderate Archer buff; invest only after Chenko and Yeonwoo widgeted',
-    notes: 'The natural third slot in the BBQ Bear Hunt march: Quinn → Chenko → Yeonwoo → Amane.',
+    notes: 'The natural third slot in the Bear Hunt march: Quinn → Chenko → Yeonwoo → Amane.',
     tags: ['Archer', 'Rally', 'Bear', 'F2P Friendly']
   },
 
@@ -3961,40 +4005,40 @@ const HERO_DATA = [
     availableNow: true,
     emoji: '⚡',
     image: 'https://tactichub.github.io/BBQ1620/images/heroes/Petra.jpg',
-    shortDescription: 'Top-tier Gen 3 Cavalry rally leader. Petra combines Cavalry Lethality with a unique rally burst ability making her the best cavalry option for late-game PvP and KvK pushes.',
-    strengths: ['Best Cavalry Lethality kit in the game', 'Rally burst ability on conquest skill', 'Remains meta into late game', 'Widget has strong multiplier'],
+    shortDescription: 'Gen 3 Cavalry Legendary rally leader. Petra is a strong Cavalry offensive hero for late-game PvP and KvK pushes.',
+    strengths: ['Strong Cavalry Lethality kit', 'Gen 3 Cavalry PvP-focused hero', 'Remains meta into late game with widget investment', 'Good widget value for Cavalry-focused governors'],
     weaknesses: ['Requires Day ~120 to unlock', 'Cavalry account investment needed', 'High roulette ticket cost'],
-    bestUses: ['Cavalry rally lead for KvK', 'Alliance Championship cavalry lane', 'Late-game PvP rally commander'],
-    bestPairings: ['Diana (sub)', 'Forrest (capacity)', 'Jaeger (infantry layer)'],
+    bestUses: ['Cavalry rally lead for KvK', 'Alliance Championship Cavalry lane', 'Late-game PvP Cavalry rally commander'],
+    bestPairings: ['Diana (Archer/Cavalry support)', 'Jabel (Cavalry HP layer)', 'Gordon (Cavalry defense)'],
     pvpRating: 'S', pveRating: 'B', bearRating: 'A', f2pRating: 'B',
-    widgetPriority: 'High for cavalry accounts',
+    widgetPriority: 'High for Cavalry accounts',
     recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max widget' },
-    expeditionSkills: 'Cavalry Lethality and Speed - dual utility',
-    conquestSkills: 'Cavalry Lethality +22% / Rally Burst proc - best cavalry offensive kit',
-    widget: 'Cavalry Lethality boost for rally - top priority for cavalry-focused governors',
-    notes: 'If running cavalry as your primary army type, Petra is the long-term rally lead to build toward.',
+    expeditionSkills: 'Cavalry Lethality and support — dual utility',
+    conquestSkills: 'Cavalry Lethality and offensive support — exact skill values unverified; check in-game',
+    widget: 'Cavalry Lethality boost for rally — top priority for Cavalry-focused governors',
+    notes: 'If running Cavalry as your primary army type, Petra is the long-term rally lead to build toward.',
     tags: ['Cavalry', 'Rally', 'PvP', 'KvK', 'S-Tier', 'Long-Term Viable']
   },
   {
-    id: 'fahd', name: 'Fahd', generation: 1, rarity: 'Epic',
+    id: 'fahd', name: 'Fahd', generation: 3, rarity: 'Epic',
     troopType: 'Cavalry', primaryRole: 'Rally', secondaryRole: 'Garrison',
     acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~120',
     availableNow: true,
     emoji: '🛡️',
     image: 'https://tactichub.github.io/BBQ1620/images/heroes/Fahd.jpg',
-    shortDescription: 'Cavalry Epic hero with offensive and defensive stats. Fahd provides Cavalry Lethality making him a useful Cavalry rally joiner, and his damage reduction is a welcome survivability layer.',
-    strengths: ['Infantry Lethality - first infantry hero with offensive kit', 'Dual offense/defense stats', 'Strong for PvP infantry builds', 'Better garrison value than Gen 1 options'],
-    weaknesses: ['Infantry meta is less dominant than Archer/Cavalry', 'Widget priority depends on troop strategy', 'Outclassed by Amadeus for pure Archer play'],
-    bestUses: ['Infantry rally leader', 'Garrison KvK commander', 'Alliance Championship infantry lane'],
-    bestPairings: ['Jabel (HP layer)', 'Gordon (defense stack)', 'Helga (alliance buff)'],
+    shortDescription: 'Epic Cavalry combat hero with offensive and defensive stats. Fahd provides Cavalry Lethality making him a useful Cavalry rally joiner, and his survivability kit adds durability to Cavalry marches.',
+    strengths: ['Cavalry Lethality support kit', 'Dual offense and defense stats useful for Cavalry builds', 'Better garrison value than early Cavalry options'],
+    weaknesses: ['Cavalry meta is server-age dependent', 'Widget priority depends on troop strategy', 'Outclassed for pure Archer play'],
+    bestUses: ['Cavalry rally support', 'Cavalry garrison KvK commander', 'Alliance Championship Cavalry lane'],
+    bestPairings: ['Jabel (Cavalry HP layer)', 'Gordon (Cavalry defense stack)', 'Petra (Cavalry lead)'],
     pvpRating: 'A', pveRating: 'B', bearRating: 'C', f2pRating: 'B',
-    widgetPriority: 'Medium for infantry accounts',
-    recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max for infantry mains' },
-    expeditionSkills: 'Infantry Lethality - useful expedition bonus',
-    conquestSkills: 'Infantry Lethality +18% / Infantry HP +14% - only infantry hero with Lethality',
-    widget: 'Infantry Lethality for rally - important for infantry-first accounts',
-    notes: 'First infantry hero to bring Lethality to the table. Significant upgrade for infantry-primary players.',
-    tags: ['Infantry', 'Rally', 'Garrison', 'PvP']
+    widgetPriority: 'Medium for Cavalry accounts',
+    recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max for Cavalry mains' },
+    expeditionSkills: 'Cavalry support — useful expedition bonus',
+    conquestSkills: 'Cavalry Lethality and survivability support — exact skill values unverified; check in-game',
+    widget: 'Cavalry Lethality for rally — relevant for Cavalry-primary accounts',
+    notes: 'Useful Cavalry combat hero. Invest if building a Cavalry-primary account; skip if Archer-first.',
+    tags: ['Cavalry', 'Rally', 'Garrison', 'PvP']
   },
   {
     id: 'saul', name: 'Saul', generation: 1, rarity: 'Legendary',
@@ -4012,7 +4056,7 @@ const HERO_DATA = [
     widgetPriority: 'High if prioritizing Bear Hunt score',
     recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max widget for Bear meta' },
     expeditionSkills: 'Beast Damage - direct Bear Hunt value',
-    conquestSkills: 'Beast Damage +20% / Archer Lethality +12% - top Bear Hunt DPS kit',
+    conquestSkills: 'Beast Damage and Archer Lethality support — exact skill values unverified; check in-game',
     widget: 'Beast Damage multiplier - best Bear Hunt widget in Gen 3',
     notes: 'Replaces Amane as Sub 3 when fully built. For pure Bear Hunt optimization: Quinn → Chenko → Yeonwoo → Saul.',
     tags: ['Archer', 'Bear', 'PvE', 'S-Tier Bear', 'Widget Priority']
@@ -4022,42 +4066,42 @@ const HERO_DATA = [
     troopType: 'Archer', primaryRole: 'PvP', secondaryRole: 'Rally',
     acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~120',
     availableNow: true,
-    emoji: '🐴',
+    emoji: '🏹',
     image: 'https://tactichub.github.io/BBQ1620/images/heroes/Marlin.jpg',
-    shortDescription: 'Archer Legendary (Gen 2) with a proc-based burst skill that activates mid-combat. Marlin adds Archer AoE damage to PvP rallies and KvK pushes.',
-    strengths: ['Cavalry burst proc for PvP', 'Fast combat resolution benefit', 'Good KvK rally value', 'Pairs well with Petra'],
-    weaknesses: ['Proc-based - RNG element', 'Less consistent than flat Lethality', 'Moderate Bear Hunt value'],
-    bestUses: ['Sub-hero in Petra cavalry rally', 'PvP fast-hit marches', 'KvK burst attack'],
-    bestPairings: ['Jaeger (Archer lead)', 'Quinn (Archer support)', 'Amane (Archer joiner)'],
+    shortDescription: 'Archer Legendary (Gen 2) with a proc-based burst skill that activates mid-combat. Marlin adds Archer damage to PvP rallies and KvK pushes.',
+    strengths: ['Proc-based burst skill adds PvP damage', 'Useful in Archer PvP rally builds', 'Good KvK rally value'],
+    weaknesses: ['Proc-based — some RNG element', 'Less consistent than flat Lethality heroes', 'Moderate Bear Hunt value'],
+    bestUses: ['Sub-hero in Archer PvP rally', 'PvP fast-hit Archer marches', 'KvK Archer burst attack'],
+    bestPairings: ['Amadeus (Archer lead)', 'Quinn (Archer support)', 'Chenko (Lethality)'],
     pvpRating: 'A', pveRating: 'B', bearRating: 'C', f2pRating: 'C',
-    widgetPriority: 'Low - Petra widget first',
-    recommendedInvestment: { f2p: '3-star', midSpender: '4-star', whale: '5-star for cavalry PvP' },
-    expeditionSkills: 'Cavalry Attack - moderate',
-    conquestSkills: 'Cavalry Attack +14% / Burst proc 30% trigger rate - situational PvP value',
-    widget: 'Moderate cavalry buff; secondary priority after Petra',
-    notes: 'Good complementary hero for cavalry PvP. Not a primary investment target unless running cavalry main.',
-    tags: ['Cavalry', 'PvP', 'Rally', 'KvK']
+    widgetPriority: 'Low - core Archer heroes first',
+    recommendedInvestment: { f2p: '3-star', midSpender: '4-star', whale: '5-star for Archer PvP' },
+    expeditionSkills: 'Archer Attack — moderate',
+    conquestSkills: 'Archer Attack and burst proc — exact skill values unverified; check in-game',
+    widget: 'Moderate Archer buff; secondary priority after core Bear Hunt heroes',
+    notes: 'Good complementary Archer PvP hero. Not a primary investment target unless core Bear Hunt slots are already filled.',
+    tags: ['Archer', 'PvP', 'Rally', 'KvK']
   },
   {
     id: 'zoe', name: 'Zoe', generation: 2, rarity: 'Legendary',
     troopType: 'Infantry', primaryRole: 'Rally', secondaryRole: 'PvP',
     acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~120',
     availableNow: true,
-    emoji: '🏹',
+    emoji: '⚔️',
     image: 'https://tactichub.github.io/BBQ1620/images/heroes/Zoe.jpg',
-    shortDescription: 'Infantry Legendary (Gen 2) with a unique HP heal and high base Health. Zoe is an exceptional long-term investment - her healing and HP bonuses have no direct F2P replacement through Gen 5.',
-    strengths: ['Enemy Defense reduction debuff - rare and powerful', 'Archer Lethality + debuff combination', 'Counters heavy HP/Defense stacking defenders', 'Strong for coordinated KvK pushes'],
-    weaknesses: ['Debuff requires skill to be active during combat window', 'Lower raw Lethality than Chenko/Yeonwoo', 'Widget less impactful than core Lethality heroes'],
-    bestUses: ['Sub-hero in KvK Archer rally vs. whale defenders', 'Coordinated attack on fortified cities', 'Alliance Championship attacking lane'],
-    bestPairings: ['Amadeus (lead)', 'Chenko (Lethality)', 'Yeonwoo (Beast/Archer)'],
-    pvpRating: 'A', pveRating: 'B', bearRating: 'B', f2pRating: 'B',
-    widgetPriority: 'Medium for KvK-focused accounts',
-    recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max for KvK offense' },
-    expeditionSkills: 'Archer Attack - moderate',
-    conquestSkills: 'Archer Lethality +14% / Enemy Defense -12% - unique debuff value',
-    widget: 'Archer/enemy debuff combo; useful for KvK but not Bear Hunt priority',
-    notes: 'The enemy Defense debuff makes Zoe disproportionately powerful against high-investment defenders. Flag for KvK rally builds.',
-    tags: ['Archer', 'Rally', 'PvP', 'KvK', 'Debuff']
+    shortDescription: 'Infantry Legendary (Gen 2) with high base Health and useful long-term Infantry support. Zoe provides Infantry rally value and healing utility with no direct F2P replacement through Gen 5.',
+    strengths: ['Strong HP and healing utility', 'Long-term Infantry rally value', 'Useful in coordinated KvK Infantry pushes'],
+    weaknesses: ['Less impactful in Archer-primary marches', 'Lower raw Lethality than Archer-focused heroes', 'Widget less impactful than core Lethality heroes'],
+    bestUses: ['Infantry rally leader or sub-hero', 'KvK Infantry attack march', 'Alliance Championship Infantry lane'],
+    bestPairings: ['Helga (Infantry alliance buff)', 'Fahd (Cavalry Lethality support)', 'Jabel (Cavalry HP layer)'],
+    pvpRating: 'A', pveRating: 'B', bearRating: 'D', f2pRating: 'B',
+    widgetPriority: 'Medium for Infantry-focused accounts',
+    recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max for KvK Infantry offense' },
+    expeditionSkills: 'Infantry support — moderate utility',
+    conquestSkills: 'Infantry HP and offensive support — exact skill values unverified; check in-game',
+    widget: 'Infantry combat support — useful for Infantry-primary KvK builds',
+    notes: 'Long-term Infantry value with no F2P equivalent at higher generations. Infantry-primary accounts should invest.',
+    tags: ['Infantry', 'Rally', 'PvP', 'KvK']
   },
   {
     id: 'helga', name: 'Helga', generation: 1, rarity: 'Legendary',
@@ -4075,7 +4119,7 @@ const HERO_DATA = [
     widgetPriority: 'Medium - R4/R5 leaders should prioritize this widget',
     recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max widget for alliance events' },
     expeditionSkills: 'All Troops Attack - alliance-wide passive',
-    conquestSkills: 'All Alliance Members Lethality +8% in range - unique alliance multiplier',
+    conquestSkills: 'Alliance-wide Lethality aura support — exact skill values unverified; check in-game',
     widget: 'Alliance buff multiplier - activates when Helga leads and alliance members are nearby',
     notes: 'R4/R5 recommended investment. Helga creates a meaningful advantage during synchronized alliance pushes in Championship and KvK.',
     tags: ['Infantry', 'Rally', 'Alliance Buff', 'KvK', 'Alliance Championship', 'Long-Term Viable']
@@ -4087,82 +4131,82 @@ const HERO_DATA = [
     availableNow: true,
     emoji: '🏰',
     image: 'https://tactichub.github.io/BBQ1620/images/heroes/Hilde.jpg',
-    shortDescription: 'Cavalry Legendary (Gen 2) garrison commander with a counter-attack skill. Hilde penalizes attackers when garrisoned, making city sieges more costly for the aggressor.',
-    strengths: ['Unique counter-attack mechanic', 'Best Gen 3 garrison hero for KvK defense', 'Synergizes with high HP builds', 'Deters serial attackers'],
-    weaknesses: ['Passive - only useful when garrisoned', 'No offensive contribution outside garrison', 'Counter-attack damage scales with garrison size'],
+    shortDescription: 'Cavalry Legendary (Gen 2) garrison commander. Hilde provides Cavalry-focused defensive value when garrisoned, making city sieges more costly for the aggressor.',
+    strengths: ['Cavalry garrison defensive kit', 'Deters serial attackers when garrisoned', 'Useful for protecting high-value Cavalry-heavy cities during KvK'],
+    weaknesses: ['Passive — only useful when garrisoned', 'No offensive contribution outside garrison', 'Niche role limits general-purpose value'],
     bestUses: ['City garrison during KvK', 'Alliance fortress defense', 'High-value player base protection'],
-    bestPairings: ['Olive (HP stack)', 'Gordon (defense layer)', 'Helga (buff overlay)'],
+    bestPairings: ['Jabel (Cavalry HP stack)', 'Gordon (Cavalry defense layer)', 'Edwin (Cavalry support)'],
     pvpRating: 'B', pveRating: 'D', bearRating: 'D', f2pRating: 'C',
-    widgetPriority: 'Low unless dedicated KvK defender',
+    widgetPriority: 'Low unless dedicated KvK Cavalry defender',
     recommendedInvestment: { f2p: '3-star', midSpender: '4-star for garrison mains', whale: '5-star + widget for garrison priority' },
-    expeditionSkills: 'Infantry Defense - garrison-relevant',
-    conquestSkills: 'Counter-attack +10% damage / Infantry HP +16% - unique defensive proc',
-    widget: 'Counter-attack amplifier - significant for dedicated garrison play',
-    notes: 'Niche but powerful for the right role. R4/R5 should consider Hilde for protecting high-value cities during KvK war phases.',
-    tags: ['Infantry', 'Garrison', 'Defense', 'KvK']
+    expeditionSkills: 'Cavalry Defense — garrison-relevant',
+    conquestSkills: 'Cavalry defensive garrison kit — exact skill values unverified; check in-game',
+    widget: 'Cavalry garrison defensive boost — situationally useful for dedicated KvK defenders',
+    notes: 'Niche but potentially useful for the right role. R4/R5 should consider Hilde for protecting high-value Cavalry cities during KvK war phases.',
+    tags: ['Cavalry', 'Garrison', 'Defense', 'KvK']
   },
   {
     id: 'jaeger', name: 'Jaeger', generation: 3, rarity: 'Legendary',
     troopType: 'Archer', primaryRole: 'Rally', secondaryRole: 'PvP',
     acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~120',
     availableNow: true,
-    emoji: '⚔️',
+    emoji: '🏹',
     image: 'https://tactichub.github.io/BBQ1620/images/heroes/Jaeger.jpg',
-    shortDescription: 'Archer Legendary (Gen 3) with a Defense penetration skill. Jaeger bypasses a portion of enemy Defense, making him potent against fortified tank builds in KvK.',
-    strengths: ['Defense penetration skill - counters tank builds', 'Infantry Lethality', 'PvP anti-whale utility', 'Good for coordinated infantry pushes'],
-    weaknesses: ['Niche - most effective against high-Defense defenders', 'Not a Bear Hunt hero', 'Lower base stats than Fahd for standard infantry play'],
-    bestUses: ['Infantry rally vs. high-Defense defenders', 'KvK anti-tank march', 'Alliance Championship infantry lane attack'],
-    bestPairings: ['Fahd (Lethality layer)', 'Zoe (debuff stack)', 'any Archer lead'],
+    shortDescription: 'Gen 3 Archer Legendary PvP damage hero. Jaeger brings strong Archer offensive output to KvK rallies and Alliance Championship attacks.',
+    strengths: ['Gen 3 Archer Lethality kit', 'Strong PvP Archer rally output', 'Useful in coordinated KvK Archer pushes'],
+    weaknesses: ['Not a Bear Hunt priority hero', 'Lower Archer DPS than Bear Hunt-specialized heroes for PvE', 'High roulette ticket cost for Gen 3'],
+    bestUses: ['Archer PvP rally leader or sub-hero', 'KvK Archer attack march', 'Alliance Championship Archer lane attack'],
+    bestPairings: ['Amadeus (Archer lead)', 'Chenko (Lethality support)', 'Yeonwoo (Archer support)'],
     pvpRating: 'A', pveRating: 'C', bearRating: 'D', f2pRating: 'C',
-    widgetPriority: 'Low to Medium',
-    recommendedInvestment: { f2p: '3-star', midSpender: '4-star', whale: '5-star for infantry PvP' },
-    expeditionSkills: 'Infantry Attack - moderate',
-    conquestSkills: 'Defense Penetration +10% / Infantry Lethality +14% - anti-tank specialty',
-    widget: 'Defense penetration amplifier - situationally powerful',
-    notes: 'Situationally elite against fortified targets. Less value on servers where defenders prioritize HP over Defense.',
-    tags: ['Infantry', 'Rally', 'PvP', 'KvK', 'Anti-Tank']
+    widgetPriority: 'Low to Medium — core Archer Bear Hunt heroes first',
+    recommendedInvestment: { f2p: '3-star', midSpender: '4-star', whale: '5-star for Archer PvP builds' },
+    expeditionSkills: 'Archer Attack — moderate',
+    conquestSkills: 'Archer Lethality and offensive kit — exact skill values unverified; check in-game',
+    widget: 'Archer PvP damage boost — secondary to core Bear Hunt hero widgets',
+    notes: 'Gen 3 Archer PvP option. In Bear Hunt lineups, Saul or Amane edge Jaeger out. Best value in coordinated KvK Archer rallies.',
+    tags: ['Archer', 'Rally', 'PvP', 'KvK']
   },
   {
     id: 'eric', name: 'Eric', generation: 3, rarity: 'Legendary',
     troopType: 'Infantry', primaryRole: 'PvP', secondaryRole: 'Rally',
     acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~120',
     availableNow: true,
-    emoji: '🏹',
+    emoji: '⚔️',
     image: 'https://tactichub.github.io/BBQ1620/images/heroes/Eric.jpg',
-    shortDescription: 'Infantry Legendary (Gen 3) with a multi-target skill that deals bonus damage across multiple enemy lines. Eric excels in PvP rallies where enemy troop composition is mixed.',
-    strengths: ['Multi-target Archer skill unique in Gen 3', 'Strong vs. mixed troop compositions', 'Archer Lethality base kit', 'Useful in PvP and Alliance Championship'],
-    weaknesses: ['Multi-target proc is RNG timing dependent', 'Moderate Bear Hunt value', 'Competes with strong Archer sub-heroes in Bear Hunt slots'],
-    bestUses: ['PvP Archer rally sub-hero', 'Alliance Championship attacking march', 'KvK anti-mixed formation'],
-    bestPairings: ['Amadeus (lead)', 'Chenko (Lethality)', 'Zoe (debuff)'],
-    pvpRating: 'A', pveRating: 'B', bearRating: 'B', f2pRating: 'B',
-    widgetPriority: 'Medium for PvP-focused accounts',
-    recommendedInvestment: { f2p: '4-star', midSpender: '4-star', whale: '5-star for PvP builds' },
-    expeditionSkills: 'Archer Attack - moderate',
-    conquestSkills: 'Archer Lethality +16% / Multi-line damage proc - PvP specialty',
-    widget: 'Archer PvP damage boost; secondary to core Bear Hunt heroes',
-    notes: 'Good PvP option. In Bear Hunt lineups, Saul edges Eric out for the Sub 3 slot due to Beast Damage bonus.',
-    tags: ['Archer', 'PvP', 'Rally', 'Alliance Championship']
+    shortDescription: 'Infantry Legendary (Gen 3) with strong PvP offensive output. Eric excels in Infantry PvP rallies and coordinated KvK attacks.',
+    strengths: ['Gen 3 Infantry offensive kit', 'Strong in PvP and Alliance Championship Infantry lane', 'Useful in coordinated KvK Infantry pushes'],
+    weaknesses: ['Not a Bear Hunt priority hero', 'Outclassed for Archer-primary builds', 'High roulette ticket cost for Gen 3'],
+    bestUses: ['Infantry PvP rally leader or sub-hero', 'Alliance Championship Infantry attacking march', 'KvK Infantry push'],
+    bestPairings: ['Zoe (Infantry support)', 'Helga (alliance buff)', 'Fahd (Cavalry Lethality layer)'],
+    pvpRating: 'A', pveRating: 'B', bearRating: 'D', f2pRating: 'B',
+    widgetPriority: 'Medium for Infantry-focused PvP accounts',
+    recommendedInvestment: { f2p: '4-star', midSpender: '4-star', whale: '5-star for Infantry PvP builds' },
+    expeditionSkills: 'Infantry Attack — moderate',
+    conquestSkills: 'Infantry Lethality and offensive support — exact skill values unverified; check in-game',
+    widget: 'Infantry PvP damage boost; secondary to core Bear Hunt heroes',
+    notes: 'Good Infantry PvP option for Gen 3. Invest if running an Infantry-primary account aimed at KvK and Alliance Championship.',
+    tags: ['Infantry', 'PvP', 'Rally', 'Alliance Championship', 'KvK']
   },
   {
-    id: 'amadeus', name: 'Amadeus', generation: 1, rarity: 'Legendary',
-    troopType: 'Infantry', primaryRole: 'Rally', secondaryRole: 'Bear',
+    id: 'amadeus', name: 'Amadeus', generation: 3, rarity: 'Legendary',
+    troopType: 'Infantry', primaryRole: 'Rally', secondaryRole: 'PvP',
     acquisitionMethod: 'Hero Roulette', releaseTiming: 'Day ~120',
     availableNow: true,
     emoji: '🎖️',
     image: 'https://tactichub.github.io/BBQ1620/images/heroes/Amadeus.jpg',
-    shortDescription: 'Top-tier Infantry Legendary hero. Amadeus combines high Lethality with an alliance-wide combat buff on his conquest skill, making him the premier rally lead for Bear Hunt and coordinated PvP.',
-    strengths: ['Highest Archer Lethality in Gen 3', 'Alliance buff on conquest skill (passive)', 'Dominant Bear Hunt AND PvP lead', 'Widget multiplier is best-in-class for Archer builds', 'Long-term endgame viability'],
-    weaknesses: ['Day ~120 server age required', 'Roulette-heavy investment for stars', 'Requires Chenko + Yeonwoo support to reach full potential'],
-    bestUses: ['Primary Archer rally leader (all content)', 'Bear Hunt rally lead (replaces Quinn at 4+ star)', 'PvP and KvK rally commander', 'Alliance Championship main rally lead'],
-    bestPairings: ['Chenko (Sub 1 always)', 'Yeonwoo (Sub 2)', 'Saul (Bear) or Zoe (PvP)'],
-    pvpRating: 'S', pveRating: 'S', bearRating: 'S', f2pRating: 'B',
-    widgetPriority: 'Top priority once unlocked - surpasses Quinn widget',
-    recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max widget - number one priority' },
-    expeditionSkills: 'Archer Lethality + Alliance Attack - dual-value kit',
-    conquestSkills: 'Archer Lethality +25% / Alliance members gain +5% Lethality aura - best overall rally kit in game',
-    widget: 'Archer Lethality amplifier - highest impact widget in BBQ Beach Party for active rally leaders. Replace Quinn as primary lead at 4-star.',
-    notes: 'THE long-term investment for BBQ Beach Party. Every governor building toward Bear Hunt or KvK should have Amadeus as their primary hero goal at Day ~120+. March: Amadeus → Chenko → Yeonwoo → Saul.',
-    tags: ['Archer', 'Rally', 'Bear', 'PvP', 'S-Tier', 'Widget Priority', 'Long-Term Viable', 'Alliance Championship', 'KvK']
+    shortDescription: 'Top-tier Infantry Legendary hero (Gen 3). Amadeus brings strong Infantry offensive output and is a high-value long-term investment for Infantry-primary accounts in PvP and KvK.',
+    strengths: ['Gen 3 Infantry Lethality kit', 'Strong long-term PvP and KvK rally value', 'High rarity ceiling with widget investment'],
+    weaknesses: ['Day ~120 server age required to unlock', 'Roulette-heavy investment for stars', 'Not a Bear Hunt priority hero'],
+    bestUses: ['Infantry PvP rally leader', 'KvK Infantry attack rally commander', 'Alliance Championship Infantry lane'],
+    bestPairings: ['Zoe (Infantry support)', 'Helga (alliance-wide buff)', 'Eric (Gen 3 Infantry sub)'],
+    pvpRating: 'S', pveRating: 'B', bearRating: 'C', f2pRating: 'B',
+    widgetPriority: 'High for Infantry-primary accounts once unlocked',
+    recommendedInvestment: { f2p: '4-star', midSpender: '5-star', whale: 'Max widget — top Infantry priority' },
+    expeditionSkills: 'Infantry Lethality and support — dual-value kit',
+    conquestSkills: 'Infantry Lethality and offensive support — exact skill values unverified; check in-game',
+    widget: 'Infantry Lethality amplifier — highest impact widget for Infantry-primary rally leaders.',
+    notes: 'The long-term investment for Infantry-primary accounts. Build toward Amadeus for KvK and Alliance Championship if Infantry is your troop focus.',
+    tags: ['Infantry', 'Rally', 'PvP', 'S-Tier', 'Widget Priority', 'Long-Term Viable', 'Alliance Championship', 'KvK']
   }
 ];
 
