@@ -1779,6 +1779,321 @@
     .utc-float-btn { top: 14px; right: 14px; height: 38px; padding: 0 12px 0 10px; }
     .utc-panel { right: 14px; width: calc(100vw - 28px); top: 64px; }
   }
+
+  /* ── MASTER TRAINING ACADEMY ── */
+  .mta-intro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 16px 0 24px;
+  }
+  .mta-intro-card {
+    background: rgba(255,248,235,0.85);
+    border: 1px solid rgba(212,137,26,0.18);
+    border-radius: 8px;
+    padding: 16px 18px;
+    border-top: 3px solid var(--gold);
+  }
+  .mta-intro-card.card-blue  { border-top-color: var(--blue-bright); background: rgba(58,104,153,0.07); }
+  .mta-intro-card.card-green { border-top-color: var(--green-bright); background: rgba(74,140,63,0.07); }
+  .mta-intro-card.card-purple{ border-top-color: var(--purple-bright); background: rgba(122,74,154,0.07); }
+  .mta-intro-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+  }
+  .mta-intro-title {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .mta-intro-desc {
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    line-height: 1.55;
+  }
+
+  /* Resource pills */
+  .mta-resource-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0;
+  }
+  .mta-res-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    border: 1px solid;
+  }
+  .mta-res-pill.safe    { background: rgba(74,140,63,0.12); border-color: rgba(109,194,95,0.35); color: var(--green-bright); }
+  .mta-res-pill.caution { background: rgba(192,104,32,0.12); border-color: rgba(192,104,32,0.35); color: var(--orange); }
+
+  /* Priority track */
+  .mta-priority-track {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    margin: 14px 0 20px;
+  }
+  .mta-priority-card {
+    background: rgba(255,248,235,0.85);
+    border-radius: 8px;
+    border: 1px solid rgba(212,137,26,0.15);
+    padding: 14px 16px;
+    position: relative;
+  }
+  .mta-priority-rank {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .mta-priority-name {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .mta-priority-reason {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+  .mta-priority-card.p1 { border-left: 4px solid var(--gold); }
+  .mta-priority-card.p2 { border-left: 4px solid var(--blue-bright); }
+  .mta-priority-card.p3 { border-left: 4px solid var(--green-bright); }
+  .mta-priority-card.p4 { border-left: 4px solid var(--text-muted); }
+
+  /* Master detail cards (accordion) */
+  .mta-master-list { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+  .mta-master-card {
+    background: rgba(255,248,235,0.88);
+    border: 1px solid rgba(212,137,26,0.18);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .mta-master-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mta-master-header:hover { background: rgba(212,137,26,0.06); }
+  .mta-master-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .mta-master-meta { flex: 1; min-width: 0; }
+  .mta-master-name {
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 2px;
+  }
+  .mta-master-tagline { font-size: 0.82rem; color: var(--text-dim); }
+  .mta-master-badges { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
+  .mta-badge {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    padding: 2px 9px;
+    border-radius: 10px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+  .mta-badge.gold   { background: rgba(201,168,76,0.15);  border-color: rgba(201,168,76,0.4);  color: var(--gold); }
+  .mta-badge.green  { background: rgba(74,140,63,0.15);   border-color: rgba(109,194,95,0.4);  color: var(--green-bright); }
+  .mta-badge.blue   { background: rgba(58,104,153,0.15);  border-color: rgba(95,160,216,0.4);  color: var(--blue-bright); }
+  .mta-badge.purple { background: rgba(122,74,154,0.15);  border-color: rgba(160,106,200,0.4); color: var(--purple-bright); }
+  .mta-badge.orange { background: rgba(192,104,32,0.15);  border-color: rgba(192,104,32,0.4);  color: var(--orange); }
+  .mta-chevron {
+    font-size: 0.75rem;
+    color: var(--gold);
+    flex-shrink: 0;
+    transition: transform 0.25s;
+  }
+  .mta-master-card.open .mta-chevron { transform: rotate(180deg); }
+  .mta-master-body {
+    display: none;
+    padding: 0 20px 20px;
+    border-top: 1px solid rgba(212,137,26,0.12);
+  }
+  .mta-master-card.open .mta-master-body { display: block; }
+
+  .mta-body-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .mta-body-block { }
+  .mta-body-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(212,137,26,0.2);
+  }
+  .mta-body-block ul { margin: 0 0 0 16px; padding: 0; }
+  .mta-body-block li { font-size: 0.88rem; color: var(--text-dim); margin-bottom: 4px; line-height: 1.5; }
+  .mta-body-block p  { font-size: 0.88rem; color: var(--text-dim); line-height: 1.5; margin-bottom: 6px; }
+  .mta-skill-pill {
+    display: inline-block;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 4px;
+    color: var(--gold);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 2px 8px;
+    margin: 2px 3px 2px 0;
+  }
+  .mta-skill-pill.key { background: rgba(192,104,32,0.12); border-color: rgba(192,104,32,0.35); color: var(--orange); }
+
+  /* Journey system cards */
+  .mta-journey-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+    margin: 14px 0;
+  }
+  .mta-journey-card {
+    background: rgba(255,248,235,0.85);
+    border-radius: 8px;
+    padding: 16px 18px;
+    border: 1px solid rgba(212,137,26,0.15);
+    border-top: 3px solid var(--blue-bright);
+  }
+  .mta-journey-card.lostlands { border-top-color: var(--purple-bright); background: rgba(122,74,154,0.06); }
+  .mta-journey-title {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .mta-journey-sub {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--blue-bright);
+    margin-bottom: 10px;
+  }
+  .mta-journey-card.lostlands .mta-journey-sub { color: var(--purple-bright); }
+  .mta-journey-card ul { margin: 0 0 0 16px; }
+  .mta-journey-card li { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 4px; line-height: 1.5; }
+
+  /* KvK spend table */
+  .mta-kvk-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 14px 0;
+  }
+  .mta-kvk-col {
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .mta-kvk-col.safe    { background: rgba(74,140,63,0.08);  border: 1px solid rgba(109,194,95,0.25); }
+  .mta-kvk-col.caution { background: rgba(192,104,32,0.08); border: 1px solid rgba(192,104,32,0.25); }
+  .mta-kvk-col-title {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .mta-kvk-col.safe .mta-kvk-col-title    { color: var(--green-bright); }
+  .mta-kvk-col.caution .mta-kvk-col-title { color: var(--orange); }
+  .mta-kvk-col ul { margin: 0 0 0 14px; padding: 0; }
+  .mta-kvk-col li { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 5px; line-height: 1.5; }
+
+  /* Mistake grid reuse */
+  .mta-mistake-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 10px;
+    margin: 14px 0;
+  }
+  .mta-mistake-card {
+    background: rgba(192,104,32,0.07);
+    border: 1px solid rgba(192,104,32,0.2);
+    border-left: 4px solid var(--orange);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .mta-mistake-title {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--orange);
+    margin-bottom: 5px;
+  }
+  .mta-mistake-desc { font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; }
+
+  /* Breakpoint reference table */
+  .mta-table-wrap { overflow-x: auto; margin: 4px 0 16px; border-radius: 8px; }
+  .mta-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.86rem;
+    font-family: 'Merriweather', Georgia, serif;
+    min-width: 560px;
+  }
+  .mta-table thead tr { background: rgba(212,137,26,0.1); border-bottom: 2px solid rgba(212,137,26,0.3); }
+  .mta-table th {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.63rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 10px 12px;
+    text-align: left;
+    white-space: nowrap;
+  }
+  .mta-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid rgba(212,137,26,0.08);
+    vertical-align: top;
+    line-height: 1.5;
+    color: var(--text);
+  }
+  .mta-table tbody tr:hover { background: rgba(212,137,26,0.04); }
+  .mta-table tbody tr.mta-highlight { background: rgba(212,137,26,0.07); }
+
+  @media (max-width: 600px) {
+    .mta-kvk-grid { grid-template-columns: 1fr; }
+    .mta-body-grid { grid-template-columns: 1fr; }
+    .mta-priority-track { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 380px) {
+    .mta-priority-track { grid-template-columns: 1fr; }
+    .mta-master-header { padding: 13px 15px; }
+  }
 </style>
 </head>
 <body>
@@ -1838,6 +2153,7 @@
     <div class="sidebar-divider">Strategy</div>
     <a href="#kvk"><span class="nav-icon">&#x2694;</span>KvK</a>
     <a href="#truegold"><span class="nav-icon">&#x1F947;</span>True Gold</a>
+    <a href="#master-academy"><span class="nav-icon">&#x1F393;</span>Master Academy</a>
     <a href="#pets"><span class="nav-icon">&#x1F43E;</span>Pets</a>
     <a href="#transfer"><span class="nav-icon">&#x1F30D;</span>Kingdom Transfer</a>
     <a href="#f2p"><span class="nav-icon">&#x1F4B0;</span>F2P Strategy</a>
@@ -2944,6 +3260,583 @@
       </tbody>
     </table>
   </div>
+</section>
+
+<div class="divider">&#x2756; &#x2756; &#x2756;</div>
+
+<!-- MASTER TRAINING ACADEMY -->
+<section id="master-academy">
+  <div class="section-header">
+    <span class="section-icon">&#x1F393;</span>
+    <h2>Master Training Academy Guide</h2>
+  </div>
+
+  <div class="callout callout-info">
+    <span class="callout-label">&#x1F4CB; What Is the Master Training Academy?</span>
+    The Master Training Academy unlocks once your first Master settles in your town (requires <strong>Town Center 25</strong> and Kingdom Generation 3 Heroes — typically around <strong>server day 101–114</strong>). Masters are powerful NPCs with unique passives, skills, and journey systems that compound account progression over time. Your first guaranteed Master is <strong>Valora</strong>. Unlike buildings, Masters grow through Journey Systems, Affinity stages, and a shared skill training queue — making resource management and priority decisions critical.
+  </div>
+
+  <!-- INTRO GRID -->
+  <div class="mta-intro-grid">
+    <div class="mta-intro-card">
+      <div class="mta-intro-label">Why It Matters</div>
+      <div class="mta-intro-title">Passive Long-Term Compounding</div>
+      <div class="mta-intro-desc">Master passives generate resources, expand capacity, and unlock progression systems that grow your account even when you are offline. The earlier you unlock, the longer they compound.</div>
+    </div>
+    <div class="mta-intro-card card-blue">
+      <div class="mta-intro-label">Critical Constraint</div>
+      <div class="mta-intro-title">Shared Skill Queue</div>
+      <div class="mta-intro-desc">All Masters share <strong>one active skill training queue</strong>. Only one skill across all Masters can train at a time. Choosing what to train next — and when — is a major strategic decision.</div>
+    </div>
+    <div class="mta-intro-card card-green">
+      <div class="mta-intro-label">KvK Awareness</div>
+      <div class="mta-intro-title">Not All Resources Are Equal</div>
+      <div class="mta-intro-desc">Some Master resources count toward KvK scoring; others do not. Spending the wrong resource at the wrong time can hurt your kingdom's event standing. Know the difference before you spend.</div>
+    </div>
+    <div class="mta-intro-card card-purple">
+      <div class="mta-intro-label">Core Strategy</div>
+      <div class="mta-intro-title">Unlock First, Advance Later</div>
+      <div class="mta-intro-desc">Discover Masters early using safe resources. Delay Emblem and Manuscript spending until after KvK prep windows close. The unlock itself is the priority — advancement can wait.</div>
+    </div>
+  </div>
+
+  <!-- JOURNEY SYSTEMS -->
+  <h3>Journey Systems Overview</h3>
+  <div class="mta-journey-grid">
+    <div class="mta-journey-card">
+      <div class="mta-journey-title">Realm Journey</div>
+      <div class="mta-journey-sub">Uses Journey Supplies &nbsp;&#xB7;&nbsp; Regenerates Daily</div>
+      <ul>
+        <li>Primary discovery system for finding new Masters</li>
+        <li>Generates encounters and Master Affinity progress</li>
+        <li>Auto Journey unlocks after completing 50 Realm Journeys</li>
+        <li><strong>Safe to spend freely</strong> — Journey Supplies do not affect KvK scoring</li>
+      </ul>
+    </div>
+    <div class="mta-journey-card lostlands">
+      <div class="mta-journey-title">Lostlands Journey</div>
+      <div class="mta-journey-sub">Uses Adventure Supplies &nbsp;&#xB7;&nbsp; No Storage Cap</div>
+      <ul>
+        <li>Unlocks after completing <strong>60 Realm Journeys</strong></li>
+        <li>Allows targeted progression for specific discovered Masters</li>
+        <li>Community recommends using for <strong>Pan and Roman</strong> priority progression</li>
+        <li>Adventure Supplies have no storage cap — bank them strategically</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- RESOURCES -->
+  <h3>Master Resources at a Glance</h3>
+  <div class="card card-gold" style="margin-bottom:8px;">
+    <p style="font-family:'Lato',sans-serif;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">&#x2705; Safe to Spend Freely</p>
+    <div class="mta-resource-row">
+      <span class="mta-res-pill safe">&#x1F9ED; Journey Supplies</span>
+      <span class="mta-res-pill safe">&#x1F3DE; Adventure Supplies</span>
+      <span class="mta-res-pill safe">&#x1F381; Master Gifts</span>
+    </div>
+    <p style="font-size:0.83rem;color:var(--text-dim);">These resources do <strong>not</strong> contribute to KvK scoring. Spend them as needed without concern for event timing.</p>
+  </div>
+  <div class="card" style="border-color:rgba(192,104,32,0.3);background:rgba(192,104,32,0.06);margin-bottom:8px;">
+    <p style="font-family:'Lato',sans-serif;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;">&#x26A0; KvK-Sensitive — Hold During Prep Windows</p>
+    <div class="mta-resource-row">
+      <span class="mta-res-pill caution">&#x1F3AB; Master Emblems</span>
+      <span class="mta-res-pill caution">&#x1F4DC; Master Manuscripts</span>
+      <span class="mta-res-pill caution">&#x23F1; Master Skill Speedups</span>
+    </div>
+    <p style="font-size:0.83rem;color:var(--text-dim);">These resources score in KvK prep events. Coordinate spending timing with your R4/R5 leadership. Emblems are a significant bottleneck — treat them as a gated resource.</p>
+  </div>
+
+  <!-- PRIORITY PATHS -->
+  <h3>Priority Order by Player Type</h3>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:14px 0;">
+
+    <div>
+      <div style="font-family:'Lato',sans-serif;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">&#x1F4B0; F2P / Low Spender</div>
+      <div class="mta-priority-track">
+        <div class="mta-priority-card p1"><div class="mta-priority-rank">1st Priority</div><div class="mta-priority-name">Pan</div><div class="mta-priority-reason">Economy passive compounds daily. Reserve Chests can contain Truegold. Strongest long-term F2P value.</div></div>
+        <div class="mta-priority-card p2"><div class="mta-priority-rank">2nd Priority</div><div class="mta-priority-name">Valora</div><div class="mta-priority-reason">First guaranteed Master. Forgehammer generation via Weapon Obsession is a major gear progression multiplier.</div></div>
+        <div class="mta-priority-card p3"><div class="mta-priority-rank">3rd Priority</div><div class="mta-priority-name">Roman</div><div class="mta-priority-reason">Arena Star Chests provide Mythic Shards and Forgehammers. Higher resource cost — unlock after Pan/Valora are established.</div></div>
+        <div class="mta-priority-card p4"><div class="mta-priority-rank">4th Priority</div><div class="mta-priority-name">Cassia</div><div class="mta-priority-reason">Strong late-game scaling but high investment ceiling. Lower priority for F2P until earlier Masters are developed.</div></div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-family:'Lato',sans-serif;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;">&#x2694;&#xFE0F; Combat-Focused Players</div>
+      <div class="mta-priority-track">
+        <div class="mta-priority-card p1"><div class="mta-priority-rank">1st Priority</div><div class="mta-priority-name">Valora</div><div class="mta-priority-reason">Bear Hunt specialist. Weapon Obsession and rally capacity skills directly multiply active combat contribution.</div></div>
+        <div class="mta-priority-card p2"><div class="mta-priority-rank">2nd Priority</div><div class="mta-priority-name">Roman</div><div class="mta-priority-reason">Arena-focused combat progression. Arena Star Chests accelerate gear and shard acquisition for competitive players.</div></div>
+        <div class="mta-priority-card p3"><div class="mta-priority-rank">3rd Priority</div><div class="mta-priority-name">Cassia</div><div class="mta-priority-reason">Squad Size expansion is meaningful for rally leads. Recruiter In Chief skill is a key combat milestone.</div></div>
+        <div class="mta-priority-card p4"><div class="mta-priority-rank">4th Priority</div><div class="mta-priority-name">Pan</div><div class="mta-priority-reason">Economy Master. Lower urgency for pure combat players but still valuable long-term.</div></div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-family:'Lato',sans-serif;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple-bright);margin-bottom:10px;">&#x1F451; Rally Leads / Heavy Spenders</div>
+      <div class="mta-priority-track">
+        <div class="mta-priority-card p1"><div class="mta-priority-rank">1st Priority</div><div class="mta-priority-name">Cassia</div><div class="mta-priority-reason">Horn of Valor expertise increases Squad Size Limit. Maximum impact for rally leads who need every troop slot.</div></div>
+        <div class="mta-priority-card p2"><div class="mta-priority-rank">2nd Priority</div><div class="mta-priority-name">Roman</div><div class="mta-priority-reason">Competitive combat progression via Arena chest generation. Strong scaling for advanced accounts.</div></div>
+        <div class="mta-priority-card p3"><div class="mta-priority-rank">3rd Priority</div><div class="mta-priority-name">Valora</div><div class="mta-priority-reason">Bear Hunt value remains strong even for spenders. Forgehammer income is universally important.</div></div>
+        <div class="mta-priority-card p4"><div class="mta-priority-rank">4th Priority</div><div class="mta-priority-name">Pan</div><div class="mta-priority-reason">Economy gains are less critical for heavy spenders, but the passive income is still additive long-term.</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BREAKPOINT REFERENCE TABLE -->
+  <h3>Master Breakpoint Reference Table</h3>
+  <div class="callout callout-tip">
+    <span class="callout-label">&#x2139; How to Read This Table</span>
+    Breakpoints are community-identified progression goals based on significant skill unlocks or passive activations. Exact numerical values for skill scaling are marked <strong>UNKNOWN</strong> — do not fabricate stats. This table will be updated as verified data becomes available.
+  </div>
+  <div class="mta-table-wrap">
+    <table class="mta-table">
+      <thead>
+        <tr>
+          <th>Master</th>
+          <th>Role</th>
+          <th>Key Skill(s)</th>
+          <th>What It Unlocks</th>
+          <th>Priority Breakpoint</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="mta-highlight">
+          <td><strong>Valora</strong></td>
+          <td><span class="mta-badge gold">Bear Hunt</span></td>
+          <td><span class="mta-skill-pill key">Weapon Obsession</span></td>
+          <td>Additional Forgehammer rewards from Bear Hunt</td>
+          <td>Unlock Weapon Obsession ASAP</td>
+          <td>Widely considered Valora's highest-priority skill. Forgehammers are heavily gated — every additional source matters.</td>
+        </tr>
+        <tr>
+          <td><strong>Valora</strong></td>
+          <td><span class="mta-badge gold">Bear Hunt</span></td>
+          <td><span class="mta-skill-pill">Dance of the Hunt</span></td>
+          <td>Increased Raging Bear Rally Squad Capacity</td>
+          <td>Strong for active Bear Hunt players</td>
+          <td>Directly scales alliance Bear Hunt output. Priority for combat-active alliances.</td>
+        </tr>
+        <tr>
+          <td><strong>Valora</strong></td>
+          <td><span class="mta-badge gold">Bear Hunt</span></td>
+          <td><span class="mta-skill-pill">Leader By Example</span></td>
+          <td>Extra Enhancement XP Parts from Bear Hunt</td>
+          <td>Secondary priority after Weapon Obsession</td>
+          <td>Valuable for gear progression. Lower urgency than Weapon Obsession.</td>
+        </tr>
+        <tr class="mta-highlight">
+          <td><strong>Pan</strong></td>
+          <td><span class="mta-badge green">Economy</span></td>
+          <td><span class="mta-skill-pill key">Falconer</span></td>
+          <td>Passive economy scaling (exact values: UNKNOWN)</td>
+          <td>Primary Pan build target</td>
+          <td>Core Pan progression skill per community consensus. Falconer is the recommended early build focus.</td>
+        </tr>
+        <tr class="mta-highlight">
+          <td><strong>Pan</strong></td>
+          <td><span class="mta-badge green">Economy</span></td>
+          <td><span class="mta-skill-pill">Efficient Reserves (Expertise)</span></td>
+          <td>Reserve Chests from gathering — may contain Truegold</td>
+          <td>Passive — activates at unlock</td>
+          <td>Daily reward limit applies. Compounds over time — the earlier Pan is unlocked, the more Reserve Chests accumulate.</td>
+        </tr>
+        <tr class="mta-highlight">
+          <td><strong>Roman</strong></td>
+          <td><span class="mta-badge blue">Arena / Combat</span></td>
+          <td><span class="mta-skill-pill key">Teacher of Champions</span></td>
+          <td>Combat progression scaling (exact values: UNKNOWN)</td>
+          <td>Primary Roman build target</td>
+          <td>Community-identified core Roman skill. Better value for Arena-active, combat-focused players.</td>
+        </tr>
+        <tr>
+          <td><strong>Roman</strong></td>
+          <td><span class="mta-badge blue">Arena / Combat</span></td>
+          <td><span class="mta-skill-pill">Star Belligerent (Expertise)</span></td>
+          <td>Chance for Arena Star Chests — may contain Mythic Shards &amp; Forgehammers</td>
+          <td>Passive — activates at unlock</td>
+          <td>Long-term competitive value. Higher unlock cost makes Roman a delayed priority for F2P.</td>
+        </tr>
+        <tr class="mta-highlight">
+          <td><strong>Cassia</strong></td>
+          <td><span class="mta-badge purple">Rally / Battle</span></td>
+          <td><span class="mta-skill-pill key">Recruiter In Chief</span></td>
+          <td>Squad scaling (exact values: UNKNOWN)</td>
+          <td>Critical for rally leads</td>
+          <td>Primary Cassia build target. High investment ceiling — most impactful for spenders and rally-focused accounts.</td>
+        </tr>
+        <tr>
+          <td><strong>Cassia</strong></td>
+          <td><span class="mta-badge purple">Rally / Battle</span></td>
+          <td><span class="mta-skill-pill">Horn of Valor (Expertise)</span></td>
+          <td>Increases Squad Size Limit</td>
+          <td>Passive — activates at unlock</td>
+          <td>Directly benefits rally leads. Cassia is the top-priority Master for rally-focused spenders.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- INDIVIDUAL MASTER SECTIONS -->
+  <h3>Master Profiles</h3>
+  <div class="mta-master-list">
+
+    <!-- VALORA -->
+    <div class="mta-master-card" id="mta-valora">
+      <div class="mta-master-header" onclick="mtaToggle('mta-valora')">
+        <span class="mta-master-icon">&#x1F43B;</span>
+        <div class="mta-master-meta">
+          <div class="mta-master-name">Valora</div>
+          <div class="mta-master-tagline">Bear Hunt Specialist &nbsp;·&nbsp; First Guaranteed Master</div>
+          <div class="mta-master-badges">
+            <span class="mta-badge gold">Bear Hunt</span>
+            <span class="mta-badge orange">Combat Utility</span>
+            <span class="mta-badge green">F2P Friendly</span>
+          </div>
+        </div>
+        <span class="mta-chevron">&#x25BC;</span>
+      </div>
+      <div class="mta-master-body">
+        <div class="mta-body-grid">
+          <div class="mta-body-block">
+            <div class="mta-body-label">Overview</div>
+            <p>Valora is the first Master players encounter — she is guaranteed as your starting unlock. Her kit is built around Bear Hunt optimization, making her universally valuable for any alliance that actively hunts bears. Her Weapon Obsession skill is widely considered one of the strongest passive generators in the game due to Forgehammers being a critical bottleneck resource.</p>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">Key Skills</div>
+            <span class="mta-skill-pill key">Weapon Obsession</span>
+            <span class="mta-skill-pill key">Dance of the Hunt</span>
+            <span class="mta-skill-pill">Leader By Example</span>
+            <span class="mta-skill-pill">Savage Advantage</span>
+            <p style="margin-top:8px;"><strong>Unlock priority:</strong> Weapon Obsession first. Additional Forgehammer generation from Bear Hunt is the most impactful passive you can unlock.</p>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">PvP vs PvE Value</div>
+            <ul>
+              <li><strong>PvE:</strong> S-tier value. Bear Hunt is Valora's specialty — all key skills amplify Bear Hunt output directly.</li>
+              <li><strong>PvP:</strong> Indirect. Rally capacity via Dance of the Hunt and Savage Advantage adds meaningful scaling for alliance combat.</li>
+            </ul>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">Efficiency Guidance</div>
+            <ul>
+              <li>F2P players unlock Valora naturally via Journey Supplies — no Adventure Supplies needed early</li>
+              <li>Prioritize Weapon Obsession skill training as your first shared queue investment</li>
+              <li>Economy-first accounts can delay Valora advancement in favor of Pan — but unlock her naturally via Realm Journey alongside Pan</li>
+              <li>Strong long-term value: Forgehammers never lose importance at any stage of progression</li>
+            </ul>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">Common Mistakes</div>
+            <ul>
+              <li>Spending Master Emblems on Valora before KvK prep windows close — hold Emblems until timing is safe</li>
+              <li>Skipping Weapon Obsession in favor of rally capacity skills — Forgehammers are the higher long-term value</li>
+              <li>Using Adventure Supplies on Valora early when Pan/Roman give higher targeted value from Lostlands Journey</li>
+            </ul>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">Synergies</div>
+            <ul>
+              <li>Pairs directly with active Bear Hunt participation — the more hunts your alliance runs, the more Valora generates</li>
+              <li>Weapon Obsession rewards stack alongside Forge event timing for maximum gear push efficiency</li>
+              <li>Dance of the Hunt synergizes with high-capacity rally leaders during large alliance Bear Hunt events</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAN -->
+    <div class="mta-master-card" id="mta-pan">
+      <div class="mta-master-header" onclick="mtaToggle('mta-pan')">
+        <span class="mta-master-icon">&#x1F33F;</span>
+        <div class="mta-master-meta">
+          <div class="mta-master-name">Pan</div>
+          <div class="mta-master-tagline">Economy &amp; Gathering Specialist &nbsp;·&nbsp; Top F2P Investment</div>
+          <div class="mta-master-badges">
+            <span class="mta-badge green">Economy</span>
+            <span class="mta-badge green">F2P Priority</span>
+            <span class="mta-badge gold">Passive Income</span>
+          </div>
+        </div>
+        <span class="mta-chevron">&#x25BC;</span>
+      </div>
+      <div class="mta-master-body">
+        <div class="mta-body-grid">
+          <div class="mta-body-block">
+            <div class="mta-body-label">Overview</div>
+            <p>Pan is widely considered the strongest F2P economy Master. Her Efficient Reserves expertise generates Reserve Chests from gathering activity — and those chests can contain Truegold. The value compounds daily. Most F2P community strategies list Pan as the highest-priority first targeted investment using Adventure Supplies in Lostlands Journey.</p>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">Key Skills</div>
+            <span class="mta-skill-pill key">Falconer</span>
+            <span class="mta-skill-pill">Efficient Reserves (Expertise)</span>
+            <p style="margin-top:8px;"><strong>Falconer</strong> is Pan's core build priority per community consensus. Exact scaling values are unverified — train it early in the shared queue once Pan is unlocked.</p>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">PvP vs PvE Value</div>
+            <ul>
+              <li><strong>PvE:</strong> High — gathering-based passive income. No active combat required.</li>
+              <li><strong>PvP:</strong> Indirect. Pan's economy output funds upgrades and gear that amplify PvP capability over time.</li>
+            </ul>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">Efficiency Guidance</div>
+            <ul>
+              <li>Unlock Pan as early as possible — every day without her Efficient Reserves passive is passive income lost</li>
+              <li>Use Adventure Supplies in Lostlands Journey to target Pan discovery after 60 Realm Journeys</li>
+              <li>Pan's value is account-wide — she benefits every player type, not just gatherers</li>
+              <li>Do not require deep advancement to generate value — even early unlock stages provide meaningful Reserve Chest income</li>
+            </ul>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">Common Mistakes</div>
+            <ul>
+              <li>Delaying Pan discovery by spending Adventure Supplies on other content before Lostlands Journey unlocks</li>
+              <li>Spending Master Emblems on Pan during KvK prep windows — hold Emblems, just unlock first</li>
+              <li>Underestimating how much Truegold accumulates from Reserve Chests over hundreds of days</li>
+            </ul>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">Synergies</div>
+            <ul>
+              <li>Reserve Chest Truegold feeds directly into Truegold building progression — tight synergy with TC and troop building upgrade timelines</li>
+              <li>Higher gathering activity means more chest generation — active tile farmers benefit most</li>
+              <li>Pairs well with economy-focused development accounts that prioritize resource efficiency</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROMAN -->
+    <div class="mta-master-card" id="mta-roman">
+      <div class="mta-master-header" onclick="mtaToggle('mta-roman')">
+        <span class="mta-master-icon">&#x1F3DF;</span>
+        <div class="mta-master-meta">
+          <div class="mta-master-name">Roman</div>
+          <div class="mta-master-tagline">Arena Specialist &nbsp;·&nbsp; Competitive Combat Progression</div>
+          <div class="mta-master-badges">
+            <span class="mta-badge blue">Arena</span>
+            <span class="mta-badge orange">Combat</span>
+            <span class="mta-badge purple">Mid–Late Game</span>
+          </div>
+        </div>
+        <span class="mta-chevron">&#x25BC;</span>
+      </div>
+      <div class="mta-master-body">
+        <div class="mta-body-grid">
+          <div class="mta-body-block">
+            <div class="mta-body-label">Overview</div>
+            <p>Roman is the Arena specialist Master. His Star Belligerent expertise gives a chance to receive Arena Star Chests after Arena battles — chests that may contain Mythic Shards and Forgehammers. Roman is considered more resource-intensive than Pan or Valora and is better suited for advanced or combat-focused accounts. F2P players typically unlock Roman after Pan is established.</p>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">Key Skills</div>
+            <span class="mta-skill-pill key">Teacher of Champions</span>
+            <span class="mta-skill-pill">Star Belligerent (Expertise)</span>
+            <p style="margin-top:8px;">Teacher of Champions is the community-identified primary build target. Exact skill values are unverified — invest in it as your primary Roman queue slot once unlocked.</p>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">PvP vs PvE Value</div>
+            <ul>
+              <li><strong>PvP:</strong> Strong — Arena is an active competitive system. Roman directly rewards Arena participation with progression resources.</li>
+              <li><strong>PvE:</strong> Indirect — Mythic Shards and Forgehammers from Arena Star Chests feed into gear, which amplifies PvE output.</li>
+            </ul>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">Efficiency Guidance</div>
+            <ul>
+              <li>Usually unlocked after Pan — prioritize Pan first for F2P accounts</li>
+              <li>Higher value for players who are active in Arena combat</li>
+              <li>Often delayed by F2P players due to higher resource costs relative to Pan/Valora</li>
+              <li>Spenders and competitive PvP accounts should elevate Roman priority above Valora</li>
+            </ul>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">Common Mistakes</div>
+            <ul>
+              <li>Rushing Roman before Pan on F2P accounts — Pan's economy passive is more valuable early</li>
+              <li>Neglecting Arena activity after unlocking Roman — his expertise only generates chests when you actually fight in Arena</li>
+              <li>Over-investing Emblems on Roman during KvK prep — coordinate spend timing with leadership</li>
+            </ul>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">Synergies</div>
+            <ul>
+              <li>Star Belligerent scales with Arena activity — the more you fight, the more chests you can generate</li>
+              <li>Mythic Shard rewards accelerate hero development for competitive PvP builds</li>
+              <li>Pairs well with combat-focused hero investment strategies</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASSIA -->
+    <div class="mta-master-card" id="mta-cassia">
+      <div class="mta-master-header" onclick="mtaToggle('mta-cassia')">
+        <span class="mta-master-icon">&#x1F6E1;</span>
+        <div class="mta-master-meta">
+          <div class="mta-master-name">Cassia</div>
+          <div class="mta-master-tagline">Rally &amp; Battle Specialist &nbsp;·&nbsp; Late-Game Combat Scaling</div>
+          <div class="mta-master-badges">
+            <span class="mta-badge purple">Rally</span>
+            <span class="mta-badge orange">Late Game</span>
+            <span class="mta-badge blue">Spender Priority</span>
+          </div>
+        </div>
+        <span class="mta-chevron">&#x25BC;</span>
+      </div>
+      <div class="mta-master-body">
+        <div class="mta-body-grid">
+          <div class="mta-body-block">
+            <div class="mta-body-label">Overview</div>
+            <p>Cassia is the rally-focused Master built for late-game combat scaling. Her Horn of Valor expertise increases Squad Size Limit, which is a meaningful multiplier for rally leaders who need every troop slot. She has a high investment ceiling and is the top priority for spenders and R4/R5 rally leads. Lower urgency for F2P accounts in early and mid game.</p>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">Key Skills</div>
+            <span class="mta-skill-pill key">Recruiter In Chief</span>
+            <span class="mta-skill-pill">Horn of Valor (Expertise)</span>
+            <p style="margin-top:8px;">Recruiter In Chief is Cassia's primary build target. Exact values are unverified — it is the community-identified core progression goal for Cassia-focused accounts.</p>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">PvP vs PvE Value</div>
+            <ul>
+              <li><strong>PvP:</strong> S-tier for rally leads — Squad Size Limit directly increases the power ceiling of every rally the alliance launches.</li>
+              <li><strong>PvE:</strong> Moderate — Squad capacity helps in Bear Hunt rally coordination but Cassia is primarily a PvP investment.</li>
+            </ul>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">Efficiency Guidance</div>
+            <ul>
+              <li>Deprioritize for F2P until Pan and Valora are well-established</li>
+              <li>High impact for alliance leadership positions — if you are a rally lead, elevate Cassia sooner</li>
+              <li>More relevant in advanced kingdoms where combat is the primary competitive activity</li>
+              <li>Investment scales well for spenders — high ceiling compared to economy-focused Masters</li>
+            </ul>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">Common Mistakes</div>
+            <ul>
+              <li>Rushing Cassia as a first investment on F2P accounts — economy Masters pay back far faster early</li>
+              <li>Assuming Horn of Valor activates before Cassia is actually unlocked — the expertise passive requires the unlock</li>
+              <li>Spending limited Emblems on Cassia before safer spending windows open post-KvK</li>
+            </ul>
+          </div>
+          <div class="mta-body-block">
+            <div class="mta-body-label">Synergies</div>
+            <ul>
+              <li>Directly synergizes with alliance rally culture — the stronger your rally program, the more Cassia matters</li>
+              <li>Horn of Valor stacks with Command Center TG upgrades for maximum rally squad size</li>
+              <li>Pairs best with late-game combat heroes (Amadeus, Petra, and Gen 3+ additions)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end mta-master-list -->
+
+  <!-- KVK RESOURCE GUIDE -->
+  <h3>KvK Resource Management</h3>
+  <div class="mta-kvk-grid">
+    <div class="mta-kvk-col safe">
+      <div class="mta-kvk-col-title">&#x2705; Spend Freely Any Time</div>
+      <ul>
+        <li><strong>Journey Supplies</strong> — Realm Journey fuel, regenerates daily, no KvK impact</li>
+        <li><strong>Adventure Supplies</strong> — Lostlands Journey fuel, no storage cap, safe to bank</li>
+        <li><strong>Master Gifts</strong> — Leveling resource, no KvK scoring contribution</li>
+      </ul>
+    </div>
+    <div class="mta-kvk-col caution">
+      <div class="mta-kvk-col-title">&#x26A0; Hold During KvK Prep Windows</div>
+      <ul>
+        <li><strong>Master Emblems</strong> — Score heavily in KvK prep. Coordinate timing with R4/R5 before spending</li>
+        <li><strong>Master Manuscripts</strong> — High-value skill upgrade resource. Hold during scoring windows</li>
+        <li><strong>Master Skill Speedups</strong> — Accelerate skill training. KvK-sensitive — confirm timing before using</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout callout-warn">
+    <span class="callout-label">&#x26A0; Alliance Rule</span>
+    Always confirm KvK prep status with R4/R5 leadership before spending Emblems, Manuscripts, or Skill Speedups. Individual spending at the wrong time can reduce the kingdom's KvK scoring advantage. When in doubt, hold.
+  </div>
+
+  <!-- COMMON MISTAKES -->
+  <h3>&#x26A0; Common Mistakes</h3>
+  <div class="mta-mistake-grid">
+    <div class="mta-mistake-card">
+      <div class="mta-mistake-title">Skipping Pan in Favor of Combat Masters</div>
+      <div class="mta-mistake-desc">F2P accounts that rush Valora or Roman before Pan miss compounding economy gains that make everything else easier. Pan's Reserve Chest Truegold is one of the most efficient passive income sources in the game.</div>
+    </div>
+    <div class="mta-mistake-card">
+      <div class="mta-mistake-title">Spending Emblems During KvK Prep</div>
+      <div class="mta-mistake-desc">Master Emblems are a significant KvK scoring resource. Spending them during prep windows reduces your kingdom's event score. Coordinate with leadership — this is not an individual decision.</div>
+    </div>
+    <div class="mta-mistake-card">
+      <div class="mta-mistake-title">Neglecting the Shared Skill Queue</div>
+      <div class="mta-mistake-desc">All Masters share one training slot. Leaving the queue idle is a compounding waste. Always have the next skill queued. Prioritize Weapon Obsession (Valora) and Falconer (Pan) as early queue investments.</div>
+    </div>
+    <div class="mta-mistake-card">
+      <div class="mta-mistake-title">Using Adventure Supplies Before Lostlands Unlocks</div>
+      <div class="mta-mistake-desc">Lostlands Journey unlocks after 60 Realm Journeys and enables targeted Master progression. Do not exhaust Adventure Supplies on general content before this feature is available.</div>
+    </div>
+    <div class="mta-mistake-card">
+      <div class="mta-mistake-title">Treating All Masters as Equal Priority</div>
+      <div class="mta-mistake-desc">Pan, Valora, Roman, and Cassia have different value profiles depending on your account type. Spreading resources evenly is less efficient than identifying which Master aligns with your playstyle and front-loading that investment.</div>
+    </div>
+    <div class="mta-mistake-card">
+      <div class="mta-mistake-title">Assuming Gifts Count for KvK</div>
+      <div class="mta-mistake-desc">Master Gifts level your Masters and are safe to spend freely at any time. They do <strong>not</strong> contribute to KvK scoring — do not hoard them unnecessarily. Spend them as earned.</div>
+    </div>
+  </div>
+
+  <!-- LONG TERM ROADMAP -->
+  <h3>Long-Term Master Progression Roadmap</h3>
+  <div class="mta-table-wrap">
+    <table class="mta-table">
+      <thead>
+        <tr>
+          <th>Phase</th>
+          <th>Kingdom Age</th>
+          <th>Primary Focus</th>
+          <th>Key Targets</th>
+          <th>KvK Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="mta-highlight">
+          <td><span class="tg-badge tg-p3">Unlock</span></td>
+          <td>Day 101–114</td>
+          <td>Academy building opens. Valora settles. Begin Realm Journeys immediately.</td>
+          <td>Start Journey Supply daily loop. Discover Pan via Lostlands after 60 Journeys.</td>
+          <td>Journey Supplies safe to spend freely.</td>
+        </tr>
+        <tr>
+          <td><span class="tg-badge tg-p2">Early</span></td>
+          <td>Day 115–160</td>
+          <td>Unlock Pan via Lostlands Adventure Supplies. Queue Weapon Obsession (Valora) in shared skill slot.</td>
+          <td>Pan discovered. Valora Weapon Obsession training started. Gifts spent freely.</td>
+          <td>Hold Emblems and Manuscripts until KvK prep clears.</td>
+        </tr>
+        <tr class="mta-highlight">
+          <td><span class="tg-badge tg-p1">Mid</span></td>
+          <td>Day 160–250</td>
+          <td>Advance Pan (Falconer). Unlock Roman via Lostlands. Cassia discovery begins.</td>
+          <td>Pan Falconer trained. Roman discovered. Reserve Chests generating Truegold.</td>
+          <td>Coordinate Emblem spending with R4/R5 — safe windows open between KvK events.</td>
+        </tr>
+        <tr>
+          <td><span class="tg-badge tg-warn">Late</span></td>
+          <td>Day 250+</td>
+          <td>Deep advancement on Pan and Valora. Cassia priority for rally leads. Roman for arena-active players.</td>
+          <td>All Masters discovered. Affinity and Manuscript investment during safe spending windows.</td>
+          <td>Full KvK coordination required for Manuscript and Emblem deployment.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </section>
 
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
@@ -4580,6 +5473,13 @@ function tgInitSteps() {
   if (!list) return;
   list.innerHTML = TG_STEPS.map(s => `
     <li><strong>${s.step}</strong> - ${s.desc}</li>`).join('');
+}
+
+// ── MASTER TRAINING ACADEMY ACCORDION ──
+function mtaToggle(id) {
+  var card = document.getElementById(id);
+  if (!card) return;
+  card.classList.toggle('open');
 }
 
 document.addEventListener('DOMContentLoaded', function() {
