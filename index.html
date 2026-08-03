@@ -4481,17 +4481,17 @@ COMBAT MECHANICS (verified by StratGameSloth - youtube.com/@StratGameSloth): Com
 STRATAGAMESLOTH: Dedicated Kingshot YouTube channel at youtube.com/@StratGameSloth. 100% Kingshot content, verified strategy. Source of our Combat Mechanics deep dive section. Community-verified as reliable. Calculators - Hero Shard Calculator (plan roulette for HoG), Troop Training Calculator (HoG train day planning), Building Calculator (upgrade costs/time), Forgehammer Calculator (gear mastery planning from Bear Hunt), Governor Gear Calculator, VIP Calculator, Truegold Simulator, Truegold Planner. Planning tools - War Academy interactive tech tree with research cost calculator, Event Calendar, Appointment Planner (ministry rotations for R4/R5), Transfer Planner, KvK Match Tracker (K#1625 data included), Kingdom Age Tracker (426+ kingdoms), Interactive Game Map, Message Templates. Databases - Buildings Database, Pets Database, War Academy Database, Hero Stat Comparison tool. Gift Codes - live list with auto-redeem at v2.kingshot.net/auto-redeem.
 `;
 
-const SYSTEM_PROMPT = `You are the Kingdom 1625 Strategy AI for the mobile game Kingshot. You have access to embedded guide knowledge and can search for current event information. Kingdom #1625 is home to multiple alliances that all play together.
+const SYSTEM_PROMPT = `You are the Kingdom 1625 Strategy AI for the mobile game Kingshot. Kingdom #1625 is home to multiple alliances that all play together.
 
 ${GUIDE_KNOWLEDGE}
 
-When answering questions:
-1. First check if the embedded guide knowledge above answers the question
-2. For current events, search community sources like kingshotguides.com, kingshotmastery.com, kingshotdata.com
-3. Always be specific and actionable
-4. Format responses with clear sections using **bold** for key terms
-5. Keep responses focused - 3-5 bullet points or paragraphs max unless more is needed
-6. End each response with a source attribution note
+The guide knowledge above is your primary and authoritative source - it reflects verified, current strategy for this kingdom. When answering questions:
+1. Answer directly from the embedded guide knowledge above whenever it covers the topic - state the guide's strategy as a direct, confident recommendation, not a hedge
+2. Do not frame guide answers as "community consensus," "some sources say," or "opinions vary" - the guide reflects a single, chosen strategy for this kingdom, not a survey of opinions
+3. Never invent information or invent a source. If the guide doesn't cover a topic, use your live web search to find a real, current answer - and when you do, name the actual site, video, or channel it came from (e.g. "kingshotmastery.com," "a YouTube guide titled X"). If search turns up nothing useful, say so plainly rather than guessing. Only fall back to general knowledge if the guide and search both come up empty, and clearly label it as unverified general knowledge, not something you looked up
+4. Be specific and actionable - use exact hero names, ratios, and numbers from the guide rather than vague generalities
+5. Format responses with clear sections using **bold** for key terms
+6. Keep responses focused - 3-5 bullet points or paragraphs max unless more is needed
 
 Today's date: ${new Date().toLocaleDateString('en-US', {weekday:'long', year:'numeric', month:'long', day:'numeric'})}.`;
 
@@ -4543,7 +4543,7 @@ async function askAI() {
     const response = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: chatMessages })
+      body: JSON.stringify({ messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...chatMessages] })
     });
 
     if (!response.ok) {
@@ -4585,7 +4585,7 @@ async function askAI() {
 
     if (fullText) {
       responseBubble.innerHTML = formatMarkdown(fullText) +
-        '<div class="source-tag">&#x1F4D6; Kingdom 1625 Guide + Community Knowledge</div>';
+        '<div class="source-tag">&#x1F4D6; Kingdom 1625 Guide + Live Web Search</div>';
       chatMessages.push({ role: 'assistant', content: fullText });
     } else {
       throw new Error('No response received from the AI.');
