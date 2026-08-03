@@ -2279,7 +2279,7 @@
       <button class="ai-quick-btn" onclick="quickAsk('How do I set up the perfect Bear Hunt rally as a leader, and what formation should my members join with?')">&#x1F43B; How do I run a perfect Bear Hunt rally?</button>
       <button class="ai-quick-btn" onclick="quickAsk('What is the best hero team and strategy for Alliance Championship, and how should we organize our lanes?')">&#x1F3C6; Best strategy for Alliance Championship</button>
       <button class="ai-quick-btn" onclick="quickAsk('Walk me through Hall of Governors stage by stage - what should I save and when should I spend?')">&#x1F451; Walk me through Hall of Governors</button>
-      <button class="ai-quick-btn" onclick="quickAsk('How does Eternity's Reach work and how do I progress through the stages as an F2P player?')">&#x2728; How do I progress in Eternity's Reach?</button>
+      <button class="ai-quick-btn" onclick="quickAsk('How does Eternity\'s Reach work and how do I progress through the stages as an F2P player?')">&#x2728; How do I progress in Eternity's Reach?</button>
       <button class="ai-quick-btn" onclick="quickAsk('What pets should I unlock first and how do I use them effectively in Bear Hunt and KvK?')">&#x1F43E; Which pets matter most and how do I use them?</button>
       <button class="ai-quick-btn" onclick="quickAsk('How does Moonlit Promise work, what should I buy from the shop first, and how does our alliance coordinate?')">&#x1F319; How do I maximize Moonlit Promise?</button>
       <button class="ai-quick-btn" onclick="quickAsk('How do we survive and score well in KvK - what should our alliance do before and during the event?')">&#x1F30E; How do we prepare for KvK?</button>
@@ -4529,6 +4529,50 @@ function addBubble(role, html, isLoading) {
   return div;
 }
 
+async function sendToWorker(payloadMessages) {
+  return fetch(WORKER_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ messages: payloadMessages })
+  });
+}
+
+async function streamResponse(response, responseBubble, hist) {
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
+  let fullText = '';
+
+  responseBubble.className = 'chat-bubble assistant';
+  responseBubble.innerHTML = '';
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split('\n');
+    buffer = lines.pop(); // keep incomplete trailing line
+
+    for (const line of lines) {
+      if (!line.startsWith('data: ')) continue;
+      const data = line.slice(6).trim();
+      if (data === '[DONE]') break;
+      try {
+        const json = JSON.parse(data);
+        const delta = json.choices?.[0]?.delta?.content;
+        if (delta) {
+          fullText += delta;
+          responseBubble.innerHTML = formatMarkdown(fullText);
+          hist.scrollTop = hist.scrollHeight;
+        }
+      } catch(e) { /* incomplete chunk, skip */ }
+    }
+  }
+
+  return fullText;
+}
+
 async function askAI() {
   const input = document.getElementById('aiInput');
   const btn = document.getElementById('askBtn');
@@ -4544,51 +4588,34 @@ async function askAI() {
 
   const hist = document.getElementById('chatHistory');
   const responseBubble = addBubble('assistant', '&#x2694; Consulting the alliance archives\u2026', true);
-  let fullText = '';
+
+  // Only send the most recent exchanges to the model - the full guide knowledge
+  // in SYSTEM_PROMPT is already ~3,600 tokens on its own, so an unbounded,
+  // ever-growing history quickly runs into the account's per-minute token limit.
+  const recentMessages = chatMessages.slice(-8);
+  const fullPayload = [{ role: 'system', content: SYSTEM_PROMPT }, ...recentMessages];
 
   try {
-    const response = await fetch(WORKER_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...chatMessages] })
-    });
+    let response = await sendToWorker(fullPayload);
+
+    if (response.status === 429) {
+      const err = await response.json().catch(() => ({}));
+      const waitMatch = /try again in ([\d.]+)s/i.exec(err.error || '');
+      const waitSeconds = waitMatch ? Math.ceil(parseFloat(waitMatch[1])) + 1 : 10;
+      responseBubble.innerHTML = '&#x23F3; Busy right now - retrying in ' + waitSeconds + 's\u2026';
+      await new Promise(r => setTimeout(r, waitSeconds * 1000));
+      response = await sendToWorker(fullPayload);
+    }
 
     if (!response.ok) {
       const err = await response.json().catch(() => ({}));
+      if (response.status === 429) {
+        throw new Error('Still busy after retrying. Please wait a moment and ask again.');
+      }
       throw new Error(err.error || 'Worker error ' + response.status);
     }
 
-    // Parse OpenAI SSE stream
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-    let buffer = '';
-
-    responseBubble.className = 'chat-bubble assistant';
-    responseBubble.innerHTML = '';
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-
-      buffer += decoder.decode(value, { stream: true });
-      const lines = buffer.split('\n');
-      buffer = lines.pop(); // keep incomplete trailing line
-
-      for (const line of lines) {
-        if (!line.startsWith('data: ')) continue;
-        const data = line.slice(6).trim();
-        if (data === '[DONE]') break;
-        try {
-          const json = JSON.parse(data);
-          const delta = json.choices?.[0]?.delta?.content;
-          if (delta) {
-            fullText += delta;
-            responseBubble.innerHTML = formatMarkdown(fullText);
-            hist.scrollTop = hist.scrollHeight;
-          }
-        } catch(e) { /* incomplete chunk, skip */ }
-      }
-    }
+    const fullText = await streamResponse(response, responseBubble, hist);
 
     if (fullText) {
       responseBubble.innerHTML = formatMarkdown(fullText) +
