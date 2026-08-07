@@ -1548,6 +1548,214 @@
     .tg-phase-grid { grid-template-columns: 1fr; }
   }
 
+  /* ── WAR ACADEMY ── */
+  @keyframes wa-pulse-ring {
+    0%   { box-shadow: 0 0 0 0 rgba(230,81,0,0.55); }
+    70%  { box-shadow: 0 0 0 9px rgba(230,81,0,0); }
+    100% { box-shadow: 0 0 0 0 rgba(230,81,0,0); }
+  }
+  @keyframes wa-bell-ring {
+    0%, 100% { transform: rotate(0deg); }
+    10% { transform: rotate(-14deg); }
+    20% { transform: rotate(12deg); }
+    30% { transform: rotate(-9deg); }
+    40% { transform: rotate(6deg); }
+    50% { transform: rotate(-3deg); }
+    60%, 100% { transform: rotate(0deg); }
+  }
+  .wa-beacon {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--orange);
+    background: rgba(230,81,0,0.12);
+    border: 1px solid rgba(230,81,0,0.35);
+    border-radius: 20px;
+    padding: 4px 12px 4px 8px;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+  .wa-beacon-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--orange);
+    animation: wa-pulse-ring 1.8s infinite;
+    flex-shrink: 0;
+  }
+  .wa-beacon-icon { display: inline-block; animation: wa-bell-ring 2.6s ease-in-out infinite; }
+  .nav-beacon {
+    margin-left: auto;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--orange);
+    animation: wa-pulse-ring 1.8s infinite;
+    flex-shrink: 0;
+  }
+  .sidebar-links a[href="#war-academy"] { display: flex; align-items: center; }
+
+  .wa-launch-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(90deg, rgba(230,81,0,0.1), rgba(212,137,26,0.06));
+    border: 1px solid rgba(230,81,0,0.3);
+    border-left: 4px solid var(--orange);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 10px 0 18px;
+    font-family: 'Lato', sans-serif;
+  }
+  .wa-launch-banner-icon { font-size: 1.4rem; animation: wa-bell-ring 2.6s ease-in-out infinite; flex-shrink: 0; }
+  .wa-launch-banner-text { font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; font-family: 'Merriweather', Georgia, serif; }
+  .wa-launch-banner-text strong { color: var(--orange); }
+
+  .wa-placeholder-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    background: rgba(50,58,82,0.06);
+    border: 1px dashed rgba(92,61,30,0.3);
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin: 8px 0 16px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .wa-prep-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .wa-prep-card {
+    background: rgba(74,140,63,0.06);
+    border: 1px solid rgba(109,194,95,0.25);
+    border-left: 3px solid var(--green-bright);
+    border-radius: 6px;
+    padding: 12px 14px;
+  }
+  .wa-prep-title {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--green-bright);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .wa-prep-desc { font-size: 0.83rem; color: var(--text-dim); line-height: 1.5; }
+
+  .wa-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: 'Lato', sans-serif; font-size: 0.6rem; font-weight: 700;
+    letter-spacing: 0.05em; padding: 2px 9px; border-radius: 8px;
+    white-space: nowrap; text-transform: uppercase;
+  }
+  .wa-s { background: rgba(74,140,63,0.18); color: var(--green-bright); border: 1px solid rgba(109,194,95,0.3); }
+  .wa-a { background: rgba(95,160,216,0.18); color: var(--blue-bright); border: 1px solid rgba(95,160,216,0.3); }
+  .wa-b { background: rgba(230,180,20,0.18); color: #a87d0a; border: 1px solid rgba(230,180,20,0.35); }
+  .wa-c { background: rgba(50,58,82,0.15); color: var(--text-muted); border: 1px solid rgba(92,61,30,0.2); }
+
+  .wa-controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 12px 0 10px; justify-content: space-between; }
+  .wa-filter-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .wa-sort-wrap { display: flex; align-items: center; gap: 6px; font-family: 'Lato', sans-serif; font-size: 0.72rem; color: var(--text-dim); }
+  .wa-sort-select {
+    font-family: 'Lato', sans-serif; font-size: 0.75rem; color: var(--text);
+    background: rgba(255,248,235,0.9); border: 1px solid rgba(212,137,26,0.3);
+    border-radius: 6px; padding: 5px 8px; cursor: pointer;
+  }
+  .wa-no-results { text-align: center; padding: 20px; color: var(--text-muted); font-size: 0.85rem; display: none; }
+
+  .wa-chain { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 10px 0; }
+  .wa-chain-step {
+    background: rgba(212,137,26,0.1); border: 1px solid rgba(212,137,26,0.3);
+    color: var(--text-dim); font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.82rem;
+    padding: 6px 18px; border-radius: 6px; text-align: center; min-width: 140px;
+  }
+  .wa-chain-arrow { color: var(--gold); font-size: 0.85rem; line-height: 1.6; }
+
+  .wa-roadmap-list { list-style: none; padding: 0; counter-reset: wa-phase; margin: 12px 0; }
+  .wa-roadmap-list > li {
+    counter-increment: wa-phase;
+    position: relative;
+    padding: 4px 0 20px 46px;
+    border-left: 2px solid rgba(212,137,26,0.2);
+    margin-left: 14px;
+  }
+  .wa-roadmap-list > li:last-child { border-left-color: transparent; padding-bottom: 4px; }
+  .wa-roadmap-list > li::before {
+    content: counter(wa-phase);
+    position: absolute;
+    left: -15px; top: 0;
+    width: 28px; height: 28px;
+    background: rgba(212,137,26,0.15);
+    border: 1px solid rgba(212,137,26,0.35);
+    border-radius: 50%;
+    color: var(--gold);
+    font-family: 'Lato', sans-serif; font-size: 0.75rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .wa-roadmap-title { font-family: 'Lato', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .wa-roadmap-goal { font-size: 0.88rem; color: var(--text); margin-bottom: 6px; }
+  .wa-roadmap-list-inner { margin: 6px 0 8px 4px; font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; }
+  .wa-roadmap-list-inner li { margin-bottom: 2px; }
+  .wa-roadmap-reason { font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
+
+  .wa-role-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin: 14px 0; }
+  .wa-role-card {
+    background: rgba(255,248,235,0.9); border: 1px solid rgba(212,137,26,0.15);
+    border-top: 3px solid var(--gold); border-radius: 8px; padding: 14px 16px;
+  }
+  .wa-role-title { font-family: 'Lato', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--gold); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .wa-role-reason { font-size: 0.78rem; color: var(--text-muted); margin-top: 8px; line-height: 1.45; }
+
+  .wa-heat-table th, .wa-heat-table td { text-align: left; }
+
+  .wa-consensus-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 14px 0; }
+  .wa-consensus-card { border-radius: 8px; padding: 14px 16px; }
+  .wa-consensus-card.wa-confirmed { background: rgba(74,140,63,0.07); border: 1px solid rgba(109,194,95,0.25); border-top: 3px solid var(--green-bright); }
+  .wa-consensus-card.wa-anecdotal { background: rgba(95,160,216,0.07); border: 1px solid rgba(95,160,216,0.25); border-top: 3px solid var(--blue-bright); }
+  .wa-consensus-card.wa-disputed  { background: rgba(230,81,0,0.07); border: 1px solid rgba(230,81,0,0.25); border-top: 3px solid var(--orange); }
+  .wa-consensus-title { font-family: 'Lato', sans-serif; font-size: 0.72rem; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 10px; }
+  .wa-confirmed .wa-consensus-title { color: var(--green-bright); }
+  .wa-anecdotal .wa-consensus-title { color: var(--blue-bright); }
+  .wa-disputed  .wa-consensus-title { color: var(--orange); }
+  .wa-consensus-card ul { list-style: none; padding: 0; margin: 0; }
+  .wa-consensus-card li { padding: 4px 0 4px 16px; position: relative; font-size: 0.82rem; color: var(--text-dim); line-height: 1.45; }
+  .wa-consensus-card li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); }
+  .wa-consensus-card p { font-size: 0.82rem; color: var(--text-dim); line-height: 1.5; }
+
+  .wa-future-card {
+    background: rgba(255,248,235,0.7);
+    border: 2px dashed rgba(212,137,26,0.35);
+    border-radius: 10px;
+    padding: 22px 20px;
+    text-align: center;
+    margin: 12px 0;
+  }
+  .wa-future-lock { font-size: 1.8rem; margin-bottom: 8px; opacity: 0.7; }
+  .wa-future-title { font-family: 'Lato', sans-serif; font-size: 1rem; font-weight: 700; color: var(--gold); margin-bottom: 8px; }
+  .wa-future-desc { font-size: 0.85rem; color: var(--text-dim); max-width: 560px; margin: 0 auto 14px; line-height: 1.6; }
+  .wa-future-fields { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+  .wa-future-field {
+    font-family: 'Lato', sans-serif; font-size: 0.68rem; color: var(--text-muted);
+    background: rgba(255,255,255,0.6); border: 1px solid rgba(212,137,26,0.2);
+    border-radius: 12px; padding: 3px 10px;
+  }
+
+  @media (max-width: 768px) {
+    .wa-prep-grid { grid-template-columns: 1fr; }
+    .wa-role-grid { grid-template-columns: 1fr 1fr; }
+    .wa-consensus-grid { grid-template-columns: 1fr; }
+    .wa-controls { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 480px) {
+    .wa-role-grid { grid-template-columns: 1fr; }
+  }
+
   /* ══════════════════════════════════
      MOBILE RESPONSIVE - TABLET ≤768px
   ══════════════════════════════════ */
@@ -2180,6 +2388,7 @@
     <div class="sidebar-divider">Strategy</div>
     <a href="#kvk"><span class="nav-icon">&#x2694;</span>KvK</a>
     <a href="#truegold"><span class="nav-icon">&#x1F947;</span>True Gold</a>
+    <a href="#war-academy"><span class="nav-icon">&#x2694;&#xFE0F;</span>War Academy<span class="nav-beacon" aria-hidden="true"></span></a>
     <a href="#master-academy"><span class="nav-icon">&#x1F393;</span>Master Academy</a>
     <a href="#pets"><span class="nav-icon">&#x1F43E;</span>Pets</a>
     <a href="#transfer"><span class="nav-icon">&#x1F30D;</span>Kingdom Transfer</a>
@@ -3320,6 +3529,310 @@
         <tr class="tg-highlight"><td><span class="tg-badge tg-warn">Advanced</span></td><td>Day 310+</td><td>TG6–TG8</td><td>Tempered Truegold era begins. Super Refinement weekly cap controls pace for everyone</td><td>T12+ troops</td><td>Weekly Tempered TG cap - affects all players equally</td></tr>
       </tbody>
     </table>
+  </div>
+</section>
+
+<div class="divider">&#x2756; &#x2756; &#x2756;</div>
+
+<!-- WAR ACADEMY -->
+<section id="war-academy">
+  <div class="section-header">
+    <span class="section-icon">&#x2694;&#xFE0F;</span>
+    <h2>War Academy Strategy Guide</h2>
+    <span class="wa-beacon"><span class="wa-beacon-dot"></span><span class="wa-beacon-icon">&#x1F514;</span>Coming Aug 31 - Prepare Now</span>
+  </div>
+
+  <div class="wa-launch-banner">
+    <div class="wa-launch-banner-icon">&#x1F514;</div>
+    <div class="wa-launch-banner-text">
+      The War Academy unlocks in Kingdom 1625 on <strong>August 31, 2026</strong>. This guide is your prep plan for the weeks leading up to launch - what to save, what to skip spending on, and how to spend Truegold Dust efficiently once the gate opens. Bookmark this section and start preparing now.
+    </div>
+  </div>
+
+  <div class="callout callout-info">
+    <span class="callout-label">&#x1F4CB; What Is the War Academy?</span>
+    The War Academy is one of the largest progression milestones in Kingshot. Unlike the standard Academy, it becomes a long-term progression system centered around <strong>Truegold Dust</strong>. Players eventually become limited by Dust rather than speedups or resources. This guide focuses on <strong>decision making</strong> - which research to prioritize, in what order, and how to spend Dust efficiently - not on documenting every research node.
+  </div>
+
+  <!-- SECTION 1: PREPARATION -->
+  <h3>Preparation Before Unlock</h3>
+  <div class="wa-prep-grid">
+    <div class="wa-prep-card">
+      <div class="wa-prep-title">&#x2705; Save Research Speedups</div>
+      <div class="wa-prep-desc">War Academy research becomes extremely long. Do not burn Research Speedups on Academy research before the War Academy opens.</div>
+    </div>
+    <div class="wa-prep-card">
+      <div class="wa-prep-title">&#x2705; Save General Speedups</div>
+      <div class="wa-prep-desc">Useful for completing very long research once War Academy nodes are unlocked.</div>
+    </div>
+    <div class="wa-prep-card">
+      <div class="wa-prep-title">&#x2705; Save Gold</div>
+      <div class="wa-prep-desc">Gold is used for daily Truegold Dust exchanges. Stockpile it ahead of launch.</div>
+    </div>
+    <div class="wa-prep-card">
+      <div class="wa-prep-title">&#x2705; Continue Collecting Truegold</div>
+      <div class="wa-prep-desc">Truegold becomes increasingly valuable once the War Academy opens - keep every source active.</div>
+    </div>
+    <div class="wa-prep-card">
+      <div class="wa-prep-title">&#x2705; Build Resource Stockpiles</div>
+      <div class="wa-prep-desc">Research costs become extremely expensive. Stockpile Bread, Wood, Stone, and Iron ahead of launch.</div>
+    </div>
+    <div class="wa-prep-card">
+      <div class="wa-prep-title">&#x2705; Finish Important Academy Research</div>
+      <div class="wa-prep-desc">Prioritize Research Speed, Healing Speed, Training Speed, and March Capacity - these remain valuable after the War Academy unlocks.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: INTERACTIVE PRIORITY TABLE -->
+  <h3>Interactive Priority Table</h3>
+  <div class="wa-placeholder-note">&#x26A0;&#xFE0F; <span>Placeholder framework - node names, ratings, and Dust efficiency values below are an example priority structure, not confirmed in-game data. This table will be updated with real research names and verified values once the War Academy goes live on August 31.</span></div>
+
+  <div class="wa-controls">
+    <div class="wa-filter-row" id="waFilters">
+      <button class="hdb-filter-btn active" data-wa-filter="all" onclick="waSetFilter(this,'all')">All</button>
+      <button class="hdb-filter-btn" data-wa-filter="f2p" onclick="waSetFilter(this,'f2p')">F2P</button>
+      <button class="hdb-filter-btn" data-wa-filter="low" onclick="waSetFilter(this,'low')">Low Spender</button>
+      <button class="hdb-filter-btn" data-wa-filter="heavy" onclick="waSetFilter(this,'heavy')">Heavy Spender</button>
+      <button class="hdb-filter-btn" data-wa-filter="rally" onclick="waSetFilter(this,'rally')">Rally Leader</button>
+      <button class="hdb-filter-btn" data-wa-filter="pvp" onclick="waSetFilter(this,'pvp')">PvP</button>
+      <button class="hdb-filter-btn" data-wa-filter="pve" onclick="waSetFilter(this,'pve')">PvE</button>
+      <button class="hdb-filter-btn" data-wa-filter="infantry" onclick="waSetFilter(this,'infantry')">Infantry</button>
+      <button class="hdb-filter-btn" data-wa-filter="archer" onclick="waSetFilter(this,'archer')">Archer</button>
+      <button class="hdb-filter-btn" data-wa-filter="cavalry" onclick="waSetFilter(this,'cavalry')">Cavalry</button>
+    </div>
+    <div class="wa-sort-wrap">
+      <label for="waSortSelect">Sort by</label>
+      <select class="wa-sort-select" id="waSortSelect" onchange="waRender()">
+        <option value="unlock">Unlock Order</option>
+        <option value="priority">Priority</option>
+        <option value="dust">Dust Efficiency</option>
+        <option value="combat">Combat Value</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="tg-table-wrap">
+    <table class="tg-table" id="waTable">
+      <thead>
+        <tr>
+          <th>Priority</th>
+          <th>Research</th>
+          <th title="Unlock: gates access. Damage: raises offense. Survivability: raises defense/HP. Expansion: adds a troop branch. Utility: situational effects.">Purpose</th>
+          <th>Combat Value</th>
+          <th>Dust Efficiency</th>
+          <th>Timing</th>
+          <th>Recommended For</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody id="waTableBody"></tbody>
+    </table>
+    <div class="wa-no-results" id="waNoResults">No research matches the selected filter.</div>
+  </div>
+  <div class="wa-placeholder-note">Infantry / Archer / Cavalry filters currently show the full generic research list - this example dataset isn't broken out by troop type yet. They will filter to troop-specific nodes once the live tech tree replaces this placeholder.</div>
+
+  <!-- SECTION 3: PROGRESSION ROADMAP -->
+  <h3>Progression Roadmap</h3>
+  <ol class="wa-roadmap-list">
+    <li>
+      <div class="wa-roadmap-title">Phase 1</div>
+      <div class="wa-roadmap-goal"><strong>Goal:</strong> Unlock T11 as quickly as possible.</div>
+      <ul class="wa-roadmap-list-inner">
+        <li>Follow prerequisite nodes only.</li>
+        <li>Ignore optional branches.</li>
+        <li>Spend the minimum Dust possible.</li>
+        <li>Unlock T11.</li>
+      </ul>
+      <div class="wa-roadmap-reason">Reason: Every unnecessary research delays T11.</div>
+    </li>
+    <li>
+      <div class="wa-roadmap-title">Phase 2</div>
+      <div class="wa-roadmap-goal">Max your primary troop.</div>
+      <div class="wa-roadmap-list-inner"><strong>Priority Order</strong></div>
+      <div class="wa-chain">
+        <div class="wa-chain-step">Attack</div><div class="wa-chain-arrow">&#x2193;</div>
+        <div class="wa-chain-step">HP</div><div class="wa-chain-arrow">&#x2193;</div>
+        <div class="wa-chain-step">Defense</div><div class="wa-chain-arrow">&#x2193;</div>
+        <div class="wa-chain-step">Lethality</div><div class="wa-chain-arrow">&#x2193;</div>
+        <div class="wa-chain-step">Health</div>
+      </div>
+      <div class="wa-roadmap-reason">Complete one troop before investing heavily in another.</div>
+    </li>
+    <li>
+      <div class="wa-roadmap-title">Phase 3</div>
+      <div class="wa-roadmap-goal">Improve rally performance.</div>
+      <div class="wa-roadmap-list-inner"><strong>Suggested research:</strong>
+        <ul class="wa-roadmap-list-inner">
+          <li>Rally Capacity</li>
+          <li>Rally Damage</li>
+          <li>Rally Support</li>
+          <li>March Improvements</li>
+          <li>Advanced Combat Nodes</li>
+        </ul>
+      </div>
+      <div class="wa-roadmap-reason">Best suited for Rally Leaders.</div>
+    </li>
+    <li>
+      <div class="wa-roadmap-title">Phase 4</div>
+      <div class="wa-roadmap-goal">Improve second troop.</div>
+      <div class="wa-roadmap-list-inner"><strong>Repeat the same priority order:</strong></div>
+      <div class="wa-chain">
+        <div class="wa-chain-step">Attack</div><div class="wa-chain-arrow">&#x2193;</div>
+        <div class="wa-chain-step">HP</div><div class="wa-chain-arrow">&#x2193;</div>
+        <div class="wa-chain-step">Defense</div><div class="wa-chain-arrow">&#x2193;</div>
+        <div class="wa-chain-step">Lethality</div><div class="wa-chain-arrow">&#x2193;</div>
+        <div class="wa-chain-step">Health</div>
+      </div>
+    </li>
+    <li>
+      <div class="wa-roadmap-title">Phase 5</div>
+      <div class="wa-roadmap-goal">Complete remaining research.</div>
+      <div class="wa-roadmap-reason">Focus on lower-impact combat improvements and niche nodes after the primary combat path is complete.</div>
+    </li>
+  </ol>
+
+  <!-- SECTION 4: PLAYER ROLE RECOMMENDATIONS -->
+  <h3>Player Role Recommendations</h3>
+  <div class="wa-role-grid">
+    <div class="wa-role-card">
+      <div class="wa-role-title">&#x1F465; Rally Leader</div>
+      <div class="wa-chain">
+        <div class="wa-chain-step">Infantry</div><div class="wa-chain-arrow">&#x2193;</div>
+        <div class="wa-chain-step">Archers</div><div class="wa-chain-arrow">&#x2193;</div>
+        <div class="wa-chain-step">Cavalry</div>
+      </div>
+      <div class="wa-role-reason">Reason: Frontline performance has the greatest impact in rallies.</div>
+    </div>
+    <div class="wa-role-card">
+      <div class="wa-role-title">&#x2694; PvP Player</div>
+      <div class="wa-chain">
+        <div class="wa-chain-step">Primary troop</div><div class="wa-chain-arrow">&#x2193;</div>
+        <div class="wa-chain-step">Secondary troop</div><div class="wa-chain-arrow">&#x2193;</div>
+        <div class="wa-chain-step">Utility</div>
+      </div>
+    </div>
+    <div class="wa-role-card">
+      <div class="wa-role-title">&#x1F4B0; F2P</div>
+      <div class="wa-chain">
+        <div class="wa-chain-step">One troop only</div><div class="wa-chain-arrow">&#x2193;</div>
+        <div class="wa-chain-step">Save Dust</div><div class="wa-chain-arrow">&#x2193;</div>
+        <div class="wa-chain-step">Expand later</div>
+      </div>
+      <div class="wa-role-reason">Reason: Avoid spreading Dust too thin.</div>
+    </div>
+    <div class="wa-role-card">
+      <div class="wa-role-title">&#x1FA99; Low Spender</div>
+      <div class="wa-chain">
+        <div class="wa-chain-step">Primary troop</div><div class="wa-chain-arrow">&#x2193;</div>
+        <div class="wa-chain-step">Utility</div><div class="wa-chain-arrow">&#x2193;</div>
+        <div class="wa-chain-step">Secondary troop</div>
+      </div>
+    </div>
+    <div class="wa-role-card">
+      <div class="wa-role-title">&#x1F433; Whale</div>
+      <div class="wa-chain">
+        <div class="wa-chain-step">Rush T11</div><div class="wa-chain-arrow">&#x2193;</div>
+        <div class="wa-chain-step">Max primary troop</div><div class="wa-chain-arrow">&#x2193;</div>
+        <div class="wa-chain-step">Expand remaining branches</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: RESOURCE EFFICIENCY GUIDE -->
+  <h3>Resource Efficiency Guide</h3>
+  <div class="wa-placeholder-note">&#x26A0;&#xFE0F; <span>Example ratings shown for illustration of the priority framework - verify actual combat gain and Dust efficiency in-game once nodes go live.</span></div>
+  <div class="tg-table-wrap">
+    <table class="tg-table wa-heat-table">
+      <thead>
+        <tr><th>Research</th><th>Combat Gain</th><th>Dust Efficiency</th><th>Rating</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>T11</td><td>&#9733;&#9733;&#9733;&#9733;&#9733;</td><td>&#9733;&#9733;&#9733;&#9733;&#9733;</td><td><span class="wa-badge wa-s">S</span></td></tr>
+        <tr><td>Attack</td><td>&#9733;&#9733;&#9733;&#9733;&#9733;</td><td>&#9733;&#9733;&#9733;&#9733;&#9733;</td><td><span class="wa-badge wa-s">S</span></td></tr>
+        <tr><td>HP</td><td>&#9733;&#9733;&#9733;&#9733;&#9733;</td><td>&#9733;&#9733;&#9733;&#9733;&#9734;</td><td><span class="wa-badge wa-s">S</span></td></tr>
+        <tr><td>Defense</td><td>&#9733;&#9733;&#9733;&#9733;&#9734;</td><td>&#9733;&#9733;&#9733;&#9733;&#9734;</td><td><span class="wa-badge wa-a">A</span></td></tr>
+        <tr><td>Lethality</td><td>&#9733;&#9733;&#9733;&#9733;&#9734;</td><td>&#9733;&#9733;&#9733;&#9733;&#9734;</td><td><span class="wa-badge wa-a">A</span></td></tr>
+        <tr><td>Health</td><td>&#9733;&#9733;&#9733;&#9733;&#9734;</td><td>&#9733;&#9733;&#9733;&#9733;&#9734;</td><td><span class="wa-badge wa-a">A</span></td></tr>
+        <tr><td>Secondary Troops</td><td>&#9733;&#9733;&#9733;&#9734;&#9734;</td><td>&#9733;&#9733;&#9733;&#9734;&#9734;</td><td><span class="wa-badge wa-b">B</span></td></tr>
+        <tr><td>Third Troop</td><td>&#9733;&#9733;&#9734;&#9734;&#9734;</td><td>&#9733;&#9733;&#9734;&#9734;&#9734;</td><td><span class="wa-badge wa-c">C</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 6: COMMON MISTAKES -->
+  <h3>&#x26A0; Common Mistakes</h3>
+  <div class="tg-mistake-grid">
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Spending Speedups Too Early</div>
+      <div class="tg-mistake-desc">Spending all research speedups before War Academy unlocks leaves nothing for the long research times the Academy introduces.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Splitting Dust Evenly</div>
+      <div class="tg-mistake-desc">Splitting Dust evenly across all troop types delays every branch instead of completing any of them.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Ignoring Healing Costs</div>
+      <div class="tg-mistake-desc">Unlocking T11 without planning for increased healing costs can stall your resource stockpiles right after the upgrade.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Skipping Daily Dust Opportunities</div>
+      <div class="tg-mistake-desc">Ignoring daily Truegold Dust opportunities compounds into a significant Dust deficit over time.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Rushing Every Branch</div>
+      <div class="tg-mistake-desc">Rushing every branch instead of focusing on one troop spreads Dust too thin and delays your first real power spike.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 7/8: COMMUNITY NOTES -->
+  <h3>Community Notes</h3>
+  <div class="wa-consensus-grid">
+    <div class="wa-consensus-card wa-confirmed">
+      <div class="wa-consensus-title">&#x2705; Community Consensus</div>
+      <ul>
+        <li>Save research speedups before War Academy unlocks.</li>
+        <li>Save Gold for Truegold Dust exchanges.</li>
+        <li>Focus on one troop branch before expanding.</li>
+        <li>Attack and HP research provide the highest early value.</li>
+        <li>Truegold Dust becomes the primary bottleneck.</li>
+        <li>T11 troops offer significant power increases but require substantial investment.</li>
+        <li>Plan research around KvK where possible.</li>
+      </ul>
+    </div>
+    <div class="wa-consensus-card wa-anecdotal">
+      <div class="wa-consensus-title">&#x1F4AC; Anecdotal Evidence</div>
+      <ul>
+        <li>Infantry is often recommended first for rally leaders.</li>
+        <li>Some cavalry-focused players prioritize Cavalry first.</li>
+        <li>Heavy spenders may rush multiple troop branches.</li>
+      </ul>
+    </div>
+    <div class="wa-consensus-card wa-disputed">
+      <div class="wa-consensus-title">&#x2696; Disputed Claims</div>
+      <p>The primary disagreement is whether players should rush War Academy research immediately or continue prioritizing broader Truegold progression before investing heavily. The stronger consensus is that F2P and low spenders should avoid rushing at the expense of overall account growth.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 9: FUTURE EXPANSION -->
+  <h3>Full Research Tree - Coming August 31</h3>
+  <div class="wa-future-card">
+    <div class="wa-future-lock">&#x1F512;</div>
+    <div class="wa-future-title">Reserved for the Live Interactive Research Tree</div>
+    <div class="wa-future-desc">Once the War Academy goes live, this space becomes a full node-by-node interactive tech tree. Clicking any node will open a detail panel while preserving the same priority system, filters, progression phases, and role-based recommendations used above.</div>
+    <div class="wa-future-fields">
+      <span class="wa-future-field">Name</span>
+      <span class="wa-future-field">Description</span>
+      <span class="wa-future-field">Cost</span>
+      <span class="wa-future-field">Prerequisites</span>
+      <span class="wa-future-field">Priority Rating</span>
+      <span class="wa-future-field">Combat Value</span>
+      <span class="wa-future-field">Dust Efficiency</span>
+      <span class="wa-future-field">Unlock Path</span>
+      <span class="wa-future-field">Best Player Type</span>
+      <span class="wa-future-field">Recommended Timing</span>
+      <span class="wa-future-field">Related Research</span>
+      <span class="wa-future-field">Prerequisite Chain</span>
+    </div>
   </div>
 </section>
 
@@ -4503,6 +5016,8 @@ KINGDOM TRANSFER: Every 40-60 days a transfer window opens. Players can move the
 GIFT CODES: Gift codes provide free gems, speed-ups, and resources. Currently active: FIREFRIDAY (expires Mar 30 2026). Redeem at v2.kingshot.net/gift-codes/redeem (enter Player ID then paste code). Auto Redeem all codes at once: v2.kingshot.net/auto-redeem. Full active code list: v2.kingshot.net/gift-codes. New codes appear on official Kingshot Discord, social media, and kingshot.net. R4/R5 should post new codes in your alliance Discord #resources immediately when they drop.
 
 COMBAT MECHANICS (verified by StratGameSloth - youtube.com/@StratGameSloth): Combat is a hidden simulation. Round-by-round sequence: (1) Troops deploy Infantry→Cavalry→Archers. (2) All attack the frontmost enemy line. Exception: 20% of Cavalry bypass frontline every round to snipe Archers directly - this is why your Archers die even when you win. (3) Lethality vs Health determines removals. (4) When a line hits zero, all attacks retarget the next line. (5) Repeat until one side has zero troops. STAT PRIORITY: S-tier = Lethality (kills units) and Health/HP (absorbs damage). A-tier = Defense. B-tier = Attack. Speed is fixed at 11 for all troops - currently useless. INVESTMENT ORDER: 1st Archer Lethality, 2nd Infantry Health (buff HP not Defense - infantry have more base HP than Defense so HP buffs give more raw survivability), 3rd Infantry Defense/Archer Attack, 4th Cavalry (lowest ROI in current patch). Charms boost Health+Lethality; Governor Gear covers Attack+Defense - choose based on what you need. BUFF MATH: Standard buffs (Gear, Charms, research, buildings) are additive. Special buffs (hero abilities, widgets, Kingdom titles, consumable 12h/24h boosts) are multiplicative. With 200% Standard and 40% Special: result is 320% not 240%. Stronger standard buffs = bigger special buff multiplier. Debuffs are negative special buffs = disproportionately powerful vs whales. CRITICAL CONSUMABLE RULE: Only rally leaders and garrison defenders should use 12h/24h buff consumables - rally joiners' consumables do NOTHING. RALLY LAWS: (1) Rally captain's build applies to entire rally - their heroes, research, skins, titles, consumables. (2) Joiners bring bodies not buffs - send high-tier troops in correct ratio, don't burn consumables. (3) Widgets only activate for rally/garrison leader, not joiners. (4) Flat skill bonuses stack; proc-based abilities don't add linearly. TROOP RATIOS: Bear Hunt/PvE = 10/10/80 (Infantry/Cavalry/Archer). Rally/City Attack = 45/25/30. PvP Defense = 55/20/25. CASUALTY TYPES: City attacks and certain PvP structures can cause permanent troop losses - avoid unless you are prepared to absorb them. Hunting beasts causes no permanent losses. Level 4 Outposts can cause permanent losses for both attacker and defender - check the tooltip before committing. Infirmary overflow converts Injured to permanent deaths - keep hospital beds free before war. Always verify current event rules in-game.
+
+WAR ACADEMY (launches August 31, 2026 in Kingdom 1625 - NOT YET LIVE): Long-term progression system centered on Truegold Dust; eventually Dust becomes the bottleneck rather than speedups or resources. PREP BEFORE UNLOCK: save Research Speedups and General Speedups, save Gold for daily Dust exchanges, keep collecting Truegold, stockpile Bread/Wood/Stone/Iron, and finish Academy Research Speed/Healing Speed/Training Speed/March Capacity beforehand since these stay valuable after unlock. PRIORITY FRAMEWORK (example/placeholder tiers pending real node data - verify exact names and star values in-game once live): S-tier = T11 Prerequisites, Attack, HP. A-tier = Defense, Lethality, Health. B-tier = Secondary Troop. C-tier = Third Troop, Specialized Nodes. PROGRESSION ROADMAP: Phase 1 rush T11 via prerequisites only, minimum Dust spent. Phase 2 max primary troop in order Attack > HP > Defense > Lethality > Health. Phase 3 improve rally performance (Rally Capacity, Rally Damage, Rally Support, March Improvements, Advanced Combat Nodes) - best for Rally Leaders. Phase 4 repeat the Phase 2 order on your second troop. Phase 5 mop up remaining lower-impact and niche nodes. ROLE PRIORITIES: Rally Leader = Infantry > Archers > Cavalry. PvP = Primary troop > Secondary troop > Utility. F2P = One troop only > Save Dust > Expand later (avoid spreading Dust thin). Low Spender = Primary troop > Utility > Secondary troop. Whale = Rush T11 > Max primary troop > Expand remaining branches. COMMON MISTAKES: spending all speedups before unlock, splitting Dust evenly across troop types, unlocking T11 without planning for higher healing costs, ignoring daily Dust opportunities, rushing every branch instead of focusing one troop. COMMUNITY CONSENSUS: save speedups and Gold ahead of time, focus one troop branch, Attack/HP are highest early value, Dust is the long-term bottleneck, plan research around KvK. DISPUTED: whether to rush War Academy research immediately vs. prioritize broader Truegold progression first - F2P/low spenders are generally advised not to rush at the expense of overall account growth. The full node-by-node tech tree is not yet built into the guide and will be added once the Academy is live.
 
 STRATAGAMESLOTH: Dedicated Kingshot YouTube channel at youtube.com/@StratGameSloth. 100% Kingshot content, verified strategy. Source of our Combat Mechanics deep dive section. Community-verified as reliable. Calculators - Hero Shard Calculator (plan roulette for HoG), Troop Training Calculator (HoG train day planning), Building Calculator (upgrade costs/time), Forgehammer Calculator (gear mastery planning from Bear Hunt), Governor Gear Calculator, VIP Calculator, Truegold Simulator, Truegold Planner. Planning tools - War Academy interactive tech tree with research cost calculator, Event Calendar, Appointment Planner (ministry rotations for R4/R5), Transfer Planner, KvK Match Tracker (K#1625 data included), Kingdom Age Tracker (426+ kingdoms), Interactive Game Map, Message Templates. Databases - Buildings Database, Pets Database, War Academy Database, Hero Stat Comparison tool. Gift Codes - live list with auto-redeem at v2.kingshot.net/auto-redeem.
 `;
@@ -5777,6 +6292,72 @@ function tgInitSteps() {
     <li><strong>${s.step}</strong> - ${s.desc}</li>`).join('');
 }
 
+// ── WAR ACADEMY PRIORITY TABLE ──
+// Placeholder framework data - example priority structure only, not confirmed
+// in-game research names or values. Update once War Academy is live (Aug 31).
+const WA_RESEARCH_DATA = [
+  { priority: 'S', name: 'T11 Prerequisites', purpose: 'Unlock',        combat: 5, dust: 5, timing: 'Rush',  for: 'Everyone',          notes: 'Follow the shortest prerequisite path', tags: ['f2p','low','heavy','rally','pvp','pve','infantry','archer','cavalry'] },
+  { priority: 'S', name: 'Attack',            purpose: 'Damage',        combat: 5, dust: 5, timing: 'Early', for: 'Everyone',          notes: 'Highest damage increase', tags: ['f2p','low','heavy','rally','pvp','pve','infantry','archer','cavalry'] },
+  { priority: 'S', name: 'HP',                purpose: 'Survivability', combat: 5, dust: 4, timing: 'Early', for: 'Everyone',          notes: 'Excellent overall value', tags: ['f2p','low','heavy','rally','pvp','pve','infantry','archer','cavalry'] },
+  { priority: 'A', name: 'Defense',           purpose: 'Survivability', combat: 4, dust: 4, timing: 'Early', for: 'Everyone',          notes: 'Slightly behind Attack/HP', tags: ['f2p','low','heavy','rally','pvp','pve','infantry','archer','cavalry'] },
+  { priority: 'A', name: 'Lethality',         purpose: 'Damage',        combat: 4, dust: 4, timing: 'Mid',   for: 'PvP',               notes: 'Strong offensive scaling', tags: ['pvp','infantry','archer','cavalry'] },
+  { priority: 'A', name: 'Health',            purpose: 'Survivability', combat: 4, dust: 4, timing: 'Mid',   for: 'PvP',               notes: 'Good late scaling', tags: ['pvp','infantry','archer','cavalry'] },
+  { priority: 'B', name: 'Secondary Troop',   purpose: 'Expansion',     combat: 3, dust: 3, timing: 'Mid',   for: 'Advanced Players',  notes: 'Improve second march', tags: ['heavy','infantry','archer','cavalry'] },
+  { priority: 'C', name: 'Third Troop',       purpose: 'Expansion',     combat: 2, dust: 2, timing: 'Late',  for: 'Completionists',    notes: 'Lowest priority', tags: ['infantry','archer','cavalry'] },
+  { priority: 'C', name: 'Specialized Nodes', purpose: 'Utility',       combat: 2, dust: 2, timing: 'Late',  for: 'Rally Leaders',     notes: 'Situational value', tags: ['rally','infantry','archer','cavalry'] },
+];
+
+const WA_PRIORITY_RANK = { S: 4, A: 3, B: 2, C: 1 };
+let waActiveFilter = 'all';
+
+function waStars(n) {
+  return '&#9733;'.repeat(n) + '&#9734;'.repeat(5 - n);
+}
+
+function waSetFilter(btn, filter) {
+  waActiveFilter = filter;
+  document.querySelectorAll('#waFilters .hdb-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  waRender();
+}
+
+function waRender() {
+  const tbody = document.getElementById('waTableBody');
+  const noResults = document.getElementById('waNoResults');
+  if (!tbody) return;
+
+  let rows = WA_RESEARCH_DATA.filter(r => waActiveFilter === 'all' || r.tags.includes(waActiveFilter));
+
+  const sortBy = document.getElementById('waSortSelect').value;
+  if (sortBy === 'priority') {
+    rows = rows.slice().sort((a, b) => WA_PRIORITY_RANK[b.priority] - WA_PRIORITY_RANK[a.priority]);
+  } else if (sortBy === 'dust') {
+    rows = rows.slice().sort((a, b) => b.dust - a.dust);
+  } else if (sortBy === 'combat') {
+    rows = rows.slice().sort((a, b) => b.combat - a.combat);
+  }
+  // 'unlock' = original spec order, no re-sort needed
+
+  if (rows.length === 0) {
+    tbody.innerHTML = '';
+    noResults.style.display = 'block';
+    return;
+  }
+  noResults.style.display = 'none';
+
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td><span class="wa-badge wa-${r.priority.toLowerCase()}">${r.priority}</span></td>
+      <td><strong>${r.name}</strong></td>
+      <td style="font-size:0.82rem;color:var(--text-dim)">${r.purpose}</td>
+      <td style="letter-spacing:1px;color:var(--gold)">${waStars(r.combat)}</td>
+      <td style="letter-spacing:1px;color:var(--gold)">${waStars(r.dust)}</td>
+      <td style="font-size:0.82rem;color:var(--text-dim)">${r.timing}</td>
+      <td style="font-size:0.82rem;color:var(--text-dim)">${r.for}</td>
+      <td style="font-size:0.78rem;color:var(--text-muted);max-width:220px">${r.notes}</td>
+    </tr>`).join('');
+}
+
 // ── MASTER TRAINING ACADEMY ACCORDION ──
 function mtaToggle(id) {
   var card = document.getElementById(id);
@@ -5794,6 +6375,8 @@ document.addEventListener('DOMContentLoaded', function() {
   tgInitSources();
   tgInitPriority();
   tgInitSteps();
+  // War Academy priority table boot
+  waRender();
 });
 </script>
 
