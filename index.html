@@ -7,28 +7,28 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lato:wght@300;400;700&family=Merriweather:ital,wght@0,300;0,400;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --gold: #d4891a;
-    --gold-light: #f0a830;
+    --gold: #e0a339;
+    --gold-light: #f2be5c;
     --gold-pale: #ffd580;
-    --crimson: #c0392b;
-    --dark: #fef9f0;
-    --dark2: #fff4e0;
-    --dark3: #ffeac8;
-    --dark4: #ffe0b0;
-    --stone: #d4b896;
-    --text: #1a0f03;
-    --text-dim: #3d2608;
-    --text-muted: #5c3d1e;
-    --green: #2e7d32;
-    --green-bright: #43a047;
-    --blue: #1565c0;
-    --blue-bright: #1e88e5;
-    --purple: #6a1b9a;
-    --purple-bright: #8e24aa;
-    --orange: #e65100;
-    --sand: #f5e6c8;
-    --ocean: #0288d1;
-    --ocean-light: #29b6f6;
+    --crimson: #d94a3a;
+    --dark: #0d1b2e;
+    --dark2: #14263f;
+    --dark3: #1b3352;
+    --dark4: #24405f;
+    --stone: #5c6f85;
+    --text: #f0e6d2;
+    --text-dim: #c9b896;
+    --text-muted: #8a92a6;
+    --green: #4caf50;
+    --green-bright: #5fbf65;
+    --blue: #3d8fe0;
+    --blue-bright: #4aa3ec;
+    --purple: #9c4fc9;
+    --purple-bright: #b055cc;
+    --orange: #ff7a29;
+    --sand: #2a3b52;
+    --ocean: #22b8c4;
+    --ocean-light: #5cd3e8;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -41,7 +41,7 @@
     font-size: 17px;
     line-height: 1.7;
     background-image:
-      linear-gradient(rgba(255,250,240,0.72), rgba(255,250,240,0.72)),
+      linear-gradient(rgba(20,38,63,0.72), rgba(20,38,63,0.72)),
       url('https://tactichub.github.io/KS/Back1.PNG');
     background-attachment: fixed;
     background-position: center top;
@@ -56,7 +56,7 @@
     text-align: center;
     padding: 48px 20px 36px;
     border-bottom: 2px solid var(--gold);
-    background: linear-gradient(180deg, rgba(255,255,255,0.72) 0%, rgba(255,248,232,0.55) 100%);
+    background: linear-gradient(180deg, rgba(20,38,63,0.72) 0%, rgba(20,38,63,0.55) 100%);
     backdrop-filter: blur(4px);
   }
   .crown { font-size: 2.8rem; display: block; margin-bottom: 6px; }
@@ -88,7 +88,7 @@
     margin-top: 14px;
     display: inline-block;
     padding: 4px 10px;
-    background: rgba(255,255,255,0.5);
+    background: rgba(20,38,63,0.5);
     border: 1px solid rgba(212,137,26,0.3);
     border-radius: 6px;
   }
@@ -111,7 +111,7 @@
     top: 18px;
     left: 18px;
     z-index: 310;
-    background: rgba(255,248,235,0.95);
+    background: rgba(20,38,63,0.95);
     border: 1px solid rgba(212,137,26,0.35);
     border-radius: 8px;
     color: var(--gold);
@@ -174,7 +174,7 @@
     left: 0;
     width: 260px;
     height: 100%;
-    background: rgba(255,248,235,0.82);
+    background: rgba(20,38,63,0.82);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-right: 1px solid rgba(212,137,26,0.2);
@@ -274,7 +274,7 @@
 
   /* ── AI CHAT HERO ── */
   .ai-hero {
-    background: linear-gradient(135deg, rgba(255,244,224,0.88) 0%, rgba(255,234,200,0.88) 100%);
+    background: linear-gradient(135deg, rgba(20,38,63,0.88) 0%, rgba(20,38,63,0.88) 100%);
     border-bottom: 2px solid rgba(212,137,26,0.3);
     backdrop-filter: blur(4px);
     padding: 36px 20px;
@@ -301,7 +301,7 @@
   }
   .ai-input {
     flex: 1;
-    background: rgba(255,255,255,0.85);
+    background: rgba(20,38,63,0.85);
     border: 1px solid rgba(212,137,26,0.3);
     border-radius: 6px;
     color: var(--text);
@@ -393,7 +393,7 @@
     max-width: 85%;
   }
   .chat-bubble.assistant {
-    background: rgba(255,248,235,0.95);
+    background: rgba(20,38,63,0.95);
     border: 1px solid rgba(212,137,26,0.12);
     align-self: flex-start;
     width: 100%;
@@ -418,7 +418,7 @@
 
   /* ── GIFT CODES BANNER ── */
   .gift-banner {
-    background: rgba(255, 248, 235, 0.97);
+    background: rgba(20,38,63,0.97);
     border-bottom: 2px solid rgba(212,137,26,0.35);
     position: relative;
     overflow: hidden;
@@ -519,7 +519,7 @@
   }
   .gift-code-expiry.expiring-soon { color: var(--orange); font-weight: 700; }
   .gift-banner-toggle {
-    background: rgba(255,255,255,0.7);
+    background: rgba(20,38,63,0.7);
     border: 1px solid rgba(212,137,26,0.4);
     border-radius: 4px;
     color: var(--text-dim);
@@ -533,7 +533,7 @@
     flex-shrink: 0;
     transition: color 0.2s, border-color 0.2s, background 0.2s;
   }
-  .gift-banner-toggle:hover { color: var(--gold); border-color: var(--gold); background: rgba(255,255,255,0.9); }
+  .gift-banner-toggle:hover { color: var(--gold); border-color: var(--gold); background: rgba(20,38,63,0.9); }
   .gift-banner-edit {
     display: none;
     padding: 0 0 14px;
@@ -557,7 +557,7 @@
     flex-wrap: wrap;
   }
   .gift-edit-input {
-    background: rgba(255,255,255,0.8);
+    background: rgba(20,38,63,0.8);
     border: 1px solid rgba(212,137,26,0.2);
     border-radius: 4px;
     color: var(--text);
@@ -819,7 +819,7 @@
 
   /* ── CARDS ── */
   .card {
-    background: rgba(255,248,235,0.85);
+    background: rgba(20,38,63,0.85);
     border: 1px solid rgba(212,137,26,0.15);
     border-radius: 8px;
     padding: 18px 20px;
@@ -871,7 +871,7 @@
     margin: 16px 0;
   }
   .priority-item {
-    background: rgba(255,244,224,0.9);
+    background: rgba(20,38,63,0.9);
     border-radius: 8px;
     padding: 14px 16px;
     border-top: 3px solid;
@@ -898,7 +898,7 @@
     margin: 16px 0;
   }
   .hero-card {
-    background: rgba(255,244,224,0.9);
+    background: rgba(20,38,63,0.9);
     border-radius: 8px;
     padding: 14px;
     border: 1px solid rgba(212,137,26,0.15);
@@ -927,7 +927,7 @@
     align-items: center;
   }
   .hdb-search {
-    background: rgba(255,255,255,0.75);
+    background: rgba(20,38,63,0.75);
     border: 1px solid rgba(212,137,26,0.25);
     border-radius: 6px;
     color: var(--text);
@@ -948,7 +948,7 @@
     margin-bottom: 12px;
   }
   .hdb-filter-btn {
-    background: rgba(255,255,255,0.55);
+    background: rgba(20,38,63,0.55);
     border: 1px solid rgba(212,137,26,0.2);
     border-radius: 16px;
     color: var(--text-dim);
@@ -1099,7 +1099,7 @@
     border-bottom: 2px solid rgba(212,137,26,0.15);
   }
   .hdb-detail-panel {
-    background: rgba(255,248,235,0.6);
+    background: rgba(20,38,63,0.6);
     padding: 16px 18px;
     border-left: 3px solid var(--gold);
     display: none;
@@ -1147,7 +1147,7 @@
     margin-top: 4px;
   }
   .hdb-invest-item {
-    background: rgba(255,244,224,0.9);
+    background: rgba(20,38,63,0.9);
     border: 1px solid rgba(212,137,26,0.15);
     border-radius: 6px;
     padding: 7px 11px;
@@ -1173,7 +1173,7 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 10px;
-    background: rgba(255,248,235,0.7);
+    background: rgba(20,38,63,0.7);
     border: 1px solid rgba(212,137,26,0.15);
     border-radius: 6px;
     padding: 8px 14px;
@@ -1298,7 +1298,7 @@
     margin: 16px 0;
   }
   .er-stage {
-    background: rgba(255,244,224,0.9);
+    background: rgba(20,38,63,0.9);
     border-radius: 8px;
     padding: 14px;
     border-left: 3px solid var(--purple-bright);
@@ -1320,7 +1320,7 @@
     margin-top: 16px;
   }
   .link-card {
-    background: rgba(255,248,235,0.9);
+    background: rgba(20,38,63,0.9);
     border: 1px solid rgba(212,137,26,0.12);
     border-radius: 8px;
     padding: 16px;
@@ -1367,7 +1367,7 @@
     margin: 16px 0;
   }
   .tg-phase-card {
-    background: rgba(255,248,235,0.9);
+    background: rgba(20,38,63,0.9);
     border-radius: 8px;
     padding: 14px 16px;
     border-top: 3px solid;
@@ -1437,7 +1437,7 @@
 
   .tg-source-row { cursor: pointer; }
   .tg-source-row:hover { background: rgba(212,137,26,0.05); }
-  .tg-source-detail { display: none; background: rgba(255,248,235,0.6); border-left: 3px solid var(--gold); padding: 10px 14px; font-size: 0.82rem; color: var(--text-dim); line-height: 1.5; font-family: 'Merriweather', Georgia, serif; }
+  .tg-source-detail { display: none; background: rgba(20,38,63,0.6); border-left: 3px solid var(--gold); padding: 10px 14px; font-size: 0.82rem; color: var(--text-dim); line-height: 1.5; font-family: 'Merriweather', Georgia, serif; }
   .tg-source-detail.open { display: block; }
 
   .tg-step-list { list-style: none; padding: 0; counter-reset: tg-step; }
@@ -1499,7 +1499,7 @@
     margin: 14px 0;
   }
   .tg-compare-card {
-    background: rgba(255,248,235,0.9);
+    background: rgba(20,38,63,0.9);
     border: 1px solid rgba(212,137,26,0.15);
     border-radius: 8px;
     padding: 14px 16px;
@@ -1529,7 +1529,7 @@
   }
   .tg-prob-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
   .tg-prob-item {
-    background: rgba(255,248,235,0.9);
+    background: rgba(20,38,63,0.9);
     border: 1px solid rgba(212,137,26,0.15);
     border-radius: 6px;
     padding: 7px 12px;
@@ -1656,7 +1656,7 @@
   }
   .wa-s { background: rgba(74,140,63,0.18); color: var(--green-bright); border: 1px solid rgba(109,194,95,0.3); }
   .wa-a { background: rgba(95,160,216,0.18); color: var(--blue-bright); border: 1px solid rgba(95,160,216,0.3); }
-  .wa-b { background: rgba(230,180,20,0.18); color: #a87d0a; border: 1px solid rgba(230,180,20,0.35); }
+  .wa-b { background: rgba(230,180,20,0.18); color: #f0c14b; border: 1px solid rgba(230,180,20,0.35); }
   .wa-c { background: rgba(50,58,82,0.15); color: var(--text-muted); border: 1px solid rgba(92,61,30,0.2); }
 
   .wa-controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 12px 0 10px; justify-content: space-between; }
@@ -1664,7 +1664,7 @@
   .wa-sort-wrap { display: flex; align-items: center; gap: 6px; font-family: 'Lato', sans-serif; font-size: 0.72rem; color: var(--text-dim); }
   .wa-sort-select {
     font-family: 'Lato', sans-serif; font-size: 0.75rem; color: var(--text);
-    background: rgba(255,248,235,0.9); border: 1px solid rgba(212,137,26,0.3);
+    background: rgba(20,38,63,0.9); border: 1px solid rgba(212,137,26,0.3);
     border-radius: 6px; padding: 5px 8px; cursor: pointer;
   }
   .wa-no-results { text-align: center; padding: 20px; color: var(--text-muted); font-size: 0.85rem; display: none; }
@@ -1706,7 +1706,7 @@
 
   .wa-role-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin: 14px 0; }
   .wa-role-card {
-    background: rgba(255,248,235,0.9); border: 1px solid rgba(212,137,26,0.15);
+    background: rgba(20,38,63,0.9); border: 1px solid rgba(212,137,26,0.15);
     border-top: 3px solid var(--gold); border-radius: 8px; padding: 14px 16px;
   }
   .wa-role-title { font-family: 'Lato', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--gold); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
@@ -1729,7 +1729,7 @@
   .wa-consensus-card p { font-size: 0.82rem; color: var(--text-dim); line-height: 1.5; }
 
   .wa-future-card {
-    background: rgba(255,248,235,0.7);
+    background: rgba(20,38,63,0.7);
     border: 2px dashed rgba(212,137,26,0.35);
     border-radius: 10px;
     padding: 22px 20px;
@@ -1742,7 +1742,7 @@
   .wa-future-fields { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
   .wa-future-field {
     font-family: 'Lato', sans-serif; font-size: 0.68rem; color: var(--text-muted);
-    background: rgba(255,255,255,0.6); border: 1px solid rgba(212,137,26,0.2);
+    background: rgba(20,38,63,0.6); border: 1px solid rgba(212,137,26,0.2);
     border-radius: 12px; padding: 3px 10px;
   }
 
@@ -1862,7 +1862,7 @@
     top: 18px;
     right: 18px;
     z-index: 310;
-    background: rgba(255,248,235,0.95);
+    background: rgba(20,38,63,0.95);
     border: 1px solid rgba(201,168,76,0.35);
     border-radius: 8px;
     color: var(--gold);
@@ -1904,7 +1904,7 @@
     right: 18px;
     z-index: 305;
     width: 310px;
-    background: rgba(255,248,235,0.97);
+    background: rgba(20,38,63,0.97);
     border: 1px solid rgba(212,137,26,0.3);
     border-radius: 10px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.2);
@@ -2016,7 +2016,7 @@
     margin: 16px 0 24px;
   }
   .mta-intro-card {
-    background: rgba(255,248,235,0.85);
+    background: rgba(20,38,63,0.85);
     border: 1px solid rgba(212,137,26,0.18);
     border-radius: 8px;
     padding: 16px 18px;
@@ -2076,7 +2076,7 @@
     margin: 14px 0 20px;
   }
   .mta-priority-card {
-    background: rgba(255,248,235,0.85);
+    background: rgba(20,38,63,0.85);
     border-radius: 8px;
     border: 1px solid rgba(212,137,26,0.15);
     padding: 14px 16px;
@@ -2110,7 +2110,7 @@
   /* Master detail cards (accordion) */
   .mta-master-list { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
   .mta-master-card {
-    background: rgba(255,248,235,0.88);
+    background: rgba(20,38,63,0.88);
     border: 1px solid rgba(212,137,26,0.18);
     border-radius: 8px;
     overflow: hidden;
@@ -2208,7 +2208,7 @@
     margin: 14px 0;
   }
   .mta-journey-card {
-    background: rgba(255,248,235,0.85);
+    background: rgba(20,38,63,0.85);
     border-radius: 8px;
     padding: 16px 18px;
     border: 1px solid rgba(212,137,26,0.15);
@@ -2328,7 +2328,7 @@
 
 <!-- HEADER -->
 <header>
-  <span class="crown">&#x1F3D6;&#xFE0F;</span>
+  <span class="crown">&#x1F451;</span>
   <div class="alliance-tag">Kingdom #1625 Strategy Guide</div>
   <h1>KINGSHOT</h1>
   <div class="header-subtitle">Complete Strategy Guide &nbsp;&middot;&nbsp; 2026 Edition</div>
