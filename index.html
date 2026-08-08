@@ -2127,6 +2127,74 @@
   }
   .mta-master-header:hover { background: rgba(212,137,26,0.06); }
   .mta-master-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .mta-master-portrait {
+    width: 52px; height: 52px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 2px solid rgba(212,137,26,0.3);
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+
+  /* ── PET GALLERY ── */
+  .pet-tier-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 22px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .pet-tier-label::after { content: ''; flex: 1; height: 1px; background: rgba(212,137,26,0.2); }
+  .pet-gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; margin-bottom: 4px; }
+  .pet-card {
+    background: rgba(20,38,63,0.5);
+    border: 1px solid rgba(212,137,26,0.18);
+    border-radius: 10px;
+    padding: 14px;
+    display: flex;
+    gap: 12px;
+  }
+  .pet-card.pet-locked { opacity: 0.6; }
+  .pet-portrait {
+    width: 64px; height: 64px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 2px solid rgba(212,137,26,0.3);
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .pet-card.pet-locked .pet-portrait { filter: grayscale(1); border-color: rgba(138,146,166,0.3); }
+  .pet-portrait-fallback {
+    width: 64px; height: 64px;
+    border-radius: 8px;
+    background: rgba(212,137,26,0.1);
+    border: 2px solid rgba(212,137,26,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.7rem;
+    flex-shrink: 0;
+  }
+  .pet-info { flex: 1; min-width: 0; }
+  .pet-name { font-family: 'Lato', sans-serif; font-size: 0.92rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .pet-skill { font-size: 0.76rem; color: var(--gold); font-weight: 600; margin-bottom: 4px; }
+  .pet-desc { font-size: 0.78rem; color: var(--text-dim); line-height: 1.45; margin-bottom: 6px; }
+  .pet-meta-row { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+  .pet-meta-badge {
+    font-family: 'Lato', sans-serif; font-size: 0.6rem; font-weight: 700;
+    letter-spacing: 0.04em; padding: 2px 8px; border-radius: 8px;
+    white-space: nowrap; text-transform: uppercase;
+    background: rgba(50,58,82,0.4); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.08);
+  }
+  .pet-meta-badge.pet-cd { background: rgba(95,160,216,0.15); color: var(--blue-bright); border-color: rgba(95,160,216,0.3); }
+  .pet-meta-badge.pet-coming {
+    background: rgba(230,81,0,0.15); color: var(--orange); border-color: rgba(230,81,0,0.35);
+  }
+  .pet-unverified-note {
+    font-size: 0.76rem; color: var(--text-muted); font-style: italic; margin-top: 4px;
+  }
   .mta-master-meta { flex: 1; min-width: 0; }
   .mta-master-name {
     font-family: 'Lato', sans-serif;
@@ -4074,7 +4142,7 @@
     <!-- VALORA -->
     <div class="mta-master-card" id="mta-valora">
       <div class="mta-master-header" onclick="mtaToggle('mta-valora')">
-        <span class="mta-master-icon">&#x1F43B;</span>
+        <img class="mta-master-portrait" src="https://tactichub.github.io/KS/images/masters/valora.png" alt="Valora" onerror="this.outerHTML='&lt;span class=&quot;mta-master-icon&quot;&gt;&amp;#x1F43B;&lt;/span&gt;'">
         <div class="mta-master-meta">
           <div class="mta-master-name">Valora</div>
           <div class="mta-master-tagline">Bear Hunt Specialist &nbsp;·&nbsp; First Guaranteed Master</div>
@@ -4139,7 +4207,7 @@
     <!-- PAN -->
     <div class="mta-master-card" id="mta-pan">
       <div class="mta-master-header" onclick="mtaToggle('mta-pan')">
-        <span class="mta-master-icon">&#x1F33F;</span>
+        <img class="mta-master-portrait" src="https://tactichub.github.io/KS/images/masters/pan.png" alt="Pan" onerror="this.outerHTML='&lt;span class=&quot;mta-master-icon&quot;&gt;&amp;#x1F33F;&lt;/span&gt;'">
         <div class="mta-master-meta">
           <div class="mta-master-name">Pan</div>
           <div class="mta-master-tagline">Economy &amp; Gathering Specialist &nbsp;·&nbsp; Top F2P Investment</div>
@@ -4202,7 +4270,7 @@
     <!-- ROMAN -->
     <div class="mta-master-card" id="mta-roman">
       <div class="mta-master-header" onclick="mtaToggle('mta-roman')">
-        <span class="mta-master-icon">&#x1F3DF;</span>
+        <img class="mta-master-portrait" src="https://tactichub.github.io/KS/images/masters/roman.png" alt="Roman" onerror="this.outerHTML='&lt;span class=&quot;mta-master-icon&quot;&gt;&amp;#x1F3DF;&lt;/span&gt;'">
         <div class="mta-master-meta">
           <div class="mta-master-name">Roman</div>
           <div class="mta-master-tagline">Arena Specialist &nbsp;·&nbsp; Competitive Combat Progression</div>
@@ -4265,7 +4333,7 @@
     <!-- CASSIA -->
     <div class="mta-master-card" id="mta-cassia">
       <div class="mta-master-header" onclick="mtaToggle('mta-cassia')">
-        <span class="mta-master-icon">&#x1F6E1;</span>
+        <img class="mta-master-portrait" src="https://tactichub.github.io/KS/images/masters/cassia.png" alt="Cassia" onerror="this.outerHTML='&lt;span class=&quot;mta-master-icon&quot;&gt;&amp;#x1F6E1;&lt;/span&gt;'">
         <div class="mta-master-meta">
           <div class="mta-master-name">Cassia</div>
           <div class="mta-master-tagline">Rally &amp; Battle Specialist &nbsp;·&nbsp; Late-Game Combat Scaling</div>
@@ -4328,7 +4396,7 @@
     <!-- GUINEVERE -->
     <div class="mta-master-card" id="mta-guinevere">
       <div class="mta-master-header" onclick="mtaToggle('mta-guinevere')">
-        <span class="mta-master-icon">&#x2694;&#xFE0F;</span>
+        <img class="mta-master-portrait" src="https://tactichub.github.io/KS/images/masters/guinevere.png" alt="Guinevere" onerror="this.outerHTML='&lt;span class=&quot;mta-master-icon&quot;&gt;&amp;#x2694;&amp;#xFE0F;&lt;/span&gt;'">
         <div class="mta-master-meta">
           <div class="mta-master-name">Guinevere</div>
           <div class="mta-master-tagline">Holy Sword Domain &nbsp;·&nbsp; 5th Master</div>
@@ -4391,7 +4459,7 @@
     <!-- WILSON -->
     <div class="mta-master-card" id="mta-wilson">
       <div class="mta-master-header" onclick="mtaToggle('mta-wilson')">
-        <span class="mta-master-icon">&#x1F4DC;</span>
+        <img class="mta-master-portrait" src="https://tactichub.github.io/KS/images/masters/wilson.png" alt="Wilson" onerror="this.outerHTML='&lt;span class=&quot;mta-master-icon&quot;&gt;&amp;#x1F4DC;&lt;/span&gt;'">
         <div class="mta-master-meta">
           <div class="mta-master-name">Wilson</div>
           <div class="mta-master-tagline">Royal Herald &nbsp;·&nbsp; 6th Master &nbsp;·&nbsp; Alliance-Event Specialist</div>
@@ -4663,14 +4731,204 @@
     <span class="callout-label">&#x2139; Overview</span>
     Pets unlock progressively as your kingdom ages. Each has an active ability with a cooldown that can meaningfully affect combat, gathering, or construction. Pet abilities must be <strong>manually activated</strong> - build the habit before every Bear Hunt and KvK push.
   </div>
-  <h3>Pet Unlock Timeline (Kingdom Age)</h3>
-  <div class="card card-gold">
-    <p><strong>Day 55+</strong> - Gray Wolf (Construction Speed +15%, 5 min / 23h CD), Lynx (restore 60 Stamina / 23h CD), Bison (instant gather / 15h CD)</p>
-    <p style="margin-top:8px;"><strong>Day 80+</strong> - Cheetah (locate 500 pet food / 23h CD), Moose (enemy Squad HP -5% for 2h / 20h CD)</p>
-    <p style="margin-top:8px;"><strong>Day 110+</strong> - Lion (recover Badlands loot), Grizzly Bear (March Speed +30%, enemy Lethality -5% for 2h / 20h CD)</p>
-    <p style="margin-top:8px;"><strong>Day 190+</strong> - Mighty Bison (Squad Capacity +15,000 for 2h), Giant Rhino (all Squads Attack +10% for 2h)</p>
-    <p style="margin-top:8px;"><strong>Day 270+</strong> - Alpha Black Panther (Troop Lethality +10% for 2h), Great Moose (Rally Capacity +150,000 for 2h)</p>
+  <h3>Pet Gallery</h3>
+  <div class="wa-placeholder-note">&#x1F4CD; Kingdom #1625-specific projected drop dates below are based on kingdom age progression as of this update - Great Moose &amp; Alpha Black Panther are projected for 10/26/2026, and Regal White Lion &amp; Ironclad War Elephant for 01/18/2027. A further pet, <strong>Ironclad War Bear</strong>, is projected for 04/12/2027 but has no confirmed ability data or artwork yet - it will be added once verified.</div>
+
+  <div class="pet-tier-label">Day 55+</div>
+  <div class="pet-gallery-grid">
+    <div class="pet-card">
+      <img class="pet-portrait" src="https://tactichub.github.io/KS/images/pets/gray-wolf.png" alt="Gray Wolf" onerror="this.outerHTML='&lt;div class=&quot;pet-portrait-fallback&quot;&gt;&#x1F43A;&lt;/div&gt;'">
+      <div class="pet-info">
+        <div class="pet-name">Gray Wolf</div>
+        <div class="pet-skill">Construction Aide</div>
+        <div class="pet-desc">Increases Construction Speed by 15% for 5 minutes.</div>
+        <div class="pet-meta-row">
+          <span class="pet-meta-badge">Gen 1</span>
+          <span class="pet-meta-badge pet-cd">23h CD</span>
+        </div>
+      </div>
+    </div>
+    <div class="pet-card">
+      <img class="pet-portrait" src="https://tactichub.github.io/KS/images/pets/lynx.png" alt="Lynx" onerror="this.outerHTML='&lt;div class=&quot;pet-portrait-fallback&quot;&gt;&#x1F408;&lt;/div&gt;'">
+      <div class="pet-info">
+        <div class="pet-name">Lynx</div>
+        <div class="pet-skill">Comforting Embrace</div>
+        <div class="pet-desc">Immediately restores 60 Stamina.</div>
+        <div class="pet-meta-row">
+          <span class="pet-meta-badge">Gen 2</span>
+          <span class="pet-meta-badge pet-cd">23h CD</span>
+        </div>
+      </div>
+    </div>
+    <div class="pet-card">
+      <img class="pet-portrait" src="https://tactichub.github.io/KS/images/pets/bison.png" alt="Bison" onerror="this.outerHTML='&lt;div class=&quot;pet-portrait-fallback&quot;&gt;&#x1F403;&lt;/div&gt;'">
+      <div class="pet-info">
+        <div class="pet-name">Bison</div>
+        <div class="pet-skill">Grip of the Titan</div>
+        <div class="pet-desc">Instantly completes gathering upon reaching the next wilderness resource tile.</div>
+        <div class="pet-meta-row">
+          <span class="pet-meta-badge">Gen 2</span>
+          <span class="pet-meta-badge pet-cd">15h CD</span>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <div class="pet-tier-label">Day 80+</div>
+  <div class="pet-gallery-grid">
+    <div class="pet-card">
+      <img class="pet-portrait" src="https://tactichub.github.io/KS/images/pets/cheetah.png" alt="Cheetah" onerror="this.outerHTML='&lt;div class=&quot;pet-portrait-fallback&quot;&gt;&#x1F406;&lt;/div&gt;'">
+      <div class="pet-info">
+        <div class="pet-name">Cheetah</div>
+        <div class="pet-skill">Scent Mastery</div>
+        <div class="pet-desc">Instantly locates 500 pet food.</div>
+        <div class="pet-meta-row">
+          <span class="pet-meta-badge">Gen 2</span>
+          <span class="pet-meta-badge pet-cd">23h CD</span>
+        </div>
+      </div>
+    </div>
+    <div class="pet-card">
+      <img class="pet-portrait" src="https://tactichub.github.io/KS/images/pets/moose.png" alt="Moose" onerror="this.outerHTML='&lt;div class=&quot;pet-portrait-fallback&quot;&gt;&#x1FACE;&lt;/div&gt;'">
+      <div class="pet-info">
+        <div class="pet-name">Moose</div>
+        <div class="pet-skill">Horror Stare</div>
+        <div class="pet-desc">Reduces enemy Squad Health by 5% for 2 hours.</div>
+        <div class="pet-meta-row">
+          <span class="pet-meta-badge">Gen 2</span>
+          <span class="pet-meta-badge pet-cd">20h CD</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pet-tier-label">Day 110+</div>
+  <div class="pet-gallery-grid">
+    <div class="pet-card">
+      <img class="pet-portrait" src="https://tactichub.github.io/KS/images/pets/lion.png" alt="Lion" onerror="this.outerHTML='&lt;div class=&quot;pet-portrait-fallback&quot;&gt;&#x1F981;&lt;/div&gt;'">
+      <div class="pet-info">
+        <div class="pet-name">Lion</div>
+        <div class="pet-skill">Gift of the King</div>
+        <div class="pet-desc">Unearths an item lost on the Badlands.</div>
+        <div class="pet-meta-row">
+          <span class="pet-meta-badge">Gen 3</span>
+        </div>
+      </div>
+    </div>
+    <div class="pet-card">
+      <img class="pet-portrait" src="https://tactichub.github.io/KS/images/pets/grizzly-bear.png" alt="Grizzly Bear" onerror="this.outerHTML='&lt;div class=&quot;pet-portrait-fallback&quot;&gt;&#x1F43B;&lt;/div&gt;'">
+      <div class="pet-info">
+        <div class="pet-name">Grizzly Bear</div>
+        <div class="pet-skill">The Howler</div>
+        <div class="pet-desc">Increases March Speed by 30% and reduces enemy Squads' Lethality by 5% for 2 hours.</div>
+        <div class="pet-meta-row">
+          <span class="pet-meta-badge">Gen 3</span>
+          <span class="pet-meta-badge pet-cd">20h CD</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pet-tier-label">Day 190+</div>
+  <div class="pet-gallery-grid">
+    <div class="pet-card">
+      <img class="pet-portrait" src="https://tactichub.github.io/KS/images/pets/mighty-bison.png" alt="Mighty Bison" onerror="this.outerHTML='&lt;div class=&quot;pet-portrait-fallback&quot;&gt;&#x1F403;&lt;/div&gt;'">
+      <div class="pet-info">
+        <div class="pet-name">Mighty Bison</div>
+        <div class="pet-skill">Fearless Roar</div>
+        <div class="pet-desc">Increases Squad Capacity by 15,000 for 2 hours.</div>
+        <div class="pet-meta-row">
+          <span class="pet-meta-badge">Gen 4</span>
+        </div>
+      </div>
+    </div>
+    <div class="pet-card">
+      <img class="pet-portrait" src="https://tactichub.github.io/KS/images/pets/giant-rhino.png" alt="Giant Rhino" onerror="this.outerHTML='&lt;div class=&quot;pet-portrait-fallback&quot;&gt;&#x1F98F;&lt;/div&gt;'">
+      <div class="pet-info">
+        <div class="pet-name">Giant Rhino</div>
+        <div class="pet-skill">Wild Charge</div>
+        <div class="pet-desc">Increases all Squads' Attack by 10% for 2 hours.</div>
+        <div class="pet-meta-row">
+          <span class="pet-meta-badge">Gen 4</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pet-tier-label">Day 270+ &nbsp;·&nbsp; Projected 10/26/2026 for K#1625</div>
+  <div class="pet-gallery-grid">
+    <div class="pet-card pet-locked">
+      <img class="pet-portrait" src="https://tactichub.github.io/KS/images/pets/alpha-black-panther.png" alt="Alpha Black Panther" onerror="this.outerHTML='&lt;div class=&quot;pet-portrait-fallback&quot;&gt;&#x1F406;&lt;/div&gt;'">
+      <div class="pet-info">
+        <div class="pet-name">Alpha Black Panther</div>
+        <div class="pet-skill">Deadly Bite</div>
+        <div class="pet-desc">Increases Troop Lethality by 10% for 2 hours.</div>
+        <div class="pet-meta-row">
+          <span class="pet-meta-badge">Gen 5</span>
+          <span class="pet-meta-badge pet-coming">Coming 10/26/26</span>
+        </div>
+      </div>
+    </div>
+    <div class="pet-card pet-locked">
+      <img class="pet-portrait" src="https://tactichub.github.io/KS/images/pets/great-moose.png" alt="Great Moose" onerror="this.outerHTML='&lt;div class=&quot;pet-portrait-fallback&quot;&gt;&#x1FACE;&lt;/div&gt;'">
+      <div class="pet-info">
+        <div class="pet-name">Great Moose</div>
+        <div class="pet-skill">Antler Impact</div>
+        <div class="pet-desc">Increases Rally Capacity by 150,000 for 2 hours.</div>
+        <div class="pet-meta-row">
+          <span class="pet-meta-badge">Gen 5</span>
+          <span class="pet-meta-badge pet-coming">Coming 10/26/26</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pet-tier-label">Day 350+ &nbsp;·&nbsp; Projected 01/18/2027 for K#1625</div>
+  <div class="pet-gallery-grid">
+    <div class="pet-card pet-locked">
+      <img class="pet-portrait" src="https://tactichub.github.io/KS/images/pets/regal-white-lion.png" alt="Regal White Lion" onerror="this.outerHTML='&lt;div class=&quot;pet-portrait-fallback&quot;&gt;&#x1F981;&lt;/div&gt;'">
+      <div class="pet-info">
+        <div class="pet-name">Regal White Lion</div>
+        <div class="pet-skill">Territorial Power</div>
+        <div class="pet-desc">Increases Squads' Defense by 10% for 2 hours.</div>
+        <div class="pet-meta-row">
+          <span class="pet-meta-badge">Gen 6</span>
+          <span class="pet-meta-badge pet-cd">20h CD</span>
+          <span class="pet-meta-badge pet-coming">Coming 01/18/27</span>
+        </div>
+      </div>
+    </div>
+    <div class="pet-card pet-locked">
+      <img class="pet-portrait" src="https://tactichub.github.io/KS/images/pets/ironclad-war-elephant.png" alt="Ironclad War Elephant" onerror="this.outerHTML='&lt;div class=&quot;pet-portrait-fallback&quot;&gt;&#x1F418;&lt;/div&gt;'">
+      <div class="pet-info">
+        <div class="pet-name">Ironclad War Elephant</div>
+        <div class="pet-skill">Elephant's Guard</div>
+        <div class="pet-desc">Increases Squad Health by 10% for 2 hours.</div>
+        <div class="pet-meta-row">
+          <span class="pet-meta-badge">Gen 6</span>
+          <span class="pet-meta-badge pet-cd">20h CD</span>
+          <span class="pet-meta-badge pet-coming">Coming 01/18/27</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pet-tier-label">Projected 04/12/2027 for K#1625</div>
+  <div class="pet-gallery-grid">
+    <div class="pet-card pet-locked">
+      <div class="pet-portrait-fallback">&#x1F43B;</div>
+      <div class="pet-info">
+        <div class="pet-name">Ironclad War Bear</div>
+        <div class="pet-skill">Ability not yet confirmed</div>
+        <div class="pet-desc pet-unverified-note">Skill, cooldown, and artwork aren't verified yet - this card will be filled in once that data is confirmed.</div>
+        <div class="pet-meta-row">
+          <span class="pet-meta-badge">Gen 7 (unconfirmed)</span>
+          <span class="pet-meta-badge pet-coming">Coming 04/12/27</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <h3>Pet Priority by Playstyle</h3>
   <div class="priority-grid">
     <div class="priority-item p1">
@@ -4925,6 +5183,11 @@
       <div class="link-card-desc">Kingdom 1625's recommended tool hub - calculators, KvK tracker, gift codes, event calendar, pet/building databases, War Academy tree, and transfer planner. K#1625 data tracked.</div>
       <div class="link-card-url">v2.kingshot.net</div>
     </a>
+    <a class="link-card card-gold" href="https://kingshotoptimizer.com/kingdom-timeline/1625" target="_blank">
+      <div class="link-card-title">&#x1F4C5; Kingdom 1625 Timeline &#x2605; Source of Truth</div>
+      <div class="link-card-desc">Our reference for all upcoming K#1625 releases and updates - hero generations, pet generations, Masters unlocks, Truegold tiers, fog clears, and KvK firsts, scaled to our kingdom's actual age. Enter kingdom #1625 on the page to load live dates.</div>
+      <div class="link-card-url">kingshotoptimizer.com/kingdom-timeline/1625</div>
+    </a>
     <a class="link-card" href="https://kingshotguides.com" target="_blank">
       <div class="link-card-title">&#x1F4D6; KingshotGuides.com</div>
       <div class="link-card-desc">Community guides with Bear Hunt, events calendar, hero tier lists, and gear upgrade guides.</div>
@@ -5009,7 +5272,7 @@ HERO TIER LIST: S-Tier: Amadeus (rally leader), Quinn (archer support), Chenko (
 
 F2P PRIORITY: VIP Level first, then Speed-ups during events, then Hero shards on Amadeus/Chenko/Quinn rotation. Never spend gems on resource packs or random chests.
 
-PETS: Pets unlock based on kingdom age. Priority pets by use: Alpha Black Panther (Gen 5, day 270, +10% Troop Lethality 2h) - best for Bear Hunt. Great Moose (Gen 5, day 270, +150,000 Rally Capacity 2h) - best for rally leaders. Giant Rhino (Gen 4, day 190, +10% all Squads Attack 2h) - best mid-game combat. Grizzly Bear (Gen 3, day 110, March Speed +30%, enemy Lethality -5% 2h) - best for KvK. Lynx (Gen 2, day 55, restores 60 Stamina) - best for F2P stamina. Bison (Gen 2, day 55, instant gather / 15h CD) - best for gather events. Cheetah (Gen 2, day 80, locate 500 pet food / 23h CD) - use daily for food. CRITICAL: Pet abilities must be MANUALLY ACTIVATED before every Bear Hunt rally and KvK push. Full database: v2.kingshot.net/database/pets.
+PETS: Pets unlock based on kingdom age. Full roster (13 pets, verified via v2.kingshot.net/database/pets): Gray Wolf (Gen 1, day 55, Construction Speed +15% for 5 min, 23h CD). Lynx (Gen 2, day 55, restores 60 Stamina, 23h CD) - best for F2P stamina. Bison (Gen 2, day 55, instant gather on next tile, 15h CD) - best for gather events. Cheetah (Gen 2, day 80, locates 500 pet food, 23h CD) - use daily for food. Moose (Gen 2, day 80, enemy Squad Health -5% for 2h, 20h CD). Lion (Gen 3, day 110, unearths a Badlands item, no listed CD). Grizzly Bear (Gen 3, day 110, March Speed +30% and enemy Lethality -5% for 2h, 20h CD) - best for KvK. Mighty Bison (Gen 4, day 190, Squad Capacity +15,000 for 2h). Giant Rhino (Gen 4, day 190, all Squads Attack +10% for 2h) - best mid-game combat. Alpha Black Panther (Gen 5, day 270, Troop Lethality +10% for 2h) - best for Bear Hunt. Great Moose (Gen 5, day 270, Rally Capacity +150,000 for 2h) - best for rally leaders. Regal White Lion (Gen 6, day 350, Squads' Defense +10% for 2h, 20h CD). Ironclad War Elephant (Gen 6, day 350, Squad Health +10% for 2h, 20h CD). KINGDOM #1625 PROJECTED TIMELINE (not yet unlocked as of this update): Great Moose and Alpha Black Panther projected 10/26/2026. Regal White Lion and Ironclad War Elephant projected 01/18/2027. A further pet, Ironclad War Bear, is projected for 04/12/2027 but its ability, cooldown, and artwork are NOT yet confirmed - do not state specifics about it, only that it's expected on that date with details still unverified. CRITICAL: Pet abilities must be MANUALLY ACTIVATED before every Bear Hunt rally and KvK push. Full database: v2.kingshot.net/database/pets.
 
 KINGDOM TRANSFER: Every 40-60 days a transfer window opens. Players can move their entire account to a different kingdom. Troops, resources, heroes, and items transfer with you - map position resets - alliance membership does NOT auto-transfer. Reasons to transfer: escape dominated kingdom, reunite with allies, optimize KvK bracket. Restrictions: target kingdom must be within eligible age bracket, TC level may impose requirements, clear active timers before transfer. Kingdom #1625 protocol: ALL transfers require R4/R5 approval first - uncoordinated transfers hurt alliance power scores for HoG and Championship. Coordinate group timing so bulk of members arrive same day. Assign a scout 48h early to assess the destination kingdom's political situation. Tools: Transfer Planner at v2.kingshot.net/transfer-planner, Kingdom Age Tracker at v2.kingshot.net/kingdom-age-tracker.
 
