@@ -5833,6 +5833,18 @@ function quickAsk(question) {
     var r = document.getElementById('utcrow-' + new Date().getUTCHours());
     if (r) r.scrollIntoView({ block: 'center', behavior: 'smooth' });
   }
+  function openPanel() {
+    isOpen = true;
+    panel.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+    scrollToNow();
+  }
+  // Deep-link support: a URL ending in #utc-time opens this widget automatically.
+  // Paste https://tactichub.github.io/KS/#utc-time in-game for a direct time-check link.
+  function checkHashOpen() {
+    if (window.location.hash === '#utc-time') openPanel();
+  }
+  window.addEventListener('hashchange', checkHashOpen);
   function tick() {
     var n = new Date();
     var uh = pad(n.getUTCHours()), um = pad(n.getUTCMinutes()), us = pad(n.getUTCSeconds());
@@ -5843,6 +5855,7 @@ function quickAsk(question) {
     highlightRow();
   }
   buildRows(); tick(); setInterval(tick, 1000);
+  checkHashOpen();
 })();
 
 // ── GIFT CODES (KV-backed via Cloudflare Worker) ──
