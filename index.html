@@ -2468,6 +2468,7 @@
     <a href="#gift-codes"><span class="nav-icon">&#x1F381;</span>Gift Codes</a>
     <a href="#tools"><span class="nav-icon">&#x1F9EE;</span>Tools &amp; Calculators</a>
     <a href="#resources"><span class="nav-icon">&#x1F4DA;</span>Community Links</a>
+    <a href="#utc-time" onclick="copyUtcLink(event)"><span class="nav-icon">&#x1F552;</span>Copy UTC Time Link</a>
   </div>
 
   <div class="sidebar-footer">&#x1F3D6;&#xFE0F; Kingdom 1625 Strategy Guide</div>
@@ -5911,6 +5912,17 @@ function copyCode(btn, code) {
     setTimeout(() => toast.classList.remove('show'), 2000);
   };
   navigator.clipboard ? navigator.clipboard.writeText(code).then(doToast).catch(doToast) : doToast();
+}
+
+function copyUtcLink(e) {
+  const url = window.location.origin + window.location.pathname + '#utc-time';
+  const doToast = () => {
+    const toast = document.getElementById('giftToast');
+    toast.textContent = 'UTC time link copied!';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  };
+  navigator.clipboard ? navigator.clipboard.writeText(url).then(doToast).catch(doToast) : doToast();
 }
 
 function toggleGiftEdit() {
