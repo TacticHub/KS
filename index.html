@@ -1681,7 +1681,7 @@
     animation: wa-pulse-ring 1.8s infinite;
     flex-shrink: 0;
   }
-  .sidebar-links a[href="#war-academy"] { display: flex; align-items: center; }
+  .sidebar-links a[href="#war-academy"], .sidebar-links a[href="#blizzard-brawl"] { display: flex; align-items: center; }
 
   .wa-launch-banner {
     display: flex;
@@ -2554,6 +2554,7 @@
     <a href="#all-out"><span class="nav-icon">&#x2694;</span>All Out</a>
     <a href="#moonlit"><span class="nav-icon">&#x1F319;</span>Moonlit Promise</a>
     <a href="#er"><span class="nav-icon">&#x2728;</span>Eternity's Reach</a>
+    <a href="#blizzard-brawl"><span class="nav-icon">&#x2744;&#xFE0F;</span>Blizzard Brawl<span class="nav-beacon" aria-hidden="true"></span></a>
 
     <div class="sidebar-divider">Strategy</div>
     <a href="#kvk"><span class="nav-icon">&#x2694;</span>KvK</a>
@@ -5101,6 +5102,156 @@
 
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
+<!-- BLIZZARD BRAWL -->
+<section id="blizzard-brawl">
+  <div class="section-header">
+    <span class="section-icon">&#x2744;&#xFE0F;</span>
+    <h2>Blizzard Brawl</h2>
+  </div>
+  <div class="wa-placeholder-note">&#x26A0;&#xFE0F; <span>Blizzard Brawl was added in the August 24, 2026 update and is only days old. Official confirmation exists for the core format, but most mechanic-level detail below comes from one early strategy guide plus very limited community testing - treat it as a strong first-event playbook, not settled meta. Verify against your in-game rules screen before every match.</span></div>
+
+  <h3>What It Is</h3>
+  <div class="card card-blue">
+    <p>Solo real-time PvP - 10 Governors enter one free-for-all battlefield, not an alliance team event. Two matchmaking pools: <strong>Same-Gen Battle</strong> (opponents from your Hero Generation) and <strong>Cross-Gen Battle</strong> (broader matchmaking). Town Center Lv. 25+ required. Up to 10 matches during the event window, roughly 10 minutes each (~30 sec prep, then ~9:30 active battle), across four matchmaking periods per day of about two hours each.</p>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="callout-label">&#x26A0; The Critical Scoring Lesson</span>
+    Blizzard Brawl does not appear to be a kill-farming event. The strongest early evidence points to Blizzard Points coming mainly from <strong>occupying buildings, collecting Blizzard Crates, and airdrop-related activity</strong> - not from kills. A Governor can win every fight and still lose the room to someone who spent that time scoring objectives instead. Priority order: <strong>open building &gt; safe crates &gt; useful airdrop &gt; purposeful PvP &gt; random fighting.</strong>
+  </div>
+
+  <h3>Battlefield Objectives</h3>
+  <ul class="tips">
+    <li><strong>Central Vault of Valor:</strong> the highest-value position on the map, and the biggest combat magnet - expect constant contest.</li>
+    <li><strong>Three Forward Camps:</strong> surround the Vault; lower value individually but far cheaper to hold uncontested.</li>
+    <li>Buildings reportedly take about 10 seconds to capture and generate Blizzard Points while held.</li>
+    <li><strong>Blizzard Crates:</strong> supply caravans begin roughly 30 seconds into a match and keep arriving - a scoring path that doesn't require beating the biggest player in the room.</li>
+  </ul>
+  <div class="callout callout-tip">
+    <span class="callout-label">&#x1F4A1; Rule of Thumb</span>
+    Own uncontested points cheaply. Don't spend 90 seconds fighting for a position worth 30 seconds of scoring.
+  </div>
+
+  <h3>Airdrop Items</h3>
+  <p style="font-size:0.88rem;color:var(--text-dim);margin-bottom:10px;">Airdrops reportedly begin about 1:30 into battle and recur roughly every 2 minutes. Four items have been documented so far:</p>
+  <div class="tg-table-wrap">
+    <table class="tg-table">
+      <thead><tr><th>Item</th><th>Reported Effect</th><th>Best Early Use</th></tr></thead>
+      <tbody>
+        <tr><td>Rocket Bomb</td><td>Severely injures 30,000 troops</td><td>Soften an important garrison before attacking</td></tr>
+        <tr><td>Ice Bomb</td><td>Prevents a Town from deploying troops for 10 sec</td><td>Create a capture/attack window</td></tr>
+        <tr><td>Healing Elixir</td><td>Heals 30% of severely injured troops, max 500k</td><td>Use only after meaningful losses - don't waste it early</td></tr>
+        <tr><td>Smoke Bomb</td><td>Makes your Town unselectable for 20 sec</td><td>Defensive reset - activate before deploying, not after</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="wa-placeholder-note">The Ice Bomb &rarr; Rocket Bomb &rarr; march-arrival combo is the strongest early tactical idea reported, but with the event only days old it should be treated as promising rather than proven meta.</div>
+
+  <h3>Role-Based Opening Strategy</h3>
+  <div class="wa-role-grid">
+    <div class="wa-role-card">
+      <div class="wa-role-title">&#x1F947; Strongest In Lobby</div>
+      <div class="pet-desc">Contest the Vault of Valor, then use a second march on an uncontested Forward Camp. Keep at least one mobile march free for crates. Don't park your strongest march once a building is secure.</div>
+    </div>
+    <div class="wa-role-card">
+      <div class="wa-role-title">&#x2696;&#xFE0F; Mid-Strength</div>
+      <div class="pet-desc">Avoid the immediate center brawl. Take a Forward Camp, watch where the whales commit, and collect crates while they fight. Attack the center only once the defender is weakened or distracted.</div>
+    </div>
+    <div class="wa-role-card">
+      <div class="wa-role-title">&#x1F6E1;&#xFE0F; Weakest In Lobby</div>
+      <div class="pet-desc">Forget ego fights. Take empty structures, prioritize crates, secure airdrops when safe, and steal weakened buildings after stronger Governors move on. Far more resource-efficient than repeatedly losing to someone you can't beat.</div>
+    </div>
+  </div>
+
+  <h3>March Philosophy</h3>
+  <ul class="tips">
+    <li><strong>March 1 - Fighting/key-objective march:</strong> your strongest PvP heroes and troops.</li>
+    <li><strong>March 2 - Flexible objective march:</strong> Forward Camps, weakened buildings, opportunistic attacks.</li>
+    <li><strong>March 3+ - Collection/rotation marches:</strong> crates, uncontested objectives, positional pressure.</li>
+  </ul>
+  <div class="callout callout-info">
+    <span class="callout-label">&#x2139; Opportunity Cost</span>
+    Before every fight, ask: what points does winning this actually give me? Good fights remove someone from your scoring building or flip a weakened objective. Bad fights are revenge attacks, chasing a player across the map, or defending a low-value position at high troop cost. If a fight doesn't improve your point production, it's probably wasting time.
+  </div>
+
+  <h3>Same-Gen vs Cross-Gen</h3>
+  <div class="card card-gold">
+    <p>Start with <strong>Same-Gen</strong> for your first several matches - it removes the biggest Hero-generation disadvantage and gives you a cleaner read on whether your tactics are working. <strong>Cross-Gen</strong> has a larger matchmaking pool and could occasionally produce an easier room, but there isn't enough evidence yet to call it the easier mode by default. Learn the map on Same-Gen, then experiment.</p>
+  </div>
+
+  <h3>Rewards &amp; Blizzard Shop</h3>
+  <div class="callout callout-warn">
+    <span class="callout-label">&#x26A0; Shop Value Unconfirmed</span>
+    The event introduces Brawl Emblems, spent in a Blizzard Shop. Early reward categories reportedly include participation, Blizzard Point thresholds, building points, and airdrop usage - but the long-term value of the shop itself isn't established yet. Do not spend gems or scarce resources specifically for Blizzard Brawl until the shop, rules, and mission pages have been screenshotted and reviewed.
+  </div>
+
+  <h3>Common Mistakes</h3>
+  <div class="tg-mistake-grid">
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Treating It Like Castle Battle</div>
+      <div class="tg-mistake-desc">This is objective scoring, not a kill event - chasing fights over buildings and crates costs you the room.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Revenge Attacks</div>
+      <div class="tg-mistake-desc">Hitting someone because they hit you, or chasing a player across the map, rarely improves your point production.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Overholding the Center</div>
+      <div class="tg-mistake-desc">Sitting at the Vault after it becomes economically impossible to hold wastes troops that could be scoring elsewhere.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Ignoring Crates and Airdrops</div>
+      <div class="tg-mistake-desc">Both are scoring paths that don't require beating the strongest player in the lobby - skipping them leaves points on the table.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Using Healing Elixir Too Early</div>
+      <div class="tg-mistake-desc">It's a percentage heal - using it before meaningful casualties wastes most of its value.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Spending Before Seeing the Shop</div>
+      <div class="tg-mistake-desc">Blizzard Emblem carryover and shop value aren't confirmed yet - don't hoard or spend blind.</div>
+    </div>
+  </div>
+
+  <h3>Community Notes</h3>
+  <div class="wa-consensus-grid">
+    <div class="wa-consensus-card wa-confirmed">
+      <div class="wa-consensus-title">&#x2705; Community Consensus</div>
+      <ul>
+        <li>Score comes primarily from buildings, crates, and airdrops - not kills.</li>
+        <li>Same-Gen is the safer starting mode.</li>
+        <li>Crate collection is a strong equalizer for weaker accounts.</li>
+        <li>Fight for objectives, not for revenge or kills.</li>
+        <li>Don't spend scarce resources until the shop is reviewed.</li>
+      </ul>
+    </div>
+    <div class="wa-consensus-card wa-anecdotal">
+      <div class="wa-consensus-title">&#x1F4AC; Anecdotal Evidence</div>
+      <ul>
+        <li>Later matchmaking windows or Day 2 may have softer lobbies once aggressive players use up attempts.</li>
+        <li>Strong players may benefit from swapping a powerful march for a weaker holder once a building is secure, freeing the strong march to pressure elsewhere.</li>
+        <li>Lower-power Governors may outperform expectations given objective-based scoring.</li>
+      </ul>
+    </div>
+    <div class="wa-consensus-card wa-disputed">
+      <div class="wa-consensus-title">&#x2696; Disputed Claims</div>
+      <p>Whether Same-Gen is always the easier lobby (a Same-Gen room can still contain heavy spenders), whether center control is mandatory to win versus objective-farming elsewhere, and the exact kill-point formula are all unresolved. Treat "center = victory" and specific kill-point claims as unconfirmed until real scoreboards are reviewed.</p>
+    </div>
+  </div>
+
+  <h3>Day-One Plan</h3>
+  <ul class="tips">
+    <li>Enter Same-Gen first and treat Match 1 as reconnaissance, not a leaderboard push.</li>
+    <li>Screenshot the complete rules before entering.</li>
+    <li>During the match, track building score, crate score, airdrop score, and any combat/kills score separately.</li>
+    <li>Screenshot the final scoreboard and Battle Record after each match.</li>
+    <li>Run a deliberately different strategy in Match 2 to compare results.</li>
+    <li>Test Cross-Gen later, once you have a reliable Same-Gen baseline.</li>
+  </ul>
+</section>
+
+<div class="divider">&#x2756; &#x2756; &#x2756;</div>
+
 <!-- F2P STRATEGY -->
 <section id="f2p">
   <div class="section-header">
@@ -5682,6 +5833,8 @@ ALL OUT: Two-day PvP kill event every few weeks. Points scale by troop tier. Saf
 
 MOONLIT PROMISE: Month-long Ramadan special event (NOT the same as Moonlit Celebration). Two components: Radiant Wishes (light lanterns with Crescent Seekers to earn Crescent Emblems with multipliers) and Crescent Bazaar (spend emblems on gear, Forge Hammers, charms, speed-ups). Ally blessings: after 30 lanterns, share 2 emblems with members, up to 20 blessing receives per day (resets daily). Shop priority: Forge Hammers first (best F2P value), then gear/charm items. End of event: unused currency converts to food - spend down before event ends. Alliance protocol: members post "Blessings open" in Discord after hitting 30-lantern threshold so others can claim daily blessings.
 
+BLIZZARD BRAWL (added August 24, 2026 update - very new, evidence base still thin, verify against in-game rules screen): Solo real-time PvP, NOT an alliance event - 10 Governors per free-for-all battlefield. Two modes: Same-Gen Battle (same Hero Generation opponents, recommended starting mode) and Cross-Gen Battle (broader matchmaking, test later once you have a Same-Gen baseline). Requires Town Center Lv. 25+. Up to 10 matches, ~10 min each (~30 sec prep, ~9:30 active battle), four matchmaking windows per day (~2 hours each). CRITICAL SCORING LESSON: this is NOT a kill-farming event - Blizzard Points come mainly from occupying buildings, collecting Blizzard Crates, and airdrop activity, not kills. Priority order: open building > safe crates > useful airdrop > purposeful PvP > random fighting. BATTLEFIELD: Central Vault of Valor (highest value, biggest combat magnet) plus three surrounding Forward Camps (cheaper to hold uncontested); buildings take ~10 sec to capture. Blizzard Crates arrive via supply caravans starting ~30 sec into a match, a strong scoring path for weaker accounts. AIRDROPS (begin ~1:30 in, recur ~every 2 min): Rocket Bomb (severely injures 30,000 troops - use to soften a garrison before attacking), Ice Bomb (blocks troop deployment 10 sec - creates a capture window), Healing Elixir (heals 30% of severely injured troops, max 500k - use only after meaningful losses), Smoke Bomb (makes your Town unselectable 20 sec - defensive reset). Ice Bomb -> Rocket Bomb -> march arrival is a promising but not yet proven combo. ROLE STRATEGY: Strongest in lobby = contest the Vault plus take an uncontested Forward Camp, keep one mobile march for crates. Mid-strength = avoid the center brawl, take a Forward Camp, collect crates while whales fight, hit center only when the defender is weakened. Weakest = skip ego fights, take empty structures, prioritize crates and safe airdrops, steal weakened buildings after stronger players move on. MARCH ROLES: March 1 fighting/key-objective, March 2 flexible objective, March 3+ collection/rotation. Core question before every fight: does winning this improve my point production - avoid revenge attacks and chasing players. REWARDS: Brawl Emblems spent in a Blizzard Shop - shop long-term value is NOT yet confirmed, do not spend gems or scarce resources on Blizzard Brawl until the shop, rules, and mission pages have been reviewed. DISPUTED/UNCONFIRMED: whether Same-Gen is always easier (a Same-Gen lobby can still contain heavy spenders), whether center control is mandatory to win vs. objective-farming elsewhere, the exact kill-point formula, and whether Brawl Emblems carry over between events - do not state any of these as settled fact.
+
 HERO TIER LIST: S-Tier: Amadeus (rally leader), Quinn (archer support), Chenko (lethality), Rosa (Gen 4 archer support/control), Alcar (Gen 4 infantry garrison/rally-lead tank). A-Tier: Helga, Amadeus, Diana, Margot (Gen 4 cavalry burst/PvP). B-Tier: Jaeger, Howard. Focus resources on one primary hero first. GEN 4 HEROES (unlock ~Day 195): Alcar (Infantry, Legendary, widget: Praetorian Guard) - garrison/rally-lead tank, recommended 5-star, High priority. Margot (Cavalry, Legendary, widget: Revel Fang) - burst Cavalry DPS, recommended 4-star, Medium-High priority. Rosa (Archer, Legendary, widget: Aeolian) - Archer control/support, recommended 5-star, highest Archer investment priority.
 
 F2P PRIORITY: VIP Level first, then Speed-ups during events, then Hero shards on Amadeus/Chenko/Quinn rotation. Never spend gems on resource packs or random chests.
@@ -5867,6 +6020,7 @@ function quickAsk(question) {
 // Keep this to the 5 most recent entries. Add new ones to the TOP of the array.
 // date format: YYYY-MM-DD (used only for sorting/compare, not displayed verbatim below)
 const WHATS_NEW = [
+  { date: '2026-08-26', label: 'Blizzard Brawl guide added - new event, first-week strategy', link: '#blizzard-brawl' },
   { date: '2026-08-08', label: 'Tri-Alliance Clash & Swordland Showdown full guides added', link: '#tri-alliance' },
   { date: '2026-08-08', label: 'War Academy prep section added ahead of Aug 31 launch', link: '#war-academy' },
   { date: '2026-08-08', label: 'Pet roster expanded to 13 pets, including Gen 6 and K#1625 timeline', link: '#pets' },
