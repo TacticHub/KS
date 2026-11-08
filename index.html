@@ -2674,12 +2674,12 @@
 .omen-tip-card--warning { border-left:3px solid #d9a0ff; }
 .omen-tip-caption { color:#b8a8d0; font-family:'Lato',sans-serif; font-size:.73rem; margin:-10px 0 15px; line-height:1.45; }
 @media(max-width:640px) {
-  .omen-hero-card { grid-template-columns:minmax(0,1fr) 115px; min-height:178px; }
-  .omen-hero-copy { padding:15px; }
+  .omen-hero-card { grid-template-columns:1fr; min-height:0; }
+  .omen-hero-art { order:-1; aspect-ratio:16/10; height:auto; min-height:0 !important; object-position:50% 28%; border-left:0; border-bottom:1px solid rgba(178,101,235,.22); mask-image:linear-gradient(to bottom,#000 78%,transparent 100%); -webkit-mask-image:linear-gradient(to bottom,#000 78%,transparent 100%); }
+  .omen-hero-copy { padding:4px 16px 18px; }
   .omen-hero-copy h2 { font-size:1.25rem; }
   .omen-hero-copy p { font-size:.78rem; line-height:1.5; }
   .omen-kicker { letter-spacing:.07em; font-size:.6rem; }
-  .omen-hero-art { min-height:178px; }
   .omen-tip-card { grid-template-columns:minmax(0,1fr) 78px; gap:10px; padding:12px; }
   .omen-tip-card img { width:78px; height:88px; }
   .omen-tip-card p { font-size:.8rem; }
