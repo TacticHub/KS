@@ -1184,6 +1184,7 @@
   .hdb-acq-event    { background: rgba(95,160,216,0.15); color: var(--blue-bright);   border: 1px solid rgba(95,160,216,0.2); }
   .hdb-acq-free     { background: rgba(74,140,63,0.15);  color: var(--green-bright);  border: 1px solid rgba(109,194,95,0.2); }
   .hdb-avail-yes  { color: var(--green-bright); font-size: 0.75rem; font-family:'Lato',sans-serif; }
+  .hdb-avail-soon { color: var(--orange); font-size: 0.75rem; font-family:'Lato',sans-serif; font-weight: 700; }
   .hdb-avail-no   { color: var(--text-muted);   font-size: 0.75rem; font-family:'Lato',sans-serif; font-style: italic; }
   .hdb-expand-icon { color: var(--gold); font-size: 0.75rem; margin-left: 6px; transition: transform 0.2s; display: inline-block; }
   .hdb-expanded .hdb-expand-icon { transform: rotate(90deg); }
@@ -5689,7 +5690,7 @@
 
   <div class="pet-tier-label">Day 270+ &nbsp;·&nbsp; Unlocks 11/09/2026 for K#1625</div>
   <div class="pet-gallery-grid">
-    <div class="pet-card pet-locked">
+    <div class="pet-card">
       <img class="pet-portrait" src="https://tactichub.github.io/KS/images/pets/alpha-black-panther.png" alt="Alpha Black Panther" onerror="this.outerHTML='&lt;div class=&quot;pet-portrait-fallback&quot;&gt;&#x1F406;&lt;/div&gt;'">
       <div class="pet-info">
         <div class="pet-name">Alpha Black Panther</div>
@@ -5704,7 +5705,7 @@
         </div>
       </div>
     </div>
-    <div class="pet-card pet-locked">
+    <div class="pet-card">
       <img class="pet-portrait" src="https://tactichub.github.io/KS/images/pets/great-moose.png" alt="Great Moose" onerror="this.outerHTML='&lt;div class=&quot;pet-portrait-fallback&quot;&gt;&#x1FACE;&lt;/div&gt;'">
       <div class="pet-info">
         <div class="pet-name">Great Moose</div>
@@ -7318,9 +7319,9 @@ const HERO_DATA = [
     id: 'longfei', name: 'Long Fei', generation: 5, rarity: 'Legendary',
     troopType: 'Infantry', primaryRole: 'Garrison', secondaryRole: 'PvP',
     acquisitionMethod: 'Hero Roulette', releaseTiming: 'Nov 9, 2026',
-    availableNow: false,
+    availableNow: false, comingSoon: true,
     emoji: '🛡️',
-    image: 'https://tactichub.github.io/KS/images/heroes/LongFei.jpg',
+    image: 'https://tactichub.github.io/KS/images/heroes/Long%20Fei.jpg',
     shortDescription: 'Gen 5 defensive Infantry hero for garrison, PvP frontline, and Arena. Obtainable from Hero Roulette, making him the most accessible Gen 5 hero and a good F2P progression opportunity.',
     strengths: ['Defensive Infantry kit for garrison and PvP frontline', 'Strong PvP Infantry option for defense and Arena', 'Hero Roulette acquisition - the most accessible Gen 5 hero'],
     weaknesses: ['Defensive Expedition skills are poorly suited to maximizing Bear damage', 'Not a priority for Bear Trap damage'],
@@ -7339,7 +7340,7 @@ const HERO_DATA = [
     id: 'thrud', name: 'Thrud', generation: 5, rarity: 'Legendary',
     troopType: 'Cavalry', primaryRole: 'Rally', secondaryRole: 'PvP',
     acquisitionMethod: 'Event Hero Shards', releaseTiming: 'Nov 9, 2026',
-    availableNow: false,
+    availableNow: false, comingSoon: true,
     emoji: '🐎',
     image: 'https://tactichub.github.io/KS/images/heroes/Thrud.jpg',
     shortDescription: 'Gen 5 offensive Cavalry hero built to lead PvP rallies and mixed-troop attacks. A potential offensive upgrade for Cavalry-focused rally leaders, but not an automatic Petra replacement for Bear.',
@@ -7360,7 +7361,7 @@ const HERO_DATA = [
     id: 'vivian', name: 'Vivian', generation: 5, rarity: 'Legendary',
     troopType: 'Archer', primaryRole: 'Rally', secondaryRole: 'Bear',
     acquisitionMethod: 'Event Hero Shards', releaseTiming: 'Nov 9, 2026',
-    availableNow: false,
+    availableNow: false, comingSoon: true,
     emoji: '🏹',
     image: 'https://tactichub.github.io/KS/images/heroes/Vivian.jpg',
     shortDescription: 'Gen 5 Archer hero whose enemy-damage amplification skill makes her a valuable rally joiner for Bear and PvP, with Arena and defensive Archer utility.',
@@ -7493,19 +7494,20 @@ function hdbRenderTable(heroes) {
     // Main row
     const tr = document.createElement('tr');
     tr.id = 'hdb-row-' + h.id;
-    tr.className = h.availableNow === false ? 'hdb-future-row' : '';
+    const faded = h.availableNow === false && !h.comingSoon;
+    tr.className = faded ? 'hdb-future-row' : '';
     if (hdbOpenId === h.id) tr.className += ' hdb-expanded';
     tr.innerHTML = `
       <td>
         <div class="hdb-hero-name-cell">
-          <div class="hdb-portrait ${h.availableNow === false ? 'hdb-portrait-future' : ''}">
+          <div class="hdb-portrait ${faded ? 'hdb-portrait-future' : ''}">
             ${h.image ? `<img src="${h.image}" alt="${h.name}">` : `<span>${h.emoji || '⚔️'}</span>`}
           </div>
-          <span class="hdb-name ${h.availableNow === false ? 'hdb-name-future' : ''}">${h.name}</span>
+          <span class="hdb-name ${faded ? 'hdb-name-future' : ''}">${h.name}</span>
           <span class="hdb-expand-icon">▶</span>
         </div>
       </td>
-      <td><span class="hdb-gen-badge ${hdbGenClass(h.generation, h.availableNow)}">Gen ${h.generation}</span></td>
+      <td><span class="hdb-gen-badge ${hdbGenClass(h.generation, !faded)}">Gen ${h.generation}</span></td>
       <td><span class="hdb-troop-badge ${hdbTroopClass(h.troopType)}">${h.troopType}</span></td>
       <td style="font-size:0.8rem;color:var(--text);">${h.primaryRole}${h.secondaryRole ? '<br><span style="font-size:0.7rem;color:var(--text-muted);">'+h.secondaryRole+'</span>' : ''}</td>
       <td>${hdbRatingBadge(h.pvpRating)}</td>
@@ -7515,7 +7517,9 @@ function hdbRenderTable(heroes) {
       <td><span class="hdb-acq-badge ${hdbAcqClass(h.acquisitionMethod)}">${h.acquisitionMethod || '-'}</span></td>
       <td>${h.availableNow !== false
         ? '<span class="hdb-avail-yes">✓ Available</span>'
-        : `<span class="hdb-avail-no">🔒 ${h.releaseTiming || 'Future'}</span>`}</td>`;
+        : h.comingSoon
+          ? `<span class="hdb-avail-soon">Coming ${h.releaseTiming}</span>`
+          : `<span class="hdb-avail-no">🔒 ${h.releaseTiming || 'Future'}</span>`}</td>`;
     tbody.appendChild(tr);
 
     // Detail row
