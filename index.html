@@ -2655,7 +2655,7 @@
   }
 
 /* Omen & the Feline Flame: original Kingdom 1625 guide mascots.
-   Images are optional until assets/omen-hero.svg and assets/feline-flame.svg are uploaded. */
+   Poses live in assets/characters/. Images hide themselves if a file is missing. */
 .omen-hero-card, .omen-tip-card { font-family:'Lato',sans-serif; position:relative; overflow:hidden; border:1px solid rgba(178,101,235,.48); border-radius:16px; background:linear-gradient(130deg,rgba(40,23,66,.96),rgba(18,37,60,.97) 65%,rgba(26,19,49,.97)); box-shadow:0 8px 30px rgba(0,0,0,.18); }
 .omen-hero-card { display:grid; grid-template-columns:minmax(0,1fr) minmax(150px,34%); align-items:center; margin:16px 0 24px; min-height:230px; }
 .omen-hero-copy { padding:24px 28px; position:relative; z-index:1; }
@@ -2686,6 +2686,26 @@
 }
 @media(prefers-reduced-motion:reduce){.omen-hero-card,.omen-tip-card{scroll-behavior:auto;}}
 
+
+/* Mascot additions: real poses, tap-to-react, chat avatar, mistake faces */
+.omen-tip-card[role=button] { cursor:pointer; transition:transform .15s, box-shadow .15s; -webkit-tap-highlight-color:transparent; }
+.omen-tip-card[role=button]:hover { transform:translateY(-2px); box-shadow:0 10px 32px rgba(120,60,200,.28); }
+.omen-tip-card[role=button]:focus-visible { outline:2px solid #e9bc74; outline-offset:3px; }
+.omen-tip-card--feline { border-color:rgba(178,101,235,.55); }
+.omen-tip-card img { object-position:center 30%; }
+.omen-tip-card img.omen-bounce { animation:omenBounce .45s ease; }
+@keyframes omenBounce { 0%{transform:scale(1)} 35%{transform:scale(1.12) rotate(-3deg)} 70%{transform:scale(.97) rotate(2deg)} 100%{transform:scale(1)} }
+.omen-mistake-h3 { display:flex; align-items:center; gap:10px; }
+.omen-mistake-face { width:44px; height:44px; border-radius:50%; object-fit:cover; object-position:42% 22%; border:1px solid rgba(217,165,255,.4); flex:none; }
+.omen-ai-row { display:flex; align-items:center; gap:14px; margin-bottom:6px; }
+.omen-ai-face { width:72px; height:72px; border-radius:50%; object-fit:cover; object-position:48% 18%; border:2px solid rgba(233,188,116,.6); box-shadow:0 0 18px rgba(178,101,235,.35); flex:none; background:#281742; transition:transform .2s; }
+.omen-ai-face.omen-busy { animation:omenPulse 1.4s ease-in-out infinite; }
+@keyframes omenPulse { 50% { box-shadow:0 0 28px rgba(217,160,255,.75); transform:scale(1.04); } }
+.omen-ai-row .ai-hero-title { text-align:left; }
+.omen-ai-say { font-family:'Lato',sans-serif; font-size:.82rem; color:#d9c9ee; margin-top:2px; }
+.omen-ai-noimg .omen-ai-face { display:none; }
+@media(max-width:640px){ .omen-ai-face{width:56px;height:56px} .omen-mistake-face{width:36px;height:36px} }
+@media(prefers-reduced-motion:reduce){ .omen-tip-card img.omen-bounce,.omen-ai-face.omen-busy{animation:none} .omen-tip-card[role=button]:hover{transform:none} }
 </style>
 <noscript><style>.tab-panel{display:block !important;} .tab-bar{display:none;}</style></noscript>
 </head>
@@ -2878,7 +2898,13 @@
 <!-- AI CHAT HERO -->
 <div class="ai-hero tab-panel" id="ask-ai">
   <div class="ai-hero-inner">
-    <div class="ai-hero-title">&#x1F525; Ask The Strategy AI</div>
+    <div class="omen-ai-row">
+      <img class="omen-ai-face" id="omenAiFace" src="assets/characters/omen/omen-thumbs-up.webp" alt="Omen" width="72" height="72" decoding="async" onerror="this.parentNode.classList.add('omen-ai-noimg')">
+      <div>
+        <div class="ai-hero-title">&#x1F525; Ask The Strategy AI</div>
+        <div class="omen-ai-say" id="omenAiSay" aria-live="polite">Omen is ready. Ask anything about Kingdom 1625 strategy.</div>
+      </div>
+    </div>
     <div class="ai-hero-sub">Powered by embedded alliance guides + live community knowledge</div>
     <div class="ai-input-row">
       <input class="ai-input" id="aiInput" type="text"
@@ -2915,7 +2941,7 @@
     <h2>Omen &amp; the Feline Flame</h2>
     <p>From battle plans to resource discipline, Omen brings the strategy. The Feline Flame keeps the warnings burning. Prepare smart, fight together, and save for KvK.</p>
   </div>
-  <img class="omen-hero-art" src="assets/omen-hero.svg" alt="Omen, the purple-magic Viking strategist, with his feline familiar" width="700" height="700" decoding="async" fetchpriority="low" onerror="this.hidden=true">
+  <img class="omen-hero-art" src="assets/characters/omen/omen-hero.webp" alt="Omen, the purple-magic Viking strategist, with the Feline Flame" width="700" height="700" decoding="async" fetchpriority="low" onerror="this.hidden=true">
 </div>
 <!-- WHAT'S NEW BANNER -->
 <div class="wn-banner" id="whats-new">
@@ -2941,6 +2967,10 @@
   </ul>
 </div>
 
+<aside class="omen-tip-card omen-tip-card--omen" aria-label="Omen says hold it" role="button" tabindex="0" data-pose="assets/characters/omen/omen-wait.webp" data-react="assets/characters/omen/omen-thumbs-up.webp" title="Tap Omen">
+    <div><strong>Omen says: hold it</strong><p>Speedups, Truegold Dust, stamina, pet items and the rest stay in the backpack until the KvK prep day where they score. When in doubt, hold and ask R4/R5.</p></div>
+    <img src="assets/characters/omen/omen-wait.webp" alt="Omen, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+</aside>
 <!-- KINGDOM #1 RULE: KVK RESOURCE SAVING -->
 <div class="callout callout-warn">
   <span class="callout-label">&#x26A0; Kingdom #1625 Rule #1 - Save For KvK</span>
@@ -3052,9 +3082,9 @@
     <span class="section-icon">&#x2694;&#xFE0F;</span>
     <h2>Hero Database</h2>
   </div>
-  <aside class="omen-tip-card omen-tip-card--omen" aria-label="Omen's field notes">
+  <aside class="omen-tip-card omen-tip-card--omen" aria-label="Omen's field notes" role="button" tabindex="0" data-pose="assets/characters/omen/omen-studying-strategy.webp" data-react="assets/characters/omen/omen-thumbs-up.webp" title="Tap Omen">
     <div><strong>Omen's field notes</strong><p>Build a focused hero roster. Compare each hero's role, generation, and investment value before committing rare resources.</p></div>
-    <img src="assets/omen-hero.svg" alt="Omen strategy guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+    <img src="assets/characters/omen/omen-studying-strategy.webp" alt="Omen, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
   </aside>
   <div class="callout callout-tip">
     <span class="callout-label">&#x2714; Core Principle</span>
@@ -3157,9 +3187,9 @@
     <span class="section-icon">&#x1F4CA;</span>
     <h2>Combat Mechanics Deep Dive</h2>
   </div>
-  <aside class="omen-tip-card omen-tip-card--omen" aria-label="Omen's combat briefing">
+  <aside class="omen-tip-card omen-tip-card--omen" aria-label="Omen's combat briefing" role="button" tabindex="0" data-pose="assets/characters/omen/omen-thinking.webp" data-react="assets/characters/omen/omen-thumbs-up.webp" title="Tap Omen">
     <div><strong>Omen's combat briefing</strong><p>Choose tactics based on your rally role, troop balance, and opponent. Practice with current battle reports rather than assuming one formation wins everywhere.</p></div>
-    <img src="assets/omen-hero.svg" alt="Omen strategy guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+    <img src="assets/characters/omen/omen-thinking.webp" alt="Omen, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
   </aside>
   <div class="callout callout-info">
     <span class="callout-label">&#x1F3A5; Credit</span>
@@ -3532,9 +3562,9 @@
     <span class="section-icon">&#x1F52C;</span>
     <h2>Research Priority</h2>
   </div>
-  <aside class="omen-tip-card omen-tip-card--warning" aria-label="The Feline Flame says">
+  <aside class="omen-tip-card omen-tip-card--feline" aria-label="The Feline Flame says" role="button" tabindex="0" data-pose="assets/characters/feline-flame/feline-idea.webp" data-react="assets/characters/feline-flame/feline-cheering.webp" title="Tap The Feline Flame">
     <div><strong>The Feline Flame says</strong><p>Permanent research bonuses matter, but timing is just as important. Save key upgrades when KvK scoring windows are approaching.</p></div>
-    <img src="assets/feline-flame.svg" alt="Purple magical feline flame mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+    <img src="assets/characters/feline-flame/feline-idea.webp" alt="The Feline Flame, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
   </aside>
   <div class="priority-grid">
     <div class="priority-item p1">
@@ -3577,6 +3607,10 @@
     <span class="section-icon">&#x1F4C5;</span>
     <h2>Events Overview</h2>
   </div>
+  <aside class="omen-tip-card omen-tip-card--feline" aria-label="The Feline Flame is scouting" role="button" tabindex="0" data-pose="assets/characters/feline-flame/feline-scouting.webp" data-react="assets/characters/feline-flame/feline-cheering.webp" title="Tap The Feline Flame">
+    <div><strong>The Feline Flame is scouting</strong><p>Event timing can vary by server age - check the in-game event panel and line up your upgrades so they land during the event that rewards them.</p></div>
+    <img src="assets/characters/feline-flame/feline-scouting.webp" alt="The Feline Flame, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+  </aside>
   <div class="card card-gold">
     <p>Events are the fastest way to earn premium resources. Plan your upgrades, training, and research to align with event requirements - doing needed actions <em>during</em> events doubles their value. Event timing can vary by server age and creation date - always cross-reference with the in-game event panel.</p>
   </div>
@@ -3606,9 +3640,9 @@
     <span class="section-icon">&#x1F43B;</span>
     <h2>Bear Hunt (Pitfall Event)</h2>
   </div>
-  <aside class="omen-tip-card omen-tip-card--warning" aria-label="The Feline Flame says">
-    <div><strong>The Feline Flame says</strong><p>Bear Hunt rewards preparation. Confirm your rally heroes, joining roles, and troop ratios before the event starts.</p></div>
-    <img src="assets/feline-flame.svg" alt="Purple magical feline flame mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+  <aside class="omen-tip-card omen-tip-card--warning" aria-label="The Feline Flame warns" role="button" tabindex="0" data-pose="assets/characters/feline-flame/feline-warning.webp" data-react="assets/characters/feline-flame/feline-cheering.webp" title="Tap The Feline Flame">
+    <div><strong>The Feline Flame warns</strong><p>Bear Hunt rewards preparation. Confirm your rally heroes, joining roles, and troop ratios before the event starts.</p></div>
+    <img src="assets/characters/feline-flame/feline-warning.webp" alt="The Feline Flame, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
   </aside>
   <div class="callout callout-warn">
     <span class="callout-label">&#x26A0; Never Miss Bear Hunt</span>
@@ -3637,7 +3671,7 @@
   </ul>
   <div class="callout callout-info">
     <span class="callout-label">&#x1F4AC; Gen 5 Joiner Note (Situational)</span>
-    <strong>Vivian</strong> (Gen 5 Archer, arrives Nov 9) has an enemy-damage amplification skill, and some players report excellent Bear joining value from her. Her effectiveness depends on the rally's selected skill bonuses, so treat her as a situational alternative rather than a replacement for the joiner heroes above - follow your rally leader's call. This is anecdotal until our own rallies confirm it.
+    <strong>Vivian</strong> (Gen 5 Archer, available since Nov 9) has an enemy-damage amplification skill, and some players report excellent Bear joining value from her. Her effectiveness depends on the rally's selected skill bonuses, so treat her as a situational alternative rather than a replacement for the joiner heroes above - follow your rally leader's call. This is anecdotal until our own rallies confirm it.
   </div>
   <div class="callout callout-tip">
     <span class="callout-label">&#x1F43B; Have Fun</span>
@@ -3689,6 +3723,10 @@
     <span class="section-icon">&#x1F3C6;</span>
     <h2>Alliance Championship</h2>
   </div>
+  <aside class="omen-tip-card omen-tip-card--omen" aria-label="Omen's rally cry" role="button" tabindex="0" data-pose="assets/characters/omen/omen-winning.webp" data-react="assets/characters/omen/omen-thumbs-up.webp" title="Tap Omen">
+    <div><strong>Omen's rally cry</strong><p>Win two of three lanes and the round is ours. Register, show up for your lane, and let's bring it home for the alliance.</p></div>
+    <img src="assets/characters/omen/omen-winning.webp" alt="Omen, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+  </aside>
   <div class="card card-gold">
     <p>Weekly alliance event - six alliances compete across <strong>five rounds</strong>. Members register into one of three lanes; the alliance that wins two of three lanes each round wins the round.</p>
   </div>
@@ -3710,6 +3748,10 @@
     <span class="section-icon">&#x1F531;</span>
     <h2>Tri-Alliance Clash</h2>
   </div>
+  <aside class="omen-tip-card omen-tip-card--feline" aria-label="The Feline Flame is watching the Temple" role="button" tabindex="0" data-pose="assets/characters/feline-flame/feline-scouting.webp" data-react="assets/characters/feline-flame/feline-cheering.webp" title="Tap The Feline Flame">
+    <div><strong>The Feline Flame is watching the Temple</strong><p>The Temple of Tides opens the final 20 minutes and usually decides the match. Keep an eye on alliance chat for the call to rotate center.</p></div>
+    <img src="assets/characters/feline-flame/feline-scouting.webp" alt="The Feline Flame, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+  </aside>
   <div class="callout callout-info">
     <span class="callout-label">&#x2139; Overview</span>
     Tri-Alliance Clash is a recurring cross-kingdom battlefield where <strong>three alliances</strong> fight simultaneously for territory, structures, and points, ultimately deciding the match by holding the <strong>Temple of Tides</strong>. It opens roughly every four weeks. Each alliance may field up to two legions, each with its own battle time and separate reward calculation.
@@ -3788,7 +3830,7 @@
     </div>
   </div>
 
-  <h3>&#x26A0; Common Mistakes</h3>
+  <h3 class="omen-mistake-h3"><img class="omen-mistake-face" src="assets/characters/omen/omen-facepalm.webp" alt="" width="44" height="44" loading="lazy" decoding="async" onerror="this.remove()"><span>&#x26A0; Common Mistakes</span></h3>
   <div class="tg-mistake-grid">
     <div class="tg-mistake-card">
       <div class="tg-mistake-title">Everyone Rushing Center</div>
@@ -3846,6 +3888,10 @@
     <span class="section-icon">&#x1F5E1;&#xFE0F;</span>
     <h2>Swordland Showdown</h2>
   </div>
+  <aside class="omen-tip-card omen-tip-card--feline" aria-label="The Feline Flame has the map" role="button" tabindex="0" data-pose="assets/characters/feline-flame/feline-map.webp" data-react="assets/characters/feline-flame/feline-cheering.webp" title="Tap The Feline Flame">
+    <div><strong>The Feline Flame has the map</strong><p>R4/R5 tag building targets with the in-game pin tab during the battle. Check your pins and alliance chat before you move.</p></div>
+    <img src="assets/characters/feline-flame/feline-map.webp" alt="The Feline Flame, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+  </aside>
   <div class="callout callout-info">
     <span class="callout-label">&#x2139; Overview</span>
     Swordland Showdown is a recurring alliance-vs-alliance battlefield centered on <strong>buildings, stored points, mobility, and coordinated PvP</strong> rather than raw territory like Tri-Alliance Clash. Community reporting places it on a biweekly Sunday cadence. The battle itself lasts <strong>one hour</strong>, and battlefield losses do not affect your city's original troops - troops cannot permanently die during the event.
@@ -3961,7 +4007,7 @@
     <li><strong>Free March Speed</strong> accumulates passively throughout the event (roughly 25% per minute, capped at 10 stacks) - use it, it's free and event-only.</li>
   </ul>
 
-  <h3>&#x26A0; Common Mistakes</h3>
+  <h3 class="omen-mistake-h3"><img class="omen-mistake-face" src="assets/characters/omen/omen-facepalm.webp" alt="" width="44" height="44" loading="lazy" decoding="async" onerror="this.remove()"><span>&#x26A0; Common Mistakes</span></h3>
   <div class="tg-mistake-grid">
     <div class="tg-mistake-card">
       <div class="tg-mistake-title">Chasing Kills Over Points</div>
@@ -4111,6 +4157,10 @@
     <span class="section-icon">&#x1F947;</span>
     <h2>True Gold Progression</h2>
   </div>
+  <aside class="omen-tip-card omen-tip-card--feline" aria-label="The Feline Flame found Truegold" role="button" tabindex="0" data-pose="assets/characters/feline-flame/feline-crystal.webp" data-react="assets/characters/feline-flame/feline-cheering.webp" title="Tap The Feline Flame">
+    <div><strong>The Feline Flame found Truegold</strong><p>Stack Truegold from events before pushing a tier - save the full 5-stage cost before you start.</p></div>
+    <img src="assets/characters/feline-flame/feline-crystal.webp" alt="The Feline Flame, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+  </aside>
   <div class="callout callout-info">
     <span class="callout-label">&#x1F4CB; What Is True Gold?</span>
     True Gold (Truegold) is the rare resource that unlocks building upgrades beyond Level 30. Once your kingdom reaches <strong>Day 70 (the Age of Truegold)</strong>, the TG progression system opens. Buildings advance through <strong>TG1–TG5</strong> using regular Truegold, then <strong>TG6–TG8</strong> using Tempered Truegold. Each TG tier consists of <strong>5 sub-stages</strong> - you must complete all 5 to reach the next tier. This is the primary late-game bottleneck and the single biggest power gap between accounts.
@@ -4248,7 +4298,7 @@
   </div>
 
   <!-- COMMON MISTAKES -->
-  <h3>&#x26A0; Common Mistakes</h3>
+  <h3 class="omen-mistake-h3"><img class="omen-mistake-face" src="assets/characters/omen/omen-facepalm.webp" alt="" width="44" height="44" loading="lazy" decoding="async" onerror="this.remove()"><span>&#x26A0; Common Mistakes</span></h3>
   <div class="tg-mistake-grid">
     <div class="tg-mistake-card">
       <div class="tg-mistake-title">Spreading Truegold Too Thin</div>
@@ -4543,7 +4593,7 @@
   </div>
 
   <!-- SECTION 6: COMMON MISTAKES -->
-  <h3>&#x26A0; Common Mistakes</h3>
+  <h3 class="omen-mistake-h3"><img class="omen-mistake-face" src="assets/characters/omen/omen-facepalm.webp" alt="" width="44" height="44" loading="lazy" decoding="async" onerror="this.remove()"><span>&#x26A0; Common Mistakes</span></h3>
   <div class="tg-mistake-grid">
     <div class="tg-mistake-card">
       <div class="tg-mistake-title">Spending Speedups Too Early</div>
@@ -4675,6 +4725,10 @@
     <span class="section-icon">&#x1F393;</span>
     <h2>Master Training Academy Guide</h2>
   </div>
+  <aside class="omen-tip-card omen-tip-card--feline" aria-label="The Feline Flame is casting" role="button" tabindex="0" data-pose="assets/characters/feline-flame/feline-spellcasting.webp" data-react="assets/characters/feline-flame/feline-cheering.webp" title="Tap The Feline Flame">
+    <div><strong>The Feline Flame is casting</strong><p>Isnor and Aena are here. Save Master Emblems, Manuscripts, and training speedups for the scoring windows where they count.</p></div>
+    <img src="assets/characters/feline-flame/feline-spellcasting.webp" alt="The Feline Flame, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+  </aside>
 
   <div class="callout callout-info">
     <span class="callout-label">&#x1F4CB; What Is the Master Training Academy?</span>
@@ -5324,7 +5378,6 @@
             <span class="mta-badge purple">Combat</span>
             <span class="mta-badge green">Charm Economy</span>
             <span class="mta-badge green">F2P Value</span>
-            <span class="mta-badge orange">Coming Nov 9</span>
           </div>
         </div>
         <span class="mta-chevron">&#x25BC;</span>
@@ -5394,7 +5447,6 @@
             <span class="mta-badge green">Caravans</span>
             <span class="mta-badge gold">Economy</span>
             <span class="mta-badge gold">Bonus Rewards</span>
-            <span class="mta-badge orange">Coming Nov 9</span>
           </div>
         </div>
         <span class="mta-chevron">&#x25BC;</span>
@@ -5490,7 +5542,7 @@
   </div>
 
   <!-- COMMON MISTAKES -->
-  <h3>&#x26A0; Common Mistakes</h3>
+  <h3 class="omen-mistake-h3"><img class="omen-mistake-face" src="assets/characters/omen/omen-facepalm.webp" alt="" width="44" height="44" loading="lazy" decoding="async" onerror="this.remove()"><span>&#x26A0; Common Mistakes</span></h3>
   <div class="mta-mistake-grid">
     <div class="mta-mistake-card">
       <div class="mta-mistake-title">Skipping Pan in Favor of Combat Masters</div>
@@ -5588,9 +5640,9 @@
     <span class="section-icon">&#x2694;</span>
     <h2>Kingdom vs Kingdom (KvK)</h2>
   </div>
-  <aside class="omen-tip-card omen-tip-card--omen" aria-label="Omen's war council">
+  <aside class="omen-tip-card omen-tip-card--omen" aria-label="Omen's war council" role="button" tabindex="0" data-pose="assets/characters/omen/omen-pointing.webp" data-react="assets/characters/omen/omen-thumbs-up.webp" title="Tap Omen">
     <div><strong>Omen's war council</strong><p>Do not spend your stockpile early. Follow the phase schedule and your R4/R5 guidance so every upgrade contributes to KvK preparation.</p></div>
-    <img src="assets/omen-hero.svg" alt="Omen strategy guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+    <img src="assets/characters/omen/omen-pointing.webp" alt="Omen, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
   </aside>
   <div class="callout callout-info">
     <span class="callout-label">&#x2139; Overview</span>
@@ -5744,7 +5796,7 @@
     The event introduces Brawl Emblems, spent in a Blizzard Shop. Early reward categories reportedly include participation, Blizzard Point thresholds, building points, and airdrop usage - but the long-term value of the shop itself isn't established yet. Do not spend gems or scarce resources specifically for Blizzard Brawl until the shop, rules, and mission pages have been screenshotted and reviewed.
   </div>
 
-  <h3>Common Mistakes</h3>
+  <h3 class="omen-mistake-h3"><img class="omen-mistake-face" src="assets/characters/omen/omen-facepalm.webp" alt="" width="44" height="44" loading="lazy" decoding="async" onerror="this.remove()"><span>Common Mistakes</span></h3>
   <div class="tg-mistake-grid">
     <div class="tg-mistake-card">
       <div class="tg-mistake-title">Treating It Like Castle Battle</div>
@@ -6047,9 +6099,9 @@
     <span class="section-icon">&#x1F4B0;</span>
     <h2>F2P Strategy Guide</h2>
   </div>
-  <aside class="omen-tip-card omen-tip-card--warning" aria-label="The Feline Flame says">
-    <div><strong>The Feline Flame says</strong><p>Small daily gains compound. Prioritize consistent participation and save your valuable materials for the right events.</p></div>
-    <img src="assets/feline-flame.svg" alt="Purple magical feline flame mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+  <aside class="omen-tip-card omen-tip-card--feline" aria-label="The Feline Flame approves" role="button" tabindex="0" data-pose="assets/characters/feline-flame/feline-thumbs-up.webp" data-react="assets/characters/feline-flame/feline-cheering.webp" title="Tap The Feline Flame">
+    <div><strong>The Feline Flame approves</strong><p>Small daily gains compound. Prioritize consistent participation and save your valuable materials for the right events.</p></div>
+    <img src="assets/characters/feline-flame/feline-thumbs-up.webp" alt="The Feline Flame, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
   </aside>
   <div class="callout callout-tip">
     <span class="callout-label">&#x2714; Core F2P Philosophy</span>
@@ -6083,9 +6135,9 @@
     <span class="section-icon">&#x1F43E;</span>
     <h2>Pets</h2>
   </div>
-  <aside class="omen-tip-card omen-tip-card--warning" aria-label="The Feline Flame says">
-    <div><strong>The Feline Flame says</strong><p>Upgrade pets for the stats and skills your account actually needs. Check event scoring before using saved pet items.</p></div>
-    <img src="assets/feline-flame.svg" alt="Purple magical feline flame mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+  <aside class="omen-tip-card omen-tip-card--feline" aria-label="The Feline Flame, Pet of Honor" role="button" tabindex="0" data-pose="assets/characters/feline-flame/feline-proud.webp" data-react="assets/characters/feline-flame/feline-cheering.webp" title="Tap The Feline Flame">
+    <div><strong>The Feline Flame, Pet of Honor</strong><p>Upgrade pets for the stats and skills your account actually needs. Check event scoring before using saved pet items.</p></div>
+    <img src="assets/characters/feline-flame/feline-proud.webp" alt="The Feline Flame, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
   </aside>
   <div class="callout callout-info">
     <span class="callout-label">&#x2139; Overview</span>
@@ -6215,7 +6267,7 @@
     </div>
   </div>
 
-  <div class="pet-tier-label">Day 270+ &nbsp;·&nbsp; Unlocks 11/09/2026 for K#1625</div>
+  <div class="pet-tier-label">Day 270+ &nbsp;·&nbsp; Unlocked 11/09/2026 for K#1625</div>
   <div class="pet-gallery-grid">
     <div class="pet-card">
       <img class="pet-portrait" src="https://tactichub.github.io/KS/images/pets/alpha-black-panther.png" alt="Alpha Black Panther" onerror="this.outerHTML='&lt;div class=&quot;pet-portrait-fallback&quot;&gt;&#x1F406;&lt;/div&gt;'">
@@ -6228,7 +6280,6 @@
           <span class="pet-meta-badge">Legendary</span>
           <span class="pet-meta-badge">Max Lv 100</span>
           <span class="pet-meta-badge pet-cd">20h CD</span>
-          <span class="pet-meta-badge pet-coming">Coming 11/09/26</span>
         </div>
       </div>
     </div>
@@ -6243,7 +6294,6 @@
           <span class="pet-meta-badge">Epic</span>
           <span class="pet-meta-badge">Max Lv 100</span>
           <span class="pet-meta-badge pet-cd">20h CD</span>
-          <span class="pet-meta-badge pet-coming">Coming 11/09/26</span>
         </div>
       </div>
     </div>
@@ -6389,6 +6439,10 @@
     <span class="section-icon">&#x1F381;</span>
     <h2>Gift Codes</h2>
   </div>
+  <aside class="omen-tip-card omen-tip-card--omen" aria-label="Omen loves free loot" role="button" tabindex="0" data-pose="assets/characters/omen/omen-dancing.webp" data-react="assets/characters/omen/omen-thumbs-up.webp" title="Tap Omen">
+    <div><strong>Omen loves free loot</strong><p>Codes are free rewards. Check the banner often, and if you spot a new code, add it so the whole kingdom can claim it.</p></div>
+    <img src="assets/characters/omen/omen-dancing.webp" alt="Omen, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+  </aside>
   <div class="callout callout-tip">
     <span class="callout-label">&#x2714; Live Codes at the Top</span>
     Active codes are tracked in the <strong>Gift Codes banner</strong> just below the page header. Anyone who knows a new code can add it - click <em>&#x270E; Edit Codes</em>, enter the code, and Save &amp; Publish. Codes are saved to the alliance server so every member sees them instantly. Click any code pill to copy it instantly.
@@ -6416,9 +6470,9 @@
     <span class="section-icon">&#x1F9EE;</span>
     <h2>Tools &amp; Calculators</h2>
   </div>
-  <aside class="omen-tip-card omen-tip-card--omen" aria-label="Omen's toolkit">
+  <aside class="omen-tip-card omen-tip-card--omen" aria-label="Omen's toolkit" role="button" tabindex="0" data-pose="assets/characters/omen/omen-holding-sign.webp" data-react="assets/characters/omen/omen-thumbs-up.webp" title="Tap Omen">
     <div><strong>Omen's toolkit</strong><p>Use calculators to check your plan before spending resources. In-game values and current event rules take priority over estimates.</p></div>
-    <img src="assets/omen-hero.svg" alt="Omen strategy guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+    <img src="assets/characters/omen/omen-holding-sign.webp" alt="Omen, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
   </aside>
   <div class="callout callout-info">
     <span class="callout-label">&#x2139; Kingshot.net (v2)</span>
@@ -6630,7 +6684,7 @@ TRI-ALLIANCE CLASH: Three alliances fight simultaneously for territory and the T
 
 ETERNITY'S REACH: Stage-based event awarding Charm Items. PRIMARY STRATEGY (Solo): (1) Skill Tree: Right - Right - Left - Left - Right. (2) Copper Strategy: occupy a vein every 60s, recall immediately, and keep killing guards. (3) Outburst Tactic: use the 5th skill for speed, rush to occupy Fracture Veins as soon as they appear. (4) Timeline: Gold first. Hero recommendations: primary = Quinn or Amadeus, support = Chenko (Lethality aura), utility = Quinn (Archer Attack). Upgrade Charms in order: Attack > Lethality > HP > Defense. F2P can consistently clear stages 8-10 for steady Charm progress.
 
-BEAR HUNT: Never miss Bear Hunt - Forge Hammers have no other source. STARTING A RALLY: always use your 3 strongest heroes - priority heroes are Zoe, Jabel, Quinn, and Marlin. Rally leader must be fully geared. JOINING A RALLY: place Chenko, Yeonwoo, Amane, or Amadeus in the first (left) slot; if none are available, send the march without heroes - sending the wrong heroes reduces the total damage of the entire rally. Archers deal the most damage - use one of these troop ratios (Infantry/Cavalry/Archer): 5/5/90, 10/10/80, or 10/20/70; otherwise just equalize troops. Players who do not follow these rules may be removed from rallies. GEN 5 JOINER NOTE (situational, anecdotal): Vivian (Gen 5 Archer, arrives Nov 9, 2026) has an enemy-damage amplification skill and some players report excellent Bear joining value, but effectiveness depends on the rally's selected skill bonuses - she is a situational alternative, not a replacement for the official joiner list; follow the rally leader's call. R4/R5 joiner cap formula: (Rally Capacity - Leader Squad) divided by Expected Joiners.
+BEAR HUNT: Never miss Bear Hunt - Forge Hammers have no other source. STARTING A RALLY: always use your 3 strongest heroes - priority heroes are Zoe, Jabel, Quinn, and Marlin. Rally leader must be fully geared. JOINING A RALLY: place Chenko, Yeonwoo, Amane, or Amadeus in the first (left) slot; if none are available, send the march without heroes - sending the wrong heroes reduces the total damage of the entire rally. Archers deal the most damage - use one of these troop ratios (Infantry/Cavalry/Archer): 5/5/90, 10/10/80, or 10/20/70; otherwise just equalize troops. Players who do not follow these rules may be removed from rallies. GEN 5 JOINER NOTE (situational, anecdotal): Vivian (Gen 5 Archer, available in Kingdom 1625 since Nov 9, 2026) has an enemy-damage amplification skill and some players report excellent Bear joining value, but effectiveness depends on the rally's selected skill bonuses - she is a situational alternative, not a replacement for the official joiner list; follow the rally leader's call. R4/R5 joiner cap formula: (Rally Capacity - Leader Squad) divided by Expected Joiners.
 
 VIKING VENGEANCE: Biweekly alliance defense event - 20 waves over ~40 minutes. Waves 10 and 20 hit the Alliance HQ. Waves 7, 14, and 17 hit online members only. Shields do NOT work against Viking attacks. The three non-negotiables: (1) Empty your city before the event and send troops to reinforce others. (2) Do not heal mid-event unless you immediately send healed troops back out. (3) Do not extinguish fires mid-event. Save 3,000-6,000 stamina before event. Run continuous rally chains: Leader 1 engages, Leader 2 prepares, Leader 3 prepares next.
 
@@ -6646,13 +6700,13 @@ FINDER'S FORTUNE: Limited-time 3-day hidden-object event - find objects in timed
 
 BLIZZARD BRAWL (added August 24, 2026 update - very new, evidence base still thin, verify against in-game rules screen): Solo real-time PvP, NOT an alliance event - 10 Governors per free-for-all battlefield. Two modes: Same-Gen Battle (same Hero Generation opponents, recommended starting mode) and Cross-Gen Battle (broader matchmaking, test later once you have a Same-Gen baseline). Requires Town Center Lv. 25+. Up to 10 matches, ~10 min each (~30 sec prep, ~9:30 active battle), four matchmaking windows per day (~2 hours each). CRITICAL SCORING LESSON: this is NOT a kill-farming event - Blizzard Points come mainly from occupying buildings, collecting Blizzard Crates, and airdrop activity, not kills. Priority order: open building > safe crates > useful airdrop > purposeful PvP > random fighting. BATTLEFIELD: Central Vault of Valor (highest value, biggest combat magnet) plus three surrounding Forward Camps (cheaper to hold uncontested); buildings take ~10 sec to capture. Blizzard Crates arrive via supply caravans starting ~30 sec into a match, a strong scoring path for weaker accounts. AIRDROPS (begin ~1:30 in, recur ~every 2 min): Rocket Bomb (severely injures 30,000 troops - use to soften a garrison before attacking), Ice Bomb (blocks troop deployment 10 sec - creates a capture window), Healing Elixir (heals 30% of severely injured troops, max 500k - use only after meaningful losses), Smoke Bomb (makes your Town unselectable 20 sec - defensive reset). Ice Bomb -> Rocket Bomb -> march arrival is a promising but not yet proven combo. ROLE STRATEGY: Strongest in lobby = contest the Vault plus take an uncontested Forward Camp, keep one mobile march for crates. Mid-strength = avoid the center brawl, take a Forward Camp, collect crates while whales fight, hit center only when the defender is weakened. Weakest = skip ego fights, take empty structures, prioritize crates and safe airdrops, steal weakened buildings after stronger players move on. MARCH ROLES: March 1 fighting/key-objective, March 2 flexible objective, March 3+ collection/rotation. Core question before every fight: does winning this improve my point production - avoid revenge attacks and chasing players. REWARDS: Brawl Emblems spent in a Blizzard Shop - shop long-term value is NOT yet confirmed, do not spend gems or scarce resources on Blizzard Brawl until the shop, rules, and mission pages have been reviewed. DISPUTED/UNCONFIRMED: whether Same-Gen is always easier (a Same-Gen lobby can still contain heavy spenders), whether center control is mandatory to win vs. objective-farming elsewhere, the exact kill-point formula, and whether Brawl Emblems carry over between events - do not state any of these as settled fact.
 
-HERO TIER LIST: S-Tier: Amadeus (rally leader), Quinn (archer support), Chenko (lethality), Rosa (Gen 4 archer support/control), Alcar (Gen 4 infantry garrison/rally-lead tank). A-Tier: Helga, Amadeus, Diana, Margot (Gen 4 cavalry burst/PvP). B-Tier: Jaeger, Howard. Focus resources on one primary hero first. GEN 4 HEROES (unlock ~Day 195): Alcar (Infantry, Legendary, widget: Praetorian Guard) - garrison/rally-lead tank, recommended 5-star, High priority. Margot (Cavalry, Legendary, widget: Revel Fang) - burst Cavalry DPS, recommended 4-star, Medium-High priority. Rosa (Archer, Legendary, widget: Aeolian) - Archer control/support, recommended 5-star, highest Archer investment priority. GEN 5 HEROES (release to Kingdom 1625 on Nov 9, 2026; ratings are PROVISIONAL and community-informed, not verified performance - say so when citing them): Long Fei (Infantry, Hero Roulette) - defensive Infantry for garrison, PvP frontline, and Arena; ratings PvP A, PvE B, Bear D, F2P S; F2P S reflects Roulette accessibility, not raw combat power; poor Bear damage due to defensive Expedition skills. Thrud (Cavalry, event Hero shards - verify the active event) - offensive PvP rally leader for mixed-troop attacks, especially Cavalry-focused leaders; ratings PvP S, PvE A, Bear B, F2P C; not an automatic Petra replacement for Bear; shard and exclusive weapon costs reduce F2P appeal. Vivian (Archer, event Hero shards - verify the active event) - rally joiner with an enemy-damage amplification skill, plus Arena and defensive Archer utility; ratings PvP A, PvE S, Bear S, F2P B; Bear S is for JOINING rallies, not replacing Rosa as a Bear rally leader; joiner effectiveness depends on the rally's selected skill bonuses. Gen 5 skill values, exclusive weapon details, and pairings are NOT yet verified - do not state specific numbers.
+HERO TIER LIST: S-Tier: Amadeus (rally leader), Quinn (archer support), Chenko (lethality), Rosa (Gen 4 archer support/control), Alcar (Gen 4 infantry garrison/rally-lead tank). A-Tier: Helga, Amadeus, Diana, Margot (Gen 4 cavalry burst/PvP). B-Tier: Jaeger, Howard. Focus resources on one primary hero first. GEN 4 HEROES (unlock ~Day 195): Alcar (Infantry, Legendary, widget: Praetorian Guard) - garrison/rally-lead tank, recommended 5-star, High priority. Margot (Cavalry, Legendary, widget: Revel Fang) - burst Cavalry DPS, recommended 4-star, Medium-High priority. Rosa (Archer, Legendary, widget: Aeolian) - Archer control/support, recommended 5-star, highest Archer investment priority. GEN 5 HEROES (released to Kingdom 1625 on Nov 9, 2026 and available now; ratings are PROVISIONAL and community-informed, not verified performance - say so when citing them): Long Fei (Infantry, Hero Roulette) - defensive Infantry for garrison, PvP frontline, and Arena; ratings PvP A, PvE B, Bear D, F2P S; F2P S reflects Roulette accessibility, not raw combat power; poor Bear damage due to defensive Expedition skills. Thrud (Cavalry, event Hero shards - verify the active event) - offensive PvP rally leader for mixed-troop attacks, especially Cavalry-focused leaders; ratings PvP S, PvE A, Bear B, F2P C; not an automatic Petra replacement for Bear; shard and exclusive weapon costs reduce F2P appeal. Vivian (Archer, event Hero shards - verify the active event) - rally joiner with an enemy-damage amplification skill, plus Arena and defensive Archer utility; ratings PvP A, PvE S, Bear S, F2P B; Bear S is for JOINING rallies, not replacing Rosa as a Bear rally leader; joiner effectiveness depends on the rally's selected skill bonuses. Gen 5 skill values, exclusive weapon details, and pairings are NOT yet verified - do not state specific numbers.
 
 F2P PRIORITY: VIP Level first, then Speed-ups during events, then Hero shards on Amadeus/Chenko/Quinn rotation. Never spend gems on resource packs or random chests.
 
-NEW MASTERS - ISNOR AND AENA (Master Training Academy, arrive in Kingdom 1625 on Nov 9, 2026; values from published Master skill tables, verify in-game): ISNOR (Legendary Explorer, High Priority for active Eternity's Reach players) - all bonuses scoped to Eternity's Reach unless specified; NOT a universal PvP, KvK, or Bear Trap combat Master. Skills (Lv.1 -> max): Old Hand expertise +2% Lethality and Health -> +30% each at Lv.11; Frontier Master +5% XP from Cesares Guards -> +50%; Survival Skills +5,000 deployment capacity and 6% faster Hero recovery -> +50,000 and 60%; Unexpected Benefits 6 Charm Designs per 200K Copper Ore -> 60; Backchannels 500 Copper Ore/min and 10 Charm Guides per 200K Ore -> 5,000/min and 100 Guides. Affinity unlocks: Lv.1 Stranger (Old Hand), Lv.10 Acquaintance 1 (Frontier Master), Lv.20 Acquaintance 2 (Survival Skills), Lv.30 Acquaintance 3 (Unexpected Benefits), Lv.40 Casual 1 (Backchannels - major economic milestone and main target). Mistakes: assuming the Lethality bonus works in Bear Trap, treating Copper Ore as permanent 24/7 income, abandoning Pan or Valora because Isnor is newer. AENA (Caravan Queen, Situational Priority - Merchant Empire) - Attack/Defense expertise restricted to caravan raids; NOT a general PvP or Bear Trap Master. Skills (Lv.1 -> max): Beneficient Mogul expertise +2% Squad Attack and Defense in raids -> +30% each at Lv.11; Shortcuts 2% shorter trips and +1 free refresh (further scaling unverified); Finder's Keepers 10% -> 100% chance of extra cargo after a successful raid; Delivery Drive chance to recover raided cargo, Elite Strongboxes unlock at skill Lv.6; Trading Ace guaranteed Legendary Caravan after 12 completed escorts -> after 4, +1 daily caravan at Lv.10. Elite Strongboxes are unraidable; possible rewards per box (not guaranteed bundles): 1,000 Gems, 5 Truegold, 1 Mythic General Hero Shard, 2 Artisan's Vision, 2 Charm Design, 2 Charm Guide, 1 Forgehammer. Affinity unlocks: Lv.10 Shortcuts, Lv.20 Finder's Keepers, Lv.30 Delivery Drive, Lv.40 Trading Ace. Best for active daily caravan players; occasional caravan users should invest elsewhere first. Mistakes: assuming the raid buff applies to KvK, confusing Affinity Lv.40 with Trading Ace Lv.10, spending heavy Manuscripts before confirming caravan frequency. PRIORITY: Isnor first is a reasonable default between the two (based mainly on one Oct 4, 2026 guide - anecdotal), not a universal rule; very active caravan players may get more from Aena; neither replaces existing Pan, Valora, Cassia, or Roman investments. DISPUTED: a guide's figure of up to 7.2 million Copper Ore per 24h at Backchannels Lv.10 is a mathematical rate, not a verified continuous reward; Elite Strongbox return per Manuscript vs. Isnor's Charm rewards is unestablished. Always save Master Emblems and Manuscripts for KvK prep scoring windows.
+NEW MASTERS - ISNOR AND AENA (Master Training Academy, arrived in Kingdom 1625 on Nov 9, 2026 and are available now; values from published Master skill tables, verify in-game): ISNOR (Legendary Explorer, High Priority for active Eternity's Reach players) - all bonuses scoped to Eternity's Reach unless specified; NOT a universal PvP, KvK, or Bear Trap combat Master. Skills (Lv.1 -> max): Old Hand expertise +2% Lethality and Health -> +30% each at Lv.11; Frontier Master +5% XP from Cesares Guards -> +50%; Survival Skills +5,000 deployment capacity and 6% faster Hero recovery -> +50,000 and 60%; Unexpected Benefits 6 Charm Designs per 200K Copper Ore -> 60; Backchannels 500 Copper Ore/min and 10 Charm Guides per 200K Ore -> 5,000/min and 100 Guides. Affinity unlocks: Lv.1 Stranger (Old Hand), Lv.10 Acquaintance 1 (Frontier Master), Lv.20 Acquaintance 2 (Survival Skills), Lv.30 Acquaintance 3 (Unexpected Benefits), Lv.40 Casual 1 (Backchannels - major economic milestone and main target). Mistakes: assuming the Lethality bonus works in Bear Trap, treating Copper Ore as permanent 24/7 income, abandoning Pan or Valora because Isnor is newer. AENA (Caravan Queen, Situational Priority - Merchant Empire) - Attack/Defense expertise restricted to caravan raids; NOT a general PvP or Bear Trap Master. Skills (Lv.1 -> max): Beneficient Mogul expertise +2% Squad Attack and Defense in raids -> +30% each at Lv.11; Shortcuts 2% shorter trips and +1 free refresh (further scaling unverified); Finder's Keepers 10% -> 100% chance of extra cargo after a successful raid; Delivery Drive chance to recover raided cargo, Elite Strongboxes unlock at skill Lv.6; Trading Ace guaranteed Legendary Caravan after 12 completed escorts -> after 4, +1 daily caravan at Lv.10. Elite Strongboxes are unraidable; possible rewards per box (not guaranteed bundles): 1,000 Gems, 5 Truegold, 1 Mythic General Hero Shard, 2 Artisan's Vision, 2 Charm Design, 2 Charm Guide, 1 Forgehammer. Affinity unlocks: Lv.10 Shortcuts, Lv.20 Finder's Keepers, Lv.30 Delivery Drive, Lv.40 Trading Ace. Best for active daily caravan players; occasional caravan users should invest elsewhere first. Mistakes: assuming the raid buff applies to KvK, confusing Affinity Lv.40 with Trading Ace Lv.10, spending heavy Manuscripts before confirming caravan frequency. PRIORITY: Isnor first is a reasonable default between the two (based mainly on one Oct 4, 2026 guide - anecdotal), not a universal rule; very active caravan players may get more from Aena; neither replaces existing Pan, Valora, Cassia, or Roman investments. DISPUTED: a guide's figure of up to 7.2 million Copper Ore per 24h at Backchannels Lv.10 is a mathematical rate, not a verified continuous reward; Elite Strongbox return per Manuscript vs. Isnor's Charm rewards is unestablished. Always save Master Emblems and Manuscripts for KvK prep scoring windows.
 
-PETS: Pets unlock based on kingdom age. Full roster (13 pets, verified via v2.kingshot.net/database/pets): Gray Wolf (Gen 1, day 55, Construction Speed +15% for 5 min, 23h CD). Lynx (Gen 2, day 55, restores 60 Stamina, 23h CD) - best for F2P stamina. Bison (Gen 2, day 55, instant gather on next tile, 15h CD) - best for gather events. Cheetah (Gen 2, day 80, locates 500 pet food, 23h CD) - use daily for food. Moose (Gen 2, day 80, enemy Squad Health -5% for 2h, 20h CD). Lion (Gen 3, day 110, unearths a Badlands item, no listed CD). Grizzly Bear (Gen 3, day 110, March Speed +30% and enemy Lethality -5% for 2h, 20h CD) - best for KvK. Mighty Bison (Gen 4, day 190, Squad Capacity +15,000 for 2h). Giant Rhino (Gen 4, day 190, all Squads Attack +10% for 2h) - best mid-game combat. Alpha Black Panther (Gen 5, Legendary, max level 100, day 270, Troop Lethality up to +10% for 2h, 20h CD) - best for Bear Hunt. Great Moose (Gen 5, Epic, max level 100, day 270, Rally Capacity up to +150,000 for 2h, 20h CD) - best for rally leaders. Gen 5 pet values are maximum listed effects, not necessarily the bonus available immediately on unlock. Regal White Lion (Gen 6, day 350, Squads' Defense +10% for 2h, 20h CD). Ironclad War Elephant (Gen 6, day 350, Squad Health +10% for 2h, 20h CD). KINGDOM #1625 TIMELINE: Great Moose and Alpha Black Panther unlock on 11/09/2026 (confirmed release date). Not yet unlocked as of this update: Regal White Lion and Ironclad War Elephant projected 01/18/2027. A further pet, Ironclad War Bear, is projected for 04/12/2027 but its ability, cooldown, and artwork are NOT yet confirmed - do not state specifics about it, only that it's expected on that date with details still unverified. CRITICAL: Pet abilities must be MANUALLY ACTIVATED before every Bear Hunt rally and KvK push. Full database: v2.kingshot.net/database/pets.
+PETS: Pets unlock based on kingdom age. Full roster (13 pets, verified via v2.kingshot.net/database/pets): Gray Wolf (Gen 1, day 55, Construction Speed +15% for 5 min, 23h CD). Lynx (Gen 2, day 55, restores 60 Stamina, 23h CD) - best for F2P stamina. Bison (Gen 2, day 55, instant gather on next tile, 15h CD) - best for gather events. Cheetah (Gen 2, day 80, locates 500 pet food, 23h CD) - use daily for food. Moose (Gen 2, day 80, enemy Squad Health -5% for 2h, 20h CD). Lion (Gen 3, day 110, unearths a Badlands item, no listed CD). Grizzly Bear (Gen 3, day 110, March Speed +30% and enemy Lethality -5% for 2h, 20h CD) - best for KvK. Mighty Bison (Gen 4, day 190, Squad Capacity +15,000 for 2h). Giant Rhino (Gen 4, day 190, all Squads Attack +10% for 2h) - best mid-game combat. Alpha Black Panther (Gen 5, Legendary, max level 100, day 270, Troop Lethality up to +10% for 2h, 20h CD) - best for Bear Hunt. Great Moose (Gen 5, Epic, max level 100, day 270, Rally Capacity up to +150,000 for 2h, 20h CD) - best for rally leaders. Gen 5 pet values are maximum listed effects, not necessarily the bonus available immediately on unlock. Regal White Lion (Gen 6, day 350, Squads' Defense +10% for 2h, 20h CD). Ironclad War Elephant (Gen 6, day 350, Squad Health +10% for 2h, 20h CD). KINGDOM #1625 TIMELINE: Great Moose and Alpha Black Panther unlocked on 11/09/2026 and are available now. Not yet unlocked as of this update: Regal White Lion and Ironclad War Elephant projected 01/18/2027. A further pet, Ironclad War Bear, is projected for 04/12/2027 but its ability, cooldown, and artwork are NOT yet confirmed - do not state specifics about it, only that it's expected on that date with details still unverified. CRITICAL: Pet abilities must be MANUALLY ACTIVATED before every Bear Hunt rally and KvK push. Full database: v2.kingshot.net/database/pets.
 
 KINGDOM TRANSFER: Every 40-60 days a transfer window opens. Players can move their entire account to a different kingdom. Troops, resources, heroes, and items transfer with you - map position resets - alliance membership does NOT auto-transfer. Reasons to transfer: escape dominated kingdom, reunite with allies, optimize KvK bracket. Restrictions: target kingdom must be within eligible age bracket, TC level may impose requirements, clear active timers before transfer. Kingdom #1625 protocol: ALL transfers require R4/R5 approval first - uncoordinated transfers hurt alliance power scores for HoG and Championship. Coordinate group timing so bulk of members arrive same day. Assign a scout 48h early to assess the destination kingdom's political situation. Tools: Transfer Planner at v2.kingshot.net/transfer-planner, Kingdom Age Tracker at v2.kingshot.net/kingdom-age-tracker.
 
@@ -6701,6 +6755,36 @@ function formatMarkdown(text) {
     .replace(/\n\n/g, '</p><p>')
     .replace(/^(?!<[hul])(.+)$/gm, '<p>$1</p>')
     .replace(/<p><\/p>/g, '');
+}
+
+/* Omen & the Feline Flame: tap-to-react cards and chat avatar states */
+(function(){
+  function react(card){
+    var img = card.querySelector('img'); if (!img || img.hidden) return;
+    var base = card.getAttribute('data-pose'), alt = card.getAttribute('data-react');
+    img.src = (img.getAttribute('src') === base) ? alt : base;
+    img.classList.remove('omen-bounce'); void img.offsetWidth; img.classList.add('omen-bounce');
+  }
+  document.addEventListener('click', function(e){
+    var c = e.target.closest && e.target.closest('.omen-tip-card[data-react]');
+    if (c && !e.target.closest('a')) react(c);
+  });
+  document.addEventListener('keydown', function(e){
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('.omen-tip-card[data-react]')) { e.preventDefault(); react(e.target); }
+  });
+})();
+var OMEN_STATES = {
+  idle:     ['assets/characters/omen/omen-thumbs-up.webp', 'Omen is ready. Ask anything about Kingdom 1625 strategy.'],
+  thinking: ['assets/characters/omen/omen-thinking.webp', 'Omen is checking the alliance archives...'],
+  waiting:  ['assets/characters/omen/omen-wait.webp', 'Hold on - the AI is busy. Omen will retry in a moment.'],
+  done:     ['assets/characters/omen/omen-winning.webp', 'Omen found an answer. Ask a follow-up any time.'],
+  error:    ['assets/characters/omen/omen-facepalm.webp', 'That one went sideways. Give it a moment and try again.']
+};
+function setOmen(state){
+  var f = document.getElementById('omenAiFace'), t = document.getElementById('omenAiSay'), st = OMEN_STATES[state];
+  if (!f || !st) return;
+  f.src = st[0]; t.textContent = st[1];
+  f.classList.toggle('omen-busy', state === 'thinking' || state === 'waiting');
 }
 
 function addBubble(role, html, isLoading) {
@@ -6772,6 +6856,7 @@ async function askAI() {
 
   const hist = document.getElementById('chatHistory');
   const responseBubble = addBubble('assistant', '&#x2694; Consulting the alliance archives\u2026', true);
+  setOmen('thinking');
 
   // Only send the most recent exchanges to the model - the full guide knowledge
   // in SYSTEM_PROMPT is already ~3,600 tokens on its own, so an unbounded,
@@ -6787,6 +6872,7 @@ async function askAI() {
       const waitMatch = /try again in ([\d.]+)s/i.exec(err.error || '');
       const waitSeconds = waitMatch ? Math.ceil(parseFloat(waitMatch[1])) + 1 : 10;
       responseBubble.innerHTML = '&#x23F3; Busy right now - retrying in ' + waitSeconds + 's\u2026';
+      setOmen('waiting');
       await new Promise(r => setTimeout(r, waitSeconds * 1000));
       response = await sendToWorker(fullPayload);
     }
@@ -6805,12 +6891,14 @@ async function askAI() {
       responseBubble.innerHTML = formatMarkdown(fullText) +
         '<div class="source-tag">&#x1F4D6; Kingdom 1625 Guide + Live Web Search</div>';
       chatMessages.push({ role: 'assistant', content: fullText });
+      setOmen('done');
     } else {
       throw new Error('No response received from the AI.');
     }
 
   } catch (err) {
     responseBubble.className = 'chat-bubble assistant';
+    setOmen('error');
     responseBubble.innerHTML = '<strong>Error:</strong> ' + err.message +
       '<br><small>Check that your Cloudflare Worker URL is configured correctly.</small>';
   }
@@ -6834,6 +6922,8 @@ function quickAsk(question) {
 // date format: YYYY-MM-DD (used only for sorting/compare, not displayed verbatim below)
 // Links can point at any tab id (e.g. '#war-academy') - the tab system opens that tab.
 const WHATS_NEW = [
+  { date: '2026-11-09', label: 'Gen 5 is live: heroes Long Fei, Thrud and Vivian, pets Alpha Black Panther and Great Moose, and Masters Isnor and Aena are now available', link: '#heroes' },
+  { date: '2026-11-09', label: 'Meet Omen and the Feline Flame - tap their cards across the guide to see them react', link: '#home' },
   { date: '2026-11-09', label: 'Tabs and menu now sorted A-Z within each group', link: '#home' },
   { date: '2026-11-09', label: 'Home: Daily Terror Rewards card - lead 10 + join 50 rallies every day for your KvK stockpile', link: '#home' },
   { date: '2026-11-09', label: "New event guide: Finder's Fortune (currencies, daily missions, Finder's Fusion co-op, 3-day plan)", link: '#finders-fortune' },
@@ -7851,12 +7941,12 @@ const HERO_DATA = [
     notes: 'Recommended investment: 5-star, highest Archer investment priority. Best for Archer main players, rally support, Arena, and PvP.',
     tags: ['Archer', 'Rally', 'PvP', 'Arena', 'S-Tier', 'Widget Priority', 'Gen 4']
   },
-  // ── GEN 5 (releases to K#1625 Nov 9, 2026 - ratings are provisional, community-informed) ──
+  // ── GEN 5 (released to K#1625 Nov 9, 2026 - ratings are provisional, community-informed) ──
   {
     id: 'longfei', name: 'Long Fei', generation: 5, rarity: 'Legendary',
     troopType: 'Infantry', primaryRole: 'Garrison', secondaryRole: 'PvP',
     acquisitionMethod: 'Hero Roulette', releaseTiming: 'Nov 9, 2026',
-    availableNow: false, comingSoon: true,
+    availableNow: true, comingSoon: false,
     emoji: '🛡️',
     image: 'https://tactichub.github.io/KS/images/heroes/Long%20Fei.jpg',
     shortDescription: 'Gen 5 defensive Infantry hero for garrison, PvP frontline, and Arena. Obtainable from Hero Roulette, making him the most accessible Gen 5 hero and a good F2P progression opportunity.',
@@ -7877,7 +7967,7 @@ const HERO_DATA = [
     id: 'thrud', name: 'Thrud', generation: 5, rarity: 'Legendary',
     troopType: 'Cavalry', primaryRole: 'Rally', secondaryRole: 'PvP',
     acquisitionMethod: 'Event Hero Shards', releaseTiming: 'Nov 9, 2026',
-    availableNow: false, comingSoon: true,
+    availableNow: true, comingSoon: false,
     emoji: '🐎',
     image: 'https://tactichub.github.io/KS/images/heroes/Thrud.jpg',
     shortDescription: 'Gen 5 offensive Cavalry hero built to lead PvP rallies and mixed-troop attacks. A potential offensive upgrade for Cavalry-focused rally leaders, but not an automatic Petra replacement for Bear.',
@@ -7898,7 +7988,7 @@ const HERO_DATA = [
     id: 'vivian', name: 'Vivian', generation: 5, rarity: 'Legendary',
     troopType: 'Archer', primaryRole: 'Rally', secondaryRole: 'Bear',
     acquisitionMethod: 'Event Hero Shards', releaseTiming: 'Nov 9, 2026',
-    availableNow: false, comingSoon: true,
+    availableNow: true, comingSoon: false,
     emoji: '🏹',
     image: 'https://tactichub.github.io/KS/images/heroes/Vivian.jpg',
     shortDescription: 'Gen 5 Archer hero whose enemy-damage amplification skill makes her a valuable rally joiner for Bear and PvP, with Arena and defensive Archer utility.',
