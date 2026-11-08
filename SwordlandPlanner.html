@@ -695,6 +695,14 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
 }
 
 @media (max-width: 600px) {
+  /* Back link: sit above the title instead of floating over it */
+  .back-link {
+    position: static;
+    display: inline-block;
+    margin-bottom: 14px;
+    font-size: 0.6rem;
+    padding: 6px 12px;
+  }
   /* Header */
   h1 { font-size: 1.4rem; }
   .header-sub { font-size: 0.6rem; }
