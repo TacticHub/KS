@@ -54,7 +54,7 @@
   /* ── HEADER ── */
   header {
     text-align: center;
-    padding: 48px 20px 36px;
+    padding: 32px 20px 26px;
     border-bottom: 2px solid var(--gold);
     background: linear-gradient(180deg, rgba(20,38,63,0.72) 0%, rgba(20,38,63,0.55) 100%);
     backdrop-filter: blur(4px);
@@ -534,6 +534,13 @@
     transition: color 0.2s, border-color 0.2s, background 0.2s;
   }
   .gift-banner-toggle:hover { color: var(--gold); border-color: var(--gold); background: rgba(20,38,63,0.9); }
+  .gift-community-note {
+    font-family: 'Merriweather', Georgia, serif;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    padding: 0 0 10px;
+  }
+  .gift-community-note strong { color: var(--gold-light); }
   .gift-banner-edit {
     display: none;
     padding: 0 0 14px;
@@ -1134,6 +1141,7 @@
   .hdb-gen-2 { background: rgba(95,160,216,0.15); color: var(--blue-bright); border: 1px solid rgba(95,160,216,0.2); }
   .hdb-gen-3 { background: rgba(109,194,95,0.15); color: var(--green-bright); border: 1px solid rgba(109,194,95,0.2); }
   .hdb-gen-4 { background: rgba(192,104,32,0.15); color: var(--orange); border: 1px solid rgba(192,104,32,0.2); }
+  .hdb-gen-5 { background: rgba(34,184,196,0.15); color: var(--ocean-light); border: 1px solid rgba(34,184,196,0.25); }
   .hdb-gen-future { background: rgba(122,74,154,0.15); color: var(--purple-bright); border: 1px solid rgba(160,106,200,0.2); }
   .hdb-troop-badge {
     display: inline-block;
@@ -2475,7 +2483,177 @@
     .mta-priority-track { grid-template-columns: 1fr; }
     .mta-master-header { padding: 13px 15px; }
   }
+
+  /* ══════════════════════════════════
+     TABBED LAYOUT (2026-11 redesign)
+  ══════════════════════════════════ */
+  .tab-bar {
+    background: rgba(20,38,63,0.97);
+    border-bottom: 2px solid rgba(224,163,57,0.35);
+    backdrop-filter: blur(4px);
+  }
+  .tab-bar-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 12px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+  }
+  .tab-btn {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.82rem;
+    white-space: nowrap;
+    border-radius: 6px;
+    padding: 8px 14px;
+    min-height: 38px;
+    cursor: pointer;
+    background: rgba(224,163,57,0.06);
+    color: var(--text);
+    border: 1px solid rgba(224,163,57,0.28);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+    -webkit-appearance: none;
+  }
+  .tab-btn:hover { border-color: var(--gold); color: var(--gold-light); }
+  .tab-btn.active { background: var(--gold); color: var(--dark); border-color: var(--gold); font-weight: 700; }
+  .tab-btn .tab-beacon {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--orange);
+    animation: wa-pulse-ring 1.8s infinite;
+  }
+  .tab-sep { width: 1px; height: 22px; background: rgba(224,163,57,0.3); margin: 0 4px; }
+
+  /* Only the active tab's panel shows */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  html:not(.tabs-ready) #home { display: block; }
+  main .divider { display: none; }
+
+  .tab-crumb {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .tab-crumb strong { color: var(--gold); font-weight: 700; }
+  .tab-desc {
+    font-size: 1rem;
+    color: var(--text-dim);
+    margin: -10px 0 16px;
+    max-width: 760px;
+  }
+  .tab-otp { margin-bottom: 26px; }
+  .tab-otp-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .tab-otp-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tab-otp-chip {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.8rem;
+    color: var(--gold-light);
+    background: rgba(224,163,57,0.08);
+    border: 1px solid rgba(224,163,57,0.3);
+    border-radius: 16px;
+    padding: 6px 14px;
+    cursor: pointer;
+    -webkit-appearance: none;
+  }
+  .tab-otp-chip:hover { border-color: var(--gold); background: rgba(224,163,57,0.16); }
+
+  .tab-pager {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 36px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(224,163,57,0.2);
+  }
+  .tab-pager button {
+    background: transparent;
+    border: 1px solid rgba(224,163,57,0.3);
+    border-radius: 8px;
+    padding: 10px 16px;
+    min-height: 44px;
+    color: var(--text);
+    cursor: pointer;
+    text-align: left;
+    -webkit-appearance: none;
+  }
+  .tab-pager button:hover { border-color: var(--gold); }
+  .tab-pager .pager-next { margin-left: auto; text-align: right; }
+  .tab-pager small {
+    display: block;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .tab-pager span { font-family: 'Lato', sans-serif; font-size: 0.95rem; color: var(--gold); }
+
+  /* Home tab */
+  #home .wn-banner { border: 1px solid rgba(74,163,236,0.35); border-radius: 10px; margin-bottom: 24px; }
+  #home .wn-banner-inner { padding: 4px 18px 6px; }
+  .home-browse { margin-top: 32px; }
+  .home-browse-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .home-card {
+    text-align: left;
+    background: rgba(20,38,63,0.9);
+    border: 1px solid rgba(224,163,57,0.2);
+    border-top: 3px solid var(--gold);
+    border-radius: 8px;
+    padding: 14px 16px;
+    color: var(--text);
+    cursor: pointer;
+    -webkit-appearance: none;
+  }
+  .home-card:hover { border-color: var(--gold); }
+  .home-card-title { font-family: 'Lato', sans-serif; font-size: 1rem; font-weight: 700; color: var(--gold); }
+  .home-card-count { font-family: 'Lato', sans-serif; font-size: 0.72rem; color: var(--text-muted); margin: 2px 0 6px; }
+  .home-card-links { font-size: 0.82rem; color: var(--text-dim); line-height: 1.5; }
+
+  #ask-ai.tab-panel { border-bottom: none; }
+
+  .tab-bar-hint { display: none; }
+
+  /* Phone: tabs stay at 3 rows and swipe sideways */
+  @media (max-width: 640px) {
+    .tab-bar-inner {
+      display: grid;
+      grid-template-rows: repeat(3, auto);
+      grid-auto-flow: column;
+      justify-content: start;
+      overflow-x: auto;
+      padding: 10px 14px;
+      scrollbar-width: thin;
+    }
+    .tab-sep { display: none; }
+    .tab-btn { font-size: 0.78rem; padding: 6px 12px; min-height: 34px; }
+    .tab-bar-hint {
+      display: block;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      padding: 0 14px 8px;
+    }
+  }
 </style>
+<noscript><style>.tab-panel{display:block !important;} .tab-bar{display:none;}</style></noscript>
 </head>
 <body>
 
@@ -2493,20 +2671,6 @@
   }
 </script>
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-<!-- WHAT'S NEW BANNER -->
-<div class="wn-banner" id="wnBanner">
-  <div class="wn-banner-inner">
-    <div class="wn-banner-header">
-      <div class="wn-banner-label"><span>&#x1F195;</span> What's New</div>
-      <div class="wn-items-row" id="wnItemsRow"></div>
-      <div class="wn-actions">
-        <button class="wn-action-btn" onclick="copyWnLink()">&#x1F517; Copy Link</button>
-        <button class="wn-dismiss-btn" id="wnDismissBtn" aria-label="Dismiss">&#x2715;</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- SIDEBAR NAV TOGGLE BUTTON -->
 <button class="nav-toggle" id="navToggle" aria-label="Open navigation menu" aria-expanded="false">
@@ -2530,6 +2694,7 @@
 
   <div class="sidebar-links" id="sidebarLinks">
     <div class="sidebar-divider">Quick Access</div>
+    <a href="#home"><span class="nav-icon">&#x1F3E0;</span>Home</a>
     <a href="#whats-new"><span class="nav-icon">&#x1F195;</span>What's New</a>
     <a href="#ask-ai"><span class="nav-icon">&#x1F916;</span>Ask AI</a>
 
@@ -2655,8 +2820,9 @@
       </div>
       <button class="gift-banner-toggle" id="giftToggleBtn" onclick="toggleGiftEdit()">✎ Edit Codes</button>
     </div>
+    <div class="gift-community-note">&#x1F4E2; Know a new code? <strong>Anyone can add it</strong> - tap <em>&#x270E; Edit Codes</em>, add the code, and Save &amp; Publish so the whole kingdom sees it.</div>
     <div class="gift-banner-edit" id="giftEditPanel">
-      <div class="gift-edit-title">Manage Active Codes - R4/R5 Only</div>
+      <div class="gift-edit-title">Manage Active Codes - Anyone Can Add</div>
       <div class="gift-edit-list" id="giftEditList"></div>
       <div class="gift-edit-actions">
         <button class="gift-edit-add" onclick="addGiftRow()">+ Add Code</button>
@@ -2668,8 +2834,14 @@
 </div>
 <div class="gift-copy-toast" id="giftToast">Code copied!</div>
 
+<!-- TAB BAR (every section is its own tab) -->
+<nav class="tab-bar" id="tabBar" aria-label="Guide sections">
+  <div class="tab-bar-inner" id="tabBarInner"></div>
+  <div class="tab-bar-hint">Swipe for more sections</div>
+</nav>
+
 <!-- AI CHAT HERO -->
-<div class="ai-hero" id="ask-ai">
+<div class="ai-hero tab-panel" id="ask-ai">
   <div class="ai-hero-inner">
     <div class="ai-hero-title">&#x1F525; Ask The Strategy AI</div>
     <div class="ai-hero-sub">Powered by embedded alliance guides + live community knowledge</div>
@@ -2698,6 +2870,21 @@
 <!-- MAIN CONTENT -->
 <main>
 <div class="container">
+
+<!-- HOME -->
+<section id="home" class="tab-panel">
+<!-- WHAT'S NEW BANNER -->
+<div class="wn-banner" id="whats-new">
+  <div class="wn-banner-inner">
+    <div class="wn-banner-header">
+      <div class="wn-banner-label"><span>&#x1F195;</span> What's New</div>
+      <div class="wn-items-row" id="wnItemsRow"></div>
+      <div class="wn-actions">
+        <button class="wn-action-btn" onclick="copyWnLink()">&#x1F517; Copy Link</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- TRANSPARENCY NOTICE -->
 <div class="transparency-notice">
@@ -2734,8 +2921,14 @@
   Get early points for troop training day by using your <strong>Training Capacity buff</strong> - tap the arrow under your profile and go to the <strong>Growth</strong> tab to activate it for a big boost of points. Leave troops running overnight and you'll get a full day's worth of points as soon as the event starts!
 </div>
 
+<div class="home-browse">
+  <h3>Browse the Guide</h3>
+  <div class="home-browse-grid" id="homeBrowse"></div>
+</div>
+</section>
+
 <!-- CITY BUILDING -->
-<section id="city">
+<section id="city" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F3F0;</span>
     <h2>City Building Priority</h2>
@@ -2789,7 +2982,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- HEROES -->
-<section id="heroes">
+<section id="heroes" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x2694;&#xFE0F;</span>
     <h2>Hero Database</h2>
@@ -2819,6 +3012,7 @@
     <button class="hdb-filter-btn"        data-filter="gen2"      onclick="hdbSetFilter(this,'gen2')">Gen 2</button>
     <button class="hdb-filter-btn"        data-filter="gen3"      onclick="hdbSetFilter(this,'gen3')">Gen 3</button>
     <button class="hdb-filter-btn"        data-filter="gen4"      onclick="hdbSetFilter(this,'gen4')">Gen 4</button>
+    <button class="hdb-filter-btn"        data-filter="gen5"      onclick="hdbSetFilter(this,'gen5')">Gen 5</button>
     <button class="hdb-filter-btn f-future" data-filter="future"  onclick="hdbSetFilter(this,'future')">&#x1F512; Future</button>
   </div>
 
@@ -2855,12 +3049,13 @@
     </table>
   </div>
   <div class="hdb-no-results" id="hdbNoResults">No heroes match current filters.</div>
+  <div class="wa-placeholder-note">&#x26A0;&#xFE0F; <span>Gen 5 ratings are provisional, based on available Hero skills and community recommendations. Ratings assume appropriate ascension, skills, and Hero investment. Bear ratings consider each Hero's strongest role as rally leader or joiner.</span></div>
 </section>
 
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- TROOPS -->
-<section id="troops">
+<section id="troops" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1FA96;</span>
     <h2>Troop Formations &amp; Training</h2>
@@ -2888,7 +3083,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- COMBAT MECHANICS -->
-<section id="combat">
+<section id="combat" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F4CA;</span>
     <h2>Combat Mechanics Deep Dive</h2>
@@ -3028,7 +3223,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- ISLAND -->
-<section id="island">
+<section id="island" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F3DD;</span>
     <h2>Oasis Island</h2>
@@ -3259,7 +3454,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- RESEARCH -->
-<section id="research">
+<section id="research" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F52C;</span>
     <h2>Research Priority</h2>
@@ -3300,7 +3495,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- EVENTS -->
-<section id="events">
+<section id="events" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F4C5;</span>
     <h2>Events Overview</h2>
@@ -3329,7 +3524,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- BEAR HUNT -->
-<section id="bear-hunt">
+<section id="bear-hunt" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F43B;</span>
     <h2>Bear Hunt (Pitfall Event)</h2>
@@ -3359,6 +3554,10 @@
     <li>Join rallies as fast as possible when they open - every minute of damage counts toward your personal reward</li>
     <li>Players who do not follow these rules may be removed from rallies</li>
   </ul>
+  <div class="callout callout-info">
+    <span class="callout-label">&#x1F4AC; Gen 5 Joiner Note (Situational)</span>
+    <strong>Vivian</strong> (Gen 5 Archer, arrives Nov 9) has an enemy-damage amplification skill, and some players report excellent Bear joining value from her. Her effectiveness depends on the rally's selected skill bonuses, so treat her as a situational alternative rather than a replacement for the joiner heroes above - follow your rally leader's call. This is anecdotal until our own rallies confirm it.
+  </div>
   <div class="callout callout-tip">
     <span class="callout-label">&#x1F43B; Have Fun</span>
     Follow the formation and hero placement rules above, and deal massive damage! &#x1F43B;&#x1F525;
@@ -3368,7 +3567,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- VIKING VENGEANCE -->
-<section id="viking">
+<section id="viking" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F6E1;</span>
     <h2>Viking Vengeance</h2>
@@ -3404,7 +3603,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- ALLIANCE CHAMPIONSHIP -->
-<section id="alliance-champ">
+<section id="alliance-champ" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F3C6;</span>
     <h2>Alliance Championship</h2>
@@ -3425,7 +3624,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- TRI-ALLIANCE CLASH -->
-<section id="tri-alliance">
+<section id="tri-alliance" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F531;</span>
     <h2>Tri-Alliance Clash</h2>
@@ -3561,7 +3760,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- SWORDLAND SHOWDOWN -->
-<section id="swordland">
+<section id="swordland" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F5E1;&#xFE0F;</span>
     <h2>Swordland Showdown</h2>
@@ -3734,7 +3933,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- HALL OF GOVERNORS -->
-<section id="hog">
+<section id="hog" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F451;</span>
     <h2>Hall of Governors</h2>
@@ -3766,7 +3965,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- ALL OUT -->
-<section id="all-out">
+<section id="all-out" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x2694;</span>
     <h2>All Out (Kill Event)</h2>
@@ -3794,7 +3993,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- MOONLIT PROMISE -->
-<section id="moonlit">
+<section id="moonlit" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F319;</span>
     <h2>Moonlit Promise</h2>
@@ -3826,7 +4025,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- TRUE GOLD -->
-<section id="truegold">
+<section id="truegold" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F947;</span>
     <h2>True Gold Progression</h2>
@@ -4017,7 +4216,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- WAR ACADEMY -->
-<section id="war-academy">
+<section id="war-academy" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x2694;&#xFE0F;</span>
     <h2>War Academy Strategy Guide</h2>
@@ -4390,7 +4589,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- MASTER TRAINING ACADEMY -->
-<section id="master-academy">
+<section id="master-academy" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F393;</span>
     <h2>Master Training Academy Guide</h2>
@@ -5098,7 +5297,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- KVK -->
-<section id="kvk">
+<section id="kvk" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x2694;</span>
     <h2>Kingdom vs Kingdom (KvK)</h2>
@@ -5121,7 +5320,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- ETERNITY'S REACH -->
-<section id="er">
+<section id="er" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x2728;</span>
     <h2>Eternity's Reach</h2>
@@ -5173,7 +5372,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- BLIZZARD BRAWL -->
-<section id="blizzard-brawl">
+<section id="blizzard-brawl" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x2744;&#xFE0F;</span>
     <h2>Blizzard Brawl</h2>
@@ -5323,7 +5522,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- F2P STRATEGY -->
-<section id="f2p">
+<section id="f2p" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F4B0;</span>
     <h2>F2P Strategy Guide</h2>
@@ -5355,7 +5554,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- PETS -->
-<section id="pets">
+<section id="pets" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F43E;</span>
     <h2>Pets</h2>
@@ -5365,7 +5564,7 @@
     Pets unlock progressively as your kingdom ages. Each has an active ability with a cooldown that can meaningfully affect combat, gathering, or construction. Pet abilities must be <strong>manually activated</strong> - build the habit before every Bear Hunt and KvK push.
   </div>
   <h3>Pet Gallery</h3>
-  <div class="wa-placeholder-note">&#x1F4CD; Kingdom #1625-specific projected drop dates below are based on kingdom age progression as of this update - Great Moose &amp; Alpha Black Panther are projected for 10/26/2026, and Regal White Lion &amp; Ironclad War Elephant for 01/18/2027. A further pet, <strong>Ironclad War Bear</strong>, is projected for 04/12/2027 but has no confirmed ability data or artwork yet - it will be added once verified.</div>
+  <div class="wa-placeholder-note">&#x1F4CD; Kingdom #1625-specific projected drop dates below are based on kingdom age progression as of this update - Great Moose &amp; Alpha Black Panther unlock on 11/09/2026, and Regal White Lion &amp; Ironclad War Elephant for 01/18/2027. A further pet, <strong>Ironclad War Bear</strong>, is projected for 04/12/2027 but has no confirmed ability data or artwork yet - it will be added once verified.</div>
 
   <div class="pet-tier-label">Day 55+</div>
   <div class="pet-gallery-grid">
@@ -5488,17 +5687,20 @@
     </div>
   </div>
 
-  <div class="pet-tier-label">Day 270+ &nbsp;·&nbsp; Projected 10/26/2026 for K#1625</div>
+  <div class="pet-tier-label">Day 270+ &nbsp;·&nbsp; Unlocks 11/09/2026 for K#1625</div>
   <div class="pet-gallery-grid">
     <div class="pet-card pet-locked">
       <img class="pet-portrait" src="https://tactichub.github.io/KS/images/pets/alpha-black-panther.png" alt="Alpha Black Panther" onerror="this.outerHTML='&lt;div class=&quot;pet-portrait-fallback&quot;&gt;&#x1F406;&lt;/div&gt;'">
       <div class="pet-info">
         <div class="pet-name">Alpha Black Panther</div>
         <div class="pet-skill">Deadly Bite</div>
-        <div class="pet-desc">Increases Troop Lethality by 10% for 2 hours.</div>
+        <div class="pet-desc">Increases Troop Lethality by up to 10% for 2 hours.</div>
         <div class="pet-meta-row">
           <span class="pet-meta-badge">Gen 5</span>
-          <span class="pet-meta-badge pet-coming">Coming 10/26/26</span>
+          <span class="pet-meta-badge">Legendary</span>
+          <span class="pet-meta-badge">Max Lv 100</span>
+          <span class="pet-meta-badge pet-cd">20h CD</span>
+          <span class="pet-meta-badge pet-coming">Coming 11/09/26</span>
         </div>
       </div>
     </div>
@@ -5507,14 +5709,18 @@
       <div class="pet-info">
         <div class="pet-name">Great Moose</div>
         <div class="pet-skill">Antler Impact</div>
-        <div class="pet-desc">Increases Rally Capacity by 150,000 for 2 hours.</div>
+        <div class="pet-desc">Increases Rally Capacity by up to 150,000 for 2 hours.</div>
         <div class="pet-meta-row">
           <span class="pet-meta-badge">Gen 5</span>
-          <span class="pet-meta-badge pet-coming">Coming 10/26/26</span>
+          <span class="pet-meta-badge">Epic</span>
+          <span class="pet-meta-badge">Max Lv 100</span>
+          <span class="pet-meta-badge pet-cd">20h CD</span>
+          <span class="pet-meta-badge pet-coming">Coming 11/09/26</span>
         </div>
       </div>
     </div>
   </div>
+  <div class="wa-placeholder-note">Gen 5 skill values shown are the maximum listed effects, not necessarily the bonus available immediately on unlock.</div>
 
   <div class="pet-tier-label">Day 350+ &nbsp;·&nbsp; Projected 01/18/2027 for K#1625</div>
   <div class="pet-gallery-grid">
@@ -5608,7 +5814,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- KINGDOM TRANSFER -->
-<section id="transfer">
+<section id="transfer" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F30D;</span>
     <h2>Kingdom Transfer Event</h2>
@@ -5650,14 +5856,14 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- GIFT CODES SECTION -->
-<section id="gift-codes">
+<section id="gift-codes" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F381;</span>
     <h2>Gift Codes</h2>
   </div>
   <div class="callout callout-tip">
     <span class="callout-label">&#x2714; Live Codes at the Top</span>
-    Active codes are tracked in the <strong>Gift Codes banner</strong> just below the page header. Click <em>&#x270E; Edit Codes</em> to add or remove codes - changes are saved in your browser. Click any code pill to copy it instantly.
+    Active codes are tracked in the <strong>Gift Codes banner</strong> just below the page header. Anyone who knows a new code can add it - click <em>&#x270E; Edit Codes</em>, enter the code, and Save &amp; Publish. Codes are saved to the alliance server so every member sees them instantly. Click any code pill to copy it instantly.
   </div>
   <h3>How to Redeem</h3>
   <div class="card card-gold">
@@ -5677,7 +5883,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- TOOLS & CALCULATORS -->
-<section id="tools">
+<section id="tools" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F9EE;</span>
     <h2>Tools &amp; Calculators</h2>
@@ -5800,7 +6006,7 @@
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
 <!-- RESOURCES -->
-<section id="resources">
+<section id="resources" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F4DA;</span>
     <h2>Community Resources</h2>
@@ -5891,7 +6097,7 @@ TRI-ALLIANCE CLASH: Three alliances fight simultaneously for territory and the T
 
 ETERNITY'S REACH: Stage-based event awarding Charm Items. PRIMARY STRATEGY (Solo): (1) Skill Tree: Right - Right - Left - Left - Right. (2) Copper Strategy: occupy a vein every 60s, recall immediately, and keep killing guards. (3) Outburst Tactic: use the 5th skill for speed, rush to occupy Fracture Veins as soon as they appear. (4) Timeline: Gold first. Hero recommendations: primary = Quinn or Amadeus, support = Chenko (Lethality aura), utility = Quinn (Archer Attack). Upgrade Charms in order: Attack > Lethality > HP > Defense. F2P can consistently clear stages 8-10 for steady Charm progress.
 
-BEAR HUNT: Never miss Bear Hunt - Forge Hammers have no other source. STARTING A RALLY: always use your 3 strongest heroes - priority heroes are Zoe, Jabel, Quinn, and Marlin. Rally leader must be fully geared. JOINING A RALLY: place Chenko, Yeonwoo, Amane, or Amadeus in the first (left) slot; if none are available, send the march without heroes - sending the wrong heroes reduces the total damage of the entire rally. Archers deal the most damage - use one of these troop ratios (Infantry/Cavalry/Archer): 5/5/90, 10/10/80, or 10/20/70; otherwise just equalize troops. Players who do not follow these rules may be removed from rallies. R4/R5 joiner cap formula: (Rally Capacity - Leader Squad) divided by Expected Joiners.
+BEAR HUNT: Never miss Bear Hunt - Forge Hammers have no other source. STARTING A RALLY: always use your 3 strongest heroes - priority heroes are Zoe, Jabel, Quinn, and Marlin. Rally leader must be fully geared. JOINING A RALLY: place Chenko, Yeonwoo, Amane, or Amadeus in the first (left) slot; if none are available, send the march without heroes - sending the wrong heroes reduces the total damage of the entire rally. Archers deal the most damage - use one of these troop ratios (Infantry/Cavalry/Archer): 5/5/90, 10/10/80, or 10/20/70; otherwise just equalize troops. Players who do not follow these rules may be removed from rallies. GEN 5 JOINER NOTE (situational, anecdotal): Vivian (Gen 5 Archer, arrives Nov 9, 2026) has an enemy-damage amplification skill and some players report excellent Bear joining value, but effectiveness depends on the rally's selected skill bonuses - she is a situational alternative, not a replacement for the official joiner list; follow the rally leader's call. R4/R5 joiner cap formula: (Rally Capacity - Leader Squad) divided by Expected Joiners.
 
 VIKING VENGEANCE: Biweekly alliance defense event - 20 waves over ~40 minutes. Waves 10 and 20 hit the Alliance HQ. Waves 7, 14, and 17 hit online members only. Shields do NOT work against Viking attacks. The three non-negotiables: (1) Empty your city before the event and send troops to reinforce others. (2) Do not heal mid-event unless you immediately send healed troops back out. (3) Do not extinguish fires mid-event. Save 3,000-6,000 stamina before event. Run continuous rally chains: Leader 1 engages, Leader 2 prepares, Leader 3 prepares next.
 
@@ -5905,11 +6111,11 @@ MOONLIT PROMISE: Month-long Ramadan special event (NOT the same as Moonlit Celeb
 
 BLIZZARD BRAWL (added August 24, 2026 update - very new, evidence base still thin, verify against in-game rules screen): Solo real-time PvP, NOT an alliance event - 10 Governors per free-for-all battlefield. Two modes: Same-Gen Battle (same Hero Generation opponents, recommended starting mode) and Cross-Gen Battle (broader matchmaking, test later once you have a Same-Gen baseline). Requires Town Center Lv. 25+. Up to 10 matches, ~10 min each (~30 sec prep, ~9:30 active battle), four matchmaking windows per day (~2 hours each). CRITICAL SCORING LESSON: this is NOT a kill-farming event - Blizzard Points come mainly from occupying buildings, collecting Blizzard Crates, and airdrop activity, not kills. Priority order: open building > safe crates > useful airdrop > purposeful PvP > random fighting. BATTLEFIELD: Central Vault of Valor (highest value, biggest combat magnet) plus three surrounding Forward Camps (cheaper to hold uncontested); buildings take ~10 sec to capture. Blizzard Crates arrive via supply caravans starting ~30 sec into a match, a strong scoring path for weaker accounts. AIRDROPS (begin ~1:30 in, recur ~every 2 min): Rocket Bomb (severely injures 30,000 troops - use to soften a garrison before attacking), Ice Bomb (blocks troop deployment 10 sec - creates a capture window), Healing Elixir (heals 30% of severely injured troops, max 500k - use only after meaningful losses), Smoke Bomb (makes your Town unselectable 20 sec - defensive reset). Ice Bomb -> Rocket Bomb -> march arrival is a promising but not yet proven combo. ROLE STRATEGY: Strongest in lobby = contest the Vault plus take an uncontested Forward Camp, keep one mobile march for crates. Mid-strength = avoid the center brawl, take a Forward Camp, collect crates while whales fight, hit center only when the defender is weakened. Weakest = skip ego fights, take empty structures, prioritize crates and safe airdrops, steal weakened buildings after stronger players move on. MARCH ROLES: March 1 fighting/key-objective, March 2 flexible objective, March 3+ collection/rotation. Core question before every fight: does winning this improve my point production - avoid revenge attacks and chasing players. REWARDS: Brawl Emblems spent in a Blizzard Shop - shop long-term value is NOT yet confirmed, do not spend gems or scarce resources on Blizzard Brawl until the shop, rules, and mission pages have been reviewed. DISPUTED/UNCONFIRMED: whether Same-Gen is always easier (a Same-Gen lobby can still contain heavy spenders), whether center control is mandatory to win vs. objective-farming elsewhere, the exact kill-point formula, and whether Brawl Emblems carry over between events - do not state any of these as settled fact.
 
-HERO TIER LIST: S-Tier: Amadeus (rally leader), Quinn (archer support), Chenko (lethality), Rosa (Gen 4 archer support/control), Alcar (Gen 4 infantry garrison/rally-lead tank). A-Tier: Helga, Amadeus, Diana, Margot (Gen 4 cavalry burst/PvP). B-Tier: Jaeger, Howard. Focus resources on one primary hero first. GEN 4 HEROES (unlock ~Day 195): Alcar (Infantry, Legendary, widget: Praetorian Guard) - garrison/rally-lead tank, recommended 5-star, High priority. Margot (Cavalry, Legendary, widget: Revel Fang) - burst Cavalry DPS, recommended 4-star, Medium-High priority. Rosa (Archer, Legendary, widget: Aeolian) - Archer control/support, recommended 5-star, highest Archer investment priority.
+HERO TIER LIST: S-Tier: Amadeus (rally leader), Quinn (archer support), Chenko (lethality), Rosa (Gen 4 archer support/control), Alcar (Gen 4 infantry garrison/rally-lead tank). A-Tier: Helga, Amadeus, Diana, Margot (Gen 4 cavalry burst/PvP). B-Tier: Jaeger, Howard. Focus resources on one primary hero first. GEN 4 HEROES (unlock ~Day 195): Alcar (Infantry, Legendary, widget: Praetorian Guard) - garrison/rally-lead tank, recommended 5-star, High priority. Margot (Cavalry, Legendary, widget: Revel Fang) - burst Cavalry DPS, recommended 4-star, Medium-High priority. Rosa (Archer, Legendary, widget: Aeolian) - Archer control/support, recommended 5-star, highest Archer investment priority. GEN 5 HEROES (release to Kingdom 1625 on Nov 9, 2026; ratings are PROVISIONAL and community-informed, not verified performance - say so when citing them): Long Fei (Infantry, Hero Roulette) - defensive Infantry for garrison, PvP frontline, and Arena; ratings PvP A, PvE B, Bear D, F2P S; F2P S reflects Roulette accessibility, not raw combat power; poor Bear damage due to defensive Expedition skills. Thrud (Cavalry, event Hero shards - verify the active event) - offensive PvP rally leader for mixed-troop attacks, especially Cavalry-focused leaders; ratings PvP S, PvE A, Bear B, F2P C; not an automatic Petra replacement for Bear; shard and exclusive weapon costs reduce F2P appeal. Vivian (Archer, event Hero shards - verify the active event) - rally joiner with an enemy-damage amplification skill, plus Arena and defensive Archer utility; ratings PvP A, PvE S, Bear S, F2P B; Bear S is for JOINING rallies, not replacing Rosa as a Bear rally leader; joiner effectiveness depends on the rally's selected skill bonuses. Gen 5 skill values, exclusive weapon details, and pairings are NOT yet verified - do not state specific numbers.
 
 F2P PRIORITY: VIP Level first, then Speed-ups during events, then Hero shards on Amadeus/Chenko/Quinn rotation. Never spend gems on resource packs or random chests.
 
-PETS: Pets unlock based on kingdom age. Full roster (13 pets, verified via v2.kingshot.net/database/pets): Gray Wolf (Gen 1, day 55, Construction Speed +15% for 5 min, 23h CD). Lynx (Gen 2, day 55, restores 60 Stamina, 23h CD) - best for F2P stamina. Bison (Gen 2, day 55, instant gather on next tile, 15h CD) - best for gather events. Cheetah (Gen 2, day 80, locates 500 pet food, 23h CD) - use daily for food. Moose (Gen 2, day 80, enemy Squad Health -5% for 2h, 20h CD). Lion (Gen 3, day 110, unearths a Badlands item, no listed CD). Grizzly Bear (Gen 3, day 110, March Speed +30% and enemy Lethality -5% for 2h, 20h CD) - best for KvK. Mighty Bison (Gen 4, day 190, Squad Capacity +15,000 for 2h). Giant Rhino (Gen 4, day 190, all Squads Attack +10% for 2h) - best mid-game combat. Alpha Black Panther (Gen 5, day 270, Troop Lethality +10% for 2h) - best for Bear Hunt. Great Moose (Gen 5, day 270, Rally Capacity +150,000 for 2h) - best for rally leaders. Regal White Lion (Gen 6, day 350, Squads' Defense +10% for 2h, 20h CD). Ironclad War Elephant (Gen 6, day 350, Squad Health +10% for 2h, 20h CD). KINGDOM #1625 PROJECTED TIMELINE (not yet unlocked as of this update): Great Moose and Alpha Black Panther projected 10/26/2026. Regal White Lion and Ironclad War Elephant projected 01/18/2027. A further pet, Ironclad War Bear, is projected for 04/12/2027 but its ability, cooldown, and artwork are NOT yet confirmed - do not state specifics about it, only that it's expected on that date with details still unverified. CRITICAL: Pet abilities must be MANUALLY ACTIVATED before every Bear Hunt rally and KvK push. Full database: v2.kingshot.net/database/pets.
+PETS: Pets unlock based on kingdom age. Full roster (13 pets, verified via v2.kingshot.net/database/pets): Gray Wolf (Gen 1, day 55, Construction Speed +15% for 5 min, 23h CD). Lynx (Gen 2, day 55, restores 60 Stamina, 23h CD) - best for F2P stamina. Bison (Gen 2, day 55, instant gather on next tile, 15h CD) - best for gather events. Cheetah (Gen 2, day 80, locates 500 pet food, 23h CD) - use daily for food. Moose (Gen 2, day 80, enemy Squad Health -5% for 2h, 20h CD). Lion (Gen 3, day 110, unearths a Badlands item, no listed CD). Grizzly Bear (Gen 3, day 110, March Speed +30% and enemy Lethality -5% for 2h, 20h CD) - best for KvK. Mighty Bison (Gen 4, day 190, Squad Capacity +15,000 for 2h). Giant Rhino (Gen 4, day 190, all Squads Attack +10% for 2h) - best mid-game combat. Alpha Black Panther (Gen 5, Legendary, max level 100, day 270, Troop Lethality up to +10% for 2h, 20h CD) - best for Bear Hunt. Great Moose (Gen 5, Epic, max level 100, day 270, Rally Capacity up to +150,000 for 2h, 20h CD) - best for rally leaders. Gen 5 pet values are maximum listed effects, not necessarily the bonus available immediately on unlock. Regal White Lion (Gen 6, day 350, Squads' Defense +10% for 2h, 20h CD). Ironclad War Elephant (Gen 6, day 350, Squad Health +10% for 2h, 20h CD). KINGDOM #1625 TIMELINE: Great Moose and Alpha Black Panther unlock on 11/09/2026 (confirmed release date). Not yet unlocked as of this update: Regal White Lion and Ironclad War Elephant projected 01/18/2027. A further pet, Ironclad War Bear, is projected for 04/12/2027 but its ability, cooldown, and artwork are NOT yet confirmed - do not state specifics about it, only that it's expected on that date with details still unverified. CRITICAL: Pet abilities must be MANUALLY ACTIVATED before every Bear Hunt rally and KvK push. Full database: v2.kingshot.net/database/pets.
 
 KINGDOM TRANSFER: Every 40-60 days a transfer window opens. Players can move their entire account to a different kingdom. Troops, resources, heroes, and items transfer with you - map position resets - alliance membership does NOT auto-transfer. Reasons to transfer: escape dominated kingdom, reunite with allies, optimize KvK bracket. Restrictions: target kingdom must be within eligible age bracket, TC level may impose requirements, clear active timers before transfer. Kingdom #1625 protocol: ALL transfers require R4/R5 approval first - uncoordinated transfers hurt alliance power scores for HoG and Championship. Coordinate group timing so bulk of members arrive same day. Assign a scout 48h early to assess the destination kingdom's political situation. Tools: Transfer Planner at v2.kingshot.net/transfer-planner, Kingdom Age Tracker at v2.kingshot.net/kingdom-age-tracker.
 
@@ -6089,23 +6295,20 @@ function quickAsk(question) {
 // ── WHAT'S NEW BANNER ──
 // Keep this to the 5 most recent entries. Add new ones to the TOP of the array.
 // date format: YYYY-MM-DD (used only for sorting/compare, not displayed verbatim below)
+// Links can point at any tab id (e.g. '#war-academy') - the tab system opens that tab.
 const WHATS_NEW = [
+  { date: '2026-11-09', label: 'Gift Codes: anyone can now add new codes they find', link: '#gift-codes' },
+  { date: '2026-11-09', label: 'Gen 5 heroes added to the Hero Database: Long Fei, Thrud, Vivian (provisional ratings)', link: '#heroes' },
+  { date: '2026-11-09', label: 'Gen 5 pets Alpha Black Panther & Great Moose: Nov 9 unlock date, 20h cooldowns', link: '#pets' },
+  { date: '2026-11-08', label: 'Guide redesigned with tabs - every section now has its own page', link: '#home' },
   { date: '2026-08-31', label: 'Truegold Dust exchange rates added to War Academy (Gold vs. Truegold conversion)', link: '#war-academy' },
-  { date: '2026-08-31', label: '"Preparation" section reframed to "Getting Started" now that War Academy is unlocked', link: '#war-academy' },
-  { date: '2026-08-31', label: 'Kingdom-wide "Save For KvK" list now includes Truegold Dust, linked to War Academy timing', link: '#war-academy' },
-  { date: '2026-08-31', label: 'War Academy Priority Table updated with real node names + KvK resource conservation guidance', link: '#war-academy' },
-  { date: '2026-08-31', label: 'War Academy is live - full confirmed research tree added for all 3 troop paths', link: '#war-academy' },
 ];
 
 (function() {
   'use strict';
-  var banner = document.getElementById('wnBanner');
-  var row    = document.getElementById('wnItemsRow');
-  var dismissBtn = document.getElementById('wnDismissBtn');
-  if (!banner || !row) return;
-
+  var row = document.getElementById('wnItemsRow');
+  if (!row) return;
   var items = WHATS_NEW.slice(0, 5);
-  var latestDate = items.reduce(function(max, it) { return it.date > max ? it.date : max; }, '');
 
   function fmtDate(d) {
     var parts = d.split('-');
@@ -6121,29 +6324,6 @@ const WHATS_NEW = [
       + '<span class="wn-item-label">' + it.label + '</span></' + closeTag + '>';
   }).join('');
 
-  var STORAGE_KEY = 'wnDismissedThrough';
-  function isDismissed() {
-    try { return localStorage.getItem(STORAGE_KEY) >= latestDate; } catch(e) { return false; }
-  }
-  function showBanner() { banner.classList.remove('wn-hidden'); }
-  function hideBanner() { banner.classList.add('wn-hidden'); }
-
-  if (isDismissed() && window.location.hash !== '#whats-new') hideBanner();
-
-  dismissBtn.addEventListener('click', function() {
-    try { localStorage.setItem(STORAGE_KEY, latestDate); } catch(e) {}
-    hideBanner();
-  });
-
-  function checkWnHash() {
-    if (window.location.hash === '#whats-new') {
-      showBanner();
-      banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-  window.addEventListener('hashchange', checkWnHash);
-  checkWnHash();
-
   window.copyWnLink = function() {
     var url = window.location.origin + window.location.pathname + '#whats-new';
     var doToast = function() {
@@ -6154,6 +6334,228 @@ const WHATS_NEW = [
     };
     navigator.clipboard ? navigator.clipboard.writeText(url).then(doToast).catch(doToast) : doToast();
   };
+})();
+
+// ── TAB NAVIGATION ──
+// Order here = order of the tab bar and of Previous/Next. Each id must match a .tab-panel element id.
+// To add a new section: give its <section> class="tab-panel", add a sidebar link, and add a row here.
+const TABS = [
+  { id: 'home',           label: 'Home',              group: 'Home' },
+  { id: 'ask-ai',         label: 'Ask AI',            group: 'Home' },
+  { id: 'city',           label: 'City Building',     group: 'City & Growth', desc: 'Town Center gates everything - what to upgrade and in what order.' },
+  { id: 'research',       label: 'Research',          group: 'City & Growth', desc: 'Which Academy research to finish first, and how to keep it running.' },
+  { id: 'island',         label: 'Oasis Island',      group: 'City & Growth', desc: 'The Water Essence and Prosperity loop, plus the building capability table (unlocks at TC 19).' },
+  { id: 'heroes',         label: 'Heroes',            group: 'Combat', desc: 'Searchable, filterable hero table - click any hero for full strategy details.' },
+  { id: 'troops',         label: 'Troops',            group: 'Combat', desc: 'Standard formations and training priorities.' },
+  { id: 'combat',         label: 'Combat Mechanics',  group: 'Combat', desc: 'Round-by-round combat, stat priorities, and buff math - based on StratGameSloth research.' },
+  { id: 'events',         label: 'Events Overview',   group: 'Events', desc: 'Line up upgrades, training, and research with event windows to double their value.' },
+  { id: 'bear-hunt',      label: 'Bear Hunt',         group: 'Events', desc: 'The only source of Forge Hammers - rally setup, joining rules, and troop ratios.' },
+  { id: 'viking',         label: 'Viking Vengeance',  group: 'Events', desc: 'Biweekly 20-wave alliance defense event over roughly 40 minutes.' },
+  { id: 'alliance-champ', label: 'Alliance Champ',    group: 'Events', desc: 'Weekly six-alliance event across five rounds and three lanes.' },
+  { id: 'tri-alliance',   label: 'Tri-Alliance Clash',group: 'Events', desc: 'Three alliances fight for territory and the Temple of Tides.' },
+  { id: 'swordland',      label: 'Swordland',         group: 'Events', desc: 'Buildings, stored points, and mobility - not raw kills.' },
+  { id: 'hog',            label: 'Hall of Governors', group: 'Events', desc: 'Multi-stage scoring event - what to save and when to spend.' },
+  { id: 'all-out',        label: 'All Out',           group: 'Events', desc: 'Two-day PvP event - safe scoring and recovery after losses.' },
+  { id: 'moonlit',        label: 'Moonlit Promise',   group: 'Events', desc: 'Month-long special event - lanterns, blessings, and shop priority.' },
+  { id: 'er',             label: "Eternity's Reach",  group: 'Events', desc: 'Stage-based solo event awarding Charm materials.' },
+  { id: 'blizzard-brawl', label: 'Blizzard Brawl',    group: 'Events', desc: 'Solo 10-player free-for-all - objectives, crates, and airdrops beat kills.', beacon: true },
+  { id: 'kvk',            label: 'KvK',               group: 'Strategy', desc: 'Member survival rules for the largest inter-kingdom event.' },
+  { id: 'truegold',       label: 'True Gold',         group: 'Strategy', desc: 'TG1 through TG8 - costs, sources, the Crucible, and upgrade order.' },
+  { id: 'war-academy',    label: 'War Academy',       group: 'Strategy', desc: 'Truegold Dust research path to T11 troops, paced around KvK.', beacon: true },
+  { id: 'master-academy', label: 'Master Academy',    group: 'Strategy', desc: 'Masters, journeys, and which resources are KvK-sensitive.' },
+  { id: 'pets',           label: 'Pets',              group: 'Strategy', desc: 'Full pet gallery, K#1625 projected dates, and priorities by playstyle.' },
+  { id: 'transfer',       label: 'Kingdom Transfer',  group: 'Strategy', desc: 'Why and how to transfer - R4/R5 approval required.' },
+  { id: 'f2p',            label: 'F2P Strategy',      group: 'Strategy', desc: 'Consistency and efficiency over speed.' },
+  { id: 'gift-codes',     label: 'Gift Codes',        group: 'Resources', desc: 'How to redeem codes and where new ones appear.' },
+  { id: 'tools',          label: 'Tools & Calculators', group: 'Resources', desc: 'Calculators, planners, and databases on v2.kingshot.net.' },
+  { id: 'resources',      label: 'Community Links',   group: 'Resources', desc: 'Creators and sites we trust for Kingshot strategy.' },
+];
+
+(function() {
+  'use strict';
+  var bar = document.getElementById('tabBarInner');
+  var tabBar = document.getElementById('tabBar');
+  if (!bar) return;
+  var byId = {};
+  TABS.forEach(function(t) { byId[t.id] = t; });
+  // Old anchors that are not tabs themselves
+  var ALIASES = { 'whats-new': 'home' };
+  var current = null;
+
+  function slug(s) { return s.toLowerCase().replace(/&[a-z#0-9]+;/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+  // Build the tab bar
+  var lastGroup = null;
+  TABS.forEach(function(t) {
+    if (lastGroup !== null && t.group !== lastGroup) {
+      var sep = document.createElement('span');
+      sep.className = 'tab-sep';
+      sep.setAttribute('aria-hidden', 'true');
+      bar.appendChild(sep);
+    }
+    lastGroup = t.group;
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'tab-btn';
+    b.id = 'tabbtn-' + t.id;
+    b.innerHTML = esc(t.label) + (t.beacon ? '<span class="tab-beacon" aria-label="New"></span>' : '');
+    b.addEventListener('click', function() { go(t.id, true); });
+    bar.appendChild(b);
+  });
+
+  // Landing-page extras on each section tab: breadcrumb, one-liner, "On this page", Previous/Next
+  TABS.forEach(function(t, i) {
+    var panel = document.getElementById(t.id);
+    if (!panel) return;
+    if (t.desc) {
+      var header = panel.querySelector(':scope > .section-header');
+      var crumb = document.createElement('div');
+      crumb.className = 'tab-crumb';
+      crumb.innerHTML = esc(t.group) + ' / <strong>' + esc(t.label) + '</strong>';
+      panel.insertBefore(crumb, panel.firstChild);
+
+      var desc = document.createElement('p');
+      desc.className = 'tab-desc';
+      desc.textContent = t.desc;
+      var after = header ? header.nextSibling : crumb.nextSibling;
+      panel.insertBefore(desc, after);
+
+      var heads = panel.querySelectorAll('h3');
+      if (heads.length > 1) {
+        var otp = document.createElement('div');
+        otp.className = 'tab-otp';
+        otp.innerHTML = '<div class="tab-otp-label">On this page</div><div class="tab-otp-row"></div>';
+        var rowEl = otp.querySelector('.tab-otp-row');
+        heads.forEach(function(hd) {
+          if (!hd.id) hd.id = t.id + '-' + slug(hd.textContent);
+          hd.style.scrollMarginTop = '16px';
+          var chip = document.createElement('button');
+          chip.type = 'button';
+          chip.className = 'tab-otp-chip';
+          chip.textContent = hd.textContent.replace(/^\s*\W+\s*/, '').trim() || hd.textContent.trim();
+          chip.addEventListener('click', function() { hd.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+          rowEl.appendChild(chip);
+        });
+        panel.insertBefore(otp, desc.nextSibling);
+      }
+    }
+    // Previous / Next (skip on Ask AI, which is a full-width chat panel)
+    if (t.id === 'ask-ai') return;
+    var prev = TABS[i - 1], next = TABS[i + 1];
+    var pager = document.createElement('div');
+    pager.className = 'tab-pager';
+    if (prev) {
+      var pb = document.createElement('button');
+      pb.type = 'button';
+      pb.className = 'pager-prev';
+      pb.innerHTML = '<small>Previous</small><span>&#x2190; ' + esc(prev.label) + '</span>';
+      pb.addEventListener('click', function() { go(prev.id, true); });
+      pager.appendChild(pb);
+    }
+    if (next) {
+      var nb = document.createElement('button');
+      nb.type = 'button';
+      nb.className = 'pager-next';
+      nb.innerHTML = '<small>Next</small><span>' + esc(next.label) + ' &#x2192;</span>';
+      nb.addEventListener('click', function() { go(next.id, true); });
+      pager.appendChild(nb);
+    }
+    panel.appendChild(pager);
+  });
+
+  // Home: "Browse the Guide" cards, one per group
+  var browse = document.getElementById('homeBrowse');
+  if (browse) {
+    var groups = [];
+    TABS.forEach(function(t) {
+      if (t.group === 'Home') return;
+      var g = groups.filter(function(x) { return x.name === t.group; })[0];
+      if (!g) { g = { name: t.group, tabs: [] }; groups.push(g); }
+      g.tabs.push(t);
+    });
+    groups.forEach(function(g) {
+      var card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'home-card';
+      card.innerHTML = '<div class="home-card-title">' + esc(g.name) + '</div>'
+        + '<div class="home-card-count">' + g.tabs.length + ' pages</div>'
+        + '<div class="home-card-links">' + g.tabs.map(function(t) { return esc(t.label); }).join(' &#xB7; ') + '</div>';
+      card.addEventListener('click', function() { go(g.tabs[0].id, true); });
+      browse.appendChild(card);
+    });
+  }
+
+  // Which tab does a hash belong to? Accepts tab ids, aliases, or any element inside a panel.
+  function resolve(hash) {
+    var id = (hash || '').replace(/^#/, '');
+    if (!id) return null;
+    if (ALIASES[id]) return { tab: ALIASES[id], target: id };
+    if (byId[id]) return { tab: id, target: null };
+    var el = document.getElementById(id);
+    var panel = el && el.closest ? el.closest('.tab-panel') : null;
+    if (panel && byId[panel.id]) return { tab: panel.id, target: id };
+    return null;
+  }
+
+  function show(id) {
+    if (!byId[id]) id = 'home';
+    TABS.forEach(function(t) {
+      var p = document.getElementById(t.id);
+      if (p) p.classList.toggle('active', t.id === id);
+      var b = document.getElementById('tabbtn-' + t.id);
+      if (b) {
+        b.classList.toggle('active', t.id === id);
+        if (t.id === id) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+      }
+    });
+    current = id;
+    var activeBtn = document.getElementById('tabbtn-' + id);
+    if (activeBtn && bar.scrollWidth > bar.clientWidth) {
+      bar.scrollLeft = activeBtn.offsetLeft - bar.clientWidth / 2 + activeBtn.offsetWidth / 2;
+    }
+  }
+
+  // Leave room for the floating MENU / UTC buttons above the tab bar
+  function barTop() { return Math.max(0, tabBar.getBoundingClientRect().top + window.pageYOffset - 64); }
+  function scrollToBar() {
+    var top = barTop();
+    if (window.pageYOffset > top) window.scrollTo(0, top);
+  }
+
+  function go(id, push) {
+    show(id);
+    if (push && history.pushState) history.pushState(null, '', '#' + id);
+    scrollToBar();
+  }
+  window.showTab = function(id) { go(id, true); };
+
+  function fromHash(initial) {
+    var r = resolve(window.location.hash);
+    if (!r) {
+      // Hashes like #utc-time are handled by their own widgets - keep the current tab
+      if (!current) show('home');
+      return;
+    }
+    show(r.tab);
+    if (r.target) {
+      var el = document.getElementById(r.target);
+      if (el) setTimeout(function() { el.scrollIntoView({ block: 'start' }); }, 0);
+    } else {
+      if (initial) {
+        // Direct link to a tab: land with the tab bar in view (after the browser's own anchor jump)
+        var land = function() { window.scrollTo(0, r.tab === 'home' ? 0 : barTop()); };
+        setTimeout(land, 0);
+        window.addEventListener('load', function() { setTimeout(land, 0); });
+      } else scrollToBar();
+    }
+  }
+
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.addEventListener('hashchange', function() { fromHash(false); });
+  window.addEventListener('popstate', function() { fromHash(false); });
+  fromHash(true);
+  document.documentElement.classList.add('tabs-ready');
 })();
 
 // ── UTC WIDGET ──
@@ -6910,6 +7312,70 @@ const HERO_DATA = [
     widget: 'Aeolian - rally initiation widget; highest-priority Archer widget for Gen 4.',
     notes: 'Recommended investment: 5-star, highest Archer investment priority. Best for Archer main players, rally support, Arena, and PvP.',
     tags: ['Archer', 'Rally', 'PvP', 'Arena', 'S-Tier', 'Widget Priority', 'Gen 4']
+  },
+  // ── GEN 5 (releases to K#1625 Nov 9, 2026 - ratings are provisional, community-informed) ──
+  {
+    id: 'longfei', name: 'Long Fei', generation: 5, rarity: 'Legendary',
+    troopType: 'Infantry', primaryRole: 'Garrison', secondaryRole: 'PvP',
+    acquisitionMethod: 'Hero Roulette', releaseTiming: 'Nov 9, 2026',
+    availableNow: false,
+    emoji: '🛡️',
+    image: 'https://tactichub.github.io/KS/images/heroes/LongFei.jpg',
+    shortDescription: 'Gen 5 defensive Infantry hero for garrison, PvP frontline, and Arena. Obtainable from Hero Roulette, making him the most accessible Gen 5 hero and a good F2P progression opportunity.',
+    strengths: ['Defensive Infantry kit for garrison and PvP frontline', 'Strong PvP Infantry option for defense and Arena', 'Hero Roulette acquisition - the most accessible Gen 5 hero'],
+    weaknesses: ['Defensive Expedition skills are poorly suited to maximizing Bear damage', 'Not a priority for Bear Trap damage'],
+    bestUses: ['Garrison defense', 'PvP frontline', 'Arena'],
+    bestPairings: ['Pairings unverified for Gen 5 - check community guides once live'],
+    pvpRating: 'A', pveRating: 'B', bearRating: 'D', f2pRating: 'S',
+    widgetPriority: 'Exclusive weapon details unverified; check in-game',
+    recommendedInvestment: { f2p: 'Good progression target via Roulette' },
+    expeditionSkills: 'Defensive Expedition skills - exact skill values unverified; check in-game',
+    conquestSkills: 'Exact skill values unverified; check in-game',
+    widget: 'Exclusive weapon details unverified; check in-game',
+    notes: 'Provisional ratings, community-informed. F2P S reflects Hero Roulette accessibility for affordable overall progression, not raw combat superiority.',
+    tags: ['Infantry', 'Garrison', 'PvP', 'Arena', 'F2P Friendly', 'Gen 5']
+  },
+  {
+    id: 'thrud', name: 'Thrud', generation: 5, rarity: 'Legendary',
+    troopType: 'Cavalry', primaryRole: 'Rally', secondaryRole: 'PvP',
+    acquisitionMethod: 'Event Hero Shards', releaseTiming: 'Nov 9, 2026',
+    availableNow: false,
+    emoji: '🐎',
+    image: 'https://tactichub.github.io/KS/images/heroes/Thrud.jpg',
+    shortDescription: 'Gen 5 offensive Cavalry hero built to lead PvP rallies and mixed-troop attacks. A potential offensive upgrade for Cavalry-focused rally leaders, but not an automatic Petra replacement for Bear.',
+    strengths: ['Strong offensive PvP rally leader', 'Especially suited to Cavalry-focused rally leaders', 'Players report strong offensive PvP and Arena performance (anecdotal)'],
+    weaknesses: ['Bear value is conditional - not an automatic Petra replacement', 'Shard and exclusive weapon costs significantly reduce F2P appeal', 'Event-based shards - verify the active event for K#1625'],
+    bestUses: ['Offensive PvP rally leader', 'Mixed-troop attacks', 'Arena (anecdotal)'],
+    bestPairings: ['Pairings unverified for Gen 5 - check community guides once live'],
+    pvpRating: 'S', pveRating: 'A', bearRating: 'B', f2pRating: 'C',
+    widgetPriority: 'Exclusive weapon details unverified; check in-game',
+    recommendedInvestment: { f2p: 'Lower priority - costly shards and weapon' },
+    expeditionSkills: 'Offensive kit - exact skill values unverified; check in-game',
+    conquestSkills: 'Exact skill values unverified; check in-game',
+    widget: 'Exclusive weapon details unverified; check in-game',
+    notes: 'Provisional ratings, community-informed. Bear B is the conservative score: guides focused on rally-leading damage may rate her A, while players comparing her against Petra often rank her lower.',
+    tags: ['Cavalry', 'Rally', 'PvP', 'Arena', 'Gen 5']
+  },
+  {
+    id: 'vivian', name: 'Vivian', generation: 5, rarity: 'Legendary',
+    troopType: 'Archer', primaryRole: 'Rally', secondaryRole: 'Bear',
+    acquisitionMethod: 'Event Hero Shards', releaseTiming: 'Nov 9, 2026',
+    availableNow: false,
+    emoji: '🏹',
+    image: 'https://tactichub.github.io/KS/images/heroes/Vivian.jpg',
+    shortDescription: 'Gen 5 Archer hero whose enemy-damage amplification skill makes her a valuable rally joiner for Bear and PvP, with Arena and defensive Archer utility.',
+    strengths: ['Enemy-damage amplification skill', 'Valuable rally joiner for Bear and offensive PvE', 'First Expedition skill offers useful value without a maximized exclusive weapon'],
+    weaknesses: ['Joiner effectiveness depends on the rally\'s selected skill bonuses', 'Bear S applies to joining - not a replacement for Rosa leading a Bear rally', 'Difficult event-based acquisition limits F2P efficiency'],
+    bestUses: ['Bear Hunt rally joiner (situational)', 'PvP rally joiner', 'Arena', 'Defensive Archer utility'],
+    bestPairings: ['Pairings unverified for Gen 5 - check community guides once live'],
+    pvpRating: 'A', pveRating: 'S', bearRating: 'S', f2pRating: 'B',
+    widgetPriority: 'Exclusive weapon details unverified; check in-game',
+    recommendedInvestment: { f2p: 'First Expedition skill usable without max weapon' },
+    expeditionSkills: 'Enemy-damage amplification - exact skill values unverified; check in-game',
+    conquestSkills: 'Exact skill values unverified; check in-game',
+    widget: 'Exclusive weapon details unverified; check in-game',
+    notes: 'Provisional ratings, community-informed. Bear S is for joining rallies, not leading them. F2P could drop to C if heavily weighting expensive shard investment; B reflects her first Expedition skill being useful without a maximized exclusive weapon.',
+    tags: ['Archer', 'Rally', 'Bear', 'Arena', 'Gen 5']
   }
 ];
 
@@ -6929,7 +7395,7 @@ function hdbRatingBadge(r) {
 }
 function hdbGenClass(g, available) {
   if (!available) return 'hdb-gen-future';
-  return { 1: 'hdb-gen-1', 2: 'hdb-gen-2', 3: 'hdb-gen-3', 4: 'hdb-gen-4' }[g] || 'hdb-gen-future';
+  return { 1: 'hdb-gen-1', 2: 'hdb-gen-2', 3: 'hdb-gen-3', 4: 'hdb-gen-4', 5: 'hdb-gen-5' }[g] || 'hdb-gen-future';
 }
 function hdbTroopClass(t) {
   return { Infantry: 'hdb-inf', Cavalry: 'hdb-cav', Archer: 'hdb-mark', Utility: 'hdb-util' }[t] || 'hdb-util';
@@ -7094,6 +7560,7 @@ function hdbFilterHeroes() {
     if (f === 'gen2') return h.generation === 2 && h.availableNow !== false;
     if (f === 'gen3') return h.generation === 3 && h.availableNow !== false;
     if (f === 'gen4') return h.generation === 4 && h.availableNow !== false;
+    if (f === 'gen5') return h.generation === 5;
     if (f === 'Infantry' || f === 'Cavalry' || f === 'Archer') return h.troopType === f;
     if (f === 'rally') return (h.primaryRole === 'Rally' || h.secondaryRole === 'Rally') && h.availableNow !== false;
     if (f === 'garrison') return (h.primaryRole === 'Garrison' || h.secondaryRole === 'Garrison') && h.availableNow !== false;
