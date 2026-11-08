@@ -107,6 +107,35 @@ h1 {
 }
 .back-link:hover { color: var(--gold); border-color: var(--gold); }
 
+/* ── GOOGLE TRANSLATE WIDGET ── */
+.translate-widget {
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(224,163,57,0.3);
+  border-radius: 6px;
+}
+.translate-widget:not(.ready) { display: none; }  /* only show once Google's dropdown has loaded */
+.translate-icon { font-size: 0.85rem; line-height: 1; }
+.translate-widget .goog-te-gadget { font-family: 'Lato', sans-serif !important; font-size: 0 !important; color: transparent !important; }
+.translate-widget .goog-te-gadget > span { display: none !important; }  /* hide "Powered by" text */
+.translate-widget .goog-te-gadget .goog-te-combo {
+  font-size: 0.8rem;
+  font-family: 'Lato', sans-serif;
+  color: var(--text-dim);
+  background: var(--dark2);
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 2px 0;
+}
+.translate-widget .goog-te-gadget .goog-te-combo option { background: var(--dark3); color: var(--text); }
+body > .skiptranslate > iframe { display: none !important; }
+body { top: 0 !important; }
+
 /* ── MAIN LAYOUT ── */
 main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
 
@@ -1212,6 +1241,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
   <div class="header-badge">Kingdom 1625</div>
   <h1>⚔ Swordland Showdown</h1>
   <div class="header-sub">Battle Planner &nbsp;·&nbsp; Event Planning Tool</div>
+  <div class="translate-widget notranslate" title="Translate this page"><span class="translate-icon">🌐</span><div id="google_translate_element"></div></div>
 </header>
 
 <main>
@@ -1290,7 +1320,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
         <div class="how-to-title">Option 1 - Import File</div>
         <div class="how-to-desc">Upload an Excel or CSV file to auto-populate all rosters instantly.</div>
       </div>
-      <span class="alliance-badge ally-a" id="uploadBadge">VIP</span>
+      <span class="alliance-badge ally-a" id="uploadBadge" translate="no">VIP</span>
       <button class="upload-btn" onclick="document.getElementById('xlsxInput').click()">Upload Excel / CSV</button>
       <input type="file" id="xlsxInput" class="upload-file-input" accept=".xlsx,.csv" onchange="handleFileUpload(this)">
     </div>
@@ -1311,7 +1341,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
     <button class="dispatch-tab" id="tab-1" onclick="switchTab(1)">⚔ Legion 2</button>
     <div class="alliance-switcher">
       <div class="alliance-switcher-label">Alliance:</div>
-      <button class="alliance-btn active" id="abtn-A" onclick="switchAlliance('A')">VIP</button>
+      <button class="alliance-btn active notranslate" id="abtn-A" onclick="switchAlliance('A')">VIP</button>
       <button class="alliance-btn" id="abtn-B" onclick="switchAlliance('B')" style="display:none;">Alliance 2</button>
       <button class="alliance-rename-btn" title="Rename the selected alliance" onclick="renameAlliance()">✎</button>
     </div>
@@ -1320,7 +1350,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
   <!-- LEGION 1 -->
   <div class="dispatch-panel active" id="panel-0">
     <div class="dispatch-header">
-      <div class="dispatch-header-title">LEGION 1 <span class="alliance-badge ally-a" id="d1-badge" style="margin-left:8px;">VIP</span></div>
+      <div class="dispatch-header-title">LEGION 1 <span class="alliance-badge ally-a" id="d1-badge" translate="no" style="margin-left:8px;">VIP</span></div>
       <div class="dispatch-time-wrap">
         <div class="dispatch-time-label">⏰ UTC:</div>
         <input type="time" class="dispatch-time-input" id="time-0" value="14:00" oninput="updateLocalTime(0)">
@@ -1531,7 +1561,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
   <!-- LEGION 2 -->
   <div class="dispatch-panel" id="panel-1">
     <div class="dispatch-header">
-      <div class="dispatch-header-title">LEGION 2 <span class="alliance-badge ally-a" id="d2-badge" style="margin-left:8px;">VIP</span></div>
+      <div class="dispatch-header-title">LEGION 2 <span class="alliance-badge ally-a" id="d2-badge" translate="no" style="margin-left:8px;">VIP</span></div>
       <div class="dispatch-time-wrap">
         <div class="dispatch-time-label">⏰ UTC:</div>
         <input type="time" class="dispatch-time-input" id="time-1" value="19:00" oninput="updateLocalTime(1)">
@@ -1744,7 +1774,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
     </div>
     <div class="modal-body">
       <div class="modal-hint" id="modalHint">Copy and paste into your Discord channel. Each section fits within Discord's character limits.</div>
-      <div class="modal-output" id="discordOutput"></div>
+      <div class="modal-output notranslate" translate="no" id="discordOutput"></div>
     </div>
     <div class="modal-footer">
       <button class="action-btn primary" onclick="copyDiscord()">📋 Copy to Clipboard</button>
@@ -1758,7 +1788,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
 <div class="archive-overlay" id="archiveDrawer" onclick="if(event.target===this)closeArchive()">
   <div class="archive-drawer">
     <div class="archive-header">
-      <div class="archive-title">📚 Battle Plan Archive - <span id="archiveAllianceLabel">VIP</span></div>
+      <div class="archive-title">📚 Battle Plan Archive - <span id="archiveAllianceLabel" class="notranslate">VIP</span></div>
       <button class="modal-close" onclick="closeArchive()">✕</button>
     </div>
     <div class="archive-list" id="archiveList">
@@ -2510,7 +2540,7 @@ function loadArchive() {
         const date = new Date(p.savedAt).toLocaleString();
         return `<div class="archive-item">
           <div class="archive-item-info">
-            <div class="archive-item-name">${escHtml(p.name)}</div>
+            <div class="archive-item-name notranslate">${escHtml(p.name)}</div>
             <div class="archive-item-date">${p.allianceLabel ? escHtml(p.allianceLabel) + ' · ' : ''}Saved: ${date}</div>
           </div>
           <div class="archive-item-actions">
@@ -2858,5 +2888,20 @@ renderBuildingIntel();
 renderAll();
 initLocalTimes();
 </script>
+<!-- Google Translate (free Website Translator widget; unofficial/deprecated but functional, same as the main guide) -->
+<script>
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({ pageLanguage: 'en', autoDisplay: false }, 'google_translate_element');
+  let tries = 0;
+  (function waitForCombo() {
+    if (document.querySelector('#google_translate_element .goog-te-combo')) {
+      document.querySelector('.translate-widget').classList.add('ready');
+    } else if (++tries < 50) {
+      setTimeout(waitForCombo, 100);
+    }
+  })();
+}
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
