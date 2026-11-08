@@ -917,6 +917,78 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
     color: var(--text-muted);
   }
 
+  /* ── PLANNER'S GUIDE (step by step) ── */
+  .pg-guide {
+    background: var(--dark2);
+    border: 1px solid rgba(224,163,57,0.3);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .pg-guide > summary {
+    list-style: none; cursor: pointer;
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 18px;
+    background: rgba(224,163,57,0.07);
+  }
+  .pg-guide > summary::-webkit-details-marker { display: none; }
+  .pg-guide > summary:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+  .pg-sum-icon { font-size: 1.3rem; line-height: 1; }
+  .pg-sum-text { flex: 1; }
+  .pg-sum-title {
+    font-family: 'Cinzel', serif; font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.08em; color: var(--gold);
+  }
+  .pg-sum-sub { font-size: 0.82rem; color: var(--text-muted); }
+  .pg-chevron { color: var(--gold); font-size: 0.8rem; transition: transform 0.2s; }
+  .pg-guide[open] .pg-chevron { transform: rotate(180deg); }
+  .pg-body { padding: 16px 18px 18px; border-top: 1px solid rgba(224,163,57,0.15); }
+  .pg-phase {
+    font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--text-muted);
+    margin: 4px 0 10px;
+  }
+  .pg-phase:not(:first-child) { margin-top: 18px; }
+  .pg-steps { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 10px; }
+  .pg-step {
+    background: var(--dark3); border-radius: 8px; padding: 12px 14px;
+    display: flex; gap: 12px; align-items: flex-start;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  .pg-num {
+    flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--gold); color: var(--dark);
+    font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.8rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .pg-step.share .pg-num { background: var(--blue-bright); }
+  .pg-step.save  .pg-num { background: var(--green); }
+  .pg-step-title { font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.86rem; color: var(--text); margin-bottom: 3px; }
+  .pg-step-text { font-size: 0.85rem; color: var(--text-dim); line-height: 1.45; }
+  .pg-step-text strong { color: var(--text); }
+  .pg-step .opt {
+    font-family: 'Lato', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text-muted);
+    border: 1px solid rgba(138,146,166,0.35); border-radius: 4px; padding: 0 5px; margin-left: 4px;
+  }
+  .pg-step-text ul { margin: 4px 0 0 16px; }
+  .pg-step-text li { margin-bottom: 2px; }
+  .pg-step-text code {
+    font-family: 'Courier New', monospace; font-size: 0.78rem;
+    background: rgba(0,0,0,0.25); padding: 0 4px; border-radius: 3px; color: var(--gold-pale);
+  }
+  .pg-warn {
+    margin-top: 14px; padding: 10px 14px; border-radius: 8px;
+    background: rgba(217,74,58,0.1); border-left: 3px solid var(--red-bright);
+    font-size: 0.85rem; color: var(--text-dim);
+  }
+  .pg-warn strong { color: var(--text); }
+  @media (max-width: 600px) {
+    .pg-steps { grid-template-columns: 1fr; }
+    .pg-guide > summary { padding: 12px 14px; }
+    .pg-body { padding: 14px; }
+  }
+
   /* ── HOW TO USE BAR ── */
   .how-to-bar {
     background: var(--dark2);
@@ -1144,6 +1216,71 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
 
 <main>
 
+  <!-- PLANNER'S GUIDE -->
+  <details class="pg-guide" id="plannerGuide" open>
+    <summary>
+      <span class="pg-sum-icon">📖</span>
+      <span class="pg-sum-text">
+        <span class="pg-sum-title">Planner's Guide - Step by Step</span><br>
+        <span class="pg-sum-sub">How to set up a legion, build the roster, and share it in game and on Discord</span>
+      </span>
+      <span class="pg-chevron">▼</span>
+    </summary>
+    <div class="pg-body">
+
+      <div class="pg-phase">Set up</div>
+      <div class="pg-steps">
+        <div class="pg-step"><div class="pg-num">1</div><div>
+          <div class="pg-step-title">Choose a legion and time</div>
+          <div class="pg-step-text">Open the <strong>Legion 1</strong> or <strong>Legion 2</strong> tab. Set the start time in <strong>UTC</strong> (your local time shows beside it) and add any rally notes.</div>
+        </div></div>
+        <div class="pg-step"><div class="pg-num">2</div><div>
+          <div class="pg-step-title">Choose how to assign</div>
+          <div class="pg-step-text">In <strong>Assign By</strong>, pick:
+            <ul>
+              <li><strong>Groups</strong> - players go to Group 1, 2, or 3</li>
+              <li><strong>Buildings</strong> - each player also gets a specific building</li>
+              <li><strong>Both</strong> - buildings, posted under each group</li>
+            </ul></div>
+        </div></div>
+        <div class="pg-step"><div class="pg-num">3</div><div>
+          <div class="pg-step-title">Inside / Outside <span class="opt">Optional</span></div>
+          <div class="pg-step-text">Turn on <strong>Inside / Outside Strategy</strong> if you're using it. Players get tagged <strong>I</strong> (stay in the safe zone, garrison everything) or <strong>O</strong> (roam out to capture, back before 10:00).</div>
+        </div></div>
+      </div>
+
+      <div class="pg-phase">Build the roster</div>
+      <div class="pg-steps">
+        <div class="pg-step"><div class="pg-num">4</div><div>
+          <div class="pg-step-title">Add players</div>
+          <div class="pg-step-text">Tap <strong>＋ Add Player</strong> on a group card, or <strong>Upload Excel / CSV</strong> to fill both legions at once. Imported DPS and Farm/Support players are sorted automatically; imported tanks and healers all land in <strong>Group 1</strong>, so check that card after importing.</div>
+        </div></div>
+        <div class="pg-step"><div class="pg-num">5</div><div>
+          <div class="pg-step-title">Assign roles</div>
+          <div class="pg-step-text">For each player set the <strong>Role</strong>: <strong>Lead</strong> (or Tank 1-3), Healer, DPS, or Farm/Support. Then set <strong>Building</strong> and <strong>I / O</strong> if those are turned on. The map sidebar lists each building's points and perks.</div>
+        </div></div>
+      </div>
+
+      <div class="pg-phase">Share</div>
+      <div class="pg-steps">
+        <div class="pg-step share"><div class="pg-num">6</div><div>
+          <div class="pg-step-title">In-game chat</div>
+          <div class="pg-step-text">Tap <strong>💬 Copy</strong> on a group card to copy that group, or <strong>💬 Copy In-Game Chat</strong> for the whole legion. Paste <strong>each block as its own message</strong> in your legion chat. Leads go on the <code>Lead:</code> line; everyone else is listed with <code>(I)</code> or <code>(O)</code>.</div>
+        </div></div>
+        <div class="pg-step share"><div class="pg-num">7</div><div>
+          <div class="pg-step-title">Discord</div>
+          <div class="pg-step-text">Tap <strong>📋 Generate Discord Output</strong>, then <strong>Copy to Clipboard</strong> and paste into your Discord channel. For a picture, use <strong>🖼 Visual Export</strong> and screenshot it or print to PDF.</div>
+        </div></div>
+        <div class="pg-step save"><div class="pg-num">8</div><div>
+          <div class="pg-step-title">Save the plan</div>
+          <div class="pg-step-text">Tap <strong>💾 Save Plan</strong> to store it in the cloud archive. Open <strong>📚 Archive</strong> to load, export, or delete past plans. Saved plans are shared with everyone who uses this planner.</div>
+        </div></div>
+      </div>
+
+      <div class="pg-warn">⚠ <strong>Save before you leave.</strong> The planner doesn't auto-save. Refreshing or closing the page clears anything you haven't saved to the archive.</div>
+    </div>
+  </details>
+
   <!-- UPLOAD BAR -->
   <!-- HOW TO USE CALLOUT -->
   <div class="how-to-bar">
@@ -1153,7 +1290,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
         <div class="how-to-title">Option 1 - Import File</div>
         <div class="how-to-desc">Upload an Excel or CSV file to auto-populate all rosters instantly.</div>
       </div>
-      <span class="alliance-badge ally-a" id="uploadBadge">Alliance 1</span>
+      <span class="alliance-badge ally-a" id="uploadBadge">VIP</span>
       <button class="upload-btn" onclick="document.getElementById('xlsxInput').click()">Upload Excel / CSV</button>
       <input type="file" id="xlsxInput" class="upload-file-input" accept=".xlsx,.csv" onchange="handleFileUpload(this)">
     </div>
@@ -1174,8 +1311,8 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
     <button class="dispatch-tab" id="tab-1" onclick="switchTab(1)">⚔ Legion 2</button>
     <div class="alliance-switcher">
       <div class="alliance-switcher-label">Alliance:</div>
-      <button class="alliance-btn active" id="abtn-A" onclick="switchAlliance('A')">Alliance 1</button>
-      <button class="alliance-btn" id="abtn-B" onclick="switchAlliance('B')">Alliance 2</button>
+      <button class="alliance-btn active" id="abtn-A" onclick="switchAlliance('A')">VIP</button>
+      <button class="alliance-btn" id="abtn-B" onclick="switchAlliance('B')" style="display:none;">Alliance 2</button>
       <button class="alliance-rename-btn" title="Rename the selected alliance" onclick="renameAlliance()">✎</button>
     </div>
   </div>
@@ -1183,7 +1320,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
   <!-- LEGION 1 -->
   <div class="dispatch-panel active" id="panel-0">
     <div class="dispatch-header">
-      <div class="dispatch-header-title">LEGION 1 <span class="alliance-badge ally-a" id="d1-badge" style="margin-left:8px;">Alliance 1</span></div>
+      <div class="dispatch-header-title">LEGION 1 <span class="alliance-badge ally-a" id="d1-badge" style="margin-left:8px;">VIP</span></div>
       <div class="dispatch-time-wrap">
         <div class="dispatch-time-label">⏰ UTC:</div>
         <input type="time" class="dispatch-time-input" id="time-0" value="14:00" oninput="updateLocalTime(0)">
@@ -1394,7 +1531,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
   <!-- LEGION 2 -->
   <div class="dispatch-panel" id="panel-1">
     <div class="dispatch-header">
-      <div class="dispatch-header-title">LEGION 2 <span class="alliance-badge ally-a" id="d2-badge" style="margin-left:8px;">Alliance 1</span></div>
+      <div class="dispatch-header-title">LEGION 2 <span class="alliance-badge ally-a" id="d2-badge" style="margin-left:8px;">VIP</span></div>
       <div class="dispatch-time-wrap">
         <div class="dispatch-time-label">⏰ UTC:</div>
         <input type="time" class="dispatch-time-input" id="time-1" value="19:00" oninput="updateLocalTime(1)">
@@ -1621,7 +1758,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
 <div class="archive-overlay" id="archiveDrawer" onclick="if(event.target===this)closeArchive()">
   <div class="archive-drawer">
     <div class="archive-header">
-      <div class="archive-title">📚 Battle Plan Archive - <span id="archiveAllianceLabel">Alliance 1</span></div>
+      <div class="archive-title">📚 Battle Plan Archive - <span id="archiveAllianceLabel">VIP</span></div>
       <button class="modal-close" onclick="closeArchive()">✕</button>
     </div>
     <div class="archive-list" id="archiveList">
@@ -1682,11 +1819,17 @@ const ASSIGN_MODES = [
 const ROLES = ['Lead','Tank 1','Tank 2','Tank 3','Healer 1','Healer 2','Healer 3','DPS','Farm/Support','Unassigned'];
 
 /* State: alliances hold 2 dispatches each */
+/* ── ALLIANCE SLOTS ──
+   Only the VIP alliance is in use right now. To bring back a second alliance
+   (e.g. an academy), set SHOW_SECOND_ALLIANCE to true. Its saved plans and
+   name are kept either way. */
+const SHOW_SECOND_ALLIANCE = false;
+
 let currentAlliance = 'A'; /* 'A' or 'B' - two alliance slots, names are editable */
 
 const alliances = {
   A: {
-    label: 'Alliance 1',
+    label: 'VIP',
     badgeCls: 'ally-a',
     color: 'var(--gold)',
     dispatches: [
@@ -1721,6 +1864,9 @@ function refreshAllianceLabels() {
     const b = document.getElementById('abtn-' + k);
     if (b) b.textContent = alliances[k].label;
   });
+  const b2 = document.getElementById('abtn-B');
+  if (b2) b2.style.display = SHOW_SECOND_ALLIANCE ? '' : 'none';
+  if (!SHOW_SECOND_ALLIANCE && currentAlliance === 'B') { switchAlliance('A'); return; }
   const al = alliances[currentAlliance];
   ['d1-badge','d2-badge','uploadBadge'].forEach(id => {
     const el = document.getElementById(id);
@@ -2692,7 +2838,21 @@ function renderBuildingIntel() {
   document.querySelectorAll('.bldg-intel').forEach(el => { el.innerHTML = html; });
 }
 
+/* Planner's Guide: open on first visit, then remember the viewer's choice */
+function initPlannerGuide() {
+  const g = document.getElementById('plannerGuide');
+  if (!g) return;
+  try {
+    const v = localStorage.getItem('swordland_guide_open');
+    if (v === '0') g.open = false;
+  } catch(e) {}
+  g.addEventListener('toggle', () => {
+    try { localStorage.setItem('swordland_guide_open', g.open ? '1' : '0'); } catch(e) {}
+  });
+}
+
 /* ── INIT ── */
+initPlannerGuide();
 loadAllianceNames();
 renderBuildingIntel();
 renderAll();
