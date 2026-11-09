@@ -2286,6 +2286,42 @@
   .pet-meta-badge.pet-coming {
     background: rgba(230,81,0,0.15); color: var(--orange); border-color: rgba(230,81,0,0.35);
   }
+  /* ── PET MAX LEVEL + REFINEMENT ── */
+  .pet-meta-badge.pet-maxlv { background: rgba(212,137,26,0.12); color: var(--gold-light); border-color: rgba(212,137,26,0.3); }
+  .pet-ref-ladder { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px; margin: 10px 0 6px; }
+  .pet-ref-tier { border-radius: 8px; padding: 9px 10px; border: 1px solid; font-family: 'Lato', sans-serif; }
+  .pet-ref-tier-name { font-size: 0.82rem; font-weight: 700; }
+  .pet-ref-tier-sub { font-size: 0.7rem; color: var(--text-dim); margin-top: 2px; }
+  .pet-ref-tier.t-common { background: rgba(160,168,182,0.14); border-color: rgba(160,168,182,0.45); }
+  .pet-ref-tier.t-common .pet-ref-tier-name { color: #c3c9d4; }
+  .pet-ref-tier.t-uncommon { background: rgba(95,191,101,0.14); border-color: rgba(95,191,101,0.45); }
+  .pet-ref-tier.t-uncommon .pet-ref-tier-name { color: var(--green-bright); }
+  .pet-ref-tier.t-rare { background: rgba(74,163,236,0.14); border-color: rgba(74,163,236,0.45); }
+  .pet-ref-tier.t-rare .pet-ref-tier-name { color: var(--blue-bright); }
+  .pet-ref-tier.t-epic { background: rgba(176,85,204,0.16); border-color: rgba(176,85,204,0.5); }
+  .pet-ref-tier.t-epic .pet-ref-tier-name { color: #c98ae0; }
+  .pet-ref-tier.t-unknown { background: rgba(50,58,82,0.25); border-color: rgba(255,255,255,0.18); border-style: dashed; }
+  .pet-ref-tier.t-unknown .pet-ref-tier-name { color: var(--text); }
+  .pet-shot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin: 12px 0 10px; }
+  .pet-shot { margin: 0; background: rgba(20,38,63,0.5); border: 1px solid rgba(212,137,26,0.18); border-radius: 10px; padding: 10px; }
+  .pet-shot-frame { position: relative; border-radius: 8px; overflow: hidden; line-height: 0; }
+  .pet-shot-frame img { width: 100%; height: auto; display: block; }
+  .pet-pin {
+    position: absolute; transform: translate(-50%, -50%);
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--orange); color: #fff; border: 2px solid #fff;
+    font: 700 0.75rem/20px 'Lato', sans-serif; text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  }
+  .pet-shot figcaption { font-family: 'Lato', sans-serif; font-size: 0.8rem; color: var(--text-dim); margin-top: 8px; line-height: 1.4; }
+  .pet-shot figcaption strong { color: var(--text); }
+  .pet-pin-legend { list-style: none; padding: 0; margin: 4px 0 16px; display: grid; gap: 8px; }
+  .pet-pin-legend li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.84rem; color: var(--text); line-height: 1.45; }
+  .pet-pin-legend .pet-pin { position: static; transform: none; flex-shrink: 0; margin-top: 1px; }
+  .pet-ref-table td:first-child { font-weight: 700; min-width: 120px; }
+  .pet-ref-table.pet-ref-narrow { min-width: 0; }
+  .pet-ref-table td:not(:first-child) { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .pet-ref-table td.na { color: var(--text-muted); }
   .pet-unverified-note {
     font-size: 0.76rem; color: var(--text-muted); font-style: italic; margin-top: 4px;
   }
@@ -6195,6 +6231,7 @@
         <div class="pet-desc">Increases Construction Speed by 15% for 5 minutes.</div>
         <div class="pet-meta-row">
           <span class="pet-meta-badge">Gen 1</span>
+          <span class="pet-meta-badge pet-maxlv">Max Lv 50</span>
           <span class="pet-meta-badge pet-cd">23h CD</span>
         </div>
       </div>
@@ -6207,6 +6244,7 @@
         <div class="pet-desc">Immediately restores 60 Stamina.</div>
         <div class="pet-meta-row">
           <span class="pet-meta-badge">Gen 2</span>
+          <span class="pet-meta-badge pet-maxlv">Max Lv 60</span>
           <span class="pet-meta-badge pet-cd">23h CD</span>
         </div>
       </div>
@@ -6219,6 +6257,7 @@
         <div class="pet-desc">Instantly completes gathering upon reaching the next wilderness resource tile.</div>
         <div class="pet-meta-row">
           <span class="pet-meta-badge">Gen 2</span>
+          <span class="pet-meta-badge pet-maxlv">Max Lv 60</span>
           <span class="pet-meta-badge pet-cd">15h CD</span>
         </div>
       </div>
@@ -6235,6 +6274,7 @@
         <div class="pet-desc">Instantly locates 500 pet food.</div>
         <div class="pet-meta-row">
           <span class="pet-meta-badge">Gen 2</span>
+          <span class="pet-meta-badge pet-maxlv">Max Lv 70</span>
           <span class="pet-meta-badge pet-cd">23h CD</span>
         </div>
       </div>
@@ -6247,6 +6287,7 @@
         <div class="pet-desc">Reduces enemy Squad Health by 5% for 2 hours.</div>
         <div class="pet-meta-row">
           <span class="pet-meta-badge">Gen 2</span>
+          <span class="pet-meta-badge pet-maxlv">Max Lv 70</span>
           <span class="pet-meta-badge pet-cd">20h CD</span>
         </div>
       </div>
@@ -6263,6 +6304,7 @@
         <div class="pet-desc">Unearths an item lost on the Badlands.</div>
         <div class="pet-meta-row">
           <span class="pet-meta-badge">Gen 3</span>
+          <span class="pet-meta-badge pet-maxlv">Max Lv 80</span>
         </div>
       </div>
     </div>
@@ -6274,6 +6316,7 @@
         <div class="pet-desc">Increases March Speed by 30% and reduces enemy Squads' Lethality by 5% for 2 hours.</div>
         <div class="pet-meta-row">
           <span class="pet-meta-badge">Gen 3</span>
+          <span class="pet-meta-badge pet-maxlv">Max Lv 80</span>
           <span class="pet-meta-badge pet-cd">20h CD</span>
         </div>
       </div>
@@ -6290,6 +6333,7 @@
         <div class="pet-desc">Increases Squad Capacity by 15,000 for 2 hours.</div>
         <div class="pet-meta-row">
           <span class="pet-meta-badge">Gen 4</span>
+          <span class="pet-meta-badge pet-maxlv">Max Lv 100</span>
         </div>
       </div>
     </div>
@@ -6301,6 +6345,7 @@
         <div class="pet-desc">Increases all Squads' Attack by 10% for 2 hours.</div>
         <div class="pet-meta-row">
           <span class="pet-meta-badge">Gen 4</span>
+          <span class="pet-meta-badge pet-maxlv">Max Lv 100</span>
         </div>
       </div>
     </div>
@@ -6349,6 +6394,7 @@
         <div class="pet-desc">Increases Squads' Defense by 10% for 2 hours.</div>
         <div class="pet-meta-row">
           <span class="pet-meta-badge">Gen 6</span>
+          <span class="pet-meta-badge pet-maxlv">Max Lv 100</span>
           <span class="pet-meta-badge pet-cd">20h CD</span>
           <span class="pet-meta-badge pet-coming">Coming 01/18/27</span>
         </div>
@@ -6362,6 +6408,7 @@
         <div class="pet-desc">Increases Squad Health by 10% for 2 hours.</div>
         <div class="pet-meta-row">
           <span class="pet-meta-badge">Gen 6</span>
+          <span class="pet-meta-badge pet-maxlv">Max Lv 100</span>
           <span class="pet-meta-badge pet-cd">20h CD</span>
           <span class="pet-meta-badge pet-coming">Coming 01/18/27</span>
         </div>
@@ -6384,6 +6431,95 @@
       </div>
     </div>
   </div>
+
+  <h3>Max Level by Pet</h3>
+  <p>Every pet has a level cap set by its generation. Every 10 levels you must <strong>Advance</strong> the pet before it can keep leveling, and each advancement raises its active skill by one level. Advancing uses Growth Manuals, then Nutrient Potions starting with the Lv 30 advancement, then Promotion Medallions starting with the Lv 50 advancement.</p>
+  <div class="tg-table-wrap">
+    <table class="tg-table pet-ref-table pet-ref-narrow">
+      <thead><tr><th>Pet</th><th>Max Pet Level</th><th>Max Skill Level</th></tr></thead>
+      <tbody>
+        <tr><td>Gray Wolf</td><td>50</td><td>5</td></tr>
+        <tr><td>Lynx, Bison</td><td>60</td><td>6</td></tr>
+        <tr><td>Cheetah, Moose</td><td>70</td><td>7</td></tr>
+        <tr><td>Lion, Grizzly Bear</td><td>80</td><td>8</td></tr>
+        <tr><td>Giant Rhino, Mighty Bison</td><td>100</td><td>10</td></tr>
+        <tr><td>Great Moose, Alpha Black Panther</td><td>100</td><td>10</td></tr>
+        <tr><td>Regal White Lion, Ironclad War Elephant</td><td>100</td><td>10</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="wa-placeholder-note">Max pet and skill levels from Kingshot Mastery (kingshotmastery.com, updated 10/31/2026). Promotion Medallions are the real bottleneck for F2P - they gate every advancement from Lv 50 on, so you will have to choose which pets go past 50.</div>
+
+  <h3>Pet Refinement: Reading the Colors</h3>
+  <div class="callout callout-info">
+    <span class="callout-label">&#x2139; Refinement Is Not Leveling</span>
+    Leveling uses Pet Food and raises the pet's level. <strong>Refinement</strong> uses <strong>Taming Marks</strong> and rolls 6 secondary buffs: Health and Lethality for Infantry, Cavalry, and Archer. These unlock at Pet Lv 10 and start at Common. When a buff fills its bar to the tier cap, it promotes to the next color and <strong>locks in permanently</strong> - bad rolls can move it around inside that tier but never drop it back down.
+  </div>
+
+  <div class="pet-tier-label">Refinement Tiers &amp; Pet Level Needed</div>
+  <div class="pet-ref-ladder">
+    <div class="pet-ref-tier t-common"><div class="pet-ref-tier-name">Common</div><div class="pet-ref-tier-sub">Gray &middot; Pet Lv 10</div></div>
+    <div class="pet-ref-tier t-uncommon"><div class="pet-ref-tier-name">Uncommon</div><div class="pet-ref-tier-sub">Green &middot; Pet Lv 20</div></div>
+    <div class="pet-ref-tier t-rare"><div class="pet-ref-tier-name">Rare</div><div class="pet-ref-tier-sub">Blue &middot; Pet Lv 30</div></div>
+    <div class="pet-ref-tier t-epic"><div class="pet-ref-tier-name">Epic</div><div class="pet-ref-tier-sub">Purple &middot; Pet Lv 40</div></div>
+    <div class="pet-ref-tier t-unknown"><div class="pet-ref-tier-name">Mythic</div><div class="pet-ref-tier-sub">Color unverified &middot; Pet Lv 50</div></div>
+    <div class="pet-ref-tier t-unknown"><div class="pet-ref-tier-name">Legendary</div><div class="pet-ref-tier-sub">Color unverified &middot; Pet Lv 50</div></div>
+  </div>
+  <div class="wa-placeholder-note">The pet's level caps how high its buffs can go. A Lv 30 pet can't reach Epic no matter how many Taming Marks you spend - advance it first. Older guides show a 5-tier ladder (Gray, Green, Blue, Purple, Gold); the current in-game ladder adds Mythic between Epic and Legendary. The in-game Refining Rules screen lists both Mythic and Legendary at Lv 50 without explaining the extra jump - treat Mythic as the realistic stopping point. Mythic and Legendary colors are not yet confirmed from K#1625 screenshots.</div>
+
+  <div class="pet-tier-label">What to Look For: Gray vs Green</div>
+  <div class="pet-shot-grid">
+    <figure class="pet-shot">
+      <div class="pet-shot-frame">
+        <img src="https://tactichub.github.io/KS/images/pets/refine-common-bison.png" alt="Bison refine screen with all six buffs in gray (Common), each capped at 2.01 percent" loading="lazy" decoding="async">
+        <span class="pet-pin" style="left:4%;top:12%">1</span><span class="pet-pin" style="left:73%;top:14%">2</span><span class="pet-pin" style="left:77%;top:51%">3</span><span class="pet-pin" style="left:95%;top:42%">4</span><span class="pet-pin" style="left:73%;top:31%">5</span><span class="pet-pin" style="left:5%;top:83%">6</span>
+      </div>
+      <figcaption><strong>Gray = Common.</strong> Bison, every buff working toward the 2.01% Common cap.</figcaption>
+    </figure>
+    <figure class="pet-shot">
+      <div class="pet-shot-frame">
+        <img src="https://tactichub.github.io/KS/images/pets/refine-uncommon-moose.png" alt="Moose refine screen with all six buffs in green (Uncommon), each capped at 6.03 percent" loading="lazy" decoding="async">
+        <span class="pet-pin" style="left:4%;top:12%">1</span><span class="pet-pin" style="left:77%;top:14%">2</span><span class="pet-pin" style="left:57%;top:21%">3</span><span class="pet-pin" style="left:5%;top:83%">6</span>
+      </div>
+      <figcaption><strong>Green = Uncommon.</strong> Moose, every buff promoted and now working toward the 6.03% Uncommon cap.</figcaption>
+    </figure>
+  </div>
+  <ol class="pet-pin-legend">
+    <li><span class="pet-pin">1</span><span><strong>Row color is the tier.</strong> Gray rows are Common, green rows are Uncommon. Each buff promotes on its own, so one pet can show mixed colors.</span></li>
+    <li><span class="pet-pin">2</span><span><strong>The second number is this tier's cap, not the max.</strong> 1.81%/2.01% means you're at 1.81% and the buff promotes at 2.01%.</span></li>
+    <li><span class="pet-pin">3</span><span><strong>The bar shows progress inside the current tier only.</strong> The Moose bars look almost empty at 3-3.5%, but that's not a bad roll - Uncommon starts at 3.02%, so those buffs just promoted and started a fresh bar.</span></li>
+    <li><span class="pet-pin">4</span><span><strong>Almost promoting.</strong> Cavalry Lethality at 1.97%/2.01% is one good roll from turning green - as long as the pet is Lv 20 or higher.</span></li>
+    <li><span class="pet-pin">5</span><span><strong>Power +2,880</strong> means the roll raised total power - keep it. A red/negative result means reroll, unless it promoted a buff to the next color (a locked tier is usually worth a temporary dip elsewhere).</span></li>
+    <li><span class="pet-pin">6</span><span><strong>Pick your mark.</strong> Blue icon = Common Taming Mark, orange icon = Advanced Taming Mark. Use Common Marks for gray and green; save Advanced Marks for Rare and up. <strong>Auto</strong> keeps good rolls and rerolls bad ones for you.</span></li>
+  </ol>
+
+  <h3>Refinement Caps by Pet</h3>
+  <p>Each number is the <strong>top</strong> of that tier for a single buff. Higher-generation pets have much higher caps, so the same Taming Marks are worth far more on newer pets.</p>
+  <div class="tg-table-wrap">
+    <table class="tg-table pet-ref-table">
+      <thead><tr><th>Pet</th><th>Common</th><th>Uncommon</th><th>Rare</th><th>Epic</th><th>Mythic</th><th>Legendary</th></tr></thead>
+      <tbody>
+        <tr><td>Gray Wolf</td><td>1.01%</td><td>2.01%</td><td>3.35%</td><td>4.69%</td><td>6.70%</td><td>8.70%</td></tr>
+        <tr><td>Lynx, Bison</td><td>2.01%</td><td>4.02%</td><td>6.70%</td><td>9.39%</td><td>13.41%</td><td>17.40%</td></tr>
+        <tr><td>Cheetah, Moose</td><td>3.02%</td><td>6.03%</td><td>10.06%</td><td>14.08%</td><td>20.11%</td><td>26.00%</td></tr>
+        <tr><td>Lion, Grizzly Bear</td><td>4.36%</td><td>8.72%</td><td>14.53%</td><td>20.34%</td><td>29.05%</td><td>38.00%</td></tr>
+        <tr><td>Giant Rhino, Mighty Bison</td><td>6.70%</td><td>13.41%</td><td>22.35%</td><td>31.28%</td><td>44.69%</td><td>58.00%</td></tr>
+        <tr><td>Great Moose, Alpha Black Panther</td><td class="na">-</td><td class="na">-</td><td class="na">-</td><td>34.41%</td><td>49.16%</td><td>63.90%</td></tr>
+        <tr><td>Regal White Lion, Ironclad War Elephant</td><td class="na">-</td><td class="na">-</td><td class="na">-</td><td>40.67%</td><td>58.10%</td><td>75.50%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="wa-placeholder-note">Common through Rare caps from Kingshot Guides (kingshotguides.com); Epic, Mythic, and Legendary caps from Kingshot Mastery (kingshotmastery.com, updated 10/31/2026). Common, Uncommon, and Rare caps for Gen 5 and Gen 6 pets are not published yet - check in-game. The Bison 2.01% and Moose 6.03% caps match K#1625 screenshots.</div>
+
+  <h3>Taming Mark Strategy</h3>
+  <ul class="tips">
+    <li><strong>Common Marks for Common to Rare.</strong> Gains are cheap and rolls are generous at low tiers.</li>
+    <li><strong>Advanced Marks from Rare to Epic and up.</strong> Success rates drop, so the better marks pay off here.</li>
+    <li><strong>Epic is a solid target once a pet hits Lv 40.</strong> Mythic needs Lv 50 and a big mark pile; Legendary is whale territory.</li>
+    <li><strong>Don't over-refine Gen 1.</strong> Get Gen 1 pets to green, then move marks to newer pets - a Common Mighty Bison buff can out-stat a Mythic Gray Wolf.</li>
+    <li><strong>Refinement stats stack across pets.</strong> +2% Archer Lethality on one pet and +4% on another gives +6% total.</li>
+    <li><strong>Save marks for event pet-days</strong> (KvK prep, Strongest Governor). Points count every mark spent, even on rolls you undo, so you get the stats and the event points at once.</li>
+  </ul>
 
   <h3>Pet Priority by Playstyle</h3>
   <div class="priority-grid">
@@ -6745,7 +6881,7 @@ F2P PRIORITY: VIP Level first, then Speed-ups during events, then Hero shards on
 
 NEW MASTERS - ISNOR AND AENA (Master Training Academy, arrived in Kingdom 1625 on Nov 9, 2026 and are available now; values from published Master skill tables, verify in-game): ISNOR (Legendary Explorer, High Priority for active Eternity's Reach players) - all bonuses scoped to Eternity's Reach unless specified; NOT a universal PvP, KvK, or Bear Trap combat Master. Skills (Lv.1 -> max): Old Hand expertise +2% Lethality and Health -> +30% each at Lv.11; Frontier Master +5% XP from Cesares Guards -> +50%; Survival Skills +5,000 deployment capacity and 6% faster Hero recovery -> +50,000 and 60%; Unexpected Benefits 6 Charm Designs per 200K Copper Ore -> 60; Backchannels 500 Copper Ore/min and 10 Charm Guides per 200K Ore -> 5,000/min and 100 Guides. Affinity unlocks: Lv.1 Stranger (Old Hand), Lv.10 Acquaintance 1 (Frontier Master), Lv.20 Acquaintance 2 (Survival Skills), Lv.30 Acquaintance 3 (Unexpected Benefits), Lv.40 Casual 1 (Backchannels - major economic milestone and main target). Mistakes: assuming the Lethality bonus works in Bear Trap, treating Copper Ore as permanent 24/7 income, abandoning Pan or Valora because Isnor is newer. AENA (Caravan Queen, Situational Priority - Merchant Empire) - Attack/Defense expertise restricted to caravan raids; NOT a general PvP or Bear Trap Master. Skills (Lv.1 -> max): Beneficient Mogul expertise +2% Squad Attack and Defense in raids -> +30% each at Lv.11; Shortcuts 2% shorter trips and +1 free refresh (further scaling unverified); Finder's Keepers 10% -> 100% chance of extra cargo after a successful raid; Delivery Drive chance to recover raided cargo, Elite Strongboxes unlock at skill Lv.6; Trading Ace guaranteed Legendary Caravan after 12 completed escorts -> after 4, +1 daily caravan at Lv.10. Elite Strongboxes are unraidable; possible rewards per box (not guaranteed bundles): 1,000 Gems, 5 Truegold, 1 Mythic General Hero Shard, 2 Artisan's Vision, 2 Charm Design, 2 Charm Guide, 1 Forgehammer. Affinity unlocks: Lv.10 Shortcuts, Lv.20 Finder's Keepers, Lv.30 Delivery Drive, Lv.40 Trading Ace. Best for active daily caravan players; occasional caravan users should invest elsewhere first. Mistakes: assuming the raid buff applies to KvK, confusing Affinity Lv.40 with Trading Ace Lv.10, spending heavy Manuscripts before confirming caravan frequency. PRIORITY: Isnor first is a reasonable default between the two (based mainly on one Oct 4, 2026 guide - anecdotal), not a universal rule; very active caravan players may get more from Aena; neither replaces existing Pan, Valora, Cassia, or Roman investments. DISPUTED: a guide's figure of up to 7.2 million Copper Ore per 24h at Backchannels Lv.10 is a mathematical rate, not a verified continuous reward; Elite Strongbox return per Manuscript vs. Isnor's Charm rewards is unestablished. Always save Master Emblems and Manuscripts for KvK prep scoring windows.
 
-PETS: Pets unlock based on kingdom age. Full roster (13 pets, verified via v2.kingshot.net/database/pets): Gray Wolf (Gen 1, day 55, Construction Speed +15% for 5 min, 23h CD). Lynx (Gen 2, day 55, restores 60 Stamina, 23h CD) - best for F2P stamina. Bison (Gen 2, day 55, instant gather on next tile, 15h CD) - best for gather events. Cheetah (Gen 2, day 80, locates 500 pet food, 23h CD) - use daily for food. Moose (Gen 2, day 80, enemy Squad Health -5% for 2h, 20h CD). Lion (Gen 3, day 110, unearths a Badlands item, no listed CD). Grizzly Bear (Gen 3, day 110, March Speed +30% and enemy Lethality -5% for 2h, 20h CD) - best for KvK. Mighty Bison (Gen 4, day 190, Squad Capacity +15,000 for 2h). Giant Rhino (Gen 4, day 190, all Squads Attack +10% for 2h) - best mid-game combat. Alpha Black Panther (Gen 5, Legendary, max level 100, day 270, Troop Lethality up to +10% for 2h, 20h CD) - best for Bear Hunt. Great Moose (Gen 5, Epic, max level 100, day 270, Rally Capacity up to +150,000 for 2h, 20h CD) - best for rally leaders. Gen 5 pet values are maximum listed effects, not necessarily the bonus available immediately on unlock. Regal White Lion (Gen 6, day 350, Squads' Defense +10% for 2h, 20h CD). Ironclad War Elephant (Gen 6, day 350, Squad Health +10% for 2h, 20h CD). KINGDOM #1625 TIMELINE: Great Moose and Alpha Black Panther unlocked on 11/09/2026 and are available now. Not yet unlocked as of this update: Regal White Lion and Ironclad War Elephant projected 01/18/2027. A further pet, Ironclad War Bear, is projected for 04/12/2027 but its ability, cooldown, and artwork are NOT yet confirmed - do not state specifics about it, only that it's expected on that date with details still unverified. CRITICAL: Pet abilities must be MANUALLY ACTIVATED before every Bear Hunt rally and KvK push. Full database: v2.kingshot.net/database/pets.
+PETS: Pets unlock based on kingdom age. Full roster (13 pets, verified via v2.kingshot.net/database/pets): Gray Wolf (Gen 1, day 55, Construction Speed +15% for 5 min, 23h CD). Lynx (Gen 2, day 55, restores 60 Stamina, 23h CD) - best for F2P stamina. Bison (Gen 2, day 55, instant gather on next tile, 15h CD) - best for gather events. Cheetah (Gen 2, day 80, locates 500 pet food, 23h CD) - use daily for food. Moose (Gen 2, day 80, enemy Squad Health -5% for 2h, 20h CD). Lion (Gen 3, day 110, unearths a Badlands item, no listed CD). Grizzly Bear (Gen 3, day 110, March Speed +30% and enemy Lethality -5% for 2h, 20h CD) - best for KvK. Mighty Bison (Gen 4, day 190, Squad Capacity +15,000 for 2h). Giant Rhino (Gen 4, day 190, all Squads Attack +10% for 2h) - best mid-game combat. Alpha Black Panther (Gen 5, Legendary, max level 100, day 270, Troop Lethality up to +10% for 2h, 20h CD) - best for Bear Hunt. Great Moose (Gen 5, Epic, max level 100, day 270, Rally Capacity up to +150,000 for 2h, 20h CD) - best for rally leaders. Gen 5 pet values are maximum listed effects, not necessarily the bonus available immediately on unlock. Regal White Lion (Gen 6, day 350, Squads' Defense +10% for 2h, 20h CD). Ironclad War Elephant (Gen 6, day 350, Squad Health +10% for 2h, 20h CD). KINGDOM #1625 TIMELINE: Great Moose and Alpha Black Panther unlocked on 11/09/2026 and are available now. Not yet unlocked as of this update: Regal White Lion and Ironclad War Elephant projected 01/18/2027. A further pet, Ironclad War Bear, is projected for 04/12/2027 but its ability, cooldown, and artwork are NOT yet confirmed - do not state specifics about it, only that it's expected on that date with details still unverified. CRITICAL: Pet abilities must be MANUALLY ACTIVATED before every Bear Hunt rally and KvK push. Full database: v2.kingshot.net/database/pets. PET MAX LEVELS (source: kingshotmastery.com, updated 10/31/2026): Gray Wolf max Lv 50 (skill Lv 5); Lynx and Bison Lv 60 (skill 6); Cheetah and Moose Lv 70 (skill 7); Lion and Grizzly Bear Lv 80 (skill 8); Giant Rhino, Mighty Bison, and every later pet Lv 100 (skill 10). Pets must be Advanced every 10 levels to keep leveling; each advancement raises the active skill one level. Advancement uses Growth Manuals, then Nutrient Potions from the Lv 30 advancement, then Promotion Medallions from the Lv 50 advancement (the main F2P bottleneck). PET REFINEMENT: separate from leveling. Uses Taming Marks (Common = blue icon, Advanced = orange icon) to roll 6 secondary buffs: Health and Lethality for Infantry, Cavalry, Archer. Buffs unlock at Pet Lv 10 at Common. Current tier ladder is 6 tiers: Common (gray), Uncommon (green), Rare (blue), Epic (purple), Mythic, Legendary - older guides list only 5 (Gray/Green/Blue/Purple/Gold); Mythic and Legendary colors are not confirmed. Pet level caps the reachable tier: Lv 10 Common, Lv 20 Uncommon, Lv 30 Rare, Lv 40 Epic, Lv 50 Mythic; the game also lists Legendary at Lv 50 without explaining the extra requirement - say so. When a buff fills its tier cap it promotes and locks permanently. Reading the screen: row color = tier; the second number (e.g. 1.81%/2.01%) is the current tier cap; the bar shows progress within the current tier only, so a freshly promoted buff shows a near-empty bar. Accept rolls that raise power; reroll negative ones unless they promote a buff. Auto keeps good rolls and rerolls bad ones. Refinement tier caps per buff (Common/Uncommon/Rare/Epic/Mythic/Legendary): Gray Wolf 1.01/2.01/3.35/4.69/6.70/8.70%; Lynx, Bison 2.01/4.02/6.70/9.39/13.41/17.40%; Cheetah, Moose 3.02/6.03/10.06/14.08/20.11/26.00%; Lion, Grizzly Bear 4.36/8.72/14.53/20.34/29.05/38.00%; Giant Rhino, Mighty Bison 6.70/13.41/22.35/31.28/44.69/58.00%; Great Moose, Alpha Black Panther Epic 34.41 / Mythic 49.16 / Legendary 63.90% (lower tiers not published); Regal White Lion, Ironclad War Elephant, Ironclad War Bear Epic 40.67 / Mythic 58.10 / Legendary 75.50% (lower tiers not published). Strategy: Common Marks for Common-Rare, Advanced Marks for Rare-Epic and up; Epic is a solid target at Lv 40; do not over-refine Gen 1 (get them to green, then move on); refinement stats stack additively across pets; save marks for event pet-days (KvK prep, Strongest Governor) since every mark spent scores points even if the roll is undone.
 
 KINGDOM TRANSFER: Every 40-60 days a transfer window opens. Players can move their entire account to a different kingdom. Troops, resources, heroes, and items transfer with you - map position resets - alliance membership does NOT auto-transfer. Reasons to transfer: escape dominated kingdom, reunite with allies, optimize KvK bracket. Restrictions: target kingdom must be within eligible age bracket, TC level may impose requirements, clear active timers before transfer. Kingdom #1625 protocol: ALL transfers require R4/R5 approval first - uncoordinated transfers hurt alliance power scores for HoG and Championship. Coordinate group timing so bulk of members arrive same day. Assign a scout 48h early to assess the destination kingdom's political situation. Tools: Transfer Planner at v2.kingshot.net/transfer-planner, Kingdom Age Tracker at v2.kingshot.net/kingdom-age-tracker.
 
@@ -6961,11 +7097,11 @@ function quickAsk(question) {
 // date format: YYYY-MM-DD (used only for sorting/compare, not displayed verbatim below)
 // Links can point at any tab id (e.g. '#war-academy') - the tab system opens that tab.
 const WHATS_NEW = [
+  { date: '2026-11-09', label: 'Pets: max level for every pet, plus a refinement guide - what gray vs green means, tier caps, and Taming Mark strategy', link: '#pets' },
   { date: '2026-11-09', label: "Finder's Fusion scene maps added: Day 1 Enlistment Office, Day 2 Command Center", link: '#finders-fortune' },
   { date: '2026-11-09', label: 'Gen 5 is live: heroes Long Fei, Thrud and Vivian, pets Alpha Black Panther and Great Moose, and Masters Isnor and Aena are now available', link: '#heroes' },
   { date: '2026-11-09', label: 'Meet Omen and the Feline Flame - tap their cards across the guide to see them react', link: '#home' },
   { date: '2026-11-09', label: 'Tabs and menu now sorted A-Z within each group', link: '#home' },
-  { date: '2026-11-09', label: 'Home: Daily Terror Rewards card - lead 10 + join 50 rallies every day for your KvK stockpile', link: '#home' },
 ];
 
 (function() {
@@ -7038,7 +7174,7 @@ const TABS = [
   { id: 'transfer',       label: 'Kingdom Transfer',  group: 'Strategy', desc: 'Why and how to transfer - R4/R5 approval required.' },
   { id: 'kvk',            label: 'KvK',               group: 'Strategy', desc: 'Member survival rules for the largest inter-kingdom event.' },
   { id: 'master-academy', label: 'Master Academy',    group: 'Strategy', desc: 'Masters, journeys, and which resources are KvK-sensitive.' },
-  { id: 'pets',           label: 'Pets',              group: 'Strategy', desc: 'Full pet gallery, K#1625 projected dates, and priorities by playstyle.' },
+  { id: 'pets',           label: 'Pets',              group: 'Strategy', desc: 'Pet gallery, max levels, refinement colors and caps, K#1625 dates, and priorities by playstyle.' },
   { id: 'truegold',       label: 'True Gold',         group: 'Strategy', desc: 'TG1 through TG8 - costs, sources, the Crucible, and upgrade order.' },
   { id: 'war-academy',    label: 'War Academy',       group: 'Strategy', desc: 'Truegold Dust research path to T11 troops, paced around KvK.', beacon: true },
   { id: 'resources',      label: 'Community Links',   group: 'Resources', desc: 'Creators and sites we trust for Kingshot strategy.' },
