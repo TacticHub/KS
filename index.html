@@ -2706,6 +2706,26 @@
 .omen-ai-noimg .omen-ai-face { display:none; }
 @media(max-width:640px){ .omen-ai-face{width:56px;height:56px} .omen-mistake-face{width:36px;height:36px} }
 @media(prefers-reduced-motion:reduce){ .omen-tip-card img.omen-bounce,.omen-ai-face.omen-busy{animation:none} .omen-tip-card[role=button]:hover{transform:none} }
+
+  /* Finder's Fusion scene maps */
+  .ff-map-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 14px; }
+  .ff-map-tab {
+    font-family: 'Lato', sans-serif; font-size: 0.85rem; cursor: pointer;
+    border-radius: 6px; padding: 9px 16px; min-height: 40px;
+    background: rgba(224,163,57,0.06); color: var(--text); border: 1px solid rgba(224,163,57,0.3);
+    -webkit-appearance: none;
+  }
+  .ff-map-tab:hover { border-color: var(--gold); }
+  .ff-map-tab.active { background: var(--gold); color: var(--dark); border-color: var(--gold); font-weight: 700; }
+  .ff-map-fig { margin: 0 0 14px; }
+  .ff-map-fig[hidden] { display: none; }
+  .ff-map-fig a { display: block; max-width: 620px; margin: 0 auto; }
+  .ff-map-fig img { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(224,163,57,0.3); }
+  .ff-map-fig figcaption { text-align: center; font-family: 'Lato', sans-serif; font-size: 0.8rem; color: var(--text-dim); margin-top: 8px; }
+  .ff-map-fig figcaption strong { color: var(--gold); }
+  .ff-map-fallback { display: none; text-align: center; font-family: 'Lato', sans-serif; font-size: 0.82rem; color: var(--text-muted); border: 1px dashed rgba(224,163,57,0.3); border-radius: 8px; padding: 28px 16px; }
+  .ff-map-missing a { display: none; }
+  .ff-map-missing .ff-map-fallback { display: block; }
 </style>
 <noscript><style>.tab-panel{display:block !important;} .tab-bar{display:none;}</style></noscript>
 </head>
@@ -5988,6 +6008,25 @@
     <li>Check remaining daily challenges and milestones before the UTC reset</li>
   </ul>
 
+  <h3>Finder's Fusion Scene Maps</h3>
+  <p>Answer maps for this season's co-op scenes, with every object outlined and labeled. Study the scene before you start so you spend your time finding, not searching - and avoid the -200 wrong-tap penalty.</p>
+  <div class="ff-map-tabs" role="group" aria-label="Choose a scene map"><button type="button" class="ff-map-tab active" data-map="enlistment-office" aria-pressed="true" onclick="ffShowMap('enlistment-office')">Day 1 - Enlistment Office</button><button type="button" class="ff-map-tab" data-map="command-center" aria-pressed="false" onclick="ffShowMap('command-center')">Day 2 - Command Center</button></div>
+    <figure class="ff-map-fig" id="ff-map-enlistment-office">
+      <a href="https://tactichub.github.io/KS/images/finders/enlistment-office.jpg" target="_blank" rel="noopener" title="Open full size">
+        <img src="https://tactichub.github.io/KS/images/finders/enlistment-office.jpg" alt="Day 1 Enlistment Office hidden-object scene with every object outlined and labeled" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('ff-map-missing')">
+      </a>
+      <figcaption><strong>Day 1: Enlistment Office</strong> &nbsp;·&nbsp; Tap the map to open it full size and zoom in.</figcaption>
+      <div class="ff-map-fallback">Map image not uploaded yet - expected at images/finders/enlistment-office.jpg</div>
+    </figure>
+    <figure class="ff-map-fig" id="ff-map-command-center" hidden>
+      <a href="https://tactichub.github.io/KS/images/finders/command-center.jpg" target="_blank" rel="noopener" title="Open full size">
+        <img src="https://tactichub.github.io/KS/images/finders/command-center.jpg" alt="Day 2 Command Center hidden-object scene with every object outlined and labeled" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('ff-map-missing')">
+      </a>
+      <figcaption><strong>Day 2: Command Center</strong> &nbsp;·&nbsp; Tap the map to open it full size and zoom in.</figcaption>
+      <div class="ff-map-fallback">Map image not uploaded yet - expected at images/finders/command-center.jpg</div>
+    </figure>
+  <div class="wa-placeholder-note">Match the map to the <strong>scene picture</strong>, not the day number - players report scenes can appear in a different order. Maps courtesy of <a href="https://kingshotmastery.com" target="_blank" rel="noopener" style="color:var(--gold);">Kingshot Mastery</a>.</div>
+
   <h3>3-Day Event Plan</h3>
   <ol class="wa-roadmap-list">
     <li>
@@ -6696,7 +6735,7 @@ ALL OUT: Two-day PvP kill event every few weeks. Points scale by troop tier. Saf
 
 MOONLIT PROMISE: Month-long Ramadan special event (NOT the same as Moonlit Celebration). Two components: Radiant Wishes (light lanterns with Crescent Seekers to earn Crescent Emblems with multipliers) and Crescent Bazaar (spend emblems on gear, Forge Hammers, charms, speed-ups). Ally blessings: after 30 lanterns, share 2 emblems with members, up to 20 blessing receives per day (resets daily). Shop priority: Forge Hammers first (best F2P value), then gear/charm items. End of event: unused currency converts to food - spend down before event ends. Alliance protocol: members post "Blessings open" in Discord after hitting 30-lantern threshold so others can claim daily blessings.
 
-FINDER'S FORTUNE: Limited-time 3-day hidden-object event - find objects in timed scenes, progress through 10 chapters, earn Finder XP and rewards. Unlocks at TC Level 7; start with 60 Bones. Kingdom 1625 priority: clear as many stages and free daily missions as practical, minimize failed attempts, and save valuable rewards for KvK. CURRENCIES: Buttery Bones pay for stage attempts and EXPIRE when the event ends - spend them; Focusbells buy extra time and do NOT expire - save unless needed; Royal Cans do NOT expire - keep; Finder XP (reward track) and Finder Points (scoring) are event-specific. STAGE TIPS: inspect the scene first, scan in a consistent pattern, avoid random tapping (repeated wrong taps cause a 3-second input lockout), use free hints on hard objects, leaving a stage does NOT pause the timer, use practice attempts before spending more Bones, chapters restart at Chapter 1 each new season. Reference data shows early stages cost 10 Buttery Bones with 5 refunded on failure in the first chapter set, but costs vary by chapter/version - check the stage screen. Failing a stage keeps rewards already earned. EXTRA TIME: costs more with each extension; no verified break-even - consider it with 1-2 objects left when you know where they are, usually skip with 3+ left (advisory, not an official formula). DAILY MISSIONS (reference data, verify in-game): log in once = 60 Buttery Bones + 100 Focusbells; find 10/20/30/40/50 objects = Hero Gear XP, Hero XP, speedups, resources, resource chests, and a Lucky Hero Gear Chest at 50; make one purchase = Focusbells, Lucky Hero Gear Chest, Hero Gear XP, speedups - don't buy a pack just for that mission. FINDER'S FUSION (co-op): 2 players from the same kingdom, 20 daily challenges, +100 per correct object, -200 per incorrect tap (published config data, not verified live in K#1625), 3-second lockout on repeated wrong taps, co-op leaderboard. Milestones: 1,000 = 1 Forgehammer, 2,000 = 2 Lucky Hero Gear Chests, 3,500 = 1 Forgehammer, 5,000 = 2 Lucky Hero Gear Chests, 7,000 = 1 Mythic General Hero Shard. Use co-op to finish daily object missions after solo chapters. 3-DAY PLAN: Day 1 learn and progress (decide on any reward pass early - its XP bonus is not retroactive); Day 2 maximize free progression and co-op; Day 3 spend all Buttery Bones, claim everything, keep Focusbells and Royal Cans. SAVE FOR KVK: save earned General Speedups, Mythic General Hero Shards, Forgehammers, Hero Gear XP, Truegold, and unopened Resource Chests for KvK/relevant scoring phases; only Buttery Bones should be spent during the event. F2P: free missions, clean clears, free hints, co-op milestones, avoid extensions. P2P: evaluate Treasure Guide and Trove Map early, avoid paying to recover poor attempts. DISPUTED: whether scenes are identical for everyone (players report differing order - match by scene, not chapter number), whether object positions are fixed (limited confirmation - treat maps as references), whether every stage costs 10 Bones, whether paid passes are worth it, and transfer rules (depend on scenario - official Help Center).
+FINDER'S FORTUNE: Limited-time 3-day hidden-object event - find objects in timed scenes, progress through 10 chapters, earn Finder XP and rewards. Unlocks at TC Level 7; start with 60 Bones. Kingdom 1625 priority: clear as many stages and free daily missions as practical, minimize failed attempts, and save valuable rewards for KvK. CURRENCIES: Buttery Bones pay for stage attempts and EXPIRE when the event ends - spend them; Focusbells buy extra time and do NOT expire - save unless needed; Royal Cans do NOT expire - keep; Finder XP (reward track) and Finder Points (scoring) are event-specific. STAGE TIPS: inspect the scene first, scan in a consistent pattern, avoid random tapping (repeated wrong taps cause a 3-second input lockout), use free hints on hard objects, leaving a stage does NOT pause the timer, use practice attempts before spending more Bones, chapters restart at Chapter 1 each new season. Reference data shows early stages cost 10 Buttery Bones with 5 refunded on failure in the first chapter set, but costs vary by chapter/version - check the stage screen. Failing a stage keeps rewards already earned. EXTRA TIME: costs more with each extension; no verified break-even - consider it with 1-2 objects left when you know where they are, usually skip with 3+ left (advisory, not an official formula). DAILY MISSIONS (reference data, verify in-game): log in once = 60 Buttery Bones + 100 Focusbells; find 10/20/30/40/50 objects = Hero Gear XP, Hero XP, speedups, resources, resource chests, and a Lucky Hero Gear Chest at 50; make one purchase = Focusbells, Lucky Hero Gear Chest, Hero Gear XP, speedups - don't buy a pack just for that mission. FINDER'S FUSION (co-op): 2 players from the same kingdom, 20 daily challenges, +100 per correct object, -200 per incorrect tap (published config data, not verified live in K#1625), 3-second lockout on repeated wrong taps, co-op leaderboard. Milestones: 1,000 = 1 Forgehammer, 2,000 = 2 Lucky Hero Gear Chests, 3,500 = 1 Forgehammer, 5,000 = 2 Lucky Hero Gear Chests, 7,000 = 1 Mythic General Hero Shard. Use co-op to finish daily object missions after solo chapters. 3-DAY PLAN: Day 1 learn and progress (decide on any reward pass early - its XP bonus is not retroactive); Day 2 maximize free progression and co-op; Day 3 spend all Buttery Bones, claim everything, keep Focusbells and Royal Cans. SAVE FOR KVK: save earned General Speedups, Mythic General Hero Shards, Forgehammers, Hero Gear XP, Truegold, and unopened Resource Chests for KvK/relevant scoring phases; only Buttery Bones should be spent during the event. F2P: free missions, clean clears, free hints, co-op milestones, avoid extensions. P2P: evaluate Treasure Guide and Trove Map early, avoid paying to recover poor attempts. SCENE MAPS: The Finder's Fortune tab has labeled answer maps (courtesy of Kingshot Mastery) for this season's Finder's Fusion scenes - Day 1: Enlistment Office, Day 2: Command Center. Point members to them; match by the scene picture, not the day number. DISPUTED: whether scenes are identical for everyone (players report differing order - match by scene, not chapter number), whether object positions are fixed (limited confirmation - treat maps as references), whether every stage costs 10 Bones, whether paid passes are worth it, and transfer rules (depend on scenario - official Help Center).
 
 BLIZZARD BRAWL (added August 24, 2026 update - very new, evidence base still thin, verify against in-game rules screen): Solo real-time PvP, NOT an alliance event - 10 Governors per free-for-all battlefield. Two modes: Same-Gen Battle (same Hero Generation opponents, recommended starting mode) and Cross-Gen Battle (broader matchmaking, test later once you have a Same-Gen baseline). Requires Town Center Lv. 25+. Up to 10 matches, ~10 min each (~30 sec prep, ~9:30 active battle), four matchmaking windows per day (~2 hours each). CRITICAL SCORING LESSON: this is NOT a kill-farming event - Blizzard Points come mainly from occupying buildings, collecting Blizzard Crates, and airdrop activity, not kills. Priority order: open building > safe crates > useful airdrop > purposeful PvP > random fighting. BATTLEFIELD: Central Vault of Valor (highest value, biggest combat magnet) plus three surrounding Forward Camps (cheaper to hold uncontested); buildings take ~10 sec to capture. Blizzard Crates arrive via supply caravans starting ~30 sec into a match, a strong scoring path for weaker accounts. AIRDROPS (begin ~1:30 in, recur ~every 2 min): Rocket Bomb (severely injures 30,000 troops - use to soften a garrison before attacking), Ice Bomb (blocks troop deployment 10 sec - creates a capture window), Healing Elixir (heals 30% of severely injured troops, max 500k - use only after meaningful losses), Smoke Bomb (makes your Town unselectable 20 sec - defensive reset). Ice Bomb -> Rocket Bomb -> march arrival is a promising but not yet proven combo. ROLE STRATEGY: Strongest in lobby = contest the Vault plus take an uncontested Forward Camp, keep one mobile march for crates. Mid-strength = avoid the center brawl, take a Forward Camp, collect crates while whales fight, hit center only when the defender is weakened. Weakest = skip ego fights, take empty structures, prioritize crates and safe airdrops, steal weakened buildings after stronger players move on. MARCH ROLES: March 1 fighting/key-objective, March 2 flexible objective, March 3+ collection/rotation. Core question before every fight: does winning this improve my point production - avoid revenge attacks and chasing players. REWARDS: Brawl Emblems spent in a Blizzard Shop - shop long-term value is NOT yet confirmed, do not spend gems or scarce resources on Blizzard Brawl until the shop, rules, and mission pages have been reviewed. DISPUTED/UNCONFIRMED: whether Same-Gen is always easier (a Same-Gen lobby can still contain heavy spenders), whether center control is mandatory to win vs. objective-farming elsewhere, the exact kill-point formula, and whether Brawl Emblems carry over between events - do not state any of these as settled fact.
 
@@ -6922,13 +6961,11 @@ function quickAsk(question) {
 // date format: YYYY-MM-DD (used only for sorting/compare, not displayed verbatim below)
 // Links can point at any tab id (e.g. '#war-academy') - the tab system opens that tab.
 const WHATS_NEW = [
+  { date: '2026-11-09', label: "Finder's Fusion scene maps added: Day 1 Enlistment Office, Day 2 Command Center", link: '#finders-fortune' },
   { date: '2026-11-09', label: 'Gen 5 is live: heroes Long Fei, Thrud and Vivian, pets Alpha Black Panther and Great Moose, and Masters Isnor and Aena are now available', link: '#heroes' },
   { date: '2026-11-09', label: 'Meet Omen and the Feline Flame - tap their cards across the guide to see them react', link: '#home' },
   { date: '2026-11-09', label: 'Tabs and menu now sorted A-Z within each group', link: '#home' },
   { date: '2026-11-09', label: 'Home: Daily Terror Rewards card - lead 10 + join 50 rallies every day for your KvK stockpile', link: '#home' },
-  { date: '2026-11-09', label: "New event guide: Finder's Fortune (currencies, daily missions, Finder's Fusion co-op, 3-day plan)", link: '#finders-fortune' },
-  { date: '2026-11-09', label: 'New Masters Isnor & Aena added to Master Academy (skills, affinity unlocks, strategy)', link: '#mta-isnor' },
-  { date: '2026-11-09', label: 'Gift Codes: anyone can now add new codes they find', link: '#gift-codes' },
 ];
 
 (function() {
@@ -6962,6 +6999,16 @@ const WHATS_NEW = [
     navigator.clipboard ? navigator.clipboard.writeText(url).then(doToast).catch(doToast) : doToast();
   };
 })();
+
+// ── FINDER'S FUSION SCENE MAPS ──
+function ffShowMap(key) {
+  document.querySelectorAll('.ff-map-fig').forEach(function(f) { f.hidden = f.id !== 'ff-map-' + key; });
+  document.querySelectorAll('.ff-map-tab').forEach(function(b) {
+    var on = b.getAttribute('data-map') === key;
+    b.classList.toggle('active', on);
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+}
 
 // ── TAB NAVIGATION ──
 // Order here = order of the tab bar and of Previous/Next. Each id must match a .tab-panel element id.
