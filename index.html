@@ -2762,6 +2762,25 @@
   .ff-map-fallback { display: none; text-align: center; font-family: 'Lato', sans-serif; font-size: 0.82rem; color: var(--text-muted); border: 1px dashed rgba(224,163,57,0.3); border-radius: 8px; padding: 28px 16px; }
   .ff-map-missing a { display: none; }
   .ff-map-missing .ff-map-fallback { display: block; }
+  /* Full-screen map viewer */
+  .ff-viewer { position: fixed; inset: 0; z-index: 10000; background: rgba(5,12,24,0.96); display: none; }
+  .ff-viewer.open { display: block; }
+  .ff-viewer-scroll { position: absolute; inset: 0; overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; display: flex; }
+  .ff-viewer-scroll img { margin: auto; display: block; width: auto; height: auto; max-width: 100vw; max-height: 100vh; max-height: 100dvh; cursor: zoom-in; touch-action: pan-x pan-y; user-select: none; -webkit-user-select: none; }
+  .ff-viewer.zoomed .ff-viewer-scroll img { max-width: none; max-height: none; cursor: zoom-out; }
+  .ff-viewer-close {
+    position: fixed; top: max(12px, env(safe-area-inset-top)); right: 12px; z-index: 2;
+    width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(224,163,57,0.5);
+    background: rgba(13,27,46,0.9); color: var(--gold); font-size: 1.5rem; line-height: 1; cursor: pointer;
+  }
+  .ff-viewer-hint {
+    position: fixed; left: 50%; bottom: max(14px, env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 2;
+    font-family: 'Lato', sans-serif; font-size: 0.78rem; color: var(--text-dim);
+    background: rgba(13,27,46,0.88); border: 1px solid rgba(224,163,57,0.3); border-radius: 16px; padding: 6px 14px; white-space: nowrap; pointer-events: none;
+    transition: opacity 0.6s ease;
+  }
+  .ff-viewer-hint.fade { opacity: 0; }
+  body.ff-viewer-lock { overflow: hidden; }
 </style>
 <noscript><style>.tab-panel{display:block !important;} .tab-bar{display:none;}</style></noscript>
 </head>
@@ -6051,21 +6070,21 @@
       <a href="images/finders/enlistment-office.jpg" target="_blank" rel="noopener" title="Open full size">
         <img src="images/finders/enlistment-office.jpg" alt="Enlistment Office hidden-object scene with every object outlined and labeled" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('ff-map-missing')">
       </a>
-      <figcaption><strong>Enlistment Office</strong> &nbsp;·&nbsp; Tap the map to open it full size and zoom in.</figcaption>
+      <figcaption><strong>Enlistment Office</strong> &nbsp;·&nbsp; Tap the map to view it full screen.</figcaption>
       <div class="ff-map-fallback">Map image not uploaded yet - expected at images/finders/enlistment-office.jpg</div>
     </figure>
     <figure class="ff-map-fig" id="ff-map-command-center" hidden>
       <a href="images/finders/command-center.jpg" target="_blank" rel="noopener" title="Open full size">
         <img src="images/finders/command-center.jpg" alt="Command Center hidden-object scene with every object outlined and labeled" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('ff-map-missing')">
       </a>
-      <figcaption><strong>Command Center</strong> &nbsp;·&nbsp; Tap the map to open it full size and zoom in.</figcaption>
+      <figcaption><strong>Command Center</strong> &nbsp;·&nbsp; Tap the map to view it full screen.</figcaption>
       <div class="ff-map-fallback">Map image not uploaded yet - expected at images/finders/command-center.jpg</div>
     </figure>
     <figure class="ff-map-fig" id="ff-map-monument" hidden>
       <a href="images/finders/monument.jpg" target="_blank" rel="noopener" title="Open full size">
         <img src="images/finders/monument.jpg" alt="Monument hidden-object scene with every object outlined and labeled" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('ff-map-missing')">
       </a>
-      <figcaption><strong>Monument</strong> &nbsp;·&nbsp; Tap the map to open it full size and zoom in.</figcaption>
+      <figcaption><strong>Monument</strong> &nbsp;·&nbsp; Tap the map to view it full screen.</figcaption>
       <div class="ff-map-fallback">Map image not uploaded yet - expected at images/finders/monument.jpg</div>
     </figure>
   <div class="wa-placeholder-note">Maps are listed by <strong>scene name</strong>, not day - scenes don't appear on the same day for every kingdom or player. Match the map to the scene picture in your game. Enlistment Office and Command Center maps courtesy of <a href="https://kingshotmastery.com" target="_blank" rel="noopener" style="color:var(--gold);">Kingshot Mastery</a>; Monument map shared by the r/KingShot community.</div>
@@ -7153,6 +7172,100 @@ function ffShowMap(key) {
   });
 }
 
+// ── Finder's Fusion full-screen map viewer ──
+(function() {
+  var viewer, scroller, img, hint, zoom = 1, pinchStart = null, opened = false, closingViaUi = false, hintTimer;
+  function build() {
+    viewer = document.createElement('div');
+    viewer.className = 'ff-viewer';
+    viewer.setAttribute('role', 'dialog');
+    viewer.setAttribute('aria-modal', 'true');
+    viewer.setAttribute('aria-label', 'Scene map, full screen');
+    viewer.innerHTML = '<button type="button" class="ff-viewer-close" aria-label="Close map">&times;</button>' +
+      '<div class="ff-viewer-scroll"><img alt=""></div>' +
+      '<div class="ff-viewer-hint">Tap map to zoom &middot; tap outside or &times; to close</div>';
+    document.body.appendChild(viewer);
+    scroller = viewer.querySelector('.ff-viewer-scroll');
+    img = viewer.querySelector('img');
+    hint = viewer.querySelector('.ff-viewer-hint');
+    viewer.querySelector('.ff-viewer-close').addEventListener('click', function() { close(true); });
+    scroller.addEventListener('click', function(e) { if (e.target === scroller) close(true); });
+    img.addEventListener('click', function(e) {
+      if (zoom > 1) { setZoom(1); return; }
+      var r = img.getBoundingClientRect();
+      var fx = (e.clientX - r.left) / r.width, fy = (e.clientY - r.top) / r.height;
+      setZoom(Math.max(2, (window.innerWidth * 2.2) / img.naturalWidth));
+      scroller.scrollLeft = fx * img.offsetWidth - window.innerWidth / 2;
+      scroller.scrollTop = fy * img.offsetHeight - window.innerHeight / 2;
+    });
+    img.addEventListener('touchstart', function(e) {
+      if (e.touches.length === 2) {
+        pinchStart = { d: dist(e.touches), w: img.getBoundingClientRect().width };
+        e.preventDefault();
+      }
+    }, { passive: false });
+    img.addEventListener('touchmove', function(e) {
+      if (pinchStart && e.touches.length === 2) {
+        var w = Math.min(Math.max(pinchStart.w * dist(e.touches) / pinchStart.d, fitWidth()), img.naturalWidth * 3);
+        applyWidth(w);
+        e.preventDefault();
+      }
+    }, { passive: false });
+    img.addEventListener('touchend', function(e) { if (e.touches.length < 2) pinchStart = null; });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && viewer.classList.contains('open')) close(true); });
+  }
+  function dist(t) { var x = t[0].clientX - t[1].clientX, y = t[0].clientY - t[1].clientY; return Math.sqrt(x * x + y * y); }
+  function fitWidth() {
+    var vw = window.innerWidth, vh = window.innerHeight;
+    return Math.min(vw, vh * img.naturalWidth / img.naturalHeight);
+  }
+  function applyWidth(w) {
+    var fw = fitWidth();
+    if (w <= fw * 1.02) { setZoom(1); return; }
+    viewer.classList.add('zoomed');
+    zoom = w / fw;
+    img.style.width = w + 'px';
+    hint.hidden = true;
+  }
+  function setZoom(z) {
+    if (z <= 1) {
+      zoom = 1; viewer.classList.remove('zoomed'); img.style.width = '';
+      scroller.scrollLeft = 0; scroller.scrollTop = 0;
+    } else {
+      applyWidth(fitWidth() * z);
+    }
+  }
+  function open(src, alt) {
+    if (!viewer) build();
+    img.src = src; img.alt = alt || '';
+    setZoom(1); hint.hidden = false; hint.classList.remove('fade');
+    clearTimeout(hintTimer); hintTimer = setTimeout(function() { hint.classList.add('fade'); }, 2500);
+    viewer.classList.add('open');
+    document.body.classList.add('ff-viewer-lock');
+    try { history.pushState({ ffViewer: true }, ''); opened = true; } catch (err) { opened = false; }
+    viewer.querySelector('.ff-viewer-close').focus();
+  }
+  function close(fromUi) {
+    viewer.classList.remove('open');
+    document.body.classList.remove('ff-viewer-lock');
+    setZoom(1);
+    if (fromUi && opened) { opened = false; closingViaUi = true; try { history.back(); } catch (err) { closingViaUi = false; } }
+    else opened = false;
+  }
+  // Registered at load (before the tab router) so closing the viewer with Back doesn't re-route the page
+  window.addEventListener('popstate', function() {
+    if (viewer && viewer.classList.contains('open')) { window.__ffSkipPop = true; close(false); }
+    else if (closingViaUi) { window.__ffSkipPop = true; closingViaUi = false; }
+  });
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest && e.target.closest('.ff-map-fig a');
+    if (!a) return;
+    e.preventDefault();
+    var im = a.querySelector('img');
+    open(a.getAttribute('href'), im ? im.alt : '');
+  });
+})();
+
 // ── TAB NAVIGATION ──
 // Order here = order of the tab bar and of Previous/Next. Each id must match a .tab-panel element id.
 // To add a new section: give its <section> class="tab-panel", add a sidebar link, and add a row here.
@@ -7371,7 +7484,7 @@ const TABS = [
 
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   window.addEventListener('hashchange', function() { fromHash(false); });
-  window.addEventListener('popstate', function() { fromHash(false); });
+  window.addEventListener('popstate', function() { if (window.__ffSkipPop) { window.__ffSkipPop = false; return; } fromHash(false); });
   fromHash(true);
   document.documentElement.classList.add('tabs-ready');
 })();
