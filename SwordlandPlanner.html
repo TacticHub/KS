@@ -348,9 +348,6 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
 .subs-hint { font-family:'Lato',sans-serif; font-size:0.72rem; color:var(--text-muted); padding:8px 14px 0; line-height:1.45; }
 .player-table td select.subfor-select { display: block; width: 100%; margin-top: 6px; font-size: 0.78rem; color: #cdb8f2; border-color: rgba(176,140,230,0.45); }
 .player-table td select.subfor-select.any { color: var(--text-muted); }
-.move-btn { display: block; width: 100%; margin-top: 6px; padding: 6px 8px; border-radius: 6px; cursor: pointer; font-family: 'Lato', sans-serif; font-size: 0.8rem; font-weight: 700; color: #e6dafb; background: rgba(176,140,230,0.22); border: 1px solid rgba(176,140,230,0.55); }
-.move-btn:hover { background: rgba(176,140,230,0.32); }
-.player-table td select.move-select { display: block; width: 100%; margin-top: 6px; color: #cdb8f2; background: rgba(176,140,230,0.12); border-color: rgba(176,140,230,0.45); }
 
 .group-card-name {
   font-family: 'Cinzel', serif;
@@ -1305,7 +1302,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
         </div></div>
         <div class="pg-step"><div class="pg-num">5</div><div>
           <div class="pg-step-title">Assign roles</div>
-          <div class="pg-step-text">For each player set the <strong>Role</strong>: <strong>Lead</strong> (or Tank 1-3), Healer, DPS, or Farm/Support. Then set <strong>Building</strong> and <strong>I / O</strong> if those are turned on. The map sidebar lists each building's points and perks. If someone drops out, use <strong>Move In</strong> on a substitute to put them in that group.</div>
+          <div class="pg-step-text">For each player set the <strong>Role</strong>: <strong>Lead</strong> (or Tank 1-3), Healer, DPS, or Farm/Support. Then set <strong>Building</strong> and <strong>I / O</strong> if those are turned on. The map sidebar lists each building's points and perks. On the <strong>Substitutes</strong> card, pick the group each sub backs up.</div>
         </div></div>
       </div>
 
@@ -2102,7 +2099,7 @@ function renderRoster(di) {
           <button class="add-row-btn" onclick="addPlayer(${di},'${g.id}')">＋ ${sb ? 'Add Sub' : 'Add Player'}</button>
         </div>
       </div>
-      ${sb ? `<div class="subs-hint">Players waiting to see if a spot opens. Pick the group they back up and the role they can cover, then tap <strong>Move In</strong> to put them into a group when someone drops out.</div>` : ''}
+      ${sb ? `<div class="subs-hint">Players waiting to see if a spot opens. Pick the group each sub backs up and the role they can cover. At event time, they join that group if a spot opens.</div>` : ''}
       <div class="player-table-wrap">
         <table class="player-table">
           <thead><tr>
@@ -2150,13 +2147,6 @@ function renderTbody(di, gid) {
         <select onchange="dispatches[${di}]['${gid}'][${i}].role=this.value;rerenderBadge(this,${di},'${gid}',${i})">
           ${ROLES.map(r => `<option value="${r}" ${r===p.role?'selected':''}>${r}</option>`).join('')}
         </select>
-        ${sb ? (p.subFor && GROUPS.some(x => x.id === p.subFor)
-          ? `<button class="move-btn" title="Move this sub into their group" onclick="moveSub(${di},${i},'${p.subFor}')">⇪ Move In</button>`
-          : `<select class="move-select" title="Move this sub into a group when a spot opens"
-          onchange="if(this.value)moveSub(${di},${i},this.value)">
-          <option value="" selected>⇪ Move In...</option>
-          ${GROUPS.filter(x => !isStandby(x.id)).map(x => `<option value="${x.id}">→ ${x.label}</option>`).join('')}
-        </select>`) : ''}
       </td>
       ${showB ? `<td>
         <select class="bldg-select${p.building ? '' : ' unset'}" title="Building for this player"
@@ -2204,20 +2194,6 @@ function setSubFor(di, i, gid) {
 function subForLabel(gid) {
   const g = GROUPS.find(x => x.id === gid && !isStandby(x.id));
   return g ? g.label : 'Any';
-}
-
-/* Move a substitute into a group (a spot opened up) */
-function moveSub(di, i, toGid) {
-  const d = dispatches[di];
-  const p = d.subs.splice(i, 1)[0];
-  if (!p) return;
-  p.zone = ''; p.building = ''; delete p.subFor;
-  d[toGid].push(p);
-  renderTbody(di, 'subs');
-  renderTbody(di, toGid);
-  renderIOCounts(di);
-  const g = GROUPS.find(x => x.id === toGid);
-  showToast('✅ ' + (p.name || 'Sub') + ' moved into ' + (g ? g.label : toGid));
 }
 
 function renderSubsCount(di) {
