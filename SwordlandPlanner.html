@@ -1406,7 +1406,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
       <div class="auto-panel">
         <textarea id="autoInput" class="auto-input" rows="6" spellcheck="false"
           placeholder="One player per line: name, power&#10;Omen, 6,442&#10;Kerv, 5210&#10;Dusk 803"></textarea>
-        <div class="auto-rules">The strongest players (about 1 in 6) become the <strong>DPS strike team</strong>: they capture buildings, hand them to the lead, and move on. The strongest of them takes <strong>Swordshrine</strong> at 15:00. Every building gets a lead. Extra players go to Sanctum and the Abbeys first (up to lead + 4), while the perk buildings get lead + 1 until those are full. The next strongest lead each building and everyone else supports; Group 2's two lowest-power supporters become the <strong>Loot crew</strong>. Inside / Outside is filled in too (strike team and leads Outside, everyone else Inside), ready if you turn it on. Only 30 players can join; anyone past 30 goes to <strong>Substitutes</strong>.</div>
+        <div class="auto-rules">The strongest players (about 1 in 6) become the <strong>DPS strike team</strong>: they capture buildings, hand them to the lead, and move on. The strongest of them takes <strong>Swordshrine</strong> at 15:00. Every building gets a lead. Extra players go to Sanctum and the Abbeys first (up to lead + 4), while the perk buildings get lead + 1 until those are full. The next strongest lead each building and everyone else supports; Group 2's two lowest-power supporters become the <strong>Loot crew</strong>. Inside / Outside is filled in too (strike team and the stronger half Outside, the weaker half Inside the safe zone), ready if you turn it on. Only 30 players can join; anyone past 30 goes to <strong>Substitutes</strong>.</div>
         <div class="auto-actions">
           <select id="autoLegion" class="auto-legion" aria-label="Legion to fill">
             <option value="0">Legion 1</option>
@@ -2372,6 +2372,7 @@ const STRIKE_MIN = 2, STRIKE_MAX = 5;
 const CREW_FULL = 5;              /* lead + 4 */
 const CREW_MIN = 3;               /* lead + 2 */
 const LOOT_CREW = 2;
+const IO_OUTSIDE_SHARE = 0.5;     /* stronger half of the holders go Outside */
 /* Buildings that only open at 15:00 (from BUILDING_INTEL) */
 const LATE_BUILDINGS = ['Hall of Reformation', 'Mercenary Camp'];              /* Group 2's lowest-power supporters collect loot and gather */
 const CREW_PERK = 2;              /* lead + 1 on perk buildings before point buildings fill up */
@@ -2485,8 +2486,7 @@ function autoAssignRoster(list, keep) {
   const placed = { g1: [], g2: [], g3: [] };
   held.forEach((b, i) => {
     const p = holders[i], g = buildingGroup(b);
-    /* Leads go Outside to capture; crews of 15:00 buildings wait Inside */
-    const pl = mk(p, '', b, LATE_BUILDINGS.includes(b) ? 'I' : 'O'); pl._lead = true;
+    const pl = mk(p, '', b); pl._lead = true;
     placed[g].push(pl); gPower[g] += p.power; bPower[b] += p.power;
   });
   Object.keys(placed).forEach(g => {
@@ -2511,7 +2511,7 @@ function autoAssignRoster(list, keep) {
                                   LEAD_ORDER.indexOf(x) - LEAD_ORDER.indexOf(y))[0];
     const g = buildingGroup(b);
     seats[b]--;
-    placed[g].push(mk(p, healerSlot(b), b, 'I'));
+    placed[g].push(mk(p, healerSlot(b), b));
     gPower[g] += p.power; bPower[b] += p.power;
   });
 
@@ -2523,6 +2523,14 @@ function autoAssignRoster(list, keep) {
       (parseFloat(y.power || 0) - parseFloat(x.power || 0)));
     roster[g].forEach(pl => { delete pl._lead; });
   });
+
+  /* Inside / Outside by power: the strike team roams Outside; of everyone
+     else, the stronger half goes Outside and the weaker half stays Inside
+     the safe zone for the first 10 minutes so they don't get farmed. */
+  const holdersAll = ['g1','g2','g3'].flatMap(g => roster[g]);
+  const byPower = holdersAll.slice().sort((x, y) => parseFloat(y.power || 0) - parseFloat(x.power || 0));
+  const nOut = Math.ceil(byPower.length * IO_OUTSIDE_SHARE);
+  byPower.forEach((pl, i) => { pl.zone = i < nOut ? 'O' : 'I'; });
 
   /* Loot crew: Group 2's lowest-power supporters (never a lead) */
   const lootPool = roster.g2.filter(pl => pl.role.startsWith('Healer'))
