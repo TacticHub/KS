@@ -1158,6 +1158,9 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
   .auto-secondary:hover { border-color: var(--gold); color: var(--gold); }
   .auto-actions .auto-go { flex: 1; min-width: 150px; width: auto; }
   .group-total { font-family: 'Lato', sans-serif; font-size: 0.68rem; color: var(--text-dim); margin-top: 3px; letter-spacing: 0.03em; }
+  .strike-badge { color: #ffb3a6 !important; background: rgba(217,74,58,0.12) !important; border-color: rgba(217,74,58,0.4) !important; }
+  .tag-menu .tag-sep { height: 1px; background: rgba(224,163,57,0.18); margin: 4px 6px; }
+  .tag-menu .tag-head { font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); padding: 6px 12px 2px; }
   .loot-badge { color: #9fe3b4 !important; background: rgba(80,200,120,0.12) !important; border-color: rgba(80,200,120,0.4) !important; }
   .shrine-badge { display: inline-block; margin-top: 5px; padding: 2px 8px; border-radius: 10px; font-family: 'Lato', sans-serif;
     font-size: 0.68rem; font-weight: 700; color: #ffd27a; background: rgba(240,192,64,0.14); border: 1px solid rgba(240,192,64,0.4); white-space: nowrap; }
@@ -1434,7 +1437,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
       <div class="auto-panel">
         <textarea id="autoInput" class="auto-input" rows="6" spellcheck="false"
           placeholder="One player per line: name, power&#10;Omen, 6,442&#10;Kerv, 5210&#10;Dusk 803"></textarea>
-        <div class="auto-rules">The strongest players (about 1 in 6) become the <strong>DPS strike team</strong>: they capture buildings, hand them to the lead, and move on. The strongest of them takes <strong>Swordshrine</strong> at 15:00. Every building gets a lead. Extra players go to Sanctum and the Abbeys first (up to lead + 4), while the perk buildings get lead + 1 until those are full. The next strongest lead each building and everyone else supports; Group 2's two lowest-power supporters become the <strong>Loot crew</strong>. Inside / Outside is filled in too (strike team and the stronger half Outside, the weaker half Inside the safe zone), ready if you turn it on. Only 30 players can join; anyone past 30 goes to <strong>Substitutes</strong>.</div>
+        <div class="auto-rules">The strongest players (about 1 in 6) become the <strong>DPS strike team</strong>: they capture buildings, hand them to the lead, and move on. The strongest of them floats and takes <strong>Swordshrine</strong> at 15:00; the rest are attached to groups (Group 3 first, then Group 1, then Group 2) to capture with them and hit that group's enemy target. Every building gets a lead. Extra players go to Sanctum and the Abbeys first (up to lead + 4), while the perk buildings get lead + 1 until those are full. The next strongest lead each building and everyone else supports; Group 2's two lowest-power supporters become the <strong>Loot crew</strong>. Inside / Outside is filled in too (strike team and the stronger half Outside, the weaker half Inside the safe zone), ready if you turn it on. Only 30 players can join; anyone past 30 goes to <strong>Substitutes</strong>.</div>
         <div class="auto-actions">
           <select id="autoLegion" class="auto-legion" aria-label="Legion to fill">
             <option value="0">Legion 1</option>
@@ -2272,7 +2275,8 @@ function renderTbody(di, gid) {
         ${sb ? '' : `<div class="tag-row">
           ${p.shrine ? `<span class="shrine-badge" title="Takes Swordshrine when it opens">⚔ Swordshrine at 15:00</span>` : ''}
           ${p.loot ? `<span class="shrine-badge loot-badge" title="Collects Baggage Trains and gathers at the Undercellars">💰 Loot crew</span>` : ''}
-          <button class="tag-btn" title="Swordshrine / Loot crew" onclick="openTagMenu(${di},'${gid}',${i},this)">🏷${p.shrine || p.loot ? '' : ' Tag'}</button>
+          ${gid === 'dps' && p.strikeFor && CHAT_GROUPS[p.strikeFor] ? `<span class="shrine-badge strike-badge" title="Captures with this group, then hits its Phase 2 target">🎯 Strike: ${groupShort(p.strikeFor)}</span>` : ''}
+          <button class="tag-btn" title="Swordshrine / Loot crew${gid === 'dps' ? ' / Strike group' : ''}" onclick="openTagMenu(${di},'${gid}',${i},this)">🏷${p.shrine || p.loot || (gid === 'dps' && p.strikeFor) ? '' : ' Tag'}</button>
         </div>`}
         ${sb ? `<select class="subfor-select${p.subFor ? '' : ' any'}" title="Which group this player is a sub for"
           onchange="setSubFor(${di},${i},this.value)">
@@ -2418,6 +2422,9 @@ const STRIKE_MIN = 2, STRIKE_MAX = 5;
 const CREW_FULL = 5;              /* lead + 4 */
 const CREW_MIN = 3;               /* lead + 2 */
 const LOOT_CREW = 2;
+/* Strike players attach to groups in this order: Group 3 (Enemy Sanctum) first,
+   then Group 1 (Enemy Abbey), then Group 2 (home Sanctum, then Enemy Sanctum with G3) */
+const STRIKE_ORDER = ['g3', 'g1', 'g2', 'g3'];
 const IO_OUTSIDE_SHARE = 0.5;     /* stronger half of the holders go Outside */
 /* Buildings that only open at 15:00 (from BUILDING_INTEL) */
 const LATE_BUILDINGS = ['Hall of Reformation', 'Mercenary Camp'];              /* Group 2's lowest-power supporters collect loot and gather */
@@ -2515,9 +2522,12 @@ function autoAssignRoster(list, keep) {
   /* 1. Strike team: the strongest players */
   const nStrike = strikeSize(active.length);
   const strike = active.slice(0, nStrike);
+  /* Strongest strike player floats and takes Swordshrine; the rest attach to
+     groups in STRIKE_ORDER (strongest first), e.g. 4 attached = G3, G1, G2, G3 */
   strike.forEach((p, i) => {
     const pl = mk(p, 'DPS', '', 'O');
     if (i === 0) pl.shrine = true;
+    else pl.strikeFor = STRIKE_ORDER[(i - 1) % STRIKE_ORDER.length];
     roster.dps.push(pl);
   });
 
@@ -2805,7 +2815,8 @@ function buildDiscordOutput(di) {
       const role = p.role && p.role !== 'Unassigned' ? ` - ${p.role}` : '';
       const zone = !sb && d.ioMode && p.zone ? ` [${p.zone}]` : '';
       const bldg = sb ? ` → ${subForLabel(p.subFor)}` : (usesBuildings(di) && GROUP_BUILDINGS[s.id] && p.building ? ` @ ${p.building}` : '');
-      const shrine = (!sb && p.shrine ? ' ⚔ Swordshrine 15:00' : '') + (!sb && p.loot ? ' 💰 Loot crew' : '');
+      const shrine = (!sb && p.shrine ? ' ⚔ Swordshrine 15:00' : '') + (!sb && p.loot ? ' 💰 Loot crew' : '') +
+        (s.id === 'dps' && p.strikeFor ? ' 🎯 ' + groupShort(p.strikeFor) : '');
       out += `   ${i+1}. ${p.name}${power}${role}${zone}${bldg}${shrine}\n`;
     });
     out += '\n';
@@ -2817,8 +2828,10 @@ function buildDiscordOutput(di) {
   out += 'PHASE 1 - Take ours\n';
   out += '   • Holders: main march on your building, secondary marches on the rest of your group\'s buildings (thinnest first)\n';
   out += "   • Strike team: capture (Bell Tower first), stay until the lead's marches arrive, then move on\n";
+  const sa = strikeAssignLine(di);
+  if (sa) out += '   • Strike ' + sa.charAt(0).toLowerCase() + sa.slice(1) + '\n';
   out += 'PHASE 2 - Take theirs\n';
-  out += '   • Strike team rallies the ' + OFFENSE.map(o => o.target).join(', then the ') + '\n';
+  out += '   • Group 1 strikers hit the Enemy Abbey; Group 2 and Group 3 strikers hit the Enemy Sanctum together\n';
   OFFENSE.forEach(o => { out += `   • ${CHAT_GROUPS[o.holder].title.split(' - ')[0]}${o.helper ? ' + ' + CHAT_GROUPS[o.helper].title.split(' - ')[0] + ' hold' : ' holds'} the ${o.target} with secondary marches\n`; });
   out += '   • Group 2: Sanctum stays fully held; about a third of secondary marches back Swordshrine from 15:00\n';
   out += 'PHASE 3 - Loot\n';
@@ -2908,6 +2921,12 @@ function lootNames(di, gid) {
   return gs.flatMap(g => (dispatches[di][g] || []).filter(p => p.loot && p.name && p.name.trim()).map(p => p.name.trim()));
 }
 
+function groupShort(gid) { return CHAT_GROUPS[gid] ? CHAT_GROUPS[gid].title.split(' - ')[0] : gid; }
+const STRIKE_P2 = { g1: 'the Enemy Abbey', g2: 'the Enemy Sanctum with Group 3', g3: 'the Enemy Sanctum' };
+function strikersFor(di, gid) {
+  return (dispatches[di].dps || []).filter(p => p.strikeFor === gid && p.name && p.name.trim()).map(p => p.name.trim());
+}
+
 /* Group buildings, thinnest first (fewest named players, then most points) */
 function thinnestBuildings(di, gid, exclude) {
   const ps = (dispatches[di][gid] || []).filter(p => p.name && p.name.trim());
@@ -2942,20 +2961,37 @@ function groupPlanLines(di, gid, building) {
     if (!building || building === 'Sanctum') lines.push('Sanctum comes first - never leave it thin');
     lines.push('Phase 2: about a third of your secondary marches back Swordshrine from 15:00; the rest join Group 3 on the Enemy Sanctum once it is taken');
   }
+  const st = strikersFor(di, gid);
+  if (st.length && !building)
+    lines.push('Strike support: ' + st.join(', ') + ' - captures with us, then hits ' + STRIKE_P2[gid] + ' in Phase 2');
+  if (st.length && building) lines.push('Strike support: ' + st.join(', '));
   const ln = lootNames(di, gid);
   if (ln.length) lines.push('Loot crew (' + ln.join(', ') + '): ' + LOOT_JOB);
   if (gid === 'g1' && (!building || building === 'Mercenary Camp')) lines.push('15:00: Mercenary Camp strikes the enemy building the strike team is attacking');
   return lines;
 }
 
-function strikePlanLines() {
-  return [
+function strikeAssignLine(di) {
+  const ps = (dispatches[di].dps || []).filter(p => p.name && p.name.trim());
+  if (!ps.length) return '';
+  const parts = ['g1', 'g2', 'g3'].map(g => {
+    const n = ps.filter(p => p.strikeFor === g).map(p => p.name.trim());
+    return n.length ? groupShort(g) + ': ' + n.join(', ') : '';
+  }).filter(Boolean);
+  const fl = ps.filter(p => !p.strikeFor).map(p => p.name.trim() + (p.shrine ? ' (Swordshrine 15:00)' : ''));
+  if (fl.length) parts.push('Float: ' + fl.join(', '));
+  return 'Assignments - ' + parts.join(' · ');
+}
+
+function strikePlanLines(di) {
+  const a = di === undefined ? '' : strikeAssignLine(di);
+  return (a ? [a] : []).concat([
     "Don't garrison: teleporting pulls your marches",
     "Phase 1: take our buildings, Bell Tower first. Stay until the lead's marches arrive, then move on",
-    'Phase 2: rally the ' + OFFENSE.map(o => o.target).join(', then the ') + '. Hold until ' +
-      OFFENSE.map(o => CHAT_GROUPS[o.holder].title.split(' - ')[0]).join(' / ') + ' marches arrive',
+    'Phase 2: Group 1 strikers hit the Enemy Abbey; Group 2 and Group 3 strikers hit the Enemy Sanctum together. Hold until the holding group\'s marches arrive',
+    'Each strike player captures with their group in Phase 1 and hits that group\'s target in Phase 2. Floaters answer calls for help',
     PHASE3
-  ];
+  ]);
 }
 
 /* Returns an array of chat blocks (each block = one in-game message) */
@@ -2977,7 +3013,7 @@ function buildGroupChatBlocks(di, gid) {
     }
   } else if (gid === 'dps' && blocks.length) {
     const ln = lootNames(di, 'dps');
-    blocks.push('Strike Team - Orders\n' + strikePlanLines().join('\n') +
+    blocks.push('Strike Team - Orders\n' + strikePlanLines(di).join('\n') +
       (ln.length ? '\nLoot crew (' + ln.join(', ') + '): ' + LOOT_JOB : ''));
   }
   const shrine = isStandby(gid) ? [] : players.filter(p => p.shrine).map(p => p.name.trim());
@@ -3320,7 +3356,7 @@ function buildExportHTML(plan) {
           <tbody>
             ${players.map((p,i) => `<tr>
               <td class="num">${i+1}</td>
-              <td class="pname">${escHtml(p.name)}${p.shrine && s.id !== 'subs' ? '<div class="pbldg">⚔ Swordshrine at 15:00</div>' : ''}${p.loot && s.id !== 'subs' ? '<div class="pbldg">💰 Loot crew</div>' : ''}${s.id === 'subs' ? `<div class="pbldg">Sub for: ${escHtml(subForLabel(p.subFor))}</div>` : ''}${s.id !== 'subs' && d.roster.assignMode && d.roster.assignMode !== 'groups' && p.building ? `<div class="pbldg">${escHtml(p.building)}</div>` : ''}</td>
+              <td class="pname">${escHtml(p.name)}${p.shrine && s.id !== 'subs' ? '<div class="pbldg">⚔ Swordshrine at 15:00</div>' : ''}${p.loot && s.id !== 'subs' ? '<div class="pbldg">💰 Loot crew</div>' : ''}${s.id === 'dps' && p.strikeFor ? '<div class="pbldg">🎯 Strike: ' + groupShort(p.strikeFor) + '</div>' : ''}${s.id === 'subs' ? `<div class="pbldg">Sub for: ${escHtml(subForLabel(p.subFor))}</div>` : ''}${s.id !== 'subs' && d.roster.assignMode && d.roster.assignMode !== 'groups' && p.building ? `<div class="pbldg">${escHtml(p.building)}</div>` : ''}</td>
               <td class="ppower">${p.power ? fmtK(parsePowerK(p.power)) : ''}</td>
               <td class="prole ${getRoleCls(p.role)}">${escHtml(p.role||'')}</td>
               ${sio ? `<td class="pzone ${p.zone==='I'?'zin':p.zone==='O'?'zout':''}">${p.zone||''}</td>` : ''}
@@ -3398,7 +3434,7 @@ ${renderDispatchSection('⚔ LEGION 2', d2)}
   <div class="role-key-item">🎯 <strong>DPS</strong> - Strike team: rally and capture buildings, hand them off to the lead, then roam and attack weaker players</div>
   <div class="role-key-title" style="margin-top:8px;">Battle Plan</div>
   <div class="role-key-item"><strong>Phase 1 - Take ours:</strong> main march on your building, secondary marches on the rest of your group's buildings. Strike team captures (Bell Tower first) and moves on once the lead's marches arrive.</div>
-  <div class="role-key-item"><strong>Phase 2 - Take theirs:</strong> strike team rallies the enemy Sanctum, then the enemy Abbey. Group 3 and Group 2 hold the enemy Sanctum, Group 1 the enemy Abbey, with secondary marches. Group 2 keeps our Sanctum fully held and sends about a third of its secondary marches to back Swordshrine from 15:00.</div>
+  <div class="role-key-item"><strong>Phase 2 - Take theirs:</strong> Group 1's strike players hit the enemy Abbey while Group 2's and Group 3's hit the enemy Sanctum together. Group 3 and Group 2 hold the enemy Sanctum, Group 1 the enemy Abbey, with secondary marches. Group 2 keeps our Sanctum fully held and sends about a third of its secondary marches to back Swordshrine from 15:00.</div>
   <div class="role-key-item"><strong>Phase 3 - Loot:</strong> strike team hits the enemy building with the most banked points; the loot crew collects the Baggage Trains and gathers at the Undercellars (15:00 and 20:00 waves).</div>
   <div class="role-key-item"><strong>15:00:</strong> Swordshrine opens; Mercenary Camp strikes the enemy building we are attacking. Teleporting pulls your garrisons - the strike team does not garrison.</div>
   ${(d1.roster && d1.roster.ioMode) || (d2.roster && d2.roster.ioMode) ? `
@@ -3880,6 +3916,12 @@ function openTagMenu(di, gid, i, btn) {
   };
   opt(!!p.shrine, '⚔ Swordshrine at 15:00', () => setShrine(di, gid, i));
   opt(!!p.loot, '💰 Loot crew', () => toggleLoot(di, gid, i));
+  if (gid === 'dps') {
+    const sep = document.createElement('div'); sep.className = 'tag-sep'; m.appendChild(sep);
+    const hd = document.createElement('div'); hd.className = 'tag-head'; hd.textContent = 'Strike support for'; m.appendChild(hd);
+    ['g1', 'g2', 'g3'].forEach(g => opt(p.strikeFor === g, '🎯 ' + groupShort(g), () => setStrikeFor(di, i, g)));
+    opt(!p.strikeFor, '🎯 Float (go where needed)', () => setStrikeFor(di, i, ''));
+  }
   document.body.appendChild(m);
   const r = btn.getBoundingClientRect();
   const w = m.offsetWidth, hgt = m.offsetHeight;
@@ -3904,6 +3946,15 @@ function setShrine(di, gid, i) {
   histCheckpoint(di);
   showToast('⚔ Swordshrine ' + (prev ? 'moved from ' + prev + ' to ' : 'assigned to ') + (p.name || 'this player'));
 }
+function setStrikeFor(di, i, g) {
+  histCheckpoint(di);
+  const p = dispatches[di].dps[i];
+  p.strikeFor = g;
+  renderTbody(di, 'dps');
+  histCheckpoint(di);
+  showToast('🎯 ' + (p.name || 'Player') + (g ? ' supports ' + groupShort(g) : ' floats'));
+}
+
 function toggleLoot(di, gid, i) {
   histCheckpoint(di);
   const p = dispatches[di][gid][i];
