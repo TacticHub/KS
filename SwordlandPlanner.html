@@ -1347,11 +1347,11 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
       <div class="pg-steps">
         <div class="pg-step"><div class="pg-num">4</div><div>
           <div class="pg-step-title">Add players</div>
-          <div class="pg-step-text">Tap <strong>＋ Add Player</strong> on a group card, <strong>Upload Excel / CSV</strong> to fill both legions at once, or paste names and power into <strong>Auto Assign</strong> to have groups, roles, and buildings picked for you. Imported DPS and Farm/Support players are sorted automatically; imported tanks and healers all land in <strong>Group 1</strong>, so check that card after importing. Players waiting for an opening go on the <strong>Substitutes</strong> card (add a <strong>Subs</strong> row in your sheet to import them there).</div>
+          <div class="pg-step-text">Tap <strong>＋ Add Player</strong> on a group card, <strong>Upload Excel / CSV</strong> to fill both legions at once, or paste names and power into <strong>Auto Assign</strong> to have groups, roles, and buildings picked for you. Imported DPS players are sorted automatically, and Farm/Support players join <strong>Group 2</strong> as the <strong>💰 Loot crew</strong>; imported tanks and healers all land in <strong>Group 1</strong>, so check that card after importing. Players waiting for an opening go on the <strong>Substitutes</strong> card (add a <strong>Subs</strong> row in your sheet to import them there).</div>
         </div></div>
         <div class="pg-step"><div class="pg-num">5</div><div>
           <div class="pg-step-title">Assign roles</div>
-          <div class="pg-step-text">For each player set the <strong>Role</strong>: <strong>Lead</strong> (or Tank 1-3), Healer, DPS, or Farm/Support. Then set <strong>Building</strong> and <strong>I / O</strong> if those are turned on. The map sidebar lists each building's points and perks. On the <strong>Substitutes</strong> card, pick the group each sub backs up.</div>
+          <div class="pg-step-text">For each player set the <strong>Role</strong>: <strong>Lead</strong> (or Tank 1-3), Healer, DPS, or Farm/Support (loot crew). Then set <strong>Building</strong> and <strong>I / O</strong> if those are turned on. The map sidebar lists each building's points and perks. On the <strong>Substitutes</strong> card, pick the group each sub backs up.</div>
         </div></div>
       </div>
 
@@ -1930,7 +1930,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
 <script>
 /* ═══════════════════════════════════════════════════
    DATA MODEL
-   Each dispatch has groups: G1, G2, G3, DPS, Reserve, Substitutes
+   Each dispatch has groups: G1, G2, G3, DPS, Substitutes (+ legacy Reserve)
    Each group has players: { name, power, role }
 ═══════════════════════════════════════════════════ */
 
@@ -1939,7 +1939,9 @@ const GROUPS = [
   { id: 'g2',      label: 'Group 2', cls: 'grp2',    buildings: 'Sanctum · Mid Abbey' },
   { id: 'g3',      label: 'Group 3', cls: 'grp3',    buildings: 'Low Abbey · Reformation · Stables' },
   { id: 'dps',     label: 'DPS',     cls: 'dps',     buildings: 'Strike Team - Capture, Hand Off, Roam' },
-  { id: 'reserve', label: 'Reserve', cls: 'reserve', buildings: 'Farm / Support' },
+  /* Reserve is retired (the Group 2 loot crew does that job). Kept only so older
+     saved plans that still have Reserve players show them; hidden when empty. */
+  { id: 'reserve', label: 'Reserve', cls: 'reserve', buildings: 'Farm / Support (older plan)', legacy: true },
   { id: 'subs',    label: 'Substitutes', cls: 'subs', buildings: 'On standby - join only if a spot opens', standby: true },
 ];
 
@@ -2175,6 +2177,7 @@ function renderRoster(di) {
   normalizeRoster(dispatches[di]);
   GROUPS.forEach(g => {
     const players = dispatches[di][g.id];
+    if (g.legacy && !players.length) return;
     const sb = isStandby(g.id);
     const showB = !sb && usesBuildings(di) && !!GROUP_BUILDINGS[g.id];
     const showIO = io && !sb;
@@ -2232,7 +2235,7 @@ function renderTbody(di, gid) {
         ${sb ? `<select class="subfor-select${p.subFor ? '' : ' any'}" title="Which group this player is a sub for"
           onchange="setSubFor(${di},${i},this.value)">
           <option value="" ${!p.subFor ? 'selected' : ''}>For any group</option>
-          ${GROUPS.filter(x => !isStandby(x.id)).map(x => `<option value="${x.id}" ${p.subFor === x.id ? 'selected' : ''}>For ${x.label}</option>`).join('')}
+          ${GROUPS.filter(x => !isStandby(x.id) && (!x.legacy || p.subFor === x.id)).map(x => `<option value="${x.id}" ${p.subFor === x.id ? 'selected' : ''}>For ${x.label}</option>`).join('')}
         </select>` : ''}
       </td>
       <td class="player-power">
@@ -2648,19 +2651,26 @@ function parseCSV(csv, status) {
     /* Parse columns - expect: Nr, Name1, Power1, Role1, Name2, Power2, Role2 */
     const d1 = emptyRoster();
     const d2 = emptyRoster();
-    let currentSection = 'main'; /* 'main', 'reserve' or 'subs' */
+    let currentSection = 'main'; /* 'main', 'loot' (old Reserve section) or 'subs' */
 
     for (let i = headerRow + 1; i < lines.length; i++) {
       const row = lines[i];
-      if (!row || row.length < 2) continue;
+      if (!row) continue;
       const first = (row[0]||'').toLowerCase();
-      if (first === 'reserve') { currentSection = 'reserve'; continue; }
+      const onlyLabel = row.slice(1).every(c => !c);
+      if (first === 'reserve' || first === 'loot' || first === 'loot crew') { currentSection = 'loot'; continue; }
       if (first === 'subs' || first === 'sub' || first === 'substitutes' || first === 'substitute') { currentSection = 'subs'; continue; }
+      if (row.length < 2 || onlyLabel) continue;
       const nr = row[0]; const n1 = row[1]; const p1 = row[2]; const r1 = row[3];
       const n2 = row[4]; const p2 = row[5]; const r2 = row[6];
       if (!n1 && !n2) continue;
-      if (n1) { const gid = currentSection!=='main'?currentSection:inferGroup(r1); d1[gid].push({name:n1,power:p1||'',role:normalizeRole(r1)}); }
-      if (n2) { const gid = currentSection!=='main'?currentSection:inferGroup(r2); d2[gid].push({name:n2,power:p2||'',role:normalizeRole(r2)}); }
+      const place = (d, n, pw, r) => {
+        const gid = currentSection !== 'main' ? currentSection : inferGroup(r);
+        const pl = { name: n, power: pw || '', role: normalizeRole(r) };
+        if (gid === 'loot') { pl.loot = true; d.g2.push(pl); } else d[gid].push(pl);
+      };
+      if (n1) place(d1, n1, p1, r1);
+      if (n2) place(d2, n2, p2, r2);
     }
 
     d1.ioMode = isIO(0);
@@ -2682,7 +2692,7 @@ function inferGroup(role) {
   if (!role) return 'g1';
   const r = role.toLowerCase();
   if (r === 'dps') return 'dps';
-  if (r.includes('farm') || r.includes('support')) return 'reserve';
+  if (r.includes('farm') || r.includes('support')) return 'loot';
   /* Tanks and healers get spread - default to g1; leaders reassign */
   return 'g1';
 }
