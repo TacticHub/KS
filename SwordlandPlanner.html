@@ -1588,6 +1588,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
               <li>Teleport to the assigned building(s)</li>
               <li>Get it first (go solo if needed)</li>
               <li>Attack enemies that show up (solo or rally with your healers)</li>
+              <li>Main march on your building; send secondary marches to your group's other buildings</li>
             </ul>
           </div>
         </div>
@@ -1599,6 +1600,8 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
               <li>Garrison in both assigned buildings if possible</li>
               <li>Reinforce your tank / reinforce each other</li>
               <li>Use the "Share Coordinates" option in chat so DPS can quickly get to you</li>
+              <li>Send secondary marches to your group's thinnest buildings first</li>
+              <li>Phase 2: Group 1 holds the enemy Abbey and Group 3 holds the enemy Sanctum once the strike team takes them</li>
             </ul>
           </div>
         </div>
@@ -1608,7 +1611,9 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
             <ul class="role-list">
               <li>Strike team: rally and capture buildings, then hand them off to the building lead</li>
               <li>Roam free</li>
-              <li>Do not garrison (you will move a lot)</li>
+              <li>Do not garrison (you will move a lot) - teleporting pulls your marches out</li>
+              <li>After a capture, stay until the lead's marches arrive, then move on</li>
+              <li>Phase 2: once our buildings hold, rally the enemy Sanctum, then the enemy Abbey</li>
               <li>Teleport to any position your help is needed</li>
               <li>Attack every player lower than you</li>
               <li>Be a pain in their ass</li>
@@ -1797,6 +1802,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
               <li>Teleport to the assigned building(s)</li>
               <li>Get it first (go solo if needed)</li>
               <li>Attack enemies that show up (solo or rally with your healers)</li>
+              <li>Main march on your building; send secondary marches to your group's other buildings</li>
             </ul>
           </div>
         </div>
@@ -1808,6 +1814,8 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
               <li>Garrison in both assigned buildings if possible</li>
               <li>Reinforce your tank / reinforce each other</li>
               <li>Use the "Share Coordinates" option in chat so DPS can quickly get to you</li>
+              <li>Send secondary marches to your group's thinnest buildings first</li>
+              <li>Phase 2: Group 1 holds the enemy Abbey and Group 3 holds the enemy Sanctum once the strike team takes them</li>
             </ul>
           </div>
         </div>
@@ -1817,7 +1825,9 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
             <ul class="role-list">
               <li>Strike team: rally and capture buildings, then hand them off to the building lead</li>
               <li>Roam free</li>
-              <li>Do not garrison (you will move a lot)</li>
+              <li>Do not garrison (you will move a lot) - teleporting pulls your marches out</li>
+              <li>After a capture, stay until the lead's marches arrive, then move on</li>
+              <li>Phase 2: once our buildings hold, rally the enemy Sanctum, then the enemy Abbey</li>
               <li>Teleport to any position your help is needed</li>
               <li>Attack every player lower than you</li>
               <li>Be a pain in their ass</li>
@@ -2710,6 +2720,19 @@ function buildDiscordOutput(di) {
     out += '\n';
   });
 
+  const shrineP = GROUPS.flatMap(g => (d[g.id] || []).filter(p => p.shrine && p.name && !isStandby(g.id))).map(p => p.name)[0];
+  out += '────────────────────────────────\n';
+  out += '🗺 BATTLE PLAN\n';
+  out += 'PHASE 1 - Take ours\n';
+  out += '   • Holders: main march on your building, secondary marches on the rest of your group\'s buildings (thinnest first)\n';
+  out += "   • Strike team: capture (Bell Tower first), stay until the lead's marches arrive, then move on\n";
+  out += 'PHASE 2 - Take theirs\n';
+  out += '   • Strike team rallies the ' + OFFENSE.map(o => o.target).join(', then the ') + '\n';
+  OFFENSE.forEach(o => { out += `   • ${CHAT_GROUPS[o.holder].title.split(' - ')[0]} holds the ${o.target} with secondary marches\n`; });
+  out += '15:00\n';
+  out += '   • Swordshrine opens' + (shrineP ? ': ' + shrineP + ' takes it' : '') + '\n';
+  out += '   • Mercenary Camp strikes the enemy building we are attacking\n';
+  out += '⚠ Teleporting pulls your garrisons. Strike team: do not garrison.\n';
   out += '────────────────────────────────\n';
   out += '⚔ TANK / LEAD: Teleport → cap building → fight with healers\n';
   out += '✚ HEALER: Garrison both buildings → reinforce → call DPS positions\n';
@@ -2762,6 +2785,54 @@ function playersByBuilding(gid, players) {
   return out.filter(x => x.players.length);
 }
 
+/* ── BATTLE PLAN (Kingdom 1625 strategy) ──
+   Phase 1: take our side. Holders teleport in and garrison: main march on
+   their building, secondary marches on the rest of their group's buildings.
+   The strike team captures (Bell Tower first), waits for the lead's marches,
+   then moves on - teleporting pulls a player's garrisons, so DPS don't garrison.
+   Phase 2: take theirs. Strike team rallies the enemy Sanctum, then the enemy
+   Abbey; the nearest group holds each with secondary marches (map: enemy Abbey
+   is upper right near Group 1, enemy Sanctum lower right near Group 3).
+   15:00: Swordshrine opens; Mercenary Camp strike on the building we're attacking. */
+const OFFENSE = [
+  { target: 'Enemy Sanctum', holder: 'g3' },
+  { target: 'Enemy Abbey',   holder: 'g1' }
+];
+
+/* Group buildings, thinnest first (fewest named players, then most points) */
+function thinnestBuildings(di, gid, exclude) {
+  const ps = (dispatches[di][gid] || []).filter(p => p.name && p.name.trim());
+  const count = b => ps.filter(p => p.building === b).length;
+  return (GROUP_BUILDINGS[gid] || []).filter(b => b !== exclude)
+    .sort((x, y) => (count(x) - count(y)) || (BUILDING_VALUE[y] - BUILDING_VALUE[x]));
+}
+
+/* Extra plan lines for a holding group (or one building block in that group) */
+function groupPlanLines(di, gid, building) {
+  const lines = [];
+  if (building) {
+    lines.push('Main march: ' + building);
+    const others = thinnestBuildings(di, gid, building);
+    if (others.length) lines.push('Secondary marches: ' + others.join(', '));
+  } else {
+    lines.push('Main march: your building');
+    lines.push('Secondary marches: the other buildings here, thinnest first - ' + thinnestBuildings(di, gid).join(', '));
+  }
+  const off = OFFENSE.find(o => o.holder === gid);
+  if (off) lines.push('Phase 2: once ours hold, send secondary marches to hold the ' + off.target + ' after the strike team takes it');
+  if (gid === 'g1' && (!building || building === 'Mercenary Camp')) lines.push('15:00: Mercenary Camp strikes the enemy building the strike team is attacking');
+  return lines;
+}
+
+function strikePlanLines() {
+  return [
+    "Don't garrison: teleporting pulls your marches",
+    "Phase 1: take our buildings, Bell Tower first. Stay until the lead's marches arrive, then move on",
+    'Phase 2: rally the ' + OFFENSE.map(o => o.target).join(', then the ') + '. Hold until ' +
+      OFFENSE.map(o => CHAT_GROUPS[o.holder].title.split(' - ')[0]).join(' / ') + ' marches arrive'
+  ];
+}
+
 /* Returns an array of chat blocks (each block = one in-game message) */
 function buildGroupChatBlocks(di, gid) {
   const d = dispatches[di];
@@ -2772,6 +2843,16 @@ function buildGroupChatBlocks(di, gid) {
   const mode = assignMode(di);
   const groupLabel = cfg.title.split(' - ')[0];
   const blocks = buildGroupChatBlocksBase(di, gid, d, players, io, cfg, mode, groupLabel);
+  if (GROUP_BUILDINGS[gid] && blocks.length) {
+    if (mode === 'buildings') {
+      const split = playersByBuilding(gid, players);
+      split.forEach((x, i) => { if (blocks[i]) blocks[i] += '\n' + groupPlanLines(di, gid, x.building || '').join('\n'); });
+    } else {
+      blocks[blocks.length - 1] += '\n\n' + groupPlanLines(di, gid, '').join('\n');
+    }
+  } else if (gid === 'dps' && blocks.length) {
+    blocks[blocks.length - 1] += '\n\n' + strikePlanLines().join('\n');
+  }
   const shrine = isStandby(gid) ? [] : players.filter(p => p.shrine).map(p => p.name.trim());
   if (shrine.length && blocks.length) blocks[blocks.length - 1] += '\nSwordshrine at 15:00: ' + shrine.join(', ');
   return blocks;
@@ -3154,6 +3235,10 @@ ${renderDispatchSection('⚔ LEGION 2', d2)}
   <div class="role-key-item">⚔ <strong>Tank / Lead</strong> - Teleport to assigned buildings, cap first, attack with healers</div>
   <div class="role-key-item">✚ <strong>Healer</strong> - Garrison both buildings, reinforce tank, call DPS positions in chat</div>
   <div class="role-key-item">🎯 <strong>DPS</strong> - Strike team: rally and capture buildings, hand them off to the lead, then roam and attack weaker players</div>
+  <div class="role-key-title" style="margin-top:8px;">Battle Plan</div>
+  <div class="role-key-item"><strong>Phase 1 - Take ours:</strong> main march on your building, secondary marches on the rest of your group's buildings. Strike team captures (Bell Tower first) and moves on once the lead's marches arrive.</div>
+  <div class="role-key-item"><strong>Phase 2 - Take theirs:</strong> strike team rallies the enemy Sanctum, then the enemy Abbey. Group 3 holds the enemy Sanctum, Group 1 the enemy Abbey, with secondary marches.</div>
+  <div class="role-key-item"><strong>15:00:</strong> Swordshrine opens; Mercenary Camp strikes the enemy building we are attacking. Teleporting pulls your garrisons - the strike team does not garrison.</div>
   ${(d1.roster && d1.roster.ioMode) || (d2.roster && d2.roster.ioMode) ? `
   <div class="role-key-title" style="margin-top:8px;">Inside / Outside - first 10 minutes</div>
   <div class="role-key-item">🛡 <strong>I - Inside</strong> - ${IO_GUIDE.I.points.join('; ')}</div>
