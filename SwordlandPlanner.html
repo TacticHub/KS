@@ -1394,7 +1394,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
         </div></div>
         <div class="pg-step share"><div class="pg-num">7</div><div>
           <div class="pg-step-title">Discord</div>
-          <div class="pg-step-text">Tap <strong>📋 Generate Discord Output</strong>, then <strong>Copy to Clipboard</strong> and paste into your Discord channel. For a picture, use <strong>🖼 Visual Export</strong> and screenshot it or print to PDF.</div>
+          <div class="pg-step-text">Tap <strong>📋 Generate Discord Output</strong>, then <strong>Copy to Clipboard</strong> and paste into your Discord channel. The Discord copy starts with a map link that Discord shows as a picture. Tap <strong>🗺 Share Map</strong> for a map with this plan drawn on it (leads, Swordshrine, strike targets) to post alongside. For a full roster picture, use <strong>🖼 Visual Export</strong> and screenshot it or print to PDF.</div>
         </div></div>
         <div class="pg-step save"><div class="pg-num">8</div><div>
           <div class="pg-step-title">Save the plan</div>
@@ -1689,6 +1689,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
       <button class="action-btn" onclick="openArchive()">📚 Archive</button>
       <button class="action-btn" onclick="openSaveModal()">💾 Save Plan</button>
       <button class="action-btn" onclick="visualExport()">🖼 Visual Export</button>
+      <button class="action-btn" onclick="shareMapImage(0)">🗺 Share Map</button>
       <button class="action-btn danger" onclick="clearRoster(0)">🗑 Clear Legion 1</button>
     </div>
   </div>
@@ -1902,6 +1903,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
       <button class="action-btn" onclick="openArchive()">📚 Archive</button>
       <button class="action-btn" onclick="openSaveModal()">💾 Save Plan</button>
       <button class="action-btn" onclick="visualExport()">🖼 Visual Export</button>
+      <button class="action-btn" onclick="shareMapImage(1)">🗺 Share Map</button>
       <button class="action-btn danger" onclick="clearRoster(1)">🗑 Clear Legion 2</button>
     </div>
   </div>
@@ -2792,6 +2794,7 @@ function buildDiscordOutput(di) {
   out += `       ${label}  -  ${time} UTC\n`;
   out += '⚔️ ════════════════════════════ ⚔️\n';
   if (note) out += `📝 ${note}\n`;
+  out += `🗺 Map: ${MAP_IMAGE_URL}\n`;
   out += '\n';
 
   const sections = [
@@ -4052,6 +4055,149 @@ function movePlayer(di, fromGid, i, toGid) {
   const g = GROUPS.find(x => x.id === toGid);
   showToast('Moved ' + (p.name || 'player') + ' to ' + (g ? g.label : toGid) +
     (isStandby(toGid) ? '' : ' - set their role' + (usesBuildings(di) && GROUP_BUILDINGS[toGid] ? ' and building' : '')));
+}
+
+/* ══════════════════════════════════════════════════════
+   MAP IMAGES
+   1. MAP_IMAGE_URL: a static map picture hosted with the site. Its link sits
+      at the top of the Discord output and Discord shows it as an image.
+   2. Share Map: draws this legion's plan onto the page's map (leads, crews,
+      Swordshrine, strike targets, loot crew) as a PNG, then opens the phone's
+      share sheet (or downloads on a computer) so it can be posted to Discord.
+══════════════════════════════════════════════════════ */
+const MAP_IMAGE_URL = 'https://tactichub.github.io/KS/images/swordland/swordland-map.png';
+
+/* Building boxes on the map (viewBox 0 0 480 480): x, y, w, h, label side */
+const MAP_BOXES = {
+  'Bell Tower':          { x: 106, y: 90,  w: 84, h: 30, side: 'below' },
+  'Top Abbey':           { x: 290, y: 90,  w: 84, h: 30, side: 'below' },
+  'Mercenary Camp':      { x: 198, y: 164, w: 84, h: 30, side: 'above' },
+  'Sanctum':             { x: 76,  y: 148, w: 84, h: 30, side: 'below' },
+  'Mid Abbey':           { x: 76,  y: 300, w: 84, h: 30, side: 'below' },
+  'Low Abbey':           { x: 106, y: 356, w: 84, h: 30, side: 'below' },
+  'Hall of Reformation': { x: 198, y: 294, w: 84, h: 30, side: 'below' },
+  'Royal Stables':       { x: 290, y: 356, w: 84, h: 30, side: 'below' }
+};
+
+function svgEsc(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function clip(t, n) { t = String(t || '').trim(); return t.length > n ? t.slice(0, n - 1) + '…' : t; }
+
+function mapLabel(x, y, text, color, size) {
+  return `<text x="${x}" y="${y}" text-anchor="middle" fill="${color}" font-family="Arial, Helvetica, sans-serif"
+    font-size="${size || 7}" font-weight="700" stroke="#0b1626" stroke-width="2.6" paint-order="stroke">${svgEsc(text)}</text>`;
+}
+
+/* The page's map with this legion's plan written on it */
+function buildPlanMapSvg(di) {
+  const base = document.querySelector('#mapPanel svg');
+  if (!base) return '';
+  const d = dispatches[di];
+  const named = gid => (d[gid] || []).filter(p => p.name && p.name.trim());
+  let over = '';
+  Object.keys(MAP_BOXES).forEach(b => {
+    const box = MAP_BOXES[b], gid = buildingGroup(b);
+    const ps = named(gid).filter(p => p.building === b);
+    const lead = ps.find(p => p.role === LEAD_ROLE) || ps[0];
+    const cx = box.x + box.w / 2;
+    const color = { g1: '#f0c040', g2: '#7be3a0', g3: '#8fb4ff' }[gid] || '#ffffff';
+    const txt = lead ? '★ ' + clip(lead.name, 16) + (ps.length > 1 ? '  +' + (ps.length - 1) : '') : 'Lead: open';
+    const y = box.side === 'above' ? box.y - 4 : box.y + box.h + 9;
+    over += mapLabel(cx, y, txt, lead ? color : '#ff8a7a', 7);
+  });
+  const shrine = ['g1', 'g2', 'g3', 'dps'].flatMap(named).find(p => p.shrine);
+  if (shrine) over += mapLabel(240, 263, '⚔ ' + clip(shrine.name, 18) + ' · 15:00', '#ffd27a', 6.5);
+  const strikers = g => named('dps').filter(p => p.strikeFor === g).map(p => clip(p.name, 12));
+  const g1s = strikers('g1'), g23 = strikers('g2').concat(strikers('g3'));
+  if (g1s.length) over += mapLabel(362, 235, '🎯 ' + g1s.join(', '), '#ffb3a6', 6.5);
+  if (g23.length) over += mapLabel(362, 251, '🎯 ' + g23.join(', '), '#ffb3a6', 6.5);
+  /* attack arrows: Group 1 to the enemy Abbey, Group 3 to the enemy Sanctum */
+  over += `<defs><marker id="ah" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+    <path d="M0,0 L6,3 L0,6 z" fill="#ff7a66"/></marker></defs>
+    <path d="M 340 128 Q 372 160 362 192" fill="none" stroke="#ff7a66" stroke-width="1.6" stroke-dasharray="4,3" marker-end="url(#ah)" opacity="0.85"/>
+    <path d="M 340 352 Q 372 320 362 290" fill="none" stroke="#ff7a66" stroke-width="1.6" stroke-dasharray="4,3" marker-end="url(#ah)" opacity="0.85"/>`;
+  const inner = base.innerHTML;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480">${inner}${over}</svg>`;
+}
+
+/* Full picture: header, plan map, legend */
+function buildPlanImageSvg(di) {
+  const W = 1080, H = 1440, M = 1080;
+  const time = (document.getElementById('time-' + di) || {}).value || '';
+  const d = dispatches[di];
+  const named = gid => (d[gid] || []).filter(p => p.name && p.name.trim());
+  const mapSvg = buildPlanMapSvg(di).replace('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480">',
+    `<svg x="0" y="150" width="${M}" height="${M}" viewBox="0 0 480 480">`);
+  const strikeLine = strikeAssignLine(di).replace(/^Assignments - /, '');
+  const loot = lootNames(di);
+  const counts = ['g1', 'g2', 'g3', 'dps'].map(g => groupShort(g).replace('DPS', 'Strike team') + ': ' + named(g).length).join(' · ');
+  const legend = [
+    ['★ = building lead, +N = garrison with them', '#c9d3e3'],
+    strikeLine ? ['🎯 Strike: ' + strikeLine, '#ffb3a6'] : null,
+    loot.length ? ['💰 Loot crew: ' + loot.join(', '), '#9fe3b4'] : null,
+    [counts, '#c9d3e3']
+  ].filter(Boolean);
+  /* wrap long legend lines so nothing is cut off */
+  const wrap = (t, n) => {
+    const out = []; let cur = '';
+    t.split(' ').forEach(w => { if ((cur + ' ' + w).trim().length > n && cur) { out.push(cur); cur = '   ' + w; } else cur = (cur ? cur + ' ' : '') + w; });
+    if (cur) out.push(cur); return out;
+  };
+  const rows = legend.flatMap(([t, c]) => wrap(t, 66).map(x => [x, c]));
+  const LH = 44;
+  let ly = 150 + M + 40;
+  const legendSvg = rows.map(([t, c]) => {
+    const line = `<text x="54" y="${ly}" fill="${c}" font-family="Arial, Helvetica, sans-serif" font-size="29" xml:space="preserve">${svgEsc(t)}</text>`;
+    ly += LH; return line;
+  }).join('');
+  const Hfit = Math.max(H, ly + 10);
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${Hfit}" viewBox="0 0 ${W} ${Hfit}">
+    <rect width="${W}" height="${Hfit}" fill="#0b1626"/>
+    <text x="54" y="70" fill="#e0a339" font-family="Georgia, 'Times New Roman', serif" font-size="46" font-weight="700" letter-spacing="2">SWORDLAND SHOWDOWN</text>
+    <text x="54" y="118" fill="#c9d3e3" font-family="Arial, Helvetica, sans-serif" font-size="30">${svgEsc('Kingdom 1625 · ' + alliances[currentAlliance].label + ' · Legion ' + (di + 1) + (time ? ' · ' + time + ' UTC' : ''))}</text>
+    ${mapSvg}${legendSvg}
+  </svg>`;
+}
+
+function svgToPngBlob(svg, w, h) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml;charset=utf-8' }));
+    img.onload = () => {
+      try {
+        const c = document.createElement('canvas'); c.width = w; c.height = h;
+        c.getContext('2d').drawImage(img, 0, 0, w, h);
+        URL.revokeObjectURL(url);
+        c.toBlob(b => b ? resolve(b) : reject(new Error('No image')), 'image/png');
+      } catch (e) { reject(e); }
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Could not draw the map')); };
+    img.src = url;
+  });
+}
+
+async function shareMapImage(di) {
+  if (!['g1', 'g2', 'g3', 'dps'].some(g => (dispatches[di][g] || []).some(p => p.name && p.name.trim()))) {
+    showToast('⚠ Add players to Legion ' + (di + 1) + ' first'); return;
+  }
+  showToast('🗺 Drawing the map...');
+  let blob;
+  try {
+    const svg = buildPlanImageSvg(di);
+    const h = Number((svg.match(/height="(\d+)"/) || [0, 1440])[1]);
+    blob = await svgToPngBlob(svg, 1080, h);
+  }
+  catch (e) { showToast('⚠ ' + e.message); return; }
+  const name = 'swordland-legion' + (di + 1) + '-map.png';
+  const file = new File([blob], name, { type: 'image/png' });
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    try { await navigator.share({ files: [file], title: 'Swordland Legion ' + (di + 1) + ' map' }); return; }
+    catch (e) { if (e && e.name === 'AbortError') return; }
+  }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  showToast('🗺 Map saved - drag it into Discord');
 }
 
 /* ── INIT ── */
