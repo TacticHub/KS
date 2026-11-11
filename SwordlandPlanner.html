@@ -342,6 +342,11 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
 .group-card-header.grp3 { background: rgba(100,149,237,0.07); border-bottom-color: rgba(100,149,237,0.18); }
 .group-card-header.dps  { background: rgba(217,74,58,0.07);   border-bottom-color: rgba(217,74,58,0.18); }
 .group-card-header.reserve { background: rgba(92,111,133,0.07); border-bottom-color: rgba(92,111,133,0.18); }
+.group-card-header.subs { background: rgba(176,140,230,0.07); border-bottom-color: rgba(176,140,230,0.2); }
+.group-card.subs-card { border-style: dashed; border-color: rgba(176,140,230,0.35); }
+.subs-count { display:inline-block; margin-left:8px; padding:1px 8px; border-radius:10px; font-family:'Lato',sans-serif; font-size:0.66rem; letter-spacing:0.04em; color:#cdb8f2; background:rgba(176,140,230,0.14); border:1px solid rgba(176,140,230,0.3); vertical-align:middle; }
+.subs-hint { font-family:'Lato',sans-serif; font-size:0.72rem; color:var(--text-muted); padding:8px 14px 0; line-height:1.45; }
+.player-table td select.move-select { min-width: 118px; color:#cdb8f2; }
 
 .group-card-name {
   font-family: 'Cinzel', serif;
@@ -354,6 +359,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
 .group-card-name.grp3 { color: var(--grp3-color); }
 .group-card-name.dps   { color: var(--dps-color); }
 .group-card-name.reserve { color: var(--text-muted); }
+.group-card-name.subs { color: #cdb8f2; }
 
 .group-buildings {
   font-family: 'Lato', sans-serif;
@@ -1291,11 +1297,11 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
       <div class="pg-steps">
         <div class="pg-step"><div class="pg-num">4</div><div>
           <div class="pg-step-title">Add players</div>
-          <div class="pg-step-text">Tap <strong>＋ Add Player</strong> on a group card, or <strong>Upload Excel / CSV</strong> to fill both legions at once. Imported DPS and Farm/Support players are sorted automatically; imported tanks and healers all land in <strong>Group 1</strong>, so check that card after importing.</div>
+          <div class="pg-step-text">Tap <strong>＋ Add Player</strong> on a group card, or <strong>Upload Excel / CSV</strong> to fill both legions at once. Imported DPS and Farm/Support players are sorted automatically; imported tanks and healers all land in <strong>Group 1</strong>, so check that card after importing. Players waiting for an opening go on the <strong>Substitutes</strong> card (add a <strong>Subs</strong> row in your sheet to import them there).</div>
         </div></div>
         <div class="pg-step"><div class="pg-num">5</div><div>
           <div class="pg-step-title">Assign roles</div>
-          <div class="pg-step-text">For each player set the <strong>Role</strong>: <strong>Lead</strong> (or Tank 1-3), Healer, DPS, or Farm/Support. Then set <strong>Building</strong> and <strong>I / O</strong> if those are turned on. The map sidebar lists each building's points and perks.</div>
+          <div class="pg-step-text">For each player set the <strong>Role</strong>: <strong>Lead</strong> (or Tank 1-3), Healer, DPS, or Farm/Support. Then set <strong>Building</strong> and <strong>I / O</strong> if those are turned on. The map sidebar lists each building's points and perks. If someone drops out, use <strong>Move In</strong> on a substitute to put them in that group.</div>
         </div></div>
       </div>
 
@@ -1830,7 +1836,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
 <script>
 /* ═══════════════════════════════════════════════════
    DATA MODEL
-   Each dispatch has groups: G1, G2, G3, DPS, Reserve
+   Each dispatch has groups: G1, G2, G3, DPS, Reserve, Substitutes
    Each group has players: { name, power, role }
 ═══════════════════════════════════════════════════ */
 
@@ -1840,7 +1846,19 @@ const GROUPS = [
   { id: 'g3',      label: 'Group 3', cls: 'grp3',    buildings: 'Low Abbey · Reformation · Stables' },
   { id: 'dps',     label: 'DPS',     cls: 'dps',     buildings: 'Roam Free - Do NOT Garrison' },
   { id: 'reserve', label: 'Reserve', cls: 'reserve', buildings: 'Farm / Support' },
+  { id: 'subs',    label: 'Substitutes', cls: 'subs', buildings: 'On standby - join only if a spot opens', standby: true },
 ];
+
+/* Substitutes wait outside the event. They are not counted in I/O totals and
+   have no building or zone until they are moved into a group. */
+function isStandby(gid) { return gid === 'subs'; }
+function emptyRoster() { return { g1:[], g2:[], g3:[], dps:[], reserve:[], subs:[] }; }
+/* Older saved plans have no subs list - fill in any missing group arrays */
+function normalizeRoster(r) {
+  const out = r || {};
+  GROUPS.forEach(g => { if (!Array.isArray(out[g.id])) out[g.id] = []; });
+  return out;
+}
 
 /* Buildings a player in each group can be assigned to (Assign by: Buildings / Both) */
 const GROUP_BUILDINGS = {
@@ -1871,8 +1889,8 @@ const alliances = {
     badgeCls: 'ally-a',
     color: 'var(--gold)',
     dispatches: [
-      { g1:[], g2:[], g3:[], dps:[], reserve:[] },
-      { g1:[], g2:[], g3:[], dps:[], reserve:[] },
+      emptyRoster(),
+      emptyRoster(),
     ]
   },
   B: {
@@ -1880,8 +1898,8 @@ const alliances = {
     badgeCls: 'ally-b',
     color: '#22b8c4',
     dispatches: [
-      { g1:[], g2:[], g3:[], dps:[], reserve:[] },
-      { g1:[], g2:[], g3:[], dps:[], reserve:[] },
+      emptyRoster(),
+      emptyRoster(),
     ]
   }
 };
@@ -2008,7 +2026,7 @@ function setZone(di, gid, i, val, sel) {
 
 function ioCounts(roster) {
   let I = 0, O = 0, none = 0;
-  GROUPS.forEach(g => (roster[g.id] || []).forEach(p => {
+  GROUPS.forEach(g => (isStandby(g.id) ? [] : (roster[g.id] || [])).forEach(p => {
     if (!p.name) return;
     if (p.zone === 'I') I++; else if (p.zone === 'O') O++; else none++;
   }));
@@ -2060,26 +2078,31 @@ function renderRoster(di) {
   const container = document.getElementById('roster-' + di);
   container.innerHTML = '';
   const io = isIO(di);
+  normalizeRoster(dispatches[di]);
   GROUPS.forEach(g => {
     const players = dispatches[di][g.id];
-    const showB = usesBuildings(di) && !!GROUP_BUILDINGS[g.id];
+    const sb = isStandby(g.id);
+    const showB = !sb && usesBuildings(di) && !!GROUP_BUILDINGS[g.id];
+    const showIO = io && !sb;
+    const subN = sb ? players.filter(p => p.name && p.name.trim()).length : 0;
     const card = document.createElement('div');
-    card.className = 'group-card';
+    card.className = 'group-card' + (sb ? ' subs-card' : '');
     card.innerHTML = `
       <div class="group-card-header ${g.cls}">
         <div style="flex:1;">
-          <div class="group-card-name ${g.cls}">${g.label}</div>
+          <div class="group-card-name ${g.cls}">${g.label}${sb ? `<span class="subs-count" id="subs-count-${di}">${subN} waiting</span>` : ''}</div>
           <div class="group-buildings">${g.buildings}</div>
         </div>
         <div class="group-card-actions">
           <button class="chat-copy-btn" title="Copy a short line for in-game chat" onclick="copyGroupChat(${di},'${g.id}')">💬 Copy</button>
-          <button class="add-row-btn" onclick="addPlayer(${di},'${g.id}')">＋ Add Player</button>
+          <button class="add-row-btn" onclick="addPlayer(${di},'${g.id}')">＋ ${sb ? 'Add Sub' : 'Add Player'}</button>
         </div>
       </div>
+      ${sb ? `<div class="subs-hint">Players waiting to see if a spot opens. Set the role they can cover, then use <strong>Move In</strong> to put them into a group when someone drops out.</div>` : ''}
       <div class="player-table-wrap">
         <table class="player-table">
           <thead><tr>
-            <th>#</th><th>Player Name</th><th>Power (K)</th><th>Role</th>${showB ? '<th>Building</th>' : ''}${io ? '<th>I / O</th>' : ''}<th></th>
+            <th>#</th><th>Player Name</th><th>Power (K)</th><th>${sb ? 'Can Cover' : 'Role'}</th>${showB ? '<th>Building</th>' : ''}${showIO ? '<th>I / O</th>' : ''}${sb ? '<th>Move In</th>' : ''}<th></th>
           </tr></thead>
           <tbody id="tbody-${di}-${g.id}"></tbody>
         </table>
@@ -2093,10 +2116,12 @@ function renderTbody(di, gid) {
   const tbody = document.getElementById('tbody-' + di + '-' + gid);
   if (!tbody) return;
   const players = dispatches[di][gid];
-  const io = isIO(di);
-  const showB = usesBuildings(di) && !!GROUP_BUILDINGS[gid];
+  const sb = isStandby(gid);
+  const io = isIO(di) && !sb;
+  const showB = !sb && usesBuildings(di) && !!GROUP_BUILDINGS[gid];
+  renderSubsCount(di);
   if (players.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="${5 + (io ? 1 : 0) + (showB ? 1 : 0)}" style="color:var(--text-muted);font-style:italic;font-size:0.82rem;padding:12px;">No players assigned yet</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="${5 + (io ? 1 : 0) + (showB ? 1 : 0) + (sb ? 1 : 0)}" style="color:var(--text-muted);font-style:italic;font-size:0.82rem;padding:12px;">${sb ? 'No substitutes waiting' : 'No players assigned yet'}</td></tr>`;
     return;
   }
   tbody.innerHTML = players.map((p, i) => {
@@ -2105,7 +2130,7 @@ function renderTbody(di, gid) {
       <td style="color:var(--text-muted);font-size:0.78rem;width:28px;">${i+1}</td>
       <td class="player-name-cell">
         <input type="text" value="${escAttr(p.name)}" placeholder="Player name"
-          oninput="dispatches[${di}]['${gid}'][${i}].name=this.value;renderIOCounts(${di})" />
+          oninput="dispatches[${di}]['${gid}'][${i}].name=this.value;renderIOCounts(${di});renderSubsCount(${di})" />
       </td>
       <td class="player-power">
         <input type="text" value="${escAttr(p.power)}" placeholder="e.g. 450"
@@ -2132,6 +2157,13 @@ function renderTbody(di, gid) {
           <option value="O" ${p.zone === 'O' ? 'selected' : ''}>O - Outside</option>
         </select>
       </td>` : ''}
+      ${sb ? `<td>
+        <select class="move-select" title="Move this sub into a group when a spot opens"
+          onchange="if(this.value)moveSub(${di},${i},this.value)">
+          <option value="" selected>- Standby -</option>
+          ${GROUPS.filter(x => !isStandby(x.id)).map(x => `<option value="${x.id}">→ ${x.label}</option>`).join('')}
+        </select>
+      </td>` : ''}
       <td><button class="remove-row-btn" onclick="removePlayer(${di},'${gid}',${i})">✕</button></td>
     </tr>`;
   }).join('');
@@ -2155,6 +2187,27 @@ function addPlayer(di, gid) {
   renderTbody(di, gid);
 }
 
+/* Move a substitute into a group (a spot opened up) */
+function moveSub(di, i, toGid) {
+  const d = dispatches[di];
+  const p = d.subs.splice(i, 1)[0];
+  if (!p) return;
+  p.zone = ''; p.building = '';
+  d[toGid].push(p);
+  renderTbody(di, 'subs');
+  renderTbody(di, toGid);
+  renderIOCounts(di);
+  const g = GROUPS.find(x => x.id === toGid);
+  showToast('✅ ' + (p.name || 'Sub') + ' moved into ' + (g ? g.label : toGid));
+}
+
+function renderSubsCount(di) {
+  const el = document.getElementById('subs-count-' + di);
+  if (!el) return;
+  const n = (dispatches[di].subs || []).filter(p => p.name && p.name.trim()).length;
+  el.textContent = n + ' waiting';
+}
+
 function removePlayer(di, gid, i) {
   dispatches[di][gid].splice(i, 1);
   renderTbody(di, gid);
@@ -2164,7 +2217,7 @@ function removePlayer(di, gid, i) {
 function clearRoster(di) {
   if (!confirm('Clear all players from ' + alliances[currentAlliance].label + ' Legion ' + (di+1) + '?')) return;
   const keepIO = isIO(di);
-  dispatches[di] = { g1: [], g2: [], g3: [], dps: [], reserve: [], ioMode: keepIO, assignMode: assignMode(di) };
+  dispatches[di] = Object.assign(emptyRoster(), { ioMode: keepIO, assignMode: assignMode(di) });
   renderRoster(di);
 }
 
@@ -2249,20 +2302,21 @@ function parseCSV(csv, status) {
     if (headerRow === -1) { status.className='upload-status error'; status.textContent='Could not find a header row with a "Legion" column.'; return; }
 
     /* Parse columns - expect: Nr, Name1, Power1, Role1, Name2, Power2, Role2 */
-    const d1 = { g1:[], g2:[], g3:[], dps:[], reserve:[] };
-    const d2 = { g1:[], g2:[], g3:[], dps:[], reserve:[] };
-    let currentSection = 'main'; /* 'main' or 'reserve' */
+    const d1 = emptyRoster();
+    const d2 = emptyRoster();
+    let currentSection = 'main'; /* 'main', 'reserve' or 'subs' */
 
     for (let i = headerRow + 1; i < lines.length; i++) {
       const row = lines[i];
       if (!row || row.length < 2) continue;
       const first = (row[0]||'').toLowerCase();
       if (first === 'reserve') { currentSection = 'reserve'; continue; }
+      if (first === 'subs' || first === 'sub' || first === 'substitutes' || first === 'substitute') { currentSection = 'subs'; continue; }
       const nr = row[0]; const n1 = row[1]; const p1 = row[2]; const r1 = row[3];
       const n2 = row[4]; const p2 = row[5]; const r2 = row[6];
       if (!n1 && !n2) continue;
-      if (n1) { const gid = currentSection==='reserve'?'reserve':inferGroup(r1); d1[gid].push({name:n1,power:p1||'',role:normalizeRole(r1)}); }
-      if (n2) { const gid = currentSection==='reserve'?'reserve':inferGroup(r2); d2[gid].push({name:n2,power:p2||'',role:normalizeRole(r2)}); }
+      if (n1) { const gid = currentSection!=='main'?currentSection:inferGroup(r1); d1[gid].push({name:n1,power:p1||'',role:normalizeRole(r1)}); }
+      if (n2) { const gid = currentSection!=='main'?currentSection:inferGroup(r2); d2[gid].push({name:n2,power:p2||'',role:normalizeRole(r2)}); }
     }
 
     d1.ioMode = isIO(0);
@@ -2338,10 +2392,12 @@ function buildDiscordOutput(di) {
     { id:'g3', emoji:'🔵', label:'GROUP 3', sub:'Low Abbey · Reformation · Stables' },
     { id:'dps', emoji:'🔴', label:'DPS', sub:'Roam Free - Do NOT Garrison' },
     { id:'reserve', emoji:'⚪', label:'RESERVE', sub:'Farm / Support' },
+    { id:'subs', emoji:'🟣', label:'SUBSTITUTES', sub:'Standby - join only if a spot opens' },
   ];
 
   sections.forEach(s => {
     const players = d[s.id];
+    const sb = isStandby(s.id);
     if (!players || players.length === 0) return;
     out += `${s.emoji} ${s.label}\n`;
     out += `   📍 ${s.sub}\n`;
@@ -2349,7 +2405,7 @@ function buildDiscordOutput(di) {
       if (!p.name) return;
       const power = p.power ? ` (${p.power}K)` : '';
       const role = p.role && p.role !== 'Unassigned' ? ` - ${p.role}` : '';
-      const zone = d.ioMode && p.zone ? ` [${p.zone}]` : '';
+      const zone = !sb && d.ioMode && p.zone ? ` [${p.zone}]` : '';
       const bldg = usesBuildings(di) && GROUP_BUILDINGS[s.id] && p.building ? ` @ ${p.building}` : '';
       out += `   ${i+1}. ${p.name}${power}${role}${zone}${bldg}\n`;
     });
@@ -2383,7 +2439,8 @@ const CHAT_GROUPS = {
   g2:      { title: 'Group 2 - Sanctum / Mid Abbey',                      list: 'Garrison' },
   g3:      { title: 'Group 3 - Low Abbey / Reformation / Royal Stables',  list: 'Garrison' },
   dps:     { title: 'DPS - Roam Free (do not garrison)',                  list: 'Roam' },
-  reserve: { title: 'Reserve - Farm / Support',                           list: 'Players' }
+  reserve: { title: 'Reserve - Farm / Support',                           list: 'Players' },
+  subs:    { title: 'Substitutes - Standby, join only if a spot opens',   list: 'Standby' }
 };
 
 /* Lead line + bulleted list for a set of players */
@@ -2416,6 +2473,10 @@ function buildGroupChatBlocks(di, gid) {
   const cfg = CHAT_GROUPS[gid];
   const mode = assignMode(di);
   const groupLabel = cfg.title.split(' - ')[0];
+  if (isStandby(gid)) {
+    const lines = players.map(p => '• ' + p.name.trim() + (p.role && p.role !== 'Unassigned' ? ' (' + p.role + ')' : ''));
+    return [[cfg.title, cfg.list + ':', ...lines].join('\n')];
+  }
 
   if (mode === 'groups' || !GROUP_BUILDINGS[gid]) {
     return [[cfg.title, ...chatBody(players, cfg.list, io)].join('\n')];
@@ -2630,12 +2691,12 @@ function loadPlan(id) {
       if (p.dispatch1) {
         document.getElementById('time-0').value = p.dispatch1.time || '14:00';
         document.getElementById('note-0').value = p.dispatch1.note || '';
-        dispatches[0] = p.dispatch1.roster || {g1:[],g2:[],g3:[],dps:[],reserve:[]};
+        dispatches[0] = normalizeRoster(p.dispatch1.roster);
       }
       if (p.dispatch2) {
         document.getElementById('time-1').value = p.dispatch2.time || '19:00';
         document.getElementById('note-1').value = p.dispatch2.note || '';
-        dispatches[1] = p.dispatch2.roster || {g1:[],g2:[],g3:[],dps:[],reserve:[]};
+        dispatches[1] = normalizeRoster(p.dispatch2.roster);
       }
       renderAll();
       initLocalTimes();
@@ -2693,6 +2754,7 @@ function buildExportHTML(plan) {
       { id:'g3', emoji:'🔵', label:'Group 3', color:'#3a5faa', buildings:'Low Abbey · Reformation · Stables' },
       { id:'dps', emoji:'🔴', label:'DPS', color:'#aa2a1a', buildings:'Roam Free - Do NOT Garrison' },
       { id:'reserve', emoji:'⚪', label:'Reserve', color:'#666', buildings:'Farm / Support' },
+      { id:'subs', emoji:'🟣', label:'Substitutes', color:'#7a55b8', buildings:'Standby - join only if a spot opens' },
     ];
 
     let out = `<div class="dispatch-block">
@@ -2703,18 +2765,19 @@ function buildExportHTML(plan) {
     sections.forEach(s => {
       const players = (d.roster[s.id] || []).filter(p => p.name);
       if (players.length === 0) return;
+      const sio = io && s.id !== 'subs';
       out += `<div class="group-block" style="border-top:3px solid ${s.color};">
         <div class="group-title" style="color:${s.color};">${s.emoji} ${s.label}</div>
         <div class="group-buildings">${s.buildings}</div>
         <table class="player-tbl">
-          <thead><tr><th>#</th><th>Player</th><th>Power</th><th>Role</th>${io ? '<th>I/O</th>' : ''}</tr></thead>
+          <thead><tr><th>#</th><th>Player</th><th>Power</th><th>${s.id === 'subs' ? 'Can Cover' : 'Role'}</th>${sio ? '<th>I/O</th>' : ''}</tr></thead>
           <tbody>
             ${players.map((p,i) => `<tr>
               <td class="num">${i+1}</td>
               <td class="pname">${escHtml(p.name)}${d.roster.assignMode && d.roster.assignMode !== 'groups' && p.building ? `<div class="pbldg">${escHtml(p.building)}</div>` : ''}</td>
               <td class="ppower">${escHtml(p.power||'')}${p.power?'K':''}</td>
               <td class="prole ${getRoleCls(p.role)}">${escHtml(p.role||'')}</td>
-              ${io ? `<td class="pzone ${p.zone==='I'?'zin':p.zone==='O'?'zout':''}">${p.zone||''}</td>` : ''}
+              ${sio ? `<td class="pzone ${p.zone==='I'?'zin':p.zone==='O'?'zout':''}">${p.zone||''}</td>` : ''}
             </tr>`).join('')}
           </tbody>
         </table>
