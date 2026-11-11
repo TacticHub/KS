@@ -1085,6 +1085,34 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
     .how-to-option { min-width: 100%; }
   }
 
+  /* ── DRAG & DROP / TAGS / UNDO ── */
+  .drag-cell { width: 44px; white-space: nowrap; color: var(--text-muted); font-size: 0.78rem; }
+  .grip { display: inline-block; padding: 6px 6px 6px 2px; margin-right: 2px; cursor: grab; touch-action: none;
+    user-select: none; -webkit-user-select: none; font-size: 1rem; line-height: 1; color: var(--text-muted); }
+  .grip:hover { color: var(--gold); }
+  .drag-ghost { position: fixed; z-index: 3000; pointer-events: none; padding: 8px 12px; border-radius: 8px;
+    background: var(--gold); color: #14263f; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.85rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.45); transform: translate(-50%, -120%); white-space: nowrap; }
+  .group-card.drop-target { outline: 2px dashed var(--gold); outline-offset: 2px; }
+  tr.drag-source { opacity: 0.35; }
+  body.dragging, body.dragging * { cursor: grabbing !important; user-select: none !important; -webkit-user-select: none !important; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; margin-top: 5px; }
+  .tag-row .shrine-badge { margin-top: 0; }
+  .tag-btn { padding: 2px 8px; border-radius: 10px; cursor: pointer; font-family: 'Lato', sans-serif; font-size: 0.68rem;
+    background: transparent; color: var(--text-muted); border: 1px dashed rgba(224,163,57,0.3); }
+  .tag-btn:hover { color: var(--gold); border-color: var(--gold); }
+  .tag-menu { position: fixed; z-index: 3000; min-width: 220px; background: var(--dark2); border: 1px solid rgba(224,163,57,0.35);
+    border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); padding: 6px; font-family: 'Lato', sans-serif; }
+  .tag-menu button { display: flex; width: 100%; align-items: center; gap: 8px; padding: 10px 12px; border: none; border-radius: 7px;
+    background: transparent; color: var(--text); font-size: 0.88rem; cursor: pointer; text-align: left; }
+  .tag-menu button:hover { background: rgba(224,163,57,0.1); }
+  .tag-menu .tick { width: 16px; color: var(--gold); font-weight: 700; }
+  .live-tools { display: flex; gap: 6px; align-items: center; }
+  .undo-btn { font-family: 'Lato', sans-serif; font-size: 0.8rem; padding: 6px 10px; border-radius: 7px; cursor: pointer;
+    background: transparent; color: var(--text-dim); border: 1px solid rgba(224,163,57,0.25); }
+  .undo-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
+  .undo-btn:disabled { opacity: 0.35; cursor: default; }
+
   /* ── CHAT MESSAGES (split to fit in-game chat) ── */
   .modal-output.chat-msgs { white-space: normal; display: flex; flex-direction: column; gap: 10px; background: transparent; border: none; padding: 0; }
   .modal-output.chat-msgs { max-height: 60vh; overflow-y: auto; }
@@ -1351,7 +1379,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
         </div></div>
         <div class="pg-step"><div class="pg-num">5</div><div>
           <div class="pg-step-title">Assign roles</div>
-          <div class="pg-step-text">For each player set the <strong>Role</strong>: <strong>Lead</strong> (or Tank 1-3), Healer, DPS, or Farm/Support (loot crew). Then set <strong>Building</strong> and <strong>I / O</strong> if those are turned on. The map sidebar lists each building's points and perks. On the <strong>Substitutes</strong> card, pick the group each sub backs up.</div>
+          <div class="pg-step-text">For each player set the <strong>Role</strong>: <strong>Lead</strong> (or Tank 1-3), Healer, DPS, or Farm/Support (loot crew). Then set <strong>Building</strong> and <strong>I / O</strong> if those are turned on. The map sidebar lists each building's points and perks. On the <strong>Substitutes</strong> card, pick the group each sub backs up. Drag a player by the <strong>⠿</strong> grip to move them to another group (their role and building reset), tap <strong>🏷 Tag</strong> to set Swordshrine or Loot crew, and use <strong>↶ Undo</strong> / <strong>↷ Redo</strong> above the legion tabs to step back through changes.</div>
         </div></div>
       </div>
 
@@ -1424,7 +1452,11 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
   <!-- LIVE PLAN STATUS -->
   <div class="live-bar" id="liveBar">
     <div class="live-status" id="liveStatus"><span class="live-dot"></span><span id="liveText">Connecting to the live plan...</span></div>
-    <button class="live-name-btn" id="liveNameBtn" onclick="changePlannerName()" title="Change the name shown on your edits">✎ <span id="liveName">Set your name</span></button>
+    <div class="live-tools">
+      <button class="undo-btn" id="undoBtn" onclick="undoLegion()" title="Undo (Ctrl+Z)" disabled>↶ Undo</button>
+      <button class="undo-btn" id="redoBtn" onclick="redoLegion()" title="Redo (Ctrl+Y)" disabled>↷ Redo</button>
+      <button class="live-name-btn" id="liveNameBtn" onclick="changePlannerName()" title="Change the name shown on your edits">✎ <span id="liveName">Set your name</span></button>
+    </div>
   </div>
   <div class="live-conflict" id="liveConflict" style="display:none;"></div>
 
@@ -2184,6 +2216,7 @@ function renderRoster(di) {
     const subN = sb ? players.filter(p => p.name && p.name.trim()).length : 0;
     const card = document.createElement('div');
     card.className = 'group-card' + (sb ? ' subs-card' : '');
+    card.dataset.gid = g.id; card.dataset.di = di;
     card.innerHTML = `
       <div class="group-card-header ${g.cls}">
         <div style="flex:1;">
@@ -2226,12 +2259,16 @@ function renderTbody(di, gid) {
   tbody.innerHTML = players.map((p, i) => {
     const roleCls = getRoleCls(p.role);
     return `<tr>
-      <td style="color:var(--text-muted);font-size:0.78rem;width:28px;">${i+1}</td>
+      <td class="drag-cell"><span class="grip" title="Drag to move to another group"
+          data-di="${di}" data-gid="${gid}" data-i="${i}">⠿</span><span class="row-num">${i+1}</span></td>
       <td class="player-name-cell">
         <input type="text" value="${escAttr(p.name)}" placeholder="Player name"
           oninput="dispatches[${di}]['${gid}'][${i}].name=this.value;renderIOCounts(${di});renderSubsCount(${di})" />
-        ${!sb && p.shrine ? `<div><span class="shrine-badge" title="Takes Swordshrine when it opens">⚔ Swordshrine at 15:00</span></div>` : ''}
-        ${!sb && p.loot ? `<div><span class="shrine-badge loot-badge" title="Collects Baggage Trains and gathers at the Undercellars">💰 Loot crew</span></div>` : ''}
+        ${sb ? '' : `<div class="tag-row">
+          ${p.shrine ? `<span class="shrine-badge" title="Takes Swordshrine when it opens">⚔ Swordshrine at 15:00</span>` : ''}
+          ${p.loot ? `<span class="shrine-badge loot-badge" title="Collects Baggage Trains and gathers at the Undercellars">💰 Loot crew</span>` : ''}
+          <button class="tag-btn" title="Swordshrine / Loot crew" onclick="openTagMenu(${di},'${gid}',${i},this)">🏷${p.shrine || p.loot ? '' : ' Tag'}</button>
+        </div>`}
         ${sb ? `<select class="subfor-select${p.subFor ? '' : ' any'}" title="Which group this player is a sub for"
           onchange="setSubFor(${di},${i},this.value)">
           <option value="" ${!p.subFor ? 'selected' : ''}>For any group</option>
@@ -2304,6 +2341,7 @@ function renderSubsCount(di) {
 }
 
 function removePlayer(di, gid, i) {
+  histCheckpoint(di);
   dispatches[di][gid].splice(i, 1);
   renderTbody(di, gid);
   renderIOCounts(di);
@@ -2318,7 +2356,7 @@ function clearRoster(di) {
 
 /* ── TABS ── */
 function switchTab(idx) {
-  setTimeout(() => { if (typeof setLiveStatus === 'function') setLiveStatus(); }, 0);
+  setTimeout(() => { if (typeof setLiveStatus === 'function') setLiveStatus(); if (typeof renderUndoButtons === 'function') renderUndoButtons(); }, 0);
   const al = document.getElementById('autoLegion');
   if (al) al.value = String(idx);
   document.querySelectorAll('.dispatch-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
@@ -2561,11 +2599,13 @@ function runAutoAssign() {
   const hasPlayers = GROUPS.some(g => (dispatches[di][g.id] || []).some(p => p.name && p.name.trim()));
   if (hasPlayers && !confirm('Replace the current ' + alliances[currentAlliance].label + ' Legion ' + (di + 1) + ' roster with the auto-assigned one?')) return;
 
+  histCheckpoint(di);
   const r = autoAssignRoster(list, { ioMode: isIO(di) });
   r.roster.assignMode = 'both';
   dispatches[di] = r.roster;
   switchTab(di);
   renderRoster(di);
+  histCheckpoint(di);
 
   status.className = 'upload-status success';
   const skipped = LEAD_ORDER.filter(b => !r.crews[b]);
@@ -2855,8 +2895,10 @@ const OFFENSE = [
 const LOOT_JOB = 'collect Baggage Trains when we flip an enemy building; gather at the Undercellars in the 15:00 and 20:00 waves';
 const PHASE3 = 'Phase 3: hit the enemy building with the most banked points; the loot crew collects the Baggage Trains it drops';
 
-function lootNames(di) {
-  return (dispatches[di].g2 || []).filter(p => p.loot && p.name && p.name.trim()).map(p => p.name.trim());
+/* Loot crew can be anyone: Auto Assign picks from Group 2, planners can tag more */
+function lootNames(di, gid) {
+  const gs = gid ? [gid] : GROUPS.filter(g => !isStandby(g.id)).map(g => g.id);
+  return gs.flatMap(g => (dispatches[di][g] || []).filter(p => p.loot && p.name && p.name.trim()).map(p => p.name.trim()));
 }
 
 /* Group buildings, thinnest first (fewest named players, then most points) */
@@ -2892,9 +2934,9 @@ function groupPlanLines(di, gid, building) {
   if (gid === 'g2') {
     if (!building || building === 'Sanctum') lines.push('Sanctum comes first - never leave it thin');
     lines.push('Phase 2: about a third of your secondary marches back Swordshrine from 15:00; the rest join Group 3 on the Enemy Sanctum once it is taken');
-    const ln = lootNames(di);
-    lines.push('Loot crew' + (ln.length ? ' (' + ln.join(', ') + ')' : '') + ': ' + LOOT_JOB);
   }
+  const ln = lootNames(di, gid);
+  if (ln.length) lines.push('Loot crew (' + ln.join(', ') + '): ' + LOOT_JOB);
   if (gid === 'g1' && (!building || building === 'Mercenary Camp')) lines.push('15:00: Mercenary Camp strikes the enemy building the strike team is attacking');
   return lines;
 }
@@ -2927,7 +2969,9 @@ function buildGroupChatBlocks(di, gid) {
       blocks.push(groupLabel + ' - Orders\n' + groupPlanLines(di, gid, '').join('\n'));
     }
   } else if (gid === 'dps' && blocks.length) {
-    blocks.push('Strike Team - Orders\n' + strikePlanLines().join('\n'));
+    const ln = lootNames(di, 'dps');
+    blocks.push('Strike Team - Orders\n' + strikePlanLines().join('\n') +
+      (ln.length ? '\nLoot crew (' + ln.join(', ') + '): ' + LOOT_JOB : ''));
   }
   const shrine = isStandby(gid) ? [] : players.filter(p => p.shrine).map(p => p.name.trim());
   if (shrine.length && blocks.length) blocks[blocks.length - 1] += '\nSwordshrine at 15:00: ' + shrine.join(', ');
@@ -3582,7 +3626,7 @@ function liveLoad() {
       });
       showToast('⚠ Could not reach the live plan - showing this device\'s copy');
     })
-    .then(() => { live.ready = true; setLiveStatus(); });
+    .then(() => { live.ready = true; histReset(0); histReset(1); setLiveStatus(); });
 }
 
 function liveSave(di) {
@@ -3609,6 +3653,7 @@ function liveSave(di) {
 /* Runs every second: notice local edits, keep a backup, save after a short pause */
 function liveTick() {
   if (!live.ready) return;
+  histTick();
   [0, 1].forEach(di => {
     const snap = liveSnapshot(di);
     if (snap !== live.lastSnap[di]) {
@@ -3641,6 +3686,7 @@ function livePoll() {
         live.meta[di] = { by: row.updatedBy, at: row.updatedAt };
         live.lastSnap[di] = live.synced[di] = liveSnapshot(di);
         saveLocalBackup(di, live.synced[di]);
+        histReset(di);
         if (row.updatedBy !== plannerName() || !plannerName()) {
           showToast('↻ Legion ' + (di + 1) + ' updated' + (row.updatedBy ? ' by ' + row.updatedBy : ''));
         }
@@ -3693,6 +3739,7 @@ function resolveConflict(di, choice) {
     live.meta[di] = { by: row.updatedBy, at: row.updatedAt };
     live.lastSnap[di] = live.synced[di] = liveSnapshot(di);
     saveLocalBackup(di, live.synced[di]);
+    histReset(di);
     showToast('Loaded the latest Legion ' + (di + 1));
   } else {
     live.version[di] = row.version;   /* build on top of theirs; next save goes through */
@@ -3728,6 +3775,225 @@ function liveStart() {
       } catch(e) {}
     });
   });
+}
+
+/* ══════════════════════════════════════════════════════
+   UNDO / REDO  (per legion, up to HIST_MAX steps)
+   Every change is captured as a snapshot (the same one the live plan saves).
+   Typing is grouped: a step is recorded once edits pause for HIST_SETTLE ms.
+   Discrete actions (drag, tag, Auto Assign...) call histCheckpoint() so they
+   become their own step. When another planner's change arrives for a legion,
+   that legion's history resets, so an undo can never wipe out their work.
+══════════════════════════════════════════════════════ */
+const HIST_MAX = 30;
+const HIST_SETTLE = 900;
+const hist = [ { undo: [], redo: [], cur: '', at: 0, pend: '' }, { undo: [], redo: [], cur: '', at: 0, pend: '' } ];
+
+function activeLegion() {
+  const t = document.querySelector('.dispatch-tab.active');
+  return t && t.id === 'tab-1' ? 1 : 0;
+}
+function histReset(di) {
+  hist[di] = { undo: [], redo: [], cur: liveSnapshot(di), at: 0, pend: '' };
+  renderUndoButtons();
+}
+function histCommit(di, snap) {
+  const h = hist[di];
+  if (snap === h.cur) return;
+  h.undo.push(h.cur);
+  if (h.undo.length > HIST_MAX) h.undo.shift();
+  h.cur = snap; h.redo = [];
+  renderUndoButtons();
+}
+/* Record whatever changed right now as its own step */
+function histCheckpoint(di) {
+  if (!live.ready) return;
+  histCommit(di, liveSnapshot(di));
+  hist[di].pend = '';
+}
+function histTick() {
+  [0, 1].forEach(di => {
+    const h = hist[di], snap = liveSnapshot(di);
+    if (snap === h.cur) { h.pend = ''; return; }
+    if (snap !== h.pend) { h.pend = snap; h.at = Date.now(); return; }
+    if (Date.now() - h.at >= HIST_SETTLE) { histCommit(di, snap); h.pend = ''; }
+  });
+}
+function histRestore(di, snap) {
+  try { applyLegion(di, JSON.parse(snap)); } catch(e) { return; }
+  hist[di].cur = liveSnapshot(di); hist[di].pend = '';
+  renderUndoButtons();
+}
+function undoLegion() {
+  const di = activeLegion(); histCheckpoint(di);
+  const h = hist[di];
+  if (!h.undo.length) { showToast('Nothing to undo in Legion ' + (di + 1)); return; }
+  h.redo.push(h.cur);
+  histRestore(di, h.undo.pop());
+  showToast('↶ Undone (Legion ' + (di + 1) + ')');
+}
+function redoLegion() {
+  const di = activeLegion(); histCheckpoint(di);
+  const h = hist[di];
+  if (!h.redo.length) { showToast('Nothing to redo in Legion ' + (di + 1)); return; }
+  h.undo.push(h.cur);
+  histRestore(di, h.redo.pop());
+  showToast('↷ Redone (Legion ' + (di + 1) + ')');
+}
+function renderUndoButtons() {
+  const di = activeLegion(), h = hist[di];
+  const u = document.getElementById('undoBtn'), r = document.getElementById('redoBtn');
+  if (u) u.disabled = !(h.undo.length || (h.pend && h.pend !== h.cur));
+  if (r) r.disabled = !h.redo.length;
+}
+document.addEventListener('keydown', e => {
+  if (!(e.ctrlKey || e.metaKey)) return;
+  const tag = (document.activeElement && document.activeElement.tagName) || '';
+  if (tag === 'INPUT' || tag === 'TEXTAREA') return;   /* let text boxes keep their own undo */
+  const k = e.key.toLowerCase();
+  if (k === 'z' && !e.shiftKey) { e.preventDefault(); undoLegion(); }
+  else if (k === 'y' || (k === 'z' && e.shiftKey)) { e.preventDefault(); redoLegion(); }
+});
+
+/* ══════════════════════════════════════════════════════
+   TAGS  (Swordshrine: one per legion; Loot crew: any number, any group)
+══════════════════════════════════════════════════════ */
+let tagMenuEl = null;
+function closeTagMenu() { if (tagMenuEl) { tagMenuEl.remove(); tagMenuEl = null; } }
+function openTagMenu(di, gid, i, btn) {
+  closeTagMenu();
+  const p = dispatches[di][gid][i];
+  if (!p) return;
+  const m = document.createElement('div'); m.className = 'tag-menu';
+  const opt = (on, label, fn) => {
+    const b = document.createElement('button');
+    b.innerHTML = '<span class="tick">' + (on ? '✓' : '') + '</span>' + label;
+    b.onclick = ev => { ev.stopPropagation(); closeTagMenu(); fn(); };
+    m.appendChild(b);
+  };
+  opt(!!p.shrine, '⚔ Swordshrine at 15:00', () => setShrine(di, gid, i));
+  opt(!!p.loot, '💰 Loot crew', () => toggleLoot(di, gid, i));
+  document.body.appendChild(m);
+  const r = btn.getBoundingClientRect();
+  const w = m.offsetWidth, hgt = m.offsetHeight;
+  m.style.left = Math.max(8, Math.min(window.innerWidth - w - 8, r.left)) + 'px';
+  m.style.top = (r.bottom + hgt + 8 > window.innerHeight ? r.top - hgt - 6 : r.bottom + 6) + 'px';
+  tagMenuEl = m;
+  setTimeout(() => document.addEventListener('pointerdown', function off(ev) {
+    if (tagMenuEl && !tagMenuEl.contains(ev.target)) { closeTagMenu(); }
+    document.removeEventListener('pointerdown', off, true);
+  }, true), 0);
+}
+function setShrine(di, gid, i) {
+  histCheckpoint(di);
+  const p = dispatches[di][gid][i];
+  if (p.shrine) { p.shrine = false; renderTbody(di, gid); histCheckpoint(di); showToast('Swordshrine tag removed'); return; }
+  let prev = '';
+  GROUPS.forEach(g => (dispatches[di][g.id] || []).forEach(x => {
+    if (x.shrine && x !== p) { prev = x.name || 'previous player'; x.shrine = false; }
+  }));
+  p.shrine = true;
+  renderRoster(di);
+  histCheckpoint(di);
+  showToast('⚔ Swordshrine ' + (prev ? 'moved from ' + prev + ' to ' : 'assigned to ') + (p.name || 'this player'));
+}
+function toggleLoot(di, gid, i) {
+  histCheckpoint(di);
+  const p = dispatches[di][gid][i];
+  p.loot = !p.loot;
+  renderTbody(di, gid);
+  histCheckpoint(di);
+  showToast(p.loot ? '💰 ' + (p.name || 'Player') + ' added to the loot crew' : (p.name || 'Player') + ' removed from the loot crew');
+}
+
+/* ══════════════════════════════════════════════════════
+   DRAG & DROP between groups (pointer events, works with touch)
+   Drag starts only from the ⠿ grip, so scrolling and typing still work.
+   A moved player keeps name, power and Inside/Outside; role, building,
+   Swordshrine and Loot crew are cleared for the new group to reassign.
+══════════════════════════════════════════════════════ */
+const drag = { on: false, di: 0, gid: '', i: 0, ghost: null, row: null, target: null, x: 0, y: 0, sx: 0, sy: 0, raf: 0 };
+
+function dropCardAt(x, y) {
+  const el = document.elementFromPoint(x, y);
+  const card = el && el.closest ? el.closest('.group-card') : null;
+  return card && Number(card.dataset.di) === drag.di ? card : null;
+}
+function dragAutoScroll() {
+  if (!drag.on) return;
+  const edge = 70, h = window.innerHeight;
+  let dy = 0;
+  if (drag.y < edge) dy = -Math.ceil((edge - drag.y) / 5);
+  else if (drag.y > h - edge) dy = Math.ceil((drag.y - (h - edge)) / 5);
+  if (dy) { window.scrollBy(0, dy); dragHover(); }
+  drag.raf = requestAnimationFrame(dragAutoScroll);
+}
+function dragHover() {
+  const card = dropCardAt(drag.x, drag.y);
+  if (card !== drag.target) {
+    if (drag.target) drag.target.classList.remove('drop-target');
+    drag.target = card && card.dataset.gid !== drag.gid ? card : null;
+    if (drag.target) drag.target.classList.add('drop-target');
+  }
+}
+function dragStart() {
+  const p = dispatches[drag.di][drag.gid][drag.i];
+  drag.on = true;
+  document.body.classList.add('dragging');
+  drag.ghost = document.createElement('div'); drag.ghost.className = 'drag-ghost';
+  drag.ghost.textContent = '⠿ ' + ((p && p.name) || 'Player') + (p && p.power ? ' · ' + fmtK(parsePowerK(p.power)) : '');
+  document.body.appendChild(drag.ghost);
+  if (drag.row) drag.row.classList.add('drag-source');
+  drag.raf = requestAnimationFrame(dragAutoScroll);
+}
+function dragMove(e) {
+  drag.x = e.clientX; drag.y = e.clientY;
+  if (!drag.on) {
+    if (Math.hypot(drag.x - drag.sx, drag.y - drag.sy) < 6) return;
+    dragStart();
+  }
+  e.preventDefault();
+  drag.ghost.style.left = drag.x + 'px'; drag.ghost.style.top = drag.y + 'px';
+  dragHover();
+}
+function dragEnd() {
+  document.removeEventListener('pointermove', dragMove);
+  document.removeEventListener('pointerup', dragEnd);
+  document.removeEventListener('pointercancel', dragEnd);
+  if (!drag.on) return;
+  cancelAnimationFrame(drag.raf);
+  drag.on = false;
+  document.body.classList.remove('dragging');
+  if (drag.ghost) drag.ghost.remove();
+  if (drag.row) drag.row.classList.remove('drag-source');
+  const t = drag.target; drag.target = null;
+  if (t) { t.classList.remove('drop-target'); movePlayer(drag.di, drag.gid, drag.i, t.dataset.gid); }
+}
+document.addEventListener('pointerdown', e => {
+  const g = e.target.closest && e.target.closest('.grip');
+  if (!g || e.button > 0) return;
+  e.preventDefault();
+  Object.assign(drag, { di: Number(g.dataset.di), gid: g.dataset.gid, i: Number(g.dataset.i),
+    row: g.closest('tr'), sx: e.clientX, sy: e.clientY, x: e.clientX, y: e.clientY, on: false, target: null });
+  document.addEventListener('pointermove', dragMove, { passive: false });
+  document.addEventListener('pointerup', dragEnd);
+  document.addEventListener('pointercancel', dragEnd);
+});
+
+function movePlayer(di, fromGid, i, toGid) {
+  if (fromGid === toGid || !dispatches[di][toGid]) return;
+  histCheckpoint(di);
+  const p = dispatches[di][fromGid].splice(i, 1)[0];
+  if (!p) return;
+  const moved = { name: p.name, power: p.power, role: 'Unassigned', zone: p.zone || '', building: '' };
+  if (isStandby(toGid)) moved.subFor = '';
+  dispatches[di][toGid].push(moved);
+  renderTbody(di, fromGid); renderTbody(di, toGid);
+  renderIOCounts(di); renderSubsCount(di);
+  histCheckpoint(di);
+  const g = GROUPS.find(x => x.id === toGid);
+  showToast('Moved ' + (p.name || 'player') + ' to ' + (g ? g.label : toGid) +
+    (isStandby(toGid) ? '' : ' - set their role' + (usesBuildings(di) && GROUP_BUILDINGS[toGid] ? ' and building' : '')));
 }
 
 /* ── INIT ── */
