@@ -1394,7 +1394,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
       <div class="auto-panel">
         <textarea id="autoInput" class="auto-input" rows="6" spellcheck="false"
           placeholder="One player per line: name, power (K)&#10;Omen, 412&#10;Kerv, 388&#10;Dusk 295K"></textarea>
-        <div class="auto-rules">Strongest player leads Sanctum and takes <strong>Swordshrine</strong> when it opens at 15:00. The next strongest lead the other buildings, the next 3 go to <strong>DPS</strong>, and everyone else supports, with groups balanced and a bit more power on Group 2 (Sanctum). Only 30 players can join; anyone past 30 goes to <strong>Substitutes</strong>.</div>
+        <div class="auto-rules">The strongest players (about 1 in 6) become the <strong>DPS strike team</strong>: they capture buildings, hand them to the lead, and move on. The strongest of them takes <strong>Swordshrine</strong> at 15:00. The planner only holds buildings it can crew: Sanctum and the Abbeys first (lead + 2 minimum, up to lead + 4), and the perk buildings only once those are full. The next strongest lead each building and everyone else supports. Only 30 players can join; anyone past 30 goes to <strong>Substitutes</strong>.</div>
         <div class="auto-actions">
           <select id="autoLegion" class="auto-legion" aria-label="Legion to fill">
             <option value="0">Legion 1</option>
@@ -1606,6 +1606,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
           <div class="role-guide-title">🎯 DPS</div>
           <div class="role-guide-desc">
             <ul class="role-list">
+              <li>Strike team: rally and capture buildings, then hand them off to the building lead</li>
               <li>Roam free</li>
               <li>Do not garrison (you will move a lot)</li>
               <li>Teleport to any position your help is needed</li>
@@ -1814,6 +1815,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
           <div class="role-guide-title">🎯 DPS</div>
           <div class="role-guide-desc">
             <ul class="role-list">
+              <li>Strike team: rally and capture buildings, then hand them off to the building lead</li>
               <li>Roam free</li>
               <li>Do not garrison (you will move a lot)</li>
               <li>Teleport to any position your help is needed</li>
@@ -1910,7 +1912,7 @@ const GROUPS = [
   { id: 'g1',      label: 'Group 1', cls: 'grp1',    buildings: 'Bell Tower · Top Abbey · Mercenary' },
   { id: 'g2',      label: 'Group 2', cls: 'grp2',    buildings: 'Sanctum · Mid Abbey' },
   { id: 'g3',      label: 'Group 3', cls: 'grp3',    buildings: 'Low Abbey · Reformation · Stables' },
-  { id: 'dps',     label: 'DPS',     cls: 'dps',     buildings: 'Roam Free - Do NOT Garrison' },
+  { id: 'dps',     label: 'DPS',     cls: 'dps',     buildings: 'Strike Team - Capture, Hand Off, Roam' },
   { id: 'reserve', label: 'Reserve', cls: 'reserve', buildings: 'Farm / Support' },
   { id: 'subs',    label: 'Substitutes', cls: 'subs', buildings: 'On standby - join only if a spot opens', standby: true },
 ];
@@ -2323,24 +2325,34 @@ function switchAlliance(key) {
 }
 
 /* ══════════════════════════════════════════════════════
-   AUTO ASSIGN (Option 3)
+   AUTO ASSIGN (Option 3) - scales with roster size
    Planner supplies name + power; the page picks group, role and building.
    - Only ACTIVE_CAP players can join; the rest (weakest) become Substitutes.
-   - Strongest player leads Sanctum and is flagged for Swordshrine at 15:00.
-   - Next strongest lead the other buildings in LEAD_ORDER (highest points first).
-   - Next DPS_COUNT strongest roam as DPS.
-   - Everyone else supports. Groups are balanced on power, tilted toward the
-     groups and buildings worth more points ("stack points, keep floor").
+   - Strike team (DPS) = the strongest ~1 in 6 players (2-5). They rally and
+     capture buildings, hand them off to the building lead, and move on.
+     The strongest of them takes Swordshrine when it opens at 15:00.
+   - Hold only what the roster can defend. Crews are lead + supporters:
+       * point buildings (Sanctum, then the Abbeys) are held first, never with
+         fewer than CREW_MIN, and filled toward CREW_FULL (Sanctum first)
+       * perk buildings are only held once every point building has a full
+         crew, at CREW_MIN each
+       * leftovers stack onto the point buildings
+   - Next strongest after the strike team lead the held buildings (points order).
+   - Supporters are balanced on power, tilted toward higher-point buildings.
    Point values come from BUILDING_INTEL; the ~240/min perk value is unverified.
+   Crew sizes and strike ratio are Kingdom 1625's planning rules, not game data.
 ══════════════════════════════════════════════════════ */
 const ACTIVE_CAP = 30;
-const DPS_COUNT = 3;
+const STRIKE_RATIO = 6;           /* about 1 strike player per 6 */
+const STRIKE_MIN = 2, STRIKE_MAX = 5;
+const CREW_FULL = 5;              /* lead + 4 */
+const CREW_MIN = 3;               /* lead + 2 */
 const STACK_BLEND = 0.5; /* 0 = even split, 1 = full stack by points */
 const BUILDING_VALUE = {
   'Sanctum': 1200, 'Top Abbey': 600, 'Mid Abbey': 600, 'Low Abbey': 600,
   'Bell Tower': 240, 'Royal Stables': 240, 'Hall of Reformation': 240, 'Mercenary Camp': 240
 };
-/* Lead priority: most points first; perk buildings that open at the start before the 15:00 ones */
+/* Hold priority: most points first; perk buildings that open at the start before the 15:00 ones */
 const LEAD_ORDER = ['Sanctum','Top Abbey','Mid Abbey','Low Abbey','Bell Tower','Royal Stables','Hall of Reformation','Mercenary Camp'];
 
 function buildingGroup(b) {
@@ -2380,79 +2392,96 @@ function splitSeats(n, weights) {
 
 function fmtK(n) { return Math.round(n).toLocaleString() + 'K'; }
 
+function strikeSize(n) {
+  if (n <= 0) return 0;
+  return Math.min(n, Math.max(STRIKE_MIN, Math.min(STRIKE_MAX, Math.round(n / STRIKE_RATIO))));
+}
+
+/* How many players each held building gets, given the number of holders */
+function planCrews(holders) {
+  const POINT = LEAD_ORDER.filter(b => BUILDING_VALUE[b] >= 600);
+  const PERK  = LEAD_ORDER.filter(b => BUILDING_VALUE[b] < 600);
+  const crews = {};
+  let left = holders;
+  /* 1. point buildings at the minimum crew, in points order */
+  for (const b of POINT) { if (left >= CREW_MIN) { crews[b] = CREW_MIN; left -= CREW_MIN; } }
+  /* Too few for even one full minimum crew: put everyone on Sanctum */
+  if (!Object.keys(crews).length) { if (left > 0) crews[POINT[0]] = left; return crews; }
+  /* 2. top point buildings up toward a full crew, one seat at a time, Sanctum first */
+  let grew = true;
+  while (left > 0 && grew) {
+    grew = false;
+    for (const b of POINT) {
+      if (left > 0 && crews[b] && crews[b] < CREW_FULL) { crews[b]++; left--; grew = true; }
+    }
+  }
+  /* 3. perk buildings only once every point building is full */
+  const pointsFull = POINT.every(b => crews[b] >= CREW_FULL);
+  if (pointsFull) for (const b of PERK) { if (left >= CREW_MIN) { crews[b] = CREW_MIN; left -= CREW_MIN; } }
+  /* 4. leftovers stack onto point buildings, Sanctum first */
+  const held = POINT.filter(b => crews[b]);
+  for (let i = 0; left > 0; i++, left--) crews[held[i % held.length]]++;
+  return crews;
+}
+
 function autoAssignRoster(list, keep) {
   const players = list.map((p, idx) => ({ ...p, idx })).sort((a, b) => (b.power - a.power) || (a.idx - b.idx));
   const active = players.slice(0, ACTIVE_CAP);
   const extra = players.slice(ACTIVE_CAP);
   const roster = Object.assign(emptyRoster(), keep || {});
   GROUPS.forEach(g => { roster[g.id] = []; });
-
   const mk = (p, role, building) => ({ name: p.name, power: p.power ? String(p.power) : '', role, zone: '', building: building || '' });
-  const gPower = { g1: 0, g2: 0, g3: 0 };
-  const bPower = {}; LEAD_ORDER.forEach(b => { bPower[b] = 0; });
-  const placed = { g1: [], g2: [], g3: [] };
 
-  /* 1. Building leads */
-  const leads = active.slice(0, LEAD_ORDER.length);
-  leads.forEach((p, i) => {
-    const b = LEAD_ORDER[i], g = buildingGroup(b);
-    const pl = mk(p, '', b);
-    pl._lead = true;
+  /* 1. Strike team: the strongest players */
+  const nStrike = strikeSize(active.length);
+  const strike = active.slice(0, nStrike);
+  strike.forEach((p, i) => {
+    const pl = mk(p, 'DPS', '');
     if (i === 0) pl.shrine = true;
-    placed[g].push(pl);
-    gPower[g] += p.power; bPower[b] += p.power;
+    roster.dps.push(pl);
   });
-  /* Group's strongest lead is "Lead", the others Tank 1 / Tank 2 */
+
+  /* 2. Decide which buildings to hold and how big each crew is */
+  const holders = active.slice(nStrike);
+  const crews = planCrews(holders.length);
+  const held = LEAD_ORDER.filter(b => crews[b]);
+
+  /* 3. Leads: next strongest, one per held building in points order */
+  const gPower = { g1: 0, g2: 0, g3: 0 };
+  const bPower = {}; held.forEach(b => { bPower[b] = 0; });
+  const placed = { g1: [], g2: [], g3: [] };
+  held.forEach((b, i) => {
+    const p = holders[i], g = buildingGroup(b);
+    const pl = mk(p, '', b); pl._lead = true;
+    placed[g].push(pl); gPower[g] += p.power; bPower[b] += p.power;
+  });
   Object.keys(placed).forEach(g => {
     let t = 0;
     placed[g].forEach((pl, k) => { pl.role = k === 0 ? 'Lead' : 'Tank ' + (++t); });
   });
 
-  /* 2. DPS */
-  const after = active.slice(leads.length);
-  const dps = after.slice(0, DPS_COUNT);
-  dps.forEach(p => roster.dps.push(mk(p, 'DPS', '')));
-
-  /* 3. Support: balance toward a target share per group / building */
-  const gw = {}; let wSum = 0;
-  Object.keys(GROUP_BUILDINGS).forEach(g => { gw[g] = GROUP_BUILDINGS[g].reduce((s, b) => s + BUILDING_VALUE[b], 0); wSum += gw[g]; });
-  const share = {};
-  Object.keys(gw).forEach(g => { share[g] = (1 - STACK_BLEND) / 3 + STACK_BLEND * gw[g] / wSum; });
-  const bShare = b => {
-    const g = buildingGroup(b), bs = GROUP_BUILDINGS[g];
-    const tot = bs.reduce((s, x) => s + BUILDING_VALUE[x], 0);
-    return (1 - STACK_BLEND) / bs.length + STACK_BLEND * BUILDING_VALUE[b] / tot;
-  };
+  /* 4. Supporters fill the remaining seats, strongest into whichever open
+        seat is weakest against its building's point-weighted target */
+  const seats = {}; held.forEach(b => { seats[b] = crews[b] - 1; });
+  const avgVal = held.reduce((s, b) => s + BUILDING_VALUE[b], 0) / (held.length || 1);
+  const weight = b => (1 - STACK_BLEND) * avgVal + STACK_BLEND * BUILDING_VALUE[b];
   const healerSlot = b => {
     const g = buildingGroup(b);
     const order = GROUP_BUILDINGS[g].slice().sort((x, y) => LEAD_ORDER.indexOf(x) - LEAD_ORDER.indexOf(y));
     return 'Healer ' + Math.min(3, order.indexOf(b) + 1);
   };
-  /* Seats first (so every group and building gets bodies, even next to a whale),
-     then fill seats strongest-first into whichever open seat is weakest vs its target. */
-  const support = after.slice(DPS_COUNT);
-  const seats = splitSeats(support.length, share);
-  const bSeats = {};
-  Object.keys(GROUP_BUILDINGS).forEach(g => {
-    const w = {}; GROUP_BUILDINGS[g].forEach(b => { w[b] = bShare(b); });
-    Object.assign(bSeats, splitSeats(seats[g], w));
-  });
-  support.forEach(p => {
-    const open = LEAD_ORDER.filter(b => bSeats[b] > 0);
+  holders.slice(held.length).forEach(p => {
+    const open = held.filter(b => seats[b] > 0);
     if (!open.length) return;
-    const b = open.sort((x, y) => {
-      const gx = buildingGroup(x), gy = buildingGroup(y);
-      return ((gPower[gx] / share[gx]) - (gPower[gy] / share[gy])) ||
-             ((bPower[x] / bShare(x)) - (bPower[y] / bShare(y))) ||
-             (LEAD_ORDER.indexOf(x) - LEAD_ORDER.indexOf(y));
-    })[0];
+    const b = open.sort((x, y) => (bPower[x] / weight(x)) - (bPower[y] / weight(y)) ||
+                                  LEAD_ORDER.indexOf(x) - LEAD_ORDER.indexOf(y))[0];
     const g = buildingGroup(b);
-    bSeats[b]--;
+    seats[b]--;
     placed[g].push(mk(p, healerSlot(b), b));
     gPower[g] += p.power; bPower[b] += p.power;
   });
 
-  /* Order each group: by building (point order), lead first, then power */
+  /* Order each group: by building (points order), lead first, then power */
   Object.keys(placed).forEach(g => {
     roster[g] = placed[g].sort((x, y) =>
       (LEAD_ORDER.indexOf(x.building) - LEAD_ORDER.indexOf(y.building)) ||
@@ -2461,12 +2490,12 @@ function autoAssignRoster(list, keep) {
     roster[g].forEach(pl => { delete pl._lead; });
   });
 
-  /* 4. Anyone past the cap waits as a substitute */
+  /* 5. Anyone past the cap waits as a substitute */
   extra.forEach(p => roster.subs.push({ ...mk(p, 'Unassigned', ''), subFor: '' }));
 
-  return { roster, gPower, dpsPower: dps.reduce((s, p) => s + p.power, 0),
-           shrine: leads[0] ? leads[0].name : '', subs: extra.length, active: active.length,
-           noPower: list.filter(p => !p.power).length };
+  return { roster, gPower, dpsPower: strike.reduce((s, p) => s + p.power, 0),
+           shrine: strike[0] ? strike[0].name : '', subs: extra.length, active: active.length,
+           strike: nStrike, held, crews, noPower: list.filter(p => !p.power).length };
 }
 
 function runAutoAssign() {
@@ -2488,8 +2517,12 @@ function runAutoAssign() {
   renderRoster(di);
 
   status.className = 'upload-status success';
+  const skipped = LEAD_ORDER.filter(b => !r.crews[b]);
   status.textContent = '⚡ Legion ' + (di + 1) + ': ' + r.active + ' assigned' +
     (r.subs ? ', ' + r.subs + ' to Substitutes' : '') +
+    '. Strike team ' + r.strike + '. Holding ' + r.held.length + ' building' + (r.held.length === 1 ? '' : 's') + ': ' +
+    r.held.map(b => b + ' (' + r.crews[b] + ')').join(', ') +
+    (skipped.length ? '. Not held (strike team targets): ' + skipped.join(', ') : '') +
     '. Power - G1 ' + fmtK(r.gPower.g1) + ' · G2 ' + fmtK(r.gPower.g2) + ' · G3 ' + fmtK(r.gPower.g3) + ' · DPS ' + fmtK(r.dpsPower) +
     (r.shrine ? '. Swordshrine at 15:00: ' + r.shrine : '') +
     (r.noPower ? '. ' + r.noPower + (r.noPower > 1 ? ' players had' : ' player had') + ' no power and ' + (r.noPower > 1 ? 'were' : 'was') + ' placed last' : '') +
@@ -2652,7 +2685,7 @@ function buildDiscordOutput(di) {
     { id:'g1', emoji:'🟡', label:'GROUP 1', sub:'Bell Tower · Top Abbey · Mercenary' },
     { id:'g2', emoji:'🟢', label:'GROUP 2', sub:'Sanctum · Mid Abbey' },
     { id:'g3', emoji:'🔵', label:'GROUP 3', sub:'Low Abbey · Reformation · Stables' },
-    { id:'dps', emoji:'🔴', label:'DPS', sub:'Roam Free - Do NOT Garrison' },
+    { id:'dps', emoji:'🔴', label:'DPS', sub:'Strike Team - Capture, Hand Off, Roam' },
     { id:'reserve', emoji:'⚪', label:'RESERVE', sub:'Farm / Support' },
     { id:'subs', emoji:'🟣', label:'SUBSTITUTES', sub:'Standby - join only if a spot opens' },
   ];
@@ -2678,7 +2711,7 @@ function buildDiscordOutput(di) {
   out += '────────────────────────────────\n';
   out += '⚔ TANK / LEAD: Teleport → cap building → fight with healers\n';
   out += '✚ HEALER: Garrison both buildings → reinforce → call DPS positions\n';
-  out += '🎯 DPS: Roam free → teleport where needed → attack weaker players\n';
+  out += '🎯 DPS: Rally & capture → hand off to the lead → roam & attack\n';
   out += '────────────────────────────────\n';
   if (d.ioMode) {
     out += '📍 INSIDE / OUTSIDE - first 10 minutes\n';
@@ -2701,7 +2734,7 @@ const CHAT_GROUPS = {
   g1:      { title: 'Group 1 - Bell Tower / Top Abbey / Mercenary Camp', list: 'Garrison' },
   g2:      { title: 'Group 2 - Sanctum / Mid Abbey',                      list: 'Garrison' },
   g3:      { title: 'Group 3 - Low Abbey / Reformation / Royal Stables',  list: 'Garrison' },
-  dps:     { title: 'DPS - Roam Free (do not garrison)',                  list: 'Roam' },
+  dps:     { title: 'DPS - Strike Team (capture, hand off, roam)',        list: 'Strike' },
   reserve: { title: 'Reserve - Farm / Support',                           list: 'Players' },
   subs:    { title: 'Substitutes - Standby, join only if a spot opens',   list: 'Standby' }
 };
@@ -3021,7 +3054,7 @@ function buildExportHTML(plan) {
       { id:'g1', emoji:'🟡', label:'Group 1', color:'#b08a10', buildings:'Bell Tower · Top Abbey · Mercenary' },
       { id:'g2', emoji:'🟢', label:'Group 2', color:'#2d8a4a', buildings:'Sanctum · Mid Abbey' },
       { id:'g3', emoji:'🔵', label:'Group 3', color:'#3a5faa', buildings:'Low Abbey · Reformation · Stables' },
-      { id:'dps', emoji:'🔴', label:'DPS', color:'#aa2a1a', buildings:'Roam Free - Do NOT Garrison' },
+      { id:'dps', emoji:'🔴', label:'DPS', color:'#aa2a1a', buildings:'Strike Team - Capture, Hand Off, Roam' },
       { id:'reserve', emoji:'⚪', label:'Reserve', color:'#666', buildings:'Farm / Support' },
       { id:'subs', emoji:'🟣', label:'Substitutes', color:'#7a55b8', buildings:'Standby - join only if a spot opens' },
     ];
@@ -3118,7 +3151,7 @@ ${renderDispatchSection('⚔ LEGION 2', d2)}
   <div class="role-key-title">Role Guide</div>
   <div class="role-key-item">⚔ <strong>Tank / Lead</strong> - Teleport to assigned buildings, cap first, attack with healers</div>
   <div class="role-key-item">✚ <strong>Healer</strong> - Garrison both buildings, reinforce tank, call DPS positions in chat</div>
-  <div class="role-key-item">🎯 <strong>DPS</strong> - Roam free, do NOT garrison, teleport where needed, attack weaker players</div>
+  <div class="role-key-item">🎯 <strong>DPS</strong> - Strike team: rally and capture buildings, hand them off to the lead, then roam and attack weaker players</div>
   ${(d1.roster && d1.roster.ioMode) || (d2.roster && d2.roster.ioMode) ? `
   <div class="role-key-title" style="margin-top:8px;">Inside / Outside - first 10 minutes</div>
   <div class="role-key-item">🛡 <strong>I - Inside</strong> - ${IO_GUIDE.I.points.join('; ')}</div>
