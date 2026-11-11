@@ -1394,7 +1394,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
       <div class="auto-panel">
         <textarea id="autoInput" class="auto-input" rows="6" spellcheck="false"
           placeholder="One player per line: name, power (K)&#10;Omen, 412&#10;Kerv, 388&#10;Dusk 295K"></textarea>
-        <div class="auto-rules">The strongest players (about 1 in 6) become the <strong>DPS strike team</strong>: they capture buildings, hand them to the lead, and move on. The strongest of them takes <strong>Swordshrine</strong> at 15:00. The planner only holds buildings it can crew: Sanctum and the Abbeys first (lead + 2 minimum, up to lead + 4), and the perk buildings only once those are full. The next strongest lead each building and everyone else supports. Only 30 players can join; anyone past 30 goes to <strong>Substitutes</strong>.</div>
+        <div class="auto-rules">The strongest players (about 1 in 6) become the <strong>DPS strike team</strong>: they capture buildings, hand them to the lead, and move on. The strongest of them takes <strong>Swordshrine</strong> at 15:00. Every building gets a lead. Extra players go to Sanctum and the Abbeys first (up to lead + 4), while the perk buildings get lead + 1 until those are full. The next strongest lead each building and everyone else supports. Only 30 players can join; anyone past 30 goes to <strong>Substitutes</strong>.</div>
         <div class="auto-actions">
           <select id="autoLegion" class="auto-legion" aria-label="Legion to fill">
             <option value="0">Legion 1</option>
@@ -2331,12 +2331,9 @@ function switchAlliance(key) {
    - Strike team (DPS) = the strongest ~1 in 6 players (2-5). They rally and
      capture buildings, hand them off to the building lead, and move on.
      The strongest of them takes Swordshrine when it opens at 15:00.
-   - Hold only what the roster can defend. Crews are lead + supporters:
-       * point buildings (Sanctum, then the Abbeys) are held first, never with
-         fewer than CREW_MIN, and filled toward CREW_FULL (Sanctum first)
-       * perk buildings are only held once every point building has a full
-         crew, at CREW_MIN each
-       * leftovers stack onto the point buildings
+   - Every building is held. Each gets a lead first; then seats are added in
+     rounds so Sanctum and the Abbeys fill first (lead + 2, then up to lead + 4),
+     with the perk buildings at lead + 1 until the point buildings are full.
    - Next strongest after the strike team lead the held buildings (points order).
    - Supporters are balanced on power, tilted toward higher-point buildings.
    Point values come from BUILDING_INTEL; the ~240/min perk value is unverified.
@@ -2347,6 +2344,7 @@ const STRIKE_RATIO = 6;           /* about 1 strike player per 6 */
 const STRIKE_MIN = 2, STRIKE_MAX = 5;
 const CREW_FULL = 5;              /* lead + 4 */
 const CREW_MIN = 3;               /* lead + 2 */
+const CREW_PERK = 2;              /* lead + 1 on perk buildings before point buildings fill up */
 const STACK_BLEND = 0.5; /* 0 = even split, 1 = full stack by points */
 const BUILDING_VALUE = {
   'Sanctum': 1200, 'Top Abbey': 600, 'Mid Abbey': 600, 'Low Abbey': 600,
@@ -2392,35 +2390,39 @@ function splitSeats(n, weights) {
 
 function fmtK(n) { return Math.round(n).toLocaleString() + 'K'; }
 
+/* Strike team: ~1 in 6 (2-5), but never so big that a building is left without a lead */
 function strikeSize(n) {
   if (n <= 0) return 0;
-  return Math.min(n, Math.max(STRIKE_MIN, Math.min(STRIKE_MAX, Math.round(n / STRIKE_RATIO))));
+  let k = Math.max(STRIKE_MIN, Math.min(STRIKE_MAX, Math.round(n / STRIKE_RATIO)));
+  k = Math.min(k, Math.max(1, n - LEAD_ORDER.length));
+  return Math.min(k, n);
 }
 
-/* How many players each held building gets, given the number of holders */
+/* Every building is held. Seats are added in rounds, one per building at a
+   time (points order), so the highest-point buildings always fill first:
+     1. a lead on every building
+     2. point buildings up to CREW_MIN, perk buildings up to CREW_PERK
+     3. point buildings up to CREW_FULL
+     4. perk buildings up to CREW_MIN, then CREW_FULL
+     5. anything left stacks onto the point buildings, Sanctum first */
 function planCrews(holders) {
   const POINT = LEAD_ORDER.filter(b => BUILDING_VALUE[b] >= 600);
   const PERK  = LEAD_ORDER.filter(b => BUILDING_VALUE[b] < 600);
   const crews = {};
   let left = holders;
-  /* 1. point buildings at the minimum crew, in points order */
-  for (const b of POINT) { if (left >= CREW_MIN) { crews[b] = CREW_MIN; left -= CREW_MIN; } }
-  /* Too few for even one full minimum crew: put everyone on Sanctum */
-  if (!Object.keys(crews).length) { if (left > 0) crews[POINT[0]] = left; return crews; }
-  /* 2. top point buildings up toward a full crew, one seat at a time, Sanctum first */
-  let grew = true;
-  while (left > 0 && grew) {
-    grew = false;
-    for (const b of POINT) {
-      if (left > 0 && crews[b] && crews[b] < CREW_FULL) { crews[b]++; left--; grew = true; }
+  for (const b of LEAD_ORDER) { if (left > 0) { crews[b] = 1; left--; } }
+  const fill = (list, cap) => {
+    let grew = true;
+    while (left > 0 && grew) {
+      grew = false;
+      for (const b of list) if (left > 0 && crews[b] && crews[b] < cap) { crews[b]++; left--; grew = true; }
     }
-  }
-  /* 3. perk buildings only once every point building is full */
-  const pointsFull = POINT.every(b => crews[b] >= CREW_FULL);
-  if (pointsFull) for (const b of PERK) { if (left >= CREW_MIN) { crews[b] = CREW_MIN; left -= CREW_MIN; } }
-  /* 4. leftovers stack onto point buildings, Sanctum first */
+  };
+  fill(POINT, CREW_MIN); fill(PERK, CREW_PERK);
+  fill(POINT, CREW_FULL);
+  fill(PERK, CREW_MIN); fill(PERK, CREW_FULL);
   const held = POINT.filter(b => crews[b]);
-  for (let i = 0; left > 0; i++, left--) crews[held[i % held.length]]++;
+  for (let i = 0; left > 0 && held.length; i++, left--) crews[held[i % held.length]]++;
   return crews;
 }
 
