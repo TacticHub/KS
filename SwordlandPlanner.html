@@ -1085,6 +1085,25 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
     .how-to-option { min-width: 100%; }
   }
 
+  /* ── LIVE PLAN ── */
+  .live-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    background: var(--dark2); border: 1px solid rgba(224,163,57,0.15); border-radius: 10px; padding: 10px 14px; margin-bottom: 12px; }
+  .live-status { display: flex; align-items: center; gap: 8px; font-family: 'Lato', sans-serif; font-size: 0.8rem; color: var(--text-dim); min-width: 0; }
+  .live-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--text-muted); flex-shrink: 0; }
+  .live-bar.ok .live-dot { background: #4ccf7a; box-shadow: 0 0 0 0 rgba(76,207,122,0.6); animation: livePulse 2.4s infinite; }
+  .live-bar.saving .live-dot { background: var(--gold); }
+  .live-bar.offline .live-dot { background: var(--red-bright); }
+  @keyframes livePulse { 0% { box-shadow: 0 0 0 0 rgba(76,207,122,0.55); } 70% { box-shadow: 0 0 0 7px rgba(76,207,122,0); } 100% { box-shadow: 0 0 0 0 rgba(76,207,122,0); } }
+  .live-name-btn { font-family: 'Lato', sans-serif; font-size: 0.78rem; padding: 6px 10px; border-radius: 7px; cursor: pointer;
+    background: transparent; color: var(--text-dim); border: 1px solid rgba(224,163,57,0.25); }
+  .live-name-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .live-conflict { background: rgba(217,74,58,0.1); border: 1px solid rgba(217,74,58,0.4); border-radius: 10px; padding: 12px 14px; margin-bottom: 12px;
+    font-family: 'Lato', sans-serif; font-size: 0.85rem; color: var(--text); line-height: 1.45; }
+  .live-conflict-actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .live-conflict-actions button { flex: 1; min-width: 130px; padding: 9px 12px; border-radius: 7px; cursor: pointer; font-family: 'Lato', sans-serif; font-size: 0.85rem; font-weight: 700; }
+  .live-conflict-actions .theirs { background: var(--gold); color: #14263f; border: none; }
+  .live-conflict-actions .mine { background: transparent; color: var(--text-dim); border: 1px solid rgba(224,163,57,0.35); }
+
   /* ── AUTO ASSIGN (Option 3) ── */
   .how-to-option.auto-option { flex-basis: 100%; flex-wrap: wrap; align-items: flex-start; }
   .auto-panel { flex-basis: 100%; display: flex; flex-direction: column; gap: 8px; }
@@ -1336,11 +1355,11 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
         </div></div>
         <div class="pg-step save"><div class="pg-num">8</div><div>
           <div class="pg-step-title">Save the plan</div>
-          <div class="pg-step-text">Tap <strong>💾 Save Plan</strong> to store it in the cloud archive. Open <strong>📚 Archive</strong> to load, export, or delete past plans. Saved plans are shared with everyone who uses this planner.</div>
+          <div class="pg-step-text">Your legions auto-save to the shared live plan. Tap <strong>💾 Save Plan</strong> to also keep a copy in the cloud archive. Open <strong>📚 Archive</strong> to load, export, or delete past plans. Saved plans are shared with everyone who uses this planner.</div>
         </div></div>
       </div>
 
-      <div class="pg-warn">⚠ <strong>Save before you leave.</strong> The planner doesn't auto-save. Refreshing or closing the page clears anything you haven't saved to the archive.</div>
+      <div class="pg-warn">✅ <strong>Your legions save automatically.</strong> Each legion is one shared live plan: every change saves within a couple of seconds, and every planner on any device sees the same plan. It stays until someone taps <strong>Clear Legion</strong>. Use <strong>💾 Save Plan</strong> to keep a copy in the archive.</div>
     </div>
   </details>
 
@@ -1390,6 +1409,13 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
   </div>
 
   <!-- DISPATCH TABS + ALLIANCE SWITCHER -->
+  <!-- LIVE PLAN STATUS -->
+  <div class="live-bar" id="liveBar">
+    <div class="live-status" id="liveStatus"><span class="live-dot"></span><span id="liveText">Connecting to the live plan...</span></div>
+    <button class="live-name-btn" id="liveNameBtn" onclick="changePlannerName()" title="Change the name shown on your edits">✎ <span id="liveName">Set your name</span></button>
+  </div>
+  <div class="live-conflict" id="liveConflict" style="display:none;"></div>
+
   <div class="dispatch-tabs">
     <button class="dispatch-tab active" id="tab-0" onclick="switchTab(0)">⚔ Legion 1</button>
     <button class="dispatch-tab" id="tab-1" onclick="switchTab(1)">⚔ Legion 2</button>
@@ -2252,7 +2278,7 @@ function removePlayer(di, gid, i) {
 }
 
 function clearRoster(di) {
-  if (!confirm('Clear all players from ' + alliances[currentAlliance].label + ' Legion ' + (di+1) + '?')) return;
+  if (!confirm('Clear all players from ' + alliances[currentAlliance].label + ' Legion ' + (di+1) + '?\n\nThis clears the shared live plan for every planner.')) return;
   const keepIO = isIO(di);
   dispatches[di] = Object.assign(emptyRoster(), { ioMode: keepIO, assignMode: assignMode(di) });
   renderRoster(di);
@@ -2260,6 +2286,7 @@ function clearRoster(di) {
 
 /* ── TABS ── */
 function switchTab(idx) {
+  setTimeout(() => { if (typeof setLiveStatus === 'function') setLiveStatus(); }, 0);
   const al = document.getElementById('autoLegion');
   if (al) al.value = String(idx);
   document.querySelectorAll('.dispatch-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
@@ -2291,6 +2318,7 @@ function switchAlliance(key) {
 
   /* Re-render rosters */
   renderAll();
+  liveSwitchAlliance();
   showToast('Switched to ' + al.label + ' alliance');
 }
 
@@ -3193,12 +3221,291 @@ function initPlannerGuide() {
   });
 }
 
+/* ══════════════════════════════════════════════════════
+   LIVE PLAN  (shared auto-save, one plan per legion)
+   Backend: Worker /swordland-live (Cloudflare D1). Every save carries the
+   version this device last saw; if someone else saved first the Worker
+   answers 409 and we ask which copy to keep, so nobody is silently
+   overwritten. A copy is also kept in this browser in case the
+   connection drops.
+══════════════════════════════════════════════════════ */
+const LIVE_POLL_MS = 5000;
+const LIVE_SAVE_DELAY = 1500;
+const live = {
+  ready: false,                 /* true once the first load finished */
+  online: true,
+  version: [0, 0],              /* last server version this device has seen */
+  synced: ['', ''],             /* snapshot that matches the server */
+  lastEdit: [0, 0],             /* when the local snapshot last changed */
+  lastSnap: ['', ''],
+  saving: [false, false],
+  conflict: [null, null],       /* server copy waiting on a choice */
+  meta: [null, null],           /* { by, at } of the latest save */
+  pollTimer: null, tickTimer: null
+};
+
+function plannerName() {
+  try { return localStorage.getItem('swordland_planner_name') || ''; } catch(e) { return ''; }
+}
+function changePlannerName() {
+  const n = prompt('Your name or in-game name (shown on your edits):', plannerName());
+  if (n === null) return;
+  const clean = n.trim().slice(0, 40);
+  try { localStorage.setItem('swordland_planner_name', clean); } catch(e) {}
+  renderPlannerName();
+}
+function renderPlannerName() {
+  const el = document.getElementById('liveName');
+  if (el) el.textContent = plannerName() || 'Set your name';
+}
+
+function liveSnapshot(di) {
+  const t = document.getElementById('time-' + di);
+  const n = document.getElementById('note-' + di);
+  return JSON.stringify({ roster: dispatches[di], time: t ? t.value : '', note: n ? n.value : '' });
+}
+function localBackupKey(di) { return 'swordland_live_backup_' + currentAlliance + '_' + di; }
+function saveLocalBackup(di, snap) { try { localStorage.setItem(localBackupKey(di), snap); } catch(e) {} }
+function readLocalBackup(di) { try { return localStorage.getItem(localBackupKey(di)); } catch(e) { return null; } }
+
+/* Put a legion's plan (from the server or the local backup) on screen */
+function applyLegion(di, data) {
+  const d = data || {};
+  const keep = { ioMode: false, assignMode: 'groups' };
+  dispatches[di] = normalizeRoster(d.roster ? JSON.parse(JSON.stringify(d.roster)) : Object.assign(emptyRoster(), keep));
+  const t = document.getElementById('time-' + di);
+  const n = document.getElementById('note-' + di);
+  if (t && d.time) t.value = d.time;
+  if (n && document.activeElement !== n) n.value = d.note || '';
+  renderRoster(di);
+  updateLocalTime(di);
+}
+
+function fmtClock(ms) {
+  if (!ms) return '';
+  try { return new Date(ms).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }); } catch(e) { return ''; }
+}
+function setLiveStatus() {
+  const bar = document.getElementById('liveBar');
+  const txt = document.getElementById('liveText');
+  if (!bar || !txt) return;
+  bar.classList.remove('ok', 'saving', 'offline');
+  if (!live.ready) { txt.textContent = 'Connecting to the live plan...'; return; }
+  if (!live.online) {
+    bar.classList.add('offline');
+    txt.textContent = 'Offline - changes are kept on this device and will sync when you reconnect';
+    return;
+  }
+  const active = document.querySelector('.dispatch-tab.active');
+  const di = active && active.id === 'tab-1' ? 1 : 0;
+  const pending = live.saving[di] || live.lastSnap[di] !== live.synced[di];
+  if (pending) { bar.classList.add('saving'); txt.textContent = 'Saving Legion ' + (di + 1) + '...'; return; }
+  bar.classList.add('ok');
+  const m = live.meta[di];
+  txt.textContent = m && m.at
+    ? 'Live · Legion ' + (di + 1) + ' saved ' + fmtClock(m.at) + (m.by ? ' by ' + m.by : '')
+    : 'Live · Legion ' + (di + 1) + ' - changes save automatically';
+}
+
+function liveFetch(method, body, query) {
+  return fetch(WORKER_URL + '/swordland-live' + (query || ''), {
+    method, cache: 'no-store',
+    headers: body ? { 'Content-Type': 'application/json' } : undefined,
+    body: body ? JSON.stringify(body) : undefined
+  });
+}
+
+/* First load (and after switching alliance) */
+function liveLoad() {
+  live.ready = false;
+  live.version = [0, 0]; live.synced = ['', '']; live.conflict = [null, null]; live.meta = [null, null];
+  hideConflict();
+  setLiveStatus();
+  return liveFetch('GET', null, '?alliance=' + encodeURIComponent(currentAlliance))
+    .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
+    .then(res => {
+      live.online = true;
+      [0, 1].forEach(di => {
+        const row = res.legions && res.legions[di];
+        if (row && row.data) {
+          applyLegion(di, row.data);
+          live.version[di] = row.version;
+          live.meta[di] = { by: row.updatedBy, at: row.updatedAt };
+        } else {
+          /* Nothing on the server yet: start from this device's backup, if any */
+          const b = readLocalBackup(di);
+          if (b) { try { applyLegion(di, JSON.parse(b)); } catch(e) {} }
+        }
+        const snap = liveSnapshot(di);
+        /* Nothing worth saving yet? Treat it as in sync so empty legions aren't pushed */
+        live.synced[di] = (row && row.data) || !legionHasPlayers(di) ? snap : '';
+        live.lastSnap[di] = snap;
+      });
+    })
+    .catch(() => {
+      live.online = false;
+      [0, 1].forEach(di => {
+        const b = readLocalBackup(di);
+        if (b) { try { applyLegion(di, JSON.parse(b)); } catch(e) {} }
+        live.lastSnap[di] = live.synced[di] = liveSnapshot(di);
+      });
+      showToast('⚠ Could not reach the live plan - showing this device\'s copy');
+    })
+    .then(() => { live.ready = true; setLiveStatus(); });
+}
+
+function liveSave(di) {
+  if (live.saving[di] || live.conflict[di]) return;
+  const snap = liveSnapshot(di);
+  live.saving[di] = true;
+  setLiveStatus();
+  liveFetch('POST', {
+    alliance: currentAlliance, legion: di, data: JSON.parse(snap),
+    baseVersion: live.version[di], by: plannerName()
+  }).then(r => r.json().then(j => ({ status: r.status, j })))
+    .then(({ status, j }) => {
+      live.online = true;
+      if (status === 409) { showConflict(di, j.current); return; }
+      if (status !== 200 || !j.ok) throw new Error(j.error || 'Save failed');
+      live.version[di] = j.version;
+      live.synced[di] = snap;
+      live.meta[di] = { by: plannerName(), at: j.updatedAt || Date.now() };
+    })
+    .catch(() => { live.online = false; })
+    .then(() => { live.saving[di] = false; setLiveStatus(); });
+}
+
+/* Runs every second: notice local edits, keep a backup, save after a short pause */
+function liveTick() {
+  if (!live.ready) return;
+  [0, 1].forEach(di => {
+    const snap = liveSnapshot(di);
+    if (snap !== live.lastSnap[di]) {
+      live.lastSnap[di] = snap;
+      live.lastEdit[di] = Date.now();
+      saveLocalBackup(di, snap);
+    }
+    if (snap !== live.synced[di] && !live.saving[di] && !live.conflict[di] &&
+        Date.now() - live.lastEdit[di] >= LIVE_SAVE_DELAY) {
+      liveSave(di);
+    }
+  });
+  setLiveStatus();
+}
+
+/* Pull other planners' changes */
+function livePoll() {
+  if (!live.ready || document.hidden) return;
+  liveFetch('GET', null, '?alliance=' + encodeURIComponent(currentAlliance))
+    .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
+    .then(res => {
+      live.online = true;
+      [0, 1].forEach(di => {
+        const row = res.legions && res.legions[di];
+        if (!row || row.version <= live.version[di] || live.saving[di]) return;
+        const localDirty = liveSnapshot(di) !== live.synced[di];
+        if (localDirty) { showConflict(di, row); return; }
+        applyLegion(di, row.data);
+        live.version[di] = row.version;
+        live.meta[di] = { by: row.updatedBy, at: row.updatedAt };
+        live.lastSnap[di] = live.synced[di] = liveSnapshot(di);
+        saveLocalBackup(di, live.synced[di]);
+        if (row.updatedBy !== plannerName() || !plannerName()) {
+          showToast('↻ Legion ' + (di + 1) + ' updated' + (row.updatedBy ? ' by ' + row.updatedBy : ''));
+        }
+      });
+    })
+    .catch(() => { live.online = false; })
+    .then(setLiveStatus);
+}
+
+function legionHasPlayers(di) {
+  return GROUPS.some(g => (dispatches[di][g.id] || []).some(p => p.name && p.name.trim()));
+}
+
+/* Someone else saved this legion while this device had unsaved edits */
+function showConflict(di, row) {
+  /* Same content on both sides? Nothing to choose - just adopt their version number */
+  if (row && row.data && JSON.stringify(row.data) === liveSnapshot(di)) {
+    live.version[di] = row.version;
+    live.meta[di] = { by: row.updatedBy, at: row.updatedAt };
+    live.synced[di] = liveSnapshot(di);
+    setLiveStatus();
+    return;
+  }
+  live.conflict[di] = row || { version: live.version[di] };
+  const box = document.getElementById('liveConflict');
+  const who = row && row.updatedBy ? row.updatedBy : 'Another planner';
+  const when = row && row.updatedAt ? ' at ' + fmtClock(row.updatedAt) : '';
+  box.innerHTML = `<strong>⚠ ${escHtml(who)} changed Legion ${di + 1}${when}</strong> while you had unsaved edits.
+    Which version should the live plan keep?
+    <div class="live-conflict-actions">
+      <button class="theirs" onclick="resolveConflict(${di}, 'theirs')">Load their version</button>
+      <button class="mine" onclick="resolveConflict(${di}, 'mine')">Keep mine (replace theirs)</button>
+    </div>`;
+  box.style.display = '';
+  switchTab(di);
+  setLiveStatus();
+}
+function hideConflict() {
+  const box = document.getElementById('liveConflict');
+  if (box) { box.style.display = 'none'; box.innerHTML = ''; }
+}
+function resolveConflict(di, choice) {
+  const row = live.conflict[di];
+  live.conflict[di] = null;
+  hideConflict();
+  if (!row) return;
+  if (choice === 'theirs') {
+    if (row.data) applyLegion(di, row.data);
+    live.version[di] = row.version;
+    live.meta[di] = { by: row.updatedBy, at: row.updatedAt };
+    live.lastSnap[di] = live.synced[di] = liveSnapshot(di);
+    saveLocalBackup(di, live.synced[di]);
+    showToast('Loaded the latest Legion ' + (di + 1));
+  } else {
+    live.version[di] = row.version;   /* build on top of theirs; next save goes through */
+    liveSave(di);
+  }
+}
+
+function liveSwitchAlliance() {
+  liveLoad();
+}
+
+function liveStart() {
+  renderPlannerName();
+  liveLoad().then(() => {
+    if (!plannerName()) setTimeout(changePlannerName, 400);
+  });
+  live.tickTimer = setInterval(liveTick, 1000);
+  live.pollTimer = setInterval(livePoll, LIVE_POLL_MS);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) [0, 1].forEach(di => { if (liveSnapshot(di) !== live.synced[di]) liveSave(di); });
+    else livePoll();
+  });
+  window.addEventListener('pagehide', () => {
+    [0, 1].forEach(di => {
+      const snap = liveSnapshot(di);
+      if (!live.ready || snap === live.synced[di] || live.conflict[di]) return;
+      saveLocalBackup(di, snap);
+      try {
+        fetch(WORKER_URL + '/swordland-live', { method: 'POST', keepalive: true,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ alliance: currentAlliance, legion: di, data: JSON.parse(snap),
+            baseVersion: live.version[di], by: plannerName() }) });
+      } catch(e) {}
+    });
+  });
+}
+
 /* ── INIT ── */
 initPlannerGuide();
 loadAllianceNames();
 renderBuildingIntel();
 renderAll();
 initLocalTimes();
+liveStart();
 </script>
 <!-- Google Translate (free Website Translator widget; unofficial/deprecated but functional, same as the main guide) -->
 <script>
