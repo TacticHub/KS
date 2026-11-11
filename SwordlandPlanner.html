@@ -1085,6 +1085,24 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
     .how-to-option { min-width: 100%; }
   }
 
+  /* ── AUTO ASSIGN (Option 3) ── */
+  .how-to-option.auto-option { flex-basis: 100%; flex-wrap: wrap; align-items: flex-start; }
+  .auto-panel { flex-basis: 100%; display: flex; flex-direction: column; gap: 8px; }
+  .auto-input { width: 100%; min-height: 120px; resize: vertical; padding: 10px 12px; border-radius: 8px;
+    background: var(--dark); color: var(--text); border: 1px solid rgba(224,163,57,0.25);
+    font-family: 'Lato', sans-serif; font-size: 0.9rem; line-height: 1.5; }
+  .auto-input:focus { outline: none; border-color: var(--gold); }
+  .auto-rules { font-size: 0.74rem; color: var(--text-muted); line-height: 1.45; }
+  .auto-rules strong { color: var(--text-dim); }
+  .auto-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: stretch; }
+  .auto-legion, .auto-secondary { padding: 8px 12px; border-radius: 7px; font-family: 'Lato', sans-serif; font-size: 0.82rem;
+    background: var(--dark); color: var(--text-dim); border: 1px solid rgba(224,163,57,0.25); cursor: pointer; }
+  .auto-secondary:hover { border-color: var(--gold); color: var(--gold); }
+  .auto-actions .auto-go { flex: 1; min-width: 150px; width: auto; }
+  .group-total { font-family: 'Lato', sans-serif; font-size: 0.68rem; color: var(--text-dim); margin-top: 3px; letter-spacing: 0.03em; }
+  .shrine-badge { display: inline-block; margin-top: 5px; padding: 2px 8px; border-radius: 10px; font-family: 'Lato', sans-serif;
+    font-size: 0.68rem; font-weight: 700; color: #ffd27a; background: rgba(240,192,64,0.14); border: 1px solid rgba(240,192,64,0.4); white-space: nowrap; }
+
   /* ── BUILDING INTEL (map sidebar) ── */
   .bldg-intel { padding: 12px 14px; border-top: 1px solid rgba(224,163,57,0.12); }
   .bldg-intel-title {
@@ -1298,7 +1316,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
       <div class="pg-steps">
         <div class="pg-step"><div class="pg-num">4</div><div>
           <div class="pg-step-title">Add players</div>
-          <div class="pg-step-text">Tap <strong>＋ Add Player</strong> on a group card, or <strong>Upload Excel / CSV</strong> to fill both legions at once. Imported DPS and Farm/Support players are sorted automatically; imported tanks and healers all land in <strong>Group 1</strong>, so check that card after importing. Players waiting for an opening go on the <strong>Substitutes</strong> card (add a <strong>Subs</strong> row in your sheet to import them there).</div>
+          <div class="pg-step-text">Tap <strong>＋ Add Player</strong> on a group card, <strong>Upload Excel / CSV</strong> to fill both legions at once, or paste names and power into <strong>Auto Assign</strong> to have groups, roles, and buildings picked for you. Imported DPS and Farm/Support players are sorted automatically; imported tanks and healers all land in <strong>Group 1</strong>, so check that card after importing. Players waiting for an opening go on the <strong>Substitutes</strong> card (add a <strong>Subs</strong> row in your sheet to import them there).</div>
         </div></div>
         <div class="pg-step"><div class="pg-num">5</div><div>
           <div class="pg-step-title">Assign roles</div>
@@ -1345,6 +1363,27 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
       <div class="how-to-text">
         <div class="how-to-title">Option 2 - Manual Entry</div>
         <div class="how-to-desc">Use the <strong>＋ Add Player</strong> buttons on each group card below to type names, power, and roles directly.</div>
+      </div>
+    </div>
+    <div class="how-to-divider">- or -</div>
+    <div class="how-to-option auto-option">
+      <div class="how-to-icon">⚡</div>
+      <div class="how-to-text">
+        <div class="how-to-title">Option 3 - Auto Assign</div>
+        <div class="how-to-desc">Paste each player and their power, one per line. Auto Assign picks a group, role, and building for everyone, then you can adjust anything below.</div>
+      </div>
+      <div class="auto-panel">
+        <textarea id="autoInput" class="auto-input" rows="6" spellcheck="false"
+          placeholder="One player per line: name, power (K)&#10;Omen, 412&#10;Kerv, 388&#10;Dusk 295K"></textarea>
+        <div class="auto-rules">Strongest player leads Sanctum and takes <strong>Swordshrine</strong> when it opens at 15:00. The next strongest lead the other buildings, the next 3 go to <strong>DPS</strong>, and everyone else supports, with groups balanced and a bit more power on Group 2 (Sanctum). Only 30 players can join; anyone past 30 goes to <strong>Substitutes</strong>.</div>
+        <div class="auto-actions">
+          <select id="autoLegion" class="auto-legion" aria-label="Legion to fill">
+            <option value="0">Legion 1</option>
+            <option value="1">Legion 2</option>
+          </select>
+          <button class="auto-secondary" onclick="fillAutoFromRoster()" title="Copy the names and power already in this legion into the box">Use current roster</button>
+          <button class="upload-btn auto-go" onclick="runAutoAssign()">⚡ Auto Assign</button>
+        </div>
       </div>
     </div>
     <div class="upload-status" id="uploadStatus" style="flex-basis:100%;margin-top:4px;"></div>
@@ -2093,6 +2132,7 @@ function renderRoster(di) {
         <div style="flex:1;">
           <div class="group-card-name ${g.cls}">${g.label}${sb ? `<span class="subs-count" id="subs-count-${di}">${subN} waiting</span>` : ''}</div>
           <div class="group-buildings">${g.buildings}</div>
+          ${sb ? '' : `<div class="group-total" id="gtotal-${di}-${g.id}"></div>`}
         </div>
         <div class="group-card-actions">
           <button class="chat-copy-btn" title="Copy a short line for in-game chat" onclick="copyGroupChat(${di},'${g.id}')">💬 Copy</button>
@@ -2121,6 +2161,7 @@ function renderTbody(di, gid) {
   const io = isIO(di) && !sb;
   const showB = !sb && usesBuildings(di) && !!GROUP_BUILDINGS[gid];
   renderSubsCount(di);
+  renderGroupTotal(di, gid);
   if (players.length === 0) {
     tbody.innerHTML = `<tr><td colspan="${5 + (io ? 1 : 0) + (showB ? 1 : 0)}" style="color:var(--text-muted);font-style:italic;font-size:0.82rem;padding:12px;">${sb ? 'No substitutes waiting' : 'No players assigned yet'}</td></tr>`;
     return;
@@ -2132,6 +2173,7 @@ function renderTbody(di, gid) {
       <td class="player-name-cell">
         <input type="text" value="${escAttr(p.name)}" placeholder="Player name"
           oninput="dispatches[${di}]['${gid}'][${i}].name=this.value;renderIOCounts(${di});renderSubsCount(${di})" />
+        ${!sb && p.shrine ? `<div><span class="shrine-badge" title="Takes Swordshrine when it opens">⚔ Swordshrine at 15:00</span></div>` : ''}
         ${sb ? `<select class="subfor-select${p.subFor ? '' : ' any'}" title="Which group this player is a sub for"
           onchange="setSubFor(${di},${i},this.value)">
           <option value="" ${!p.subFor ? 'selected' : ''}>For any group</option>
@@ -2141,7 +2183,7 @@ function renderTbody(di, gid) {
       <td class="player-power">
         <input type="text" value="${escAttr(p.power)}" placeholder="e.g. 450"
           style="width:70px;font-family:'Lato',sans-serif;font-size:0.8rem;"
-          oninput="dispatches[${di}]['${gid}'][${i}].power=this.value" />
+          oninput="dispatches[${di}]['${gid}'][${i}].power=this.value;renderGroupTotal(${di},'${gid}')" />
       </td>
       <td>
         <select onchange="dispatches[${di}]['${gid}'][${i}].role=this.value;rerenderBadge(this,${di},'${gid}',${i})">
@@ -2218,6 +2260,8 @@ function clearRoster(di) {
 
 /* ── TABS ── */
 function switchTab(idx) {
+  const al = document.getElementById('autoLegion');
+  if (al) al.value = String(idx);
   document.querySelectorAll('.dispatch-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
   document.querySelectorAll('.dispatch-panel').forEach((p,i) => p.classList.toggle('active', i===idx));
 }
@@ -2248,6 +2292,201 @@ function switchAlliance(key) {
   /* Re-render rosters */
   renderAll();
   showToast('Switched to ' + al.label + ' alliance');
+}
+
+/* ══════════════════════════════════════════════════════
+   AUTO ASSIGN (Option 3)
+   Planner supplies name + power; the page picks group, role and building.
+   - Only ACTIVE_CAP players can join; the rest (weakest) become Substitutes.
+   - Strongest player leads Sanctum and is flagged for Swordshrine at 15:00.
+   - Next strongest lead the other buildings in LEAD_ORDER (highest points first).
+   - Next DPS_COUNT strongest roam as DPS.
+   - Everyone else supports. Groups are balanced on power, tilted toward the
+     groups and buildings worth more points ("stack points, keep floor").
+   Point values come from BUILDING_INTEL; the ~240/min perk value is unverified.
+══════════════════════════════════════════════════════ */
+const ACTIVE_CAP = 30;
+const DPS_COUNT = 3;
+const STACK_BLEND = 0.5; /* 0 = even split, 1 = full stack by points */
+const BUILDING_VALUE = {
+  'Sanctum': 1200, 'Top Abbey': 600, 'Mid Abbey': 600, 'Low Abbey': 600,
+  'Bell Tower': 240, 'Royal Stables': 240, 'Hall of Reformation': 240, 'Mercenary Camp': 240
+};
+/* Lead priority: most points first; perk buildings that open at the start before the 15:00 ones */
+const LEAD_ORDER = ['Sanctum','Top Abbey','Mid Abbey','Low Abbey','Bell Tower','Royal Stables','Hall of Reformation','Mercenary Camp'];
+
+function buildingGroup(b) {
+  return Object.keys(GROUP_BUILDINGS).find(g => GROUP_BUILDINGS[g].includes(b));
+}
+
+/* Power in K. Accepts 412, 412K, 1.2M, or a raw number like 41,200,000 */
+function parsePowerK(raw) {
+  if (!raw) return 0;
+  const m = String(raw).replace(/,/g, '').match(/([\d.]+)\s*([kKmM]?)/);
+  if (!m) return 0;
+  let v = parseFloat(m[1]);
+  if (isNaN(v)) return 0;
+  const unit = m[2].toLowerCase();
+  if (unit === 'm') v *= 1000;
+  else if (!unit && v >= 100000) v /= 1000;
+  return Math.round(v * 10) / 10;
+}
+
+function parseAutoLines(text) {
+  return String(text || '').split(/\r?\n/).map(l => l.trim()).filter(Boolean).map(l => {
+    const m = l.match(/^(.*?)[\s,;\t]+([\d][\d.,]*\s*[kKmM]?)\s*$/);
+    if (m && m[1].trim()) return { name: m[1].replace(/[,;\t\s]+$/, '').trim(), power: parsePowerK(m[2]) };
+    return { name: l.replace(/[,;\t]+$/, '').trim(), power: 0 };
+  }).filter(p => p.name);
+}
+
+/* Split n seats by weight (largest remainder), so totals always add up */
+function splitSeats(n, weights) {
+  const keys = Object.keys(weights);
+  const tot = keys.reduce((s, k) => s + weights[k], 0) || 1;
+  const out = {}; let used = 0;
+  const rem = keys.map(k => { const x = n * weights[k] / tot; out[k] = Math.floor(x); used += out[k]; return [k, x - out[k]]; });
+  rem.sort((a, b) => b[1] - a[1]).slice(0, n - used).forEach(([k]) => { out[k]++; });
+  return out;
+}
+
+function fmtK(n) { return Math.round(n).toLocaleString() + 'K'; }
+
+function autoAssignRoster(list, keep) {
+  const players = list.map((p, idx) => ({ ...p, idx })).sort((a, b) => (b.power - a.power) || (a.idx - b.idx));
+  const active = players.slice(0, ACTIVE_CAP);
+  const extra = players.slice(ACTIVE_CAP);
+  const roster = Object.assign(emptyRoster(), keep || {});
+  GROUPS.forEach(g => { roster[g.id] = []; });
+
+  const mk = (p, role, building) => ({ name: p.name, power: p.power ? String(p.power) : '', role, zone: '', building: building || '' });
+  const gPower = { g1: 0, g2: 0, g3: 0 };
+  const bPower = {}; LEAD_ORDER.forEach(b => { bPower[b] = 0; });
+  const placed = { g1: [], g2: [], g3: [] };
+
+  /* 1. Building leads */
+  const leads = active.slice(0, LEAD_ORDER.length);
+  leads.forEach((p, i) => {
+    const b = LEAD_ORDER[i], g = buildingGroup(b);
+    const pl = mk(p, '', b);
+    pl._lead = true;
+    if (i === 0) pl.shrine = true;
+    placed[g].push(pl);
+    gPower[g] += p.power; bPower[b] += p.power;
+  });
+  /* Group's strongest lead is "Lead", the others Tank 1 / Tank 2 */
+  Object.keys(placed).forEach(g => {
+    let t = 0;
+    placed[g].forEach((pl, k) => { pl.role = k === 0 ? 'Lead' : 'Tank ' + (++t); });
+  });
+
+  /* 2. DPS */
+  const after = active.slice(leads.length);
+  const dps = after.slice(0, DPS_COUNT);
+  dps.forEach(p => roster.dps.push(mk(p, 'DPS', '')));
+
+  /* 3. Support: balance toward a target share per group / building */
+  const gw = {}; let wSum = 0;
+  Object.keys(GROUP_BUILDINGS).forEach(g => { gw[g] = GROUP_BUILDINGS[g].reduce((s, b) => s + BUILDING_VALUE[b], 0); wSum += gw[g]; });
+  const share = {};
+  Object.keys(gw).forEach(g => { share[g] = (1 - STACK_BLEND) / 3 + STACK_BLEND * gw[g] / wSum; });
+  const bShare = b => {
+    const g = buildingGroup(b), bs = GROUP_BUILDINGS[g];
+    const tot = bs.reduce((s, x) => s + BUILDING_VALUE[x], 0);
+    return (1 - STACK_BLEND) / bs.length + STACK_BLEND * BUILDING_VALUE[b] / tot;
+  };
+  const healerSlot = b => {
+    const g = buildingGroup(b);
+    const order = GROUP_BUILDINGS[g].slice().sort((x, y) => LEAD_ORDER.indexOf(x) - LEAD_ORDER.indexOf(y));
+    return 'Healer ' + Math.min(3, order.indexOf(b) + 1);
+  };
+  /* Seats first (so every group and building gets bodies, even next to a whale),
+     then fill seats strongest-first into whichever open seat is weakest vs its target. */
+  const support = after.slice(DPS_COUNT);
+  const seats = splitSeats(support.length, share);
+  const bSeats = {};
+  Object.keys(GROUP_BUILDINGS).forEach(g => {
+    const w = {}; GROUP_BUILDINGS[g].forEach(b => { w[b] = bShare(b); });
+    Object.assign(bSeats, splitSeats(seats[g], w));
+  });
+  support.forEach(p => {
+    const open = LEAD_ORDER.filter(b => bSeats[b] > 0);
+    if (!open.length) return;
+    const b = open.sort((x, y) => {
+      const gx = buildingGroup(x), gy = buildingGroup(y);
+      return ((gPower[gx] / share[gx]) - (gPower[gy] / share[gy])) ||
+             ((bPower[x] / bShare(x)) - (bPower[y] / bShare(y))) ||
+             (LEAD_ORDER.indexOf(x) - LEAD_ORDER.indexOf(y));
+    })[0];
+    const g = buildingGroup(b);
+    bSeats[b]--;
+    placed[g].push(mk(p, healerSlot(b), b));
+    gPower[g] += p.power; bPower[b] += p.power;
+  });
+
+  /* Order each group: by building (point order), lead first, then power */
+  Object.keys(placed).forEach(g => {
+    roster[g] = placed[g].sort((x, y) =>
+      (LEAD_ORDER.indexOf(x.building) - LEAD_ORDER.indexOf(y.building)) ||
+      ((y._lead ? 1 : 0) - (x._lead ? 1 : 0)) ||
+      (parseFloat(y.power || 0) - parseFloat(x.power || 0)));
+    roster[g].forEach(pl => { delete pl._lead; });
+  });
+
+  /* 4. Anyone past the cap waits as a substitute */
+  extra.forEach(p => roster.subs.push({ ...mk(p, 'Unassigned', ''), subFor: '' }));
+
+  return { roster, gPower, dpsPower: dps.reduce((s, p) => s + p.power, 0),
+           shrine: leads[0] ? leads[0].name : '', subs: extra.length, active: active.length,
+           noPower: list.filter(p => !p.power).length };
+}
+
+function runAutoAssign() {
+  const status = document.getElementById('uploadStatus');
+  const di = parseInt(document.getElementById('autoLegion').value, 10) || 0;
+  const list = parseAutoLines(document.getElementById('autoInput').value);
+  if (!list.length) {
+    status.className = 'upload-status error';
+    status.textContent = 'Paste at least one player first: one per line, name then power.';
+    return;
+  }
+  const hasPlayers = GROUPS.some(g => (dispatches[di][g.id] || []).some(p => p.name && p.name.trim()));
+  if (hasPlayers && !confirm('Replace the current ' + alliances[currentAlliance].label + ' Legion ' + (di + 1) + ' roster with the auto-assigned one?')) return;
+
+  const r = autoAssignRoster(list, { ioMode: isIO(di) });
+  r.roster.assignMode = 'both';
+  dispatches[di] = r.roster;
+  switchTab(di);
+  renderRoster(di);
+
+  status.className = 'upload-status success';
+  status.textContent = '⚡ Legion ' + (di + 1) + ': ' + r.active + ' assigned' +
+    (r.subs ? ', ' + r.subs + ' to Substitutes' : '') +
+    '. Power - G1 ' + fmtK(r.gPower.g1) + ' · G2 ' + fmtK(r.gPower.g2) + ' · G3 ' + fmtK(r.gPower.g3) + ' · DPS ' + fmtK(r.dpsPower) +
+    (r.shrine ? '. Swordshrine at 15:00: ' + r.shrine : '') +
+    (r.noPower ? '. ' + r.noPower + (r.noPower > 1 ? ' players had' : ' player had') + ' no power and ' + (r.noPower > 1 ? 'were' : 'was') + ' placed last' : '') +
+    '. Review and adjust below.';
+  const roster = document.getElementById('roster-' + di);
+  if (roster && roster.scrollIntoView) roster.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function fillAutoFromRoster() {
+  const di = parseInt(document.getElementById('autoLegion').value, 10) || 0;
+  const lines = [];
+  GROUPS.forEach(g => (dispatches[di][g.id] || []).forEach(p => {
+    if (p.name && p.name.trim()) lines.push(p.name.trim() + ', ' + (p.power || ''));
+  }));
+  if (!lines.length) { showToast('⚠ Legion ' + (di + 1) + ' has no named players yet'); return; }
+  document.getElementById('autoInput').value = lines.join('\n');
+  showToast('Loaded ' + lines.length + ' players from Legion ' + (di + 1));
+}
+
+function renderGroupTotal(di, gid) {
+  const el = document.getElementById('gtotal-' + di + '-' + gid);
+  if (!el) return;
+  const ps = (dispatches[di][gid] || []).filter(p => p.name && p.name.trim());
+  const tot = ps.reduce((s, p) => s + parsePowerK(p.power), 0);
+  el.textContent = ps.length ? ps.length + ' player' + (ps.length > 1 ? 's' : '') + (tot ? ' · ' + fmtK(tot) + ' power' : '') : '';
 }
 
 /* ── EXCEL / CSV IMPORT ── */
@@ -2402,7 +2641,8 @@ function buildDiscordOutput(di) {
       const role = p.role && p.role !== 'Unassigned' ? ` - ${p.role}` : '';
       const zone = !sb && d.ioMode && p.zone ? ` [${p.zone}]` : '';
       const bldg = sb ? ` → ${subForLabel(p.subFor)}` : (usesBuildings(di) && GROUP_BUILDINGS[s.id] && p.building ? ` @ ${p.building}` : '');
-      out += `   ${i+1}. ${p.name}${power}${role}${zone}${bldg}\n`;
+      const shrine = !sb && p.shrine ? ' ⚔ Swordshrine 15:00' : '';
+      out += `   ${i+1}. ${p.name}${power}${role}${zone}${bldg}${shrine}\n`;
     });
     out += '\n';
   });
@@ -2468,6 +2708,12 @@ function buildGroupChatBlocks(di, gid) {
   const cfg = CHAT_GROUPS[gid];
   const mode = assignMode(di);
   const groupLabel = cfg.title.split(' - ')[0];
+  const blocks = buildGroupChatBlocksBase(di, gid, d, players, io, cfg, mode, groupLabel);
+  const shrine = isStandby(gid) ? [] : players.filter(p => p.shrine).map(p => p.name.trim());
+  if (shrine.length && blocks.length) blocks[blocks.length - 1] += '\nSwordshrine at 15:00: ' + shrine.join(', ');
+  return blocks;
+}
+function buildGroupChatBlocksBase(di, gid, d, players, io, cfg, mode, groupLabel) {
   if (isStandby(gid)) {
     const lines = players.map(p => '• ' + p.name.trim() + (p.role && p.role !== 'Unassigned' ? ' (' + p.role + ')' : '') + ' - ' + subForLabel(p.subFor));
     return [[cfg.title, cfg.list + ':', ...lines].join('\n')];
@@ -2769,7 +3015,7 @@ function buildExportHTML(plan) {
           <tbody>
             ${players.map((p,i) => `<tr>
               <td class="num">${i+1}</td>
-              <td class="pname">${escHtml(p.name)}${s.id === 'subs' ? `<div class="pbldg">Sub for: ${escHtml(subForLabel(p.subFor))}</div>` : ''}${s.id !== 'subs' && d.roster.assignMode && d.roster.assignMode !== 'groups' && p.building ? `<div class="pbldg">${escHtml(p.building)}</div>` : ''}</td>
+              <td class="pname">${escHtml(p.name)}${p.shrine && s.id !== 'subs' ? '<div class="pbldg">⚔ Swordshrine at 15:00</div>' : ''}${s.id === 'subs' ? `<div class="pbldg">Sub for: ${escHtml(subForLabel(p.subFor))}</div>` : ''}${s.id !== 'subs' && d.roster.assignMode && d.roster.assignMode !== 'groups' && p.building ? `<div class="pbldg">${escHtml(p.building)}</div>` : ''}</td>
               <td class="ppower">${escHtml(p.power||'')}${p.power?'K':''}</td>
               <td class="prole ${getRoleCls(p.role)}">${escHtml(p.role||'')}</td>
               ${sio ? `<td class="pzone ${p.zone==='I'?'zin':p.zone==='O'?'zout':''}">${p.zone||''}</td>` : ''}
