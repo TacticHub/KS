@@ -1085,6 +1085,17 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
     .how-to-option { min-width: 100%; }
   }
 
+  /* ── CHAT MESSAGES (split to fit in-game chat) ── */
+  .modal-output.chat-msgs { white-space: normal; display: flex; flex-direction: column; gap: 10px; background: transparent; border: none; padding: 0; }
+  .modal-output.chat-msgs { max-height: 60vh; overflow-y: auto; }
+  .chat-msg { flex-shrink: 0; border: 1px solid rgba(224,163,57,0.25); border-radius: 8px; background: var(--dark); overflow: hidden; }
+  .chat-msg.done { opacity: 0.6; }
+  .chat-msg-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 10px;
+    font-family: 'Lato', sans-serif; font-size: 0.72rem; color: var(--text-muted); border-bottom: 1px solid rgba(224,163,57,0.15); }
+  .chat-msg-copy { padding: 5px 10px; border-radius: 6px; cursor: pointer; font-family: 'Lato', sans-serif; font-size: 0.78rem; font-weight: 700;
+    background: var(--gold); color: #14263f; border: none; }
+  .chat-msg-body { margin: 0; padding: 8px 10px; white-space: pre-wrap; word-break: break-word; font-family: 'Lato', sans-serif; font-size: 0.8rem; color: var(--text); }
+
   /* ── LIVE PLAN ── */
   .live-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
     background: var(--dark2); border: 1px solid rgba(224,163,57,0.15); border-radius: 10px; padding: 10px 14px; margin-bottom: 12px; }
@@ -1394,8 +1405,8 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
       </div>
       <div class="auto-panel">
         <textarea id="autoInput" class="auto-input" rows="6" spellcheck="false"
-          placeholder="One player per line: name, power (K)&#10;Omen, 412&#10;Kerv, 388&#10;Dusk 295K"></textarea>
-        <div class="auto-rules">The strongest players (about 1 in 6) become the <strong>DPS strike team</strong>: they capture buildings, hand them to the lead, and move on. The strongest of them takes <strong>Swordshrine</strong> at 15:00. Every building gets a lead. Extra players go to Sanctum and the Abbeys first (up to lead + 4), while the perk buildings get lead + 1 until those are full. The next strongest lead each building and everyone else supports; Group 2's two lowest-power supporters become the <strong>Loot crew</strong>. Only 30 players can join; anyone past 30 goes to <strong>Substitutes</strong>.</div>
+          placeholder="One player per line: name, power&#10;Omen, 6,442&#10;Kerv, 5210&#10;Dusk 803"></textarea>
+        <div class="auto-rules">The strongest players (about 1 in 6) become the <strong>DPS strike team</strong>: they capture buildings, hand them to the lead, and move on. The strongest of them takes <strong>Swordshrine</strong> at 15:00. Every building gets a lead. Extra players go to Sanctum and the Abbeys first (up to lead + 4), while the perk buildings get lead + 1 until those are full. The next strongest lead each building and everyone else supports; Group 2's two lowest-power supporters become the <strong>Loot crew</strong>. Inside / Outside is filled in too (strike team and leads Outside, everyone else Inside), ready if you turn it on. Only 30 players can join; anyone past 30 goes to <strong>Substitutes</strong>.</div>
         <div class="auto-actions">
           <select id="autoLegion" class="auto-legion" aria-label="Legion to fill">
             <option value="0">Legion 1</option>
@@ -1874,7 +1885,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
       <div class="modal-output notranslate" translate="no" id="discordOutput"></div>
     </div>
     <div class="modal-footer">
-      <button class="action-btn primary" onclick="copyDiscord()">📋 Copy to Clipboard</button>
+      <button class="action-btn primary" id="copyAllBtn" onclick="copyDiscord()">📋 Copy to Clipboard</button>
       <button class="action-btn" onclick="closeModal()">Close</button>
     </div>
   </div>
@@ -2186,7 +2197,7 @@ function renderRoster(di) {
       <div class="player-table-wrap">
         <table class="player-table">
           <thead><tr>
-            <th>#</th><th>Player Name</th><th>Power (K)</th><th>${sb ? 'Covers' : 'Role'}</th>${showB ? '<th>Building</th>' : ''}${showIO ? '<th>I / O</th>' : ''}<th></th>
+            <th>#</th><th>Player Name</th><th>Power</th><th>${sb ? 'Covers' : 'Role'}</th>${showB ? '<th>Building</th>' : ''}${showIO ? '<th>I / O</th>' : ''}<th></th>
           </tr></thead>
           <tbody id="tbody-${di}-${g.id}"></tbody>
         </table>
@@ -2360,7 +2371,9 @@ const STRIKE_RATIO = 6;           /* about 1 strike player per 6 */
 const STRIKE_MIN = 2, STRIKE_MAX = 5;
 const CREW_FULL = 5;              /* lead + 4 */
 const CREW_MIN = 3;               /* lead + 2 */
-const LOOT_CREW = 2;              /* Group 2's lowest-power supporters collect loot and gather */
+const LOOT_CREW = 2;
+/* Buildings that only open at 15:00 (from BUILDING_INTEL) */
+const LATE_BUILDINGS = ['Hall of Reformation', 'Mercenary Camp'];              /* Group 2's lowest-power supporters collect loot and gather */
 const CREW_PERK = 2;              /* lead + 1 on perk buildings before point buildings fill up */
 const STACK_BLEND = 0.5; /* 0 = even split, 1 = full stack by points */
 const BUILDING_VALUE = {
@@ -2374,7 +2387,8 @@ function buildingGroup(b) {
   return Object.keys(GROUP_BUILDINGS).find(g => GROUP_BUILDINGS[g].includes(b));
 }
 
-/* Power in K. Accepts 412, 412K, 1.2M, or a raw number like 41,200,000 */
+/* Power exactly as the alliance writes it (e.g. 803, 6,442). Commas are
+   ignored; a K or M suffix multiplies (6.4K = 6,400). No unit is assumed. */
 function parsePowerK(raw) {
   if (!raw) return 0;
   const m = String(raw).replace(/,/g, '').match(/([\d.]+)\s*([kKmM]?)/);
@@ -2382,8 +2396,8 @@ function parsePowerK(raw) {
   let v = parseFloat(m[1]);
   if (isNaN(v)) return 0;
   const unit = m[2].toLowerCase();
-  if (unit === 'm') v *= 1000;
-  else if (!unit && v >= 100000) v /= 1000;
+  if (unit === 'k') v *= 1000;
+  else if (unit === 'm') v *= 1000000;
   return Math.round(v * 10) / 10;
 }
 
@@ -2405,7 +2419,7 @@ function splitSeats(n, weights) {
   return out;
 }
 
-function fmtK(n) { return Math.round(n).toLocaleString() + 'K'; }
+function fmtK(n) { return Math.round(n).toLocaleString(); }
 
 /* Strike team: ~1 in 6 (2-5), but never so big that a building is left without a lead */
 function strikeSize(n) {
@@ -2449,13 +2463,13 @@ function autoAssignRoster(list, keep) {
   const extra = players.slice(ACTIVE_CAP);
   const roster = Object.assign(emptyRoster(), keep || {});
   GROUPS.forEach(g => { roster[g.id] = []; });
-  const mk = (p, role, building) => ({ name: p.name, power: p.power ? String(p.power) : '', role, zone: '', building: building || '' });
+  const mk = (p, role, building, zone) => ({ name: p.name, power: p.power ? String(p.power) : '', role, zone: zone || '', building: building || '' });
 
   /* 1. Strike team: the strongest players */
   const nStrike = strikeSize(active.length);
   const strike = active.slice(0, nStrike);
   strike.forEach((p, i) => {
-    const pl = mk(p, 'DPS', '');
+    const pl = mk(p, 'DPS', '', 'O');
     if (i === 0) pl.shrine = true;
     roster.dps.push(pl);
   });
@@ -2471,7 +2485,8 @@ function autoAssignRoster(list, keep) {
   const placed = { g1: [], g2: [], g3: [] };
   held.forEach((b, i) => {
     const p = holders[i], g = buildingGroup(b);
-    const pl = mk(p, '', b); pl._lead = true;
+    /* Leads go Outside to capture; crews of 15:00 buildings wait Inside */
+    const pl = mk(p, '', b, LATE_BUILDINGS.includes(b) ? 'I' : 'O'); pl._lead = true;
     placed[g].push(pl); gPower[g] += p.power; bPower[b] += p.power;
   });
   Object.keys(placed).forEach(g => {
@@ -2496,7 +2511,7 @@ function autoAssignRoster(list, keep) {
                                   LEAD_ORDER.indexOf(x) - LEAD_ORDER.indexOf(y))[0];
     const g = buildingGroup(b);
     seats[b]--;
-    placed[g].push(mk(p, healerSlot(b), b));
+    placed[g].push(mk(p, healerSlot(b), b, 'I'));
     gPower[g] += p.power; bPower[b] += p.power;
   });
 
@@ -2684,6 +2699,8 @@ function openDiscordModal(di) {
   document.getElementById('modalTitle').textContent = '📋 Discord Battle Plan';
   document.getElementById('modalHint').textContent = "Copy and paste into your Discord channel. Each section fits within Discord's character limits.";
   const output = buildDiscordOutput(di);
+  document.getElementById('discordOutput').classList.remove('chat-msgs');
+  document.getElementById('copyAllBtn').style.display = '';
   document.getElementById('discordOutput').textContent = output;
   document.getElementById('discordModal').classList.add('open');
 }
@@ -2724,7 +2741,7 @@ function buildDiscordOutput(di) {
     out += `   📍 ${s.sub}\n`;
     players.forEach((p, i) => {
       if (!p.name) return;
-      const power = p.power ? ` (${p.power}K)` : '';
+      const power = p.power ? ` (${fmtK(parsePowerK(p.power))})` : '';
       const role = p.role && p.role !== 'Unassigned' ? ` - ${p.role}` : '';
       const zone = !sb && d.ioMode && p.zone ? ` [${p.zone}]` : '';
       const bldg = sb ? ` → ${subForLabel(p.subFor)}` : (usesBuildings(di) && GROUP_BUILDINGS[s.id] && p.building ? ` @ ${p.building}` : '');
@@ -2843,6 +2860,14 @@ function groupPlanLines(di, gid, building) {
     lines.push('Main march: your building');
     lines.push('Secondary marches: the other buildings here, thinnest first - ' + thinnestBuildings(di, gid).join(', '));
   }
+  /* 15:00 buildings: crew holds the group's top point building until it opens */
+  const late = (GROUP_BUILDINGS[gid] || []).filter(b => LATE_BUILDINGS.includes(b) && (!building || building === b));
+  if (late.length) {
+    const base = (GROUP_BUILDINGS[gid] || []).slice().sort((x, y) => BUILDING_VALUE[y] - BUILDING_VALUE[x])[0];
+    late.forEach(b => {
+      lines.push('Before 15:00: ' + b + ' crew puts main marches on ' + base + '. At 15:00 march (do not teleport) to ' + b);
+    });
+  }
   const off = OFFENSE.find(o => o.holder === gid);
   if (off) lines.push('Phase 2: once ours hold, send secondary marches to hold the ' + off.target + ' after the strike team takes it' +
     (off.helper ? ' (' + CHAT_GROUPS[off.helper].title.split(' - ')[0] + ' joins you)' : ''));
@@ -2879,12 +2904,12 @@ function buildGroupChatBlocks(di, gid) {
   if (GROUP_BUILDINGS[gid] && blocks.length) {
     if (mode === 'buildings') {
       const split = playersByBuilding(gid, players);
-      split.forEach((x, i) => { if (blocks[i]) blocks[i] += '\n' + groupPlanLines(di, gid, x.building || '').join('\n'); });
+      split.forEach((x, i) => { if (blocks[i]) blocks[i] += '\n\n' + groupPlanLines(di, gid, x.building || '').join('\n'); });
     } else {
-      blocks[blocks.length - 1] += '\n\n' + groupPlanLines(di, gid, '').join('\n');
+      blocks.push(groupLabel + ' - Orders\n' + groupPlanLines(di, gid, '').join('\n'));
     }
   } else if (gid === 'dps' && blocks.length) {
-    blocks[blocks.length - 1] += '\n\n' + strikePlanLines().join('\n');
+    blocks.push('Strike Team - Orders\n' + strikePlanLines().join('\n'));
   }
   const shrine = isStandby(gid) ? [] : players.filter(p => p.shrine).map(p => p.name.trim());
   if (shrine.length && blocks.length) blocks[blocks.length - 1] += '\nSwordshrine at 15:00: ' + shrine.join(', ');
@@ -2911,6 +2936,28 @@ function buildGroupChatBlocksBase(di, gid, d, players, io, cfg, mode, groupLabel
     lines.push(...chatBody(x.players, cfg.list, io));
   });
   return [lines.join('\n')];
+}
+
+/* In-game chat limit: the alliance message templates are capped at 512
+   characters, so every copied message stays under CHAT_LIMIT. */
+const CHAT_LIMIT = 500;
+function splitForChat(block) {
+  if (block.length <= CHAT_LIMIT) return [block];
+  const out = []; let cur = '';
+  const lines = block.split('\n');
+  const title = lines[0];
+  lines.forEach((ln, i) => {
+    const add = (cur ? cur + '\n' : '') + ln;
+    if (add.length > CHAT_LIMIT && cur) {
+      out.push(cur.replace(/\n+$/, ''));
+      cur = (i > 0 ? title + ' (cont.)\n' : '') + ln;
+    } else cur = add;
+  });
+  if (cur.trim()) out.push(cur.replace(/\n+$/, ''));
+  return out.map(x => x.length > CHAT_LIMIT ? x.slice(0, CHAT_LIMIT) : x);
+}
+function chatMessages(di, gid) {
+  return buildGroupChatBlocks(di, gid).flatMap(splitForChat);
 }
 
 function buildGroupChat(di, gid) {
@@ -2942,29 +2989,41 @@ function fallbackCopy(text, okMsg) {
 }
 
 function copyGroupChat(di, gid) {
-  const line = buildGroupChat(di, gid);
-  if (!line) { showToast('⚠ No named players in this group yet'); return; }
-  if (assignMode(di) === 'buildings' && buildGroupChatBlocks(di, gid).length > 1) {
-    openChatText(di, line, 'One block per building. Paste each block as its own chat message.');
+  const msgs = chatMessages(di, gid);
+  if (!msgs.length) { showToast('⚠ No named players in this group yet'); return; }
+  if (msgs.length === 1) {
+    copyText(msgs[0], '✅ Copied ' + CHAT_GROUPS[gid].title.split(' - ')[0] + ' for in-game chat');
     return;
   }
-  copyText(line, '✅ Copied ' + CHAT_GROUPS[gid].title.split(' - ')[0] + ' for in-game chat');
+  openChatMessages(di, msgs, 'In-game chat has a length limit, so this is split into ' + msgs.length +
+    ' messages. Tap Copy on each one and paste it as its own chat message.');
 }
 
-function openChatText(di, text, hint) {
+/* Show chat messages one per card, each with its own Copy button */
+function openChatMessages(di, msgs, hint) {
   document.getElementById('modalTitle').textContent = '💬 In-Game Chat - Legion ' + (di + 1);
   document.getElementById('modalHint').textContent = hint;
-  document.getElementById('discordOutput').textContent = text;
+  const out = document.getElementById('discordOutput');
+  out.textContent = '';
+  out.classList.add('chat-msgs');
+  document.getElementById('copyAllBtn').style.display = 'none';
+  msgs.forEach((m, i) => {
+    const card = document.createElement('div'); card.className = 'chat-msg';
+    const head = document.createElement('div'); head.className = 'chat-msg-head';
+    const label = document.createElement('span'); label.textContent = 'Message ' + (i + 1) + ' of ' + msgs.length + ' · ' + m.length + ' chars';
+    const btn = document.createElement('button'); btn.className = 'chat-msg-copy'; btn.textContent = '📋 Copy';
+    btn.onclick = () => { copyText(m, '✅ Copied message ' + (i + 1) + ' of ' + msgs.length); btn.textContent = '✓ Copied'; card.classList.add('done'); };
+    head.appendChild(label); head.appendChild(btn);
+    const body = document.createElement('pre'); body.className = 'chat-msg-body'; body.textContent = m;
+    card.appendChild(head); card.appendChild(body); out.appendChild(card);
+  });
   document.getElementById('discordModal').classList.add('open');
 }
 
 function openChatModal(di) {
-  const text = buildAllGroupsChat(di);
-  if (!text) { showToast('⚠ No named players in Legion ' + (di + 1) + ' yet'); return; }
-  document.getElementById('modalTitle').textContent = '💬 In-Game Chat - Legion ' + (di + 1);
-  document.getElementById('modalHint').textContent = 'One block per group. Paste each group as its own chat message (the 💬 Copy button on each group card copies just that group).';
-  document.getElementById('discordOutput').textContent = text;
-  document.getElementById('discordModal').classList.add('open');
+  const msgs = GROUPS.flatMap(g => chatMessages(di, g.id));
+  if (!msgs.length) { showToast('⚠ No named players in Legion ' + (di + 1) + ' yet'); return; }
+  openChatMessages(di, msgs, 'Every message fits the in-game chat limit. Tap Copy on each one and paste it as its own chat message.');
 }
 
 function copyDiscord() {
@@ -3193,7 +3252,7 @@ function buildExportHTML(plan) {
             ${players.map((p,i) => `<tr>
               <td class="num">${i+1}</td>
               <td class="pname">${escHtml(p.name)}${p.shrine && s.id !== 'subs' ? '<div class="pbldg">⚔ Swordshrine at 15:00</div>' : ''}${p.loot && s.id !== 'subs' ? '<div class="pbldg">💰 Loot crew</div>' : ''}${s.id === 'subs' ? `<div class="pbldg">Sub for: ${escHtml(subForLabel(p.subFor))}</div>` : ''}${s.id !== 'subs' && d.roster.assignMode && d.roster.assignMode !== 'groups' && p.building ? `<div class="pbldg">${escHtml(p.building)}</div>` : ''}</td>
-              <td class="ppower">${escHtml(p.power||'')}${p.power?'K':''}</td>
+              <td class="ppower">${p.power ? fmtK(parsePowerK(p.power)) : ''}</td>
               <td class="prole ${getRoleCls(p.role)}">${escHtml(p.role||'')}</td>
               ${sio ? `<td class="pzone ${p.zone==='I'?'zin':p.zone==='O'?'zout':''}">${p.zone||''}</td>` : ''}
             </tr>`).join('')}
