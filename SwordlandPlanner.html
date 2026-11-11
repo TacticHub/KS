@@ -346,7 +346,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
 .group-card.subs-card { border-style: dashed; border-color: rgba(176,140,230,0.35); }
 .subs-count { display:inline-block; margin-left:8px; padding:1px 8px; border-radius:10px; font-family:'Lato',sans-serif; font-size:0.66rem; letter-spacing:0.04em; color:#cdb8f2; background:rgba(176,140,230,0.14); border:1px solid rgba(176,140,230,0.3); vertical-align:middle; }
 .subs-hint { font-family:'Lato',sans-serif; font-size:0.72rem; color:var(--text-muted); padding:8px 14px 0; line-height:1.45; }
-.player-table td select.move-select { min-width: 118px; color:#cdb8f2; }
+.player-table td select.move-select { display: block; width: 100%; margin-top: 6px; color: #cdb8f2; background: rgba(176,140,230,0.12); border-color: rgba(176,140,230,0.45); }
 
 .group-card-name {
   font-family: 'Cinzel', serif;
@@ -2102,7 +2102,7 @@ function renderRoster(di) {
       <div class="player-table-wrap">
         <table class="player-table">
           <thead><tr>
-            <th>#</th><th>Player Name</th><th>Power (K)</th><th>${sb ? 'Can Cover' : 'Role'}</th>${showB ? '<th>Building</th>' : ''}${showIO ? '<th>I / O</th>' : ''}${sb ? '<th>Move In</th>' : ''}<th></th>
+            <th>#</th><th>Player Name</th><th>Power (K)</th><th>${sb ? 'Covers' : 'Role'}</th>${showB ? '<th>Building</th>' : ''}${showIO ? '<th>I / O</th>' : ''}<th></th>
           </tr></thead>
           <tbody id="tbody-${di}-${g.id}"></tbody>
         </table>
@@ -2121,7 +2121,7 @@ function renderTbody(di, gid) {
   const showB = !sb && usesBuildings(di) && !!GROUP_BUILDINGS[gid];
   renderSubsCount(di);
   if (players.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="${5 + (io ? 1 : 0) + (showB ? 1 : 0) + (sb ? 1 : 0)}" style="color:var(--text-muted);font-style:italic;font-size:0.82rem;padding:12px;">${sb ? 'No substitutes waiting' : 'No players assigned yet'}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="${5 + (io ? 1 : 0) + (showB ? 1 : 0)}" style="color:var(--text-muted);font-style:italic;font-size:0.82rem;padding:12px;">${sb ? 'No substitutes waiting' : 'No players assigned yet'}</td></tr>`;
     return;
   }
   tbody.innerHTML = players.map((p, i) => {
@@ -2141,6 +2141,11 @@ function renderTbody(di, gid) {
         <select onchange="dispatches[${di}]['${gid}'][${i}].role=this.value;rerenderBadge(this,${di},'${gid}',${i})">
           ${ROLES.map(r => `<option value="${r}" ${r===p.role?'selected':''}>${r}</option>`).join('')}
         </select>
+        ${sb ? `<select class="move-select" title="Move this sub into a group when a spot opens"
+          onchange="if(this.value)moveSub(${di},${i},this.value)">
+          <option value="" selected>⇪ Move In...</option>
+          ${GROUPS.filter(x => !isStandby(x.id)).map(x => `<option value="${x.id}">→ ${x.label}</option>`).join('')}
+        </select>` : ''}
       </td>
       ${showB ? `<td>
         <select class="bldg-select${p.building ? '' : ' unset'}" title="Building for this player"
@@ -2155,13 +2160,6 @@ function renderTbody(di, gid) {
           <option value="" ${!p.zone ? 'selected' : ''}>-</option>
           <option value="I" ${p.zone === 'I' ? 'selected' : ''}>I - Inside</option>
           <option value="O" ${p.zone === 'O' ? 'selected' : ''}>O - Outside</option>
-        </select>
-      </td>` : ''}
-      ${sb ? `<td>
-        <select class="move-select" title="Move this sub into a group when a spot opens"
-          onchange="if(this.value)moveSub(${di},${i},this.value)">
-          <option value="" selected>- Standby -</option>
-          ${GROUPS.filter(x => !isStandby(x.id)).map(x => `<option value="${x.id}">→ ${x.label}</option>`).join('')}
         </select>
       </td>` : ''}
       <td><button class="remove-row-btn" onclick="removePlayer(${di},'${gid}',${i})">✕</button></td>
