@@ -2859,7 +2859,7 @@ function buildDiscordOutput(di) {
     });
     out += '────────────────────────────────\n';
   }
-  out += '🏰 Kingdom 1625 - Swordland Planner\n';
+  out += '🏰 Swordland Planner\n';
 
   return out;
 }
@@ -4153,7 +4153,7 @@ function buildPlanImageSvg(di) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${Hfit}" viewBox="0 0 ${W} ${Hfit}">
     <rect width="${W}" height="${Hfit}" fill="#0b1626"/>
     <text x="54" y="70" fill="#e0a339" font-family="Georgia, 'Times New Roman', serif" font-size="46" font-weight="700" letter-spacing="2">SWORDLAND SHOWDOWN</text>
-    <text x="54" y="118" fill="#c9d3e3" font-family="Arial, Helvetica, sans-serif" font-size="30">${svgEsc('Kingdom 1625 · ' + alliances[currentAlliance].label + ' · Legion ' + (di + 1) + (time ? ' · ' + time + ' UTC' : ''))}</text>
+    <text x="54" y="118" fill="#c9d3e3" font-family="Arial, Helvetica, sans-serif" font-size="30">${svgEsc(alliances[currentAlliance].label + ' · Legion ' + (di + 1) + (time ? ' · ' + time + ' UTC' : ''))}</text>
     ${mapSvg}${legendSvg}
   </svg>`;
 }
