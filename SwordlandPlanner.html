@@ -1379,7 +1379,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
         </div></div>
         <div class="pg-step"><div class="pg-num">5</div><div>
           <div class="pg-step-title">Assign roles</div>
-          <div class="pg-step-text">For each player set the <strong>Role</strong>: <strong>Lead</strong> (or Tank 1-3), Healer, DPS, or Farm/Support (loot crew). Then set <strong>Building</strong> and <strong>I / O</strong> if those are turned on. The map sidebar lists each building's points and perks. On the <strong>Substitutes</strong> card, pick the group each sub backs up. Drag a player by the <strong>⠿</strong> grip to move them to another group (their role and building reset), tap <strong>🏷 Tag</strong> to set Swordshrine or Loot crew, and use <strong>↶ Undo</strong> / <strong>↷ Redo</strong> above the legion tabs to step back through changes.</div>
+          <div class="pg-step-text">For each player set the <strong>Role</strong>: <strong>Tank 1 / Lead</strong> (one per building), Tank 2-3, Healer (the garrison backing the lead), DPS, or Farm/Support (loot crew). Then set <strong>Building</strong> and <strong>I / O</strong> if those are turned on. The map sidebar lists each building's points and perks. On the <strong>Substitutes</strong> card, pick the group each sub backs up. Drag a player by the <strong>⠿</strong> grip to move them to another group (their role and building reset), tap <strong>🏷 Tag</strong> to set Swordshrine or Loot crew, and use <strong>↶ Undo</strong> / <strong>↷ Redo</strong> above the legion tabs to step back through changes.</div>
         </div></div>
       </div>
 
@@ -1984,7 +1984,10 @@ function emptyRoster() { return { g1:[], g2:[], g3:[], dps:[], reserve:[], subs:
 /* Older saved plans have no subs list - fill in any missing group arrays */
 function normalizeRoster(r) {
   const out = r || {};
-  GROUPS.forEach(g => { if (!Array.isArray(out[g.id])) out[g.id] = []; });
+  GROUPS.forEach(g => {
+    if (!Array.isArray(out[g.id])) out[g.id] = [];
+    out[g.id].forEach(p => { if (p && p.role && !ROLES.includes(p.role)) p.role = normalizeRole(p.role); });
+  });
   return out;
 }
 
@@ -2000,7 +2003,9 @@ const ASSIGN_MODES = [
   { key: 'both',      label: 'Both' }
 ];
 
-const ROLES = ['Lead','Tank 1','Tank 2','Tank 3','Healer 1','Healer 2','Healer 3','DPS','Farm/Support','Unassigned'];
+/* Every building has a lead: 'Tank 1 / Lead'. Healers garrison to back the leads. */
+const LEAD_ROLE = 'Tank 1 / Lead';
+const ROLES = [LEAD_ROLE,'Tank 2','Tank 3','Healer 1','Healer 2','Healer 3','DPS','Farm/Support','Unassigned'];
 
 /* State: alliances hold 2 dispatches each */
 /* ── ALLIANCE SLOTS ──
@@ -2308,7 +2313,7 @@ function renderTbody(di, gid) {
 function getRoleCls(role) {
   if (!role) return 'reserve';
   const r = role.toLowerCase();
-  if (r.startsWith('tank') || r === 'lead') return 'tank'; /* Lead = tank-style role, shown as Lead in chat */
+  if (r.startsWith('tank') || r === 'lead') return 'tank'; /* Tank 1 / Lead = building lead, shown as Lead in chat */
   if (r.startsWith('healer')) return 'healer';
   if (r === 'dps') return 'dps';
   return 'reserve';
@@ -2530,10 +2535,7 @@ function autoAssignRoster(list, keep) {
     const pl = mk(p, '', b); pl._lead = true;
     placed[g].push(pl); gPower[g] += p.power; bPower[b] += p.power;
   });
-  Object.keys(placed).forEach(g => {
-    let t = 0;
-    placed[g].forEach((pl, k) => { pl.role = k === 0 ? 'Lead' : 'Tank ' + (++t); });
-  });
+  Object.keys(placed).forEach(g => placed[g].forEach(pl => { pl.role = LEAD_ROLE; }));
 
   /* 4. Supporters fill the remaining seats, strongest into whichever open
         seat is weakest against its building's point-weighted target */
@@ -2741,8 +2743,8 @@ function normalizeRole(r) {
   if (!r) return 'Unassigned';
   const rl = r.trim().toLowerCase();
   for (const role of ROLES) { if (role.toLowerCase() === rl) return role; }
-  if (rl === 'lead' || rl === 'leader') return 'Lead';
-  if (rl.startsWith('tank')) return r.includes('1')?'Tank 1':r.includes('2')?'Tank 2':'Tank 3';
+  if (rl === 'lead' || rl === 'leader' || rl.includes('lead')) return LEAD_ROLE;
+  if (rl.startsWith('tank')) return r.includes('2') ? 'Tank 2' : r.includes('3') ? 'Tank 3' : LEAD_ROLE;
   if (rl.startsWith('healer')) return r.includes('1')?'Healer 1':r.includes('2')?'Healer 2':'Healer 3';
   if (rl === 'dps') return 'DPS';
   if (rl.includes('farm') || rl.includes('support')) return 'Farm/Support';
@@ -2860,13 +2862,18 @@ const CHAT_GROUPS = {
 
 /* Lead line + bulleted list for a set of players */
 function chatBody(players, listLabel, io) {
-  const leads = players.filter(p => getRoleCls(p.role) === 'tank').map(p => p.name.trim());
+  const isLead = p => p.role === LEAD_ROLE;
+  const leadList = players.filter(isLead);
+  const multiB = new Set(leadList.map(p => p.building).filter(Boolean)).size > 1;
+  const leads = leadList.map(p => p.name.trim() + (multiB && p.building ? ' (' + p.building + ')' : ''));
+  const tanks = players.filter(p => !isLead(p) && getRoleCls(p.role) === 'tank').map(p => p.name.trim());
   const others = players.filter(p => getRoleCls(p.role) !== 'tank').map(p => {
     const z = io && (p.zone === 'I' || p.zone === 'O') ? ' (' + p.zone + ')' : '';
     return '• ' + p.name.trim() + z;
   });
   const lines = [];
   if (leads.length) lines.push('Lead: ' + leads.join(', '));
+  if (tanks.length) lines.push('Tanks: ' + tanks.join(', '));
   if (others.length) { lines.push(listLabel + ':'); lines.push(...others); }
   return lines;
 }
