@@ -1378,7 +1378,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
       <div class="pg-steps">
         <div class="pg-step"><div class="pg-num">4</div><div>
           <div class="pg-step-title">Add players</div>
-          <div class="pg-step-text">Tap <strong>＋ Add Player</strong> on a group card, <strong>Upload Excel / CSV</strong> to fill both legions at once, or paste names and power into <strong>Auto Assign</strong> to have groups, roles, and buildings picked for you. Imported DPS players are sorted automatically, and Farm/Support players join <strong>Group 2</strong> as the <strong>💰 Loot crew</strong>; imported tanks and healers all land in <strong>Group 1</strong>, so check that card after importing. Players waiting for an opening go on the <strong>Substitutes</strong> card (add a <strong>Subs</strong> row in your sheet to import them there).</div>
+          <div class="pg-step-text">Tap <strong>＋ Add Player</strong> on a group card, <strong>Upload Excel / CSV</strong> to fill both legions at once, or paste names and power into <strong>Auto Assign</strong> to have groups, roles, and buildings picked for you. Imported DPS players are sorted automatically, and Farm/Support players join <strong>Group 2</strong> as the <strong>💰 Loot crew</strong>; imported tanks and healers all land in <strong>Group 1</strong>, so check that card after importing. Players waiting for an opening go on the <strong>Substitutes</strong> card (write <strong>SUB</strong> after their power, like <code>3954 SUB</code>, in your sheet or the Auto Assign box, and they're placed there automatically).</div>
         </div></div>
         <div class="pg-step"><div class="pg-num">5</div><div>
           <div class="pg-step-title">Assign roles</div>
@@ -1436,8 +1436,8 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
       </div>
       <div class="auto-panel">
         <textarea id="autoInput" class="auto-input" rows="6" spellcheck="false"
-          placeholder="One player per line: name, power&#10;Omen, 6,442&#10;Kerv, 5210&#10;Dusk 803"></textarea>
-        <div class="auto-rules">The strongest players (about 1 in 6) become the <strong>DPS strike team</strong>: they capture buildings, hand them to the lead, and move on. The strongest of them floats and takes <strong>Swordshrine</strong> at 15:00; the rest are attached to groups (Group 3 first, then Group 1, then Group 2) to capture with them and hit that group's enemy target. Every building gets a lead. Extra players go to Sanctum and the Abbeys first (up to lead + 4), while the perk buildings get lead + 1 until those are full. The next strongest lead each building and everyone else supports; Group 2's two lowest-power supporters become the <strong>Loot crew</strong>. Inside / Outside is filled in too (strike team and the stronger half Outside, the weaker half Inside the safe zone), ready if you turn it on. Only 30 players can join; anyone past 30 goes to <strong>Substitutes</strong>.</div>
+          placeholder="One player per line: name, power (add SUB for substitutes)&#10;Omen, 6,442&#10;Kerv, 5210&#10;Dusk 803 SUB"></textarea>
+        <div class="auto-rules">The strongest players (about 1 in 6) become the <strong>DPS strike team</strong>: they capture buildings, hand them to the lead, and move on. The strongest of them floats and takes <strong>Swordshrine</strong> at 15:00; the rest are attached to groups (Group 3 first, then Group 1, then Group 2) to capture with them and hit that group's enemy target. Every building gets a lead. Extra players go to Sanctum and the Abbeys first (up to lead + 4), while the perk buildings get lead + 1 until those are full. The next strongest lead each building and everyone else supports; Group 2's two lowest-power supporters become the <strong>Loot crew</strong>. Inside / Outside is filled in too (strike team and the stronger half Outside, the weaker half Inside the safe zone), ready if you turn it on. Only 30 players can join. Players with <strong>SUB</strong> after their power go straight to <strong>Substitutes</strong>, and anyone past 30 goes there too.</div>
         <div class="auto-actions">
           <select id="autoLegion" class="auto-legion" aria-label="Legion to fill">
             <option value="0">Legion 1</option>
@@ -2457,11 +2457,25 @@ function parsePowerK(raw) {
   return Math.round(v * 10) / 10;
 }
 
+/* "SUB" written after a player's power (e.g. "Omen 3954 SUB") marks someone
+   placed as a substitute once registration closes. Returns the text without
+   the flag and whether it was there. */
+const SUB_FLAG = /(^|[\s,;\t(\[-])subs?([\s,;\t)\].]|$)/i;
+function splitSubFlag(text) {
+  const t = String(text || '');
+  if (!SUB_FLAG.test(t)) return { text: t.trim(), sub: false };
+  return { text: t.replace(SUB_FLAG, '$1$2').replace(/[\s,;\t\-([\])]+$/, '').replace(/\s{2,}/g, ' ').trim(), sub: true };
+}
+
 function parseAutoLines(text) {
-  return String(text || '').split(/\r?\n/).map(l => l.trim()).filter(Boolean).map(l => {
+  return String(text || '').split(/\r?\n/).map(l => l.trim()).filter(Boolean).map(raw => {
+    /* Only look for SUB after the name, so a player named e.g. "Subaru" is safe */
+    const pm = raw.match(/^(.*?\S)[\s,;\t]+(\d[\d.,]*\s*[kKmM]?\b.*)$/);
+    let l = raw, sub = false;
+    if (pm) { const f = splitSubFlag(pm[2]); sub = f.sub; l = pm[1] + ' ' + f.text; }
     const m = l.match(/^(.*?)[\s,;\t]+([\d][\d.,]*\s*[kKmM]?)\s*$/);
-    if (m && m[1].trim()) return { name: m[1].replace(/[,;\t\s]+$/, '').trim(), power: parsePowerK(m[2]) };
-    return { name: l.replace(/[,;\t]+$/, '').trim(), power: 0 };
+    if (m && m[1].trim()) return { name: m[1].replace(/[,;\t\s]+$/, '').trim(), power: parsePowerK(m[2]), sub };
+    return { name: l.replace(/[,;\t]+$/, '').trim(), power: 0, sub };
   }).filter(p => p.name);
 }
 
@@ -2514,9 +2528,13 @@ function planCrews(holders) {
 }
 
 function autoAssignRoster(list, keep) {
-  const players = list.map((p, idx) => ({ ...p, idx })).sort((a, b) => (b.power - a.power) || (a.idx - b.idx));
+  const byPow = (a, b) => (b.power - a.power) || (a.idx - b.idx);
+  const all = list.map((p, idx) => ({ ...p, idx }));
+  const marked = all.filter(p => p.sub).sort(byPow);          /* SUB in the sheet */
+  const players = all.filter(p => !p.sub).sort(byPow);
   const active = players.slice(0, ACTIVE_CAP);
-  const extra = players.slice(ACTIVE_CAP);
+  const overflow = players.slice(ACTIVE_CAP);                  /* past the 30-player cap */
+  const extra = marked.concat(overflow);
   const roster = Object.assign(emptyRoster(), keep || {});
   GROUPS.forEach(g => { roster[g.id] = []; });
   const mk = (p, role, building, zone) => ({ name: p.name, power: p.power ? String(p.power) : '', role, zone: zone || '', building: building || '' });
@@ -2597,7 +2615,7 @@ function autoAssignRoster(list, keep) {
   extra.forEach(p => roster.subs.push({ ...mk(p, 'Unassigned', ''), subFor: '' }));
 
   return { roster, gPower, dpsPower: strike.reduce((s, p) => s + p.power, 0),
-           shrine: strike[0] ? strike[0].name : '', subs: extra.length, active: active.length,
+           shrine: strike[0] ? strike[0].name : '', subs: extra.length, markedSubs: marked.length, overflow: overflow.length, active: active.length,
            strike: nStrike, held, crews, loot: loot.map(pl => pl.name), noPower: list.filter(p => !p.power).length };
 }
 
@@ -2624,7 +2642,8 @@ function runAutoAssign() {
   status.className = 'upload-status success';
   const skipped = LEAD_ORDER.filter(b => !r.crews[b]);
   status.textContent = '⚡ Legion ' + (di + 1) + ': ' + r.active + ' assigned' +
-    (r.subs ? ', ' + r.subs + ' to Substitutes' : '') +
+    (r.subs ? ', ' + r.subs + ' to Substitutes' +
+      (r.markedSubs ? ' (' + r.markedSubs + ' marked SUB' + (r.overflow ? ', ' + r.overflow + ' over the ' + ACTIVE_CAP + ' cap' : '') + ')' : '') : '') +
     '. Strike team ' + r.strike + '. Holding ' + r.held.length + ' building' + (r.held.length === 1 ? '' : 's') + ': ' +
     r.held.map(b => b + ' (' + r.crews[b] + ')').join(', ') +
     (skipped.length ? '. Not held (strike team targets): ' + skipped.join(', ') : '') +
@@ -2641,7 +2660,7 @@ function fillAutoFromRoster() {
   const di = parseInt(document.getElementById('autoLegion').value, 10) || 0;
   const lines = [];
   GROUPS.forEach(g => (dispatches[di][g.id] || []).forEach(p => {
-    if (p.name && p.name.trim()) lines.push(p.name.trim() + ', ' + (p.power || ''));
+    if (p.name && p.name.trim()) lines.push(p.name.trim() + ', ' + (p.power || '') + (isStandby(g.id) ? ' SUB' : ''));
   }));
   if (!lines.length) { showToast('⚠ Legion ' + (di + 1) + ' has no named players yet'); return; }
   document.getElementById('autoInput').value = lines.join('\n');
@@ -2719,8 +2738,12 @@ function parseCSV(csv, status) {
       const n2 = row[4]; const p2 = row[5]; const r2 = row[6];
       if (!n1 && !n2) continue;
       const place = (d, n, pw, r) => {
-        const gid = currentSection !== 'main' ? currentSection : inferGroup(r);
-        const pl = { name: n, power: pw || '', role: normalizeRole(r) };
+        const pf = splitSubFlag(pw), rf = splitSubFlag(r);
+        const isSub = pf.sub || rf.sub;
+        const role = rf.sub ? '' : r;
+        const gid = isSub ? 'subs' : (currentSection !== 'main' ? currentSection : inferGroup(role));
+        const pl = { name: n, power: pf.text || '', role: normalizeRole(role) };
+        if (gid === 'subs') pl.subFor = '';
         if (gid === 'loot') { pl.loot = true; d.g2.push(pl); } else d[gid].push(pl);
       };
       if (n1) place(d1, n1, p1, r1);
@@ -2735,7 +2758,10 @@ function parseCSV(csv, status) {
     dispatches[1] = d2;
     renderAll();
     status.className = 'upload-status success';
-    status.textContent = '✓ ' + alliances[currentAlliance].label + ' roster imported! Review and adjust assignments below.';
+    const nSub = d1.subs.length + d2.subs.length;
+    status.textContent = '✓ ' + alliances[currentAlliance].label + ' roster imported!' +
+      (nSub ? ' ' + nSub + ' substitute' + (nSub > 1 ? 's' : '') + ' placed on the Substitutes cards.' : '') +
+      ' Review and adjust assignments below.';
   } catch(err) {
     status.className = 'upload-status error';
     status.textContent = 'Parse error: ' + err.message;
