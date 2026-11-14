@@ -2782,13 +2782,38 @@
   .ff-viewer-hint.fade { opacity: 0; }
   body.ff-viewer-lock { overflow: hidden; }
 
-  /* Governor Duel - one body font and size across every component */
-  #governor-duel p, #governor-duel li, #governor-duel .callout, #governor-duel .pet-desc,
-  #governor-duel .tg-mistake-desc, #governor-duel .tg-phase-desc, #governor-duel .tg-table td,
-  #governor-duel .omen-tip-card p, #governor-duel .wa-consensus-card p {
+  /* Site-wide type consistency: Merriweather for all body text at one size; Lato stays for headings, labels and table headers */
+  section.tab-panel p,
+  section.tab-panel li,
+  section.tab-panel td,
+  section.tab-panel .callout,
+  section.tab-panel .tab-desc,
+  section.tab-panel .pet-desc,
+  section.tab-panel .priority-desc,
+  section.tab-panel .tg-mistake-desc,
+  section.tab-panel .tg-phase-desc,
+  section.tab-panel .wa-prep-desc,
+  section.tab-panel .mta-mistake-desc,
+  section.tab-panel .mta-intro-desc,
+  section.tab-panel .link-card-desc,
+  section.tab-panel .wa-role-reason,
+  section.tab-panel .wa-roadmap-reason,
+  section.tab-panel .wa-roadmap-goal,
+  section.tab-panel .mta-priority-reason,
+  section.tab-panel .mta-master-tagline,
+  section.tab-panel .hdb-detail-content,
+  section.tab-panel .transparency-notice,
+  section.tab-panel .wa-launch-banner-text,
+  section.tab-panel .omen-tip-card p {
     font-family: 'Merriweather', Georgia, serif; font-size: 0.88rem; line-height: 1.6;
   }
-  #governor-duel .wa-placeholder-note, #governor-duel .gd-note { font-family: 'Merriweather', Georgia, serif; font-size: 0.82rem; line-height: 1.6; }
+  section.tab-panel .wa-placeholder-note,
+  section.tab-panel figcaption,
+  section.tab-panel .link-card-url,
+  section.tab-panel .body-note {
+    font-family: 'Merriweather', Georgia, serif; font-size: 0.82rem; line-height: 1.6;
+  }
+  section.tab-panel .home-card-links { font-family: 'Lato', sans-serif; }
   #governor-duel .tg-table { min-width: 0; }
 </style>
 <noscript><style>.tab-panel{display:block !important;} .tab-bar{display:none;}</style></noscript>
@@ -3292,7 +3317,7 @@
       <li><strong>4. Line Collapse:</strong> When a line reaches zero, all attacks immediately retarget the next surviving line</li>
       <li><strong>5. Repeat:</strong> Attacker and Defender alternate until one side has zero troops</li>
     </ul>
-    <p style="margin-top:10px;color:var(--text-dim);font-size:0.9rem;">This explains why Infantry and Archers die first - Infantry absorb everything until they fold, while Archers take stray Cavalry charges. Cavalry ironically survive longest because they draw the least aggro until late rounds.</p>
+    <p style="margin-top:10px;color:var(--text-dim);">This explains why Infantry and Archers die first - Infantry absorb everything until they fold, while Archers take stray Cavalry charges. Cavalry ironically survive longest because they draw the least aggro until late rounds.</p>
   </div>
 
   <h3>Stat Priority - What Actually Matters</h3>
@@ -4317,7 +4342,7 @@
   <!-- CRUCIBLE -->
   <h3>Truegold Crucible - Daily Refinement</h3>
   <div class="tg-crucible-box">
-    <p style="font-size:0.88rem;color:var(--text);margin-bottom:10px;">Unlocks at kingdom TG Level 5 (~Day 150). Free to build. No upgrades. Converts standard resources into Truegold via 5 daily refinements. <strong>Never skip a day</strong> - this compounds significantly over time.</p>
+    <p style="color:var(--text);margin-bottom:10px;">Unlocks at kingdom TG Level 5 (~Day 150). Free to build. No upgrades. Converts standard resources into Truegold via 5 daily refinements. <strong>Never skip a day</strong> - this compounds significantly over time.</p>
     <div style="font-family:'Lato',sans-serif;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">Refinement odds per roll</div>
     <div class="tg-prob-row">
       <div class="tg-prob-item"><div class="tg-prob-val">1</div><div class="tg-prob-pct">40% chance</div></div>
@@ -4879,7 +4904,7 @@
       <span class="mta-res-pill safe">&#x1F3DE; Adventure Supplies</span>
       <span class="mta-res-pill safe">&#x1F381; Master Gifts</span>
     </div>
-    <p style="font-size:0.83rem;color:var(--text-dim);">These resources do <strong>not</strong> contribute to KvK scoring. Spend them as needed without concern for event timing.</p>
+    <p style="color:var(--text-dim);">These resources do <strong>not</strong> contribute to KvK scoring. Spend them as needed without concern for event timing.</p>
   </div>
   <div class="card" style="border-color:rgba(192,104,32,0.3);background:rgba(192,104,32,0.06);margin-bottom:8px;">
     <p style="font-family:'Lato',sans-serif;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;">&#x26A0; KvK-Sensitive - Hold During Prep Windows</p>
@@ -4888,7 +4913,7 @@
       <span class="mta-res-pill caution">&#x1F4DC; Master Manuscripts</span>
       <span class="mta-res-pill caution">&#x23F1; Master Skill Speedups</span>
     </div>
-    <p style="font-size:0.83rem;color:var(--text-dim);">These resources score in KvK prep events. Coordinate spending timing with your R4/R5 leadership. Emblems are a significant bottleneck - treat them as a gated resource.</p>
+    <p style="color:var(--text-dim);">These resources score in KvK prep events. Coordinate spending timing with your R4/R5 leadership. Emblems are a significant bottleneck - treat them as a gated resource.</p>
   </div>
 
   <!-- PRIORITY PATHS -->
@@ -5769,19 +5794,19 @@
   <div class="er-stage-grid">
     <div class="er-stage">
       <div class="er-stage-label">Early Stages 1&ndash;5</div>
-      <p style="font-size:0.93rem;">Use your strongest combat heroes. Focus on clearing stages before the event timer expires. Attempt stages daily.</p>
+      <p>Use your strongest combat heroes. Focus on clearing stages before the event timer expires. Attempt stages daily.</p>
     </div>
     <div class="er-stage">
       <div class="er-stage-label">Mid Stages 6&ndash;10</div>
-      <p style="font-size:0.93rem;">Hero level and star upgrades become critical. Pair Lethality heroes with Archer-boosting secondary heroes.</p>
+      <p>Hero level and star upgrades become critical. Pair Lethality heroes with Archer-boosting secondary heroes.</p>
     </div>
     <div class="er-stage">
       <div class="er-stage-label">Hard Stages 11&ndash;15</div>
-      <p style="font-size:0.93rem;">Requires maxed heroes and high Charm bonuses. Top-tier F2P players can reach these with a focused strategy.</p>
+      <p>Requires maxed heroes and high Charm bonuses. Top-tier F2P players can reach these with a focused strategy.</p>
     </div>
     <div class="er-stage">
       <div class="er-stage-label">Elite Stages 16+</div>
-      <p style="font-size:0.93rem;">Predominantly spender territory. F2P: focus on consistent mid-stage completion for steady Charm accumulation.</p>
+      <p>Predominantly spender territory. F2P: focus on consistent mid-stage completion for steady Charm accumulation.</p>
     </div>
   </div>
   <h3>Hero Recommendations</h3>
@@ -5830,7 +5855,7 @@
   </div>
 
   <h3>Airdrop Items</h3>
-  <p style="font-size:0.88rem;color:var(--text-dim);margin-bottom:10px;">Airdrops reportedly begin about 1:30 into battle and recur roughly every 2 minutes. Four items have been documented so far:</p>
+  <p style="color:var(--text-dim);margin-bottom:10px;">Airdrops reportedly begin about 1:30 into battle and recur roughly every 2 minutes. Four items have been documented so far:</p>
   <div class="tg-table-wrap">
     <table class="tg-table">
       <thead><tr><th>Item</th><th>Reported Effect</th><th>Best Early Use</th></tr></thead>
@@ -6252,7 +6277,7 @@
   </div>
 
   <h3>Event Phases</h3>
-  <p class="gd-note" style="color:var(--text-dim);margin-bottom:10px;">The window spans seven UTC dates, while the social announcement describes a six-day group competition - so part of the window is likely sign-up. Exact phase change times still need to be confirmed in-game.</p>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">The window spans seven UTC dates, while the social announcement describes a six-day group competition - so part of the window is likely sign-up. Exact phase change times still need to be confirmed in-game.</p>
   <div class="tg-phase-grid">
     <div class="tg-phase-card tg-early">
       <div class="tg-phase-label">Phase 1</div>
@@ -6318,7 +6343,7 @@
     <span class="callout-label">&#x1F4DD; Track Every Battle</span>
     If battle reports are available, record opponent strength and formation, your squad setup, which squad battles you won or lost, points earned, and any rank change. Use what you learn instead of spending challenges blindly - but do not lose unused challenges to over-analysis.
   </div>
-  <p class="gd-note" style="color:var(--text-dim);">10 challenges a day over a six-day Battle Phase would be a theoretical max of 60 per season - only if every day gives the full allotment. How much each one is worth depends on the scoring formula, which is not confirmed.</p>
+  <p class="body-note" style="color:var(--text-dim);">10 challenges a day over a six-day Battle Phase would be a theoretical max of 60 per season - only if every day gives the full allotment. How much each one is worth depends on the scoring formula, which is not confirmed.</p>
 
   <h3>Points and Ranking</h3>
   <div class="tg-table-wrap">
@@ -6423,7 +6448,7 @@
   </div>
 
   <h3>Research Tracker</h3>
-  <p class="gd-note" style="color:var(--text-dim);margin-bottom:10px;">What we still need to confirm this season. Send findings and screenshots to alliance leadership.</p>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">What we still need to confirm this season. Send findings and screenshots to alliance leadership.</p>
   <div class="tg-table-wrap">
     <table class="tg-table">
       <thead><tr><th>Priority</th><th>Investigate</th></tr></thead>
@@ -7121,7 +7146,7 @@
 <footer>
   <div class="footer-logo">&#x1F3D6;&#xFE0F; KINGDOM 1625</div>
   <p>Kingshot Strategy Guide &middot; Updated 2026 &middot; Kingdom #1625</p>
-  <p style="margin-top:6px; font-size:0.8rem;">Questions? Ask the Strategy AI above, or consult your alliance's R4/R5 leaders.</p>
+  <p style="margin-top:6px;">Questions? Ask the Strategy AI above, or consult your alliance's R4/R5 leaders.</p>
 </footer>
 
 <!-- AI CHAT SCRIPT -->
@@ -8670,7 +8695,7 @@ function hdbRenderDetail(h) {
           ${inv.whale ? `<div class="hdb-invest-item"><div class="hdb-invest-tier">Whale</div><div class="hdb-invest-val">${inv.whale}</div></div>` : ''}
         </div>
       </div>
-      ${h.notes ? `<div style="margin-top:12px;font-family:'Merriweather',Georgia,serif;font-size:0.8rem;color:var(--text-muted);font-style:italic;border-top:1px solid rgba(212,137,26,0.1);padding-top:10px;">${h.notes}</div>` : ''}
+      ${h.notes ? `<div style="margin-top:12px;font-family:'Merriweather',Georgia,serif;font-size:0.82rem;color:var(--text-muted);font-style:italic;border-top:1px solid rgba(212,137,26,0.1);padding-top:10px;">${h.notes}</div>` : ''}
     </div>`;
 }
 
@@ -8892,7 +8917,7 @@ function tgInitCosts() {
       <td><strong>${r.building}</strong>${r.priority ? ' <span class="tg-badge tg-p1" style="margin-left:4px">Gate</span>' : ''}</td>
       <td>${n(r.tg1)}</td><td>${n(r.tg2)}</td><td>${n(r.tg3)}</td><td>${n(r.tg4)}</td><td>${n(r.tg5)}</td>
       <td><span class="tg-cost-num">${total.toLocaleString()}</span></td>
-      <td style="font-size:0.78rem;color:var(--text-muted);">${r.unlocks}</td>
+      <td style="font-size:0.82rem;color:var(--text-muted);">${r.unlocks}</td>
     </tr>`;
   }).join('');
   const grandTotal = Object.values(totalRow).reduce((a,b)=>a+b,0);
@@ -8904,7 +8929,7 @@ function tgInitCosts() {
     <td><span class="tg-cost-num">${totalRow.tg4.toLocaleString()}</span></td>
     <td><span class="tg-cost-num">${totalRow.tg5.toLocaleString()}</span></td>
     <td><span class="tg-cost-num">${grandTotal.toLocaleString()}</span></td>
-    <td style="font-size:0.78rem;color:var(--text-muted);">Complete TG1–TG5 all buildings</td>
+    <td style="font-size:0.82rem;color:var(--text-muted);">Complete TG1–TG5 all buildings</td>
   </tr>`;
 }
 
@@ -8918,7 +8943,7 @@ function tgInitSources() {
       <td>${tgF2pBadge(r.f2p)}</td>
       <td style="font-size:0.82rem;color:var(--text)">${r.amount}</td>
       <td>${tgBadge(r.priority)}</td>
-      <td style="font-size:0.78rem;color:var(--text-muted);max-width:260px;">${r.notes}</td>
+      <td style="font-size:0.82rem;color:var(--text-muted);max-width:260px;">${r.notes}</td>
     </tr>`).join('');
 }
 
@@ -8933,8 +8958,8 @@ function tgInitPriority() {
       <td>${tgBadge(r.p3)}</td>
       <td>${tgBadge(r.f2p)}</td>
       <td>${tgBadge(r.combat)}</td>
-      <td style="font-size:0.78rem;color:var(--text-muted)">${r.stop}</td>
-      <td style="font-size:0.78rem;color:var(--text-muted);max-width:220px">${r.notes}</td>
+      <td style="font-size:0.82rem;color:var(--text-muted)">${r.stop}</td>
+      <td style="font-size:0.82rem;color:var(--text-muted);max-width:220px">${r.notes}</td>
     </tr>`).join('');
 }
 
@@ -9031,7 +9056,7 @@ function waRender() {
       <td style="letter-spacing:1px;color:var(--gold)">${waStars(r.dust)}</td>
       <td style="font-size:0.82rem;color:var(--text-dim)">${r.timing}</td>
       <td style="font-size:0.82rem;color:var(--text-dim)">${r.for}</td>
-      <td style="font-size:0.78rem;color:var(--text-muted);max-width:220px">${r.notes}</td>
+      <td style="font-size:0.82rem;color:var(--text-muted);max-width:220px">${r.notes}</td>
     </tr>`).join('');
 }
 
