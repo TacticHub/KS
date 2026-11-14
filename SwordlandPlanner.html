@@ -2821,6 +2821,14 @@ function buildDiscordOutput(di) {
   out += '⚔️ ════════════════════════════ ⚔️\n';
   if (note) out += `📝 ${note}\n`;
   out += `🗺 Map: ${MAP_IMAGE_URL}\n`;
+  out += '\n📍 WHO HOLDS WHAT\n';
+  ['g1', 'g2', 'g3'].forEach(g => {
+    out += `${{ g1: '🟡', g2: '🟢', g3: '🔵' }[g]} ${groupShort(g)} - ${GROUP_AREA[g]}\n`;
+    GROUP_BUILDINGS[g].forEach(b => { out += `   • ${buildingWhere(b)}\n`; });
+  });
+  out += '🎯 Strike team - no building: capture, hand off to the lead, move on\n';
+  out += '🔴 Enemy Abbey (top right) = Group 1 · Enemy Sanctum (bottom right) = Group 3 + Group 2\n';
+  out += 'ℹ Every Abbey shows as "Abbey" in game - go by location\n';
   out += '\n';
 
   const sections = [
@@ -2950,6 +2958,39 @@ function lootNames(di, gid) {
   return gs.flatMap(g => (dispatches[di][g] || []).filter(p => p.loot && p.name && p.name.trim()).map(p => p.name.trim()));
 }
 
+/* Where each building sits on the map. In game every Abbey is just "Abbey",
+   so Top / Mid / Low only make sense with a location. */
+const BUILDING_WHERE = {
+  'Bell Tower':          'top, home side',
+  'Top Abbey':           'top, enemy side',
+  'Mercenary Camp':      'top middle, opens 15:00',
+  'Sanctum':             'beside home base, upper',
+  'Mid Abbey':           'beside home base, lower',
+  'Low Abbey':           'bottom, home side',
+  'Hall of Reformation': 'bottom middle, opens 15:00',
+  'Royal Stables':       'bottom, enemy side'
+};
+const GROUP_AREA = { g1: 'top of the map', g2: 'beside our home base', g3: 'bottom of the map' };
+function buildingWhere(b) { return b + (BUILDING_WHERE[b] ? ' (' + BUILDING_WHERE[b] + ')' : ''); }
+
+/* "Your buildings" lines for one group */
+function groupBuildingLines(gid) {
+  const bs = GROUP_BUILDINGS[gid] || [];
+  return ['Your buildings - ' + GROUP_AREA[gid] + ':'].concat(bs.map(b => '• ' + buildingWhere(b)));
+}
+
+/* One message for the whole legion: who holds what */
+function buildingGuideMessage() {
+  const short = { 'Hall of Reformation': 'Reformation' };
+  const line = g => groupShort(g) + ' (' + GROUP_AREA[g] + '): ' +
+    GROUP_BUILDINGS[g].map(b => (short[b] || b) + (LATE_BUILDINGS.includes(b) ? ' [15:00]' : '')).join(', ');
+  return ['BUILDINGS BY GROUP',
+    line('g1'), line('g2'), line('g3'),
+    'Strike team: no building - capture, hand off to the lead, move on',
+    'Enemy side: Enemy Abbey (top right) = Group 1. Enemy Sanctum (bottom right) = Group 3 + Group 2',
+    'Every Abbey shows as "Abbey" in game - go by location'].join('\n');
+}
+
 function groupShort(gid) { return CHAT_GROUPS[gid] ? CHAT_GROUPS[gid].title.split(' - ')[0] : gid; }
 const STRIKE_P2 = { g1: 'the Enemy Abbey', g2: 'the Enemy Sanctum with Group 3', g3: 'the Enemy Sanctum' };
 function strikersFor(di, gid) {
@@ -3036,9 +3077,17 @@ function buildGroupChatBlocks(di, gid) {
   if (GROUP_BUILDINGS[gid] && blocks.length) {
     if (mode === 'buildings') {
       const split = playersByBuilding(gid, players);
-      split.forEach((x, i) => { if (blocks[i]) blocks[i] += '\n\n' + groupPlanLines(di, gid, x.building || '').join('\n'); });
+      split.forEach((x, i) => {
+        if (!blocks[i]) return;
+        if (x.building && BUILDING_WHERE[x.building]) {
+          const nl = blocks[i].indexOf('\n');
+          const where = 'Where: ' + BUILDING_WHERE[x.building];
+          blocks[i] = nl < 0 ? blocks[i] + '\n' + where : blocks[i].slice(0, nl) + '\n' + where + blocks[i].slice(nl);
+        }
+        blocks[i] += '\n\n' + groupPlanLines(di, gid, x.building || '').join('\n');
+      });
     } else {
-      blocks.push(groupLabel + ' - Orders\n' + groupPlanLines(di, gid, '').join('\n'));
+      blocks.push(groupLabel + ' - Orders\n' + groupBuildingLines(gid).join('\n') + '\n\n' + groupPlanLines(di, gid, '').join('\n'));
     }
   } else if (gid === 'dps' && blocks.length) {
     const ln = lootNames(di, 'dps');
@@ -3157,6 +3206,7 @@ function openChatMessages(di, msgs, hint) {
 function openChatModal(di) {
   const msgs = GROUPS.flatMap(g => chatMessages(di, g.id));
   if (!msgs.length) { showToast('⚠ No named players in Legion ' + (di + 1) + ' yet'); return; }
+  msgs.unshift(buildingGuideMessage());
   openChatMessages(di, msgs, 'Every message fits the in-game chat limit. Tap Copy on each one and paste it as its own chat message.');
 }
 
@@ -3461,6 +3511,9 @@ ${renderDispatchSection('⚔ LEGION 2', d2)}
   <div class="role-key-item">⚔ <strong>Tank / Lead</strong> - Teleport to assigned buildings, cap first, attack with healers</div>
   <div class="role-key-item">✚ <strong>Healer</strong> - Garrison both buildings, reinforce tank, call DPS positions in chat</div>
   <div class="role-key-item">🎯 <strong>DPS</strong> - Strike team: rally and capture buildings, hand them off to the lead, then roam and attack weaker players</div>
+  <div class="role-key-title" style="margin-top:8px;">Who Holds What</div>
+  ${['g1', 'g2', 'g3'].map(g => `<div class="role-key-item"><strong>${groupShort(g)}</strong> (${GROUP_AREA[g]}): ${GROUP_BUILDINGS[g].map(buildingWhere).join(', ')}</div>`).join('')}
+  <div class="role-key-item"><strong>Enemy side:</strong> Enemy Abbey (top right) = Group 1; Enemy Sanctum (bottom right) = Group 3 + Group 2. Every Abbey shows as "Abbey" in game - go by location.</div>
   <div class="role-key-title" style="margin-top:8px;">Battle Plan</div>
   <div class="role-key-item"><strong>Phase 1 - Take ours:</strong> main march on your building, secondary marches on the rest of your group's buildings. Strike team captures (Bell Tower first) and moves on once the lead's marches arrive.</div>
   <div class="role-key-item"><strong>Phase 2 - Take theirs:</strong> Group 1's strike players hit the enemy Abbey while Group 2's and Group 3's hit the enemy Sanctum together. Group 3 and Group 2 hold the enemy Sanctum, Group 1 the enemy Abbey, with secondary marches. Group 2 keeps our Sanctum fully held and sends about a third of its secondary marches to back Swordshrine from 15:00.</div>
