@@ -1273,6 +1273,8 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
   .io-guide-item.inside  .io-guide-title { color: var(--inside-color); }
   .io-guide-item.outside .io-guide-title { color: var(--outside-color); }
   .io-counts { font-size: 0.78rem; color: var(--text-muted); padding: 0 16px 14px; }
+  .io-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 0 16px 14px; }
+  .io-actions .io-counts { padding: 0; }
   .io-counts strong.in  { color: var(--inside-color); }
   .io-counts strong.out { color: var(--outside-color); }
   .player-table td select.zone-select { min-width: 92px; }
@@ -1370,7 +1372,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
         </div></div>
         <div class="pg-step"><div class="pg-num">3</div><div>
           <div class="pg-step-title">Inside / Outside <span class="opt">Optional</span></div>
-          <div class="pg-step-text">Turn on <strong>Inside / Outside Strategy</strong> if you're using it. Players get tagged <strong>I</strong> (stay in the safe zone, garrison everything) or <strong>O</strong> (roam out to capture, back before 10:00).</div>
+          <div class="pg-step-text">Turn on <strong>Inside / Outside Strategy</strong> if you're using it. Players get tagged <strong>I</strong> (stay in the safe zone, garrison everything) or <strong>O</strong> (roam out to capture, back before 10:00). Only call it if the enemy has a lot of whales when you log in. Tap <strong>💬 Copy Inside / Outside</strong> for the chat messages explaining it (kept separate so they're only posted if the call is made; the Discord plan includes them while it's on).</div>
         </div></div>
       </div>
 
@@ -2115,6 +2117,44 @@ const IO_GUIDE = {
 
 function isIO(di) { return !!(dispatches[di] && dispatches[di].ioMode); }
 
+/* When to use it (Rob): only if the enemy has a lot of whales when we log in */
+const IO_WHEN = 'We only use this if the enemy has a lot of whales when we log in. Leads will call it in chat - if it is not called, follow your normal orders.';
+
+/* Names in Inside / Outside, split into lines that stay well under the chat limit */
+function ioNameLines(di, zone, label) {
+  const names = GROUPS.filter(g => !isStandby(g.id) && !g.legacy)
+    .flatMap(g => (dispatches[di][g.id] || []).filter(p => p.name && p.name.trim() && p.zone === zone).map(p => p.name.trim()));
+  if (!names.length) return [];
+  const out = []; let cur = '';
+  names.forEach(n => {
+    const add = cur ? cur + ', ' + n : n;
+    if (add.length > 300 && cur) { out.push(cur); cur = n; } else cur = add;
+  });
+  if (cur) out.push(cur);
+  return out.map((x, i) => label + (out.length > 1 ? ' (' + (i + 1) + '/' + out.length + ')' : '') + ': ' + x);
+}
+
+/* In-game messages for the Inside / Outside strategy (only when it's on) */
+function ioChatMessages(di) {
+  if (!isIO(di)) return [];
+  /* short form of IO_GUIDE so the rules fit one chat message */
+  const rules = ['INSIDE / OUTSIDE - ONLY IF CALLED',
+    'Only if the enemy has a lot of whales when we log in. Leads will call it - if not called, follow your normal orders.',
+    '(I) Inside: stay in the safe zone for the first 10 min. Garrison as much as you can, other buildings too. Expect more speedups',
+    '(O) Outside: roam out for the first 10 min to capture faster and secure max points. Back in the safe zone BEFORE the 10-min timer ends'].join('\n');
+  const who = ['INSIDE / OUTSIDE - WHO (only if called)']
+    .concat(ioNameLines(di, 'I', 'Inside (I)'), ioNameLines(di, 'O', 'Outside (O)'));
+  const c = ioCounts(dispatches[di]);
+  if (c.none) who.push(c.none + ' player' + (c.none > 1 ? 's' : '') + ' not tagged yet - ask your lead');
+  return splitForChat(rules).concat(who.length > 1 ? splitForChat(who.join('\n')) : []);
+}
+
+function copyIOChat(di) {
+  const msgs = ioChatMessages(di);
+  if (!msgs.length) { showToast('Turn on Inside / Outside first'); return; }
+  openChatMessages(di, msgs, 'Inside / Outside messages for the legion chat. Only post these if the call is made. Tap Copy on each one and paste it as its own message.');
+}
+
 /* ── ASSIGN BY ──  'groups' (default) | 'buildings' | 'both'
    Stored as dispatches[di].assignMode; player.building holds the chosen building. */
 function assignMode(di) {
@@ -2193,7 +2233,7 @@ function renderIOBar(di) {
     <div class="io-toggle-row">
       <div class="io-toggle-text">
         <div class="io-toggle-title">📍 Inside / Outside Strategy <span class="io-optional">Optional</span></div>
-        <div class="io-toggle-desc">Tag players <strong>I</strong> (stay in the safe zone) or <strong>O</strong> (roam outside) for the first 10 minutes.</div>
+        <div class="io-toggle-desc">Tag players <strong>I</strong> (stay in the safe zone) or <strong>O</strong> (roam outside) for the first 10 minutes. <strong>Only used if the enemy has a lot of whales when we log in.</strong></div>
       </div>
       <label class="io-switch">
         <input type="checkbox" ${on ? 'checked' : ''} onchange="toggleIO(${di}, this.checked)">
@@ -2202,7 +2242,10 @@ function renderIOBar(di) {
       </label>
     </div>
     ${on ? `<div class="io-guide">${card('I')}${card('O')}</div>
-    <div class="io-counts" id="io-counts-${di}"></div>` : ''}`;
+    <div class="io-actions">
+      <div class="io-counts" id="io-counts-${di}"></div>
+      <button class="chat-copy-btn" onclick="copyIOChat(${di})">💬 Copy Inside / Outside</button>
+    </div>` : ''}`;
   if (on) renderIOCounts(di);
 }
 
@@ -2863,6 +2906,14 @@ function buildDiscordOutput(di) {
 
   const shrineP = GROUPS.flatMap(g => (d[g.id] || []).filter(p => p.shrine && p.name && !isStandby(g.id))).map(p => p.name)[0];
   out += '────────────────────────────────\n';
+  if (isIO(di)) {
+    out += '📍 INSIDE / OUTSIDE - ONLY IF CALLED\n';
+    out += '   ' + IO_WHEN + '\n';
+    out += '   🛡 (I) Inside: ' + IO_GUIDE.I.points.join('. ') + '\n';
+    out += '   🏃 (O) Outside: ' + IO_GUIDE.O.points.join('. ') + '\n';
+    ioNameLines(di, 'I', 'Inside (I)').concat(ioNameLines(di, 'O', 'Outside (O)')).forEach(l => { out += '   ' + l + '\n'; });
+    out += '────────────────────────────────\n';
+  }
   out += '🗺 BATTLE PLAN\n';
   out += 'BEFORE THE EVENT\n';
   out += "   • Strike team: sign up for a castle appointment with a slot covering the battle - Field Commander (Squads' Lethality +15%) or Marshal (Squads' Attack +8%). Community-reported as active in Swordland; confirm on your stats once appointed\n";
