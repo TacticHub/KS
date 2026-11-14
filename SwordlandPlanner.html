@@ -4377,13 +4377,22 @@ function chatMapName(di, b) {
   const p = ps.find(x => x.role === LEAD_ROLE) || ps[0];
   return p ? chatShortName(p.name) : '-';
 }
+/* Short or missing names need more padding spaces; if that pushes the message
+   past the character limit, tighten the columns until it fits. */
 function buildChatMap(di) {
+  for (let k = 1; k >= 0.5; k -= 0.05) {
+    const m = buildChatMapAt(di, k);
+    if (m.length <= CHAT_LIMIT) return m;
+  }
+  return buildChatMapAt(di, 0.5);
+}
+function buildChatMapAt(di, k) {
   const n = b => chatMapName(di, b);
   const shrineP = GROUPS.filter(g => !isStandby(g.id)).flatMap(g => dispatches[di][g.id] || [])
     .find(p => p.shrine && p.name && p.name.trim());
   /* column positions (px) follow the planner map: home side left, enemy right */
   /* chat bubble is ~660px wide; enemy buildings are icon-only (far right) */
-  const L = 0, LI = 50, MID = 295, RI = 375, R = 605;
+  const L = 0, LI = 50 * k, MID = 295 * k, RI = 375 * k, R = 605 * k;
   return [
     'Swordland Map - Legion ' + (di + 1),
     '',
