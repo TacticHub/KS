@@ -2782,6 +2782,45 @@
   .ff-viewer-hint.fade { opacity: 0; }
   body.ff-viewer-lock { overflow: hidden; }
 
+  /* ── STRONGEST GOVERNOR ── */
+  .sg-policy { border: 2px solid var(--gold); background: linear-gradient(135deg, rgba(224,163,57,0.14), rgba(20,38,63,0.6)); border-radius: 12px; padding: 18px 18px 14px; margin: 14px 0 20px; }
+  .sg-policy-label { font-family: 'Lato', sans-serif; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 8px; }
+  .sg-policy-quote { font-family: 'Playfair Display', Georgia, serif; font-size: 1.12rem; color: var(--text); line-height: 1.45; margin-bottom: 10px; }
+  .sg-policy ol { margin: 0 0 10px 20px; }
+  .sg-tier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-bottom: 18px; }
+  .sg-tier { border-radius: 10px; padding: 14px; background: rgba(20,38,63,0.6); border-top: 3px solid; }
+  .sg-tier ul { margin: 6px 0 8px 18px; }
+  .sg-tier p { color: var(--text-dim); }
+  .sg-tier-title { font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.9rem; }
+  .sg-green { border-color: #4caf6a; } .sg-green .sg-tier-title { color: #6fd08c; }
+  .sg-yellow { border-color: #e0c13a; } .sg-yellow .sg-tier-title { color: #f0d35a; }
+  .sg-red { border-color: #e05a4a; background: rgba(224,90,74,0.08); } .sg-red .sg-tier-title { color: #ff8070; }
+  .sg-questions { display: grid; gap: 8px; margin-bottom: 18px; }
+  .sg-q { display: flex; gap: 12px; align-items: flex-start; background: rgba(20,38,63,0.6); border: 1px solid rgba(224,163,57,0.25); border-radius: 10px; padding: 10px 12px; font-family: 'Merriweather', Georgia, serif; font-size: 0.88rem; line-height: 1.6; }
+  .sg-q-num { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--gold); color: #10213a; font-family: 'Lato', sans-serif; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+  .sg-day { background: rgba(20,38,63,0.6); border: 1px solid rgba(224,163,57,0.2); border-radius: 10px; margin-bottom: 8px; }
+  .sg-day summary { cursor: pointer; padding: 12px 14px; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--text); list-style: none; display: flex; align-items: center; gap: 10px; }
+  .sg-day summary::-webkit-details-marker { display: none; }
+  .sg-day summary::after { content: '\25BE'; margin-left: auto; color: var(--gold); transition: transform .2s; }
+  .sg-day[open] summary::after { transform: rotate(180deg); }
+  .sg-day-num { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #10213a; background: var(--gold); border-radius: 4px; padding: 2px 7px; }
+  .sg-day-body { padding: 0 14px 12px; }
+  .sg-day-body p { margin-bottom: 8px; }
+  .sg-day-row { font-family: 'Merriweather', Georgia, serif; font-size: 0.85rem; line-height: 1.5; margin-top: 4px; }
+  .sg-ok, .sg-no { font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; margin-right: 6px; }
+  .sg-ok { color: #6fd08c; } .sg-no { color: #ff8070; }
+  .sg-calc { background: rgba(20,38,63,0.6); border: 1px solid rgba(224,163,57,0.3); border-radius: 12px; padding: 16px; margin-bottom: 18px; }
+  .sg-calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 10px; }
+  .sg-calc label { display: flex; flex-direction: column; gap: 4px; font-family: 'Lato', sans-serif; font-size: 0.78rem; color: var(--text-dim); }
+  .sg-calc input { background: rgba(10,22,40,0.8); border: 1px solid rgba(224,163,57,0.3); border-radius: 6px; color: var(--text); font-family: 'Lato', sans-serif; font-size: 1rem; padding: 8px 10px; width: 100%; box-sizing: border-box; }
+  .sg-calc input:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+  .sg-calc-sub { font-family: 'Lato', sans-serif; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin: 6px 0 6px; font-weight: 700; }
+  .sg-calc-red { font-family: 'Merriweather', Georgia, serif; font-size: 0.82rem; color: #ff8070; margin: 4px 0 12px; }
+  .sg-calc-out { border-radius: 8px; padding: 12px 14px; font-family: 'Merriweather', Georgia, serif; font-size: 0.88rem; line-height: 1.6; background: rgba(255,255,255,0.04); border-left: 4px solid var(--text-dim); }
+  .sg-calc-out.ok { border-color: #4caf6a; background: rgba(76,175,106,0.1); }
+  .sg-calc-out.warn { border-color: #e05a4a; background: rgba(224,90,74,0.1); }
+  .sg-calc-out.done { border-color: var(--gold); background: rgba(224,163,57,0.1); }
+
   /* Site-wide type consistency: Merriweather for all body text at one size; Lato stays for headings, labels and table headers */
   section.tab-panel p,
   section.tab-panel li,
@@ -2880,8 +2919,8 @@
     <a href="#er"><span class="nav-icon">&#x2728;</span>Eternity's Reach</a>
     <a href="#finders-fortune" style="display:flex;align-items:center;"><span class="nav-icon">&#x1F50E;</span>Finder's Fortune<span class="nav-beacon" aria-hidden="true"></span></a>
     <a href="#governor-duel" style="display:flex;align-items:center;"><span class="nav-icon">&#x1F93A;</span>Governor Duel<span class="nav-beacon" aria-hidden="true"></span></a>
-    <a href="#hog"><span class="nav-icon">&#x1F451;</span>Hall of Governors</a>
     <a href="#moonlit"><span class="nav-icon">&#x1F319;</span>Moonlit Promise</a>
+    <a href="#strongest-governor" style="display:flex;align-items:center;"><span class="nav-icon">&#x1F451;</span>Strongest Governor<span class="nav-beacon" aria-hidden="true"></span></a>
     <a href="#swordland"><span class="nav-icon">&#x1F5E1;&#xFE0F;</span>Swordland Showdown</a>
     <a href="#tri-alliance"><span class="nav-icon">&#x1F531;</span>Tri-Alliance Clash</a>
     <a href="#viking"><span class="nav-icon">&#x1F6E1;</span>Viking Vengeance</a>
@@ -3029,7 +3068,7 @@
       <button class="ai-quick-btn" onclick="quickAsk('How do I set up the perfect Bear Hunt rally as a leader, and what formation should my members join with?')">&#x1F43B; How do I run a perfect Bear Hunt rally?</button>
       <button class="ai-quick-btn" onclick="quickAsk('What is the best hero team and strategy for Alliance Championship, and how should we organize our lanes?')">&#x1F3C6; Best strategy for Alliance Championship</button>
       <button class="ai-quick-btn" onclick="quickAsk('How do I register for Governor Duel and how should I set up my three squads?')">&#x1F93A; How do I prep for Governor Duel?</button>
-      <button class="ai-quick-btn" onclick="quickAsk('Walk me through Hall of Governors stage by stage - what should I save and when should I spend?')">&#x1F451; Walk me through Hall of Governors</button>
+      <button class="ai-quick-btn" onclick="quickAsk('How do I collect Strongest Governor rewards without spending my KvK resources?')">&#x1F451; Strongest Governor without spending KvK resources</button>
       <button class="ai-quick-btn" onclick="quickAsk('How does Eternity\'s Reach work and how do I progress through the stages as an F2P player?')">&#x2728; How do I progress in Eternity's Reach?</button>
       <button class="ai-quick-btn" onclick="quickAsk('What pets should I unlock first and how do I use them effectively in Bear Hunt and KvK?')">&#x1F43E; Which pets matter most and how do I use them?</button>
       <button class="ai-quick-btn" onclick="quickAsk('How does Moonlit Promise work, what should I buy from the shop first, and how does our alliance coordinate?')">&#x1F319; How do I maximize Moonlit Promise?</button>
@@ -3567,7 +3606,7 @@
           <td><span class="it-troop tt-all">All Troops</span></td>
           <td>Troop Training Speed</td>
           <td class="it-pri-med">&#x25C6; Medium</td>
-          <td>Strong during Hall of Governors Train Troops stage</td>
+          <td>Strong during Strongest Governor Combat Training days (Days 4 and 6)</td>
         </tr>
         <tr data-tags="all develop">
           <td><strong>Expedition Outpost</strong></td>
@@ -4170,33 +4209,331 @@
 
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
-<!-- HALL OF GOVERNORS -->
-<section id="hog" class="tab-panel">
+<!-- STRONGEST GOVERNOR (successor to Hall of Governors) -->
+<section id="strongest-governor" class="tab-panel">
   <div class="section-header">
     <span class="section-icon">&#x1F451;</span>
-    <h2>Hall of Governors</h2>
+    <h2>Strongest Governor</h2>
+  </div>
+  <div class="wa-placeholder-note">&#x26A0;&#xFE0F; <span>Day names, scoring tasks, point values, and reward tiers below come from community references (mainly Kingshot Mastery, updated May 2026). Kingshot can change point values by event version, server age, or balance update - your in-game scoring screen always wins if it differs from this page.</span></div>
+
+  <div class="sg-policy">
+    <div class="sg-policy-label">&#x1F6E1;&#xFE0F; Kingdom #1625 Policy - KvK Comes First</div>
+    <div class="sg-policy-quote">Strongest Governor is for efficient reward collection. KvK is our primary resource-spending event.</div>
+    <ol>
+      <li>Collect valuable Strongest Governor rewards.</li>
+      <li>Keep up normal kingdom and Hero development.</li>
+      <li>Preserve the resources we need to win KvK.</li>
+    </ol>
+    <p>You do not need to win Strongest Governor to take part successfully. Participate through normal training, progression, and gathering. You are not obligated to reach every milestone, and personal ranking should never undermine the kingdom's coordinated KvK prep.</p>
+  </div>
+
+  <h3>What It Is</h3>
+  <div class="card card-blue">
+    <p>A <strong>seven-day</strong> event that runs about <strong>once every four weeks</strong>. Each day scores a different set of progression activities - building and research, Hero development, pets and Charms, troop training, Governor Gear, and gathering. You earn daily milestone rewards and compete in kingdom and cross-kingdom rankings.</p>
   </div>
   <div class="callout callout-info">
-    <span class="callout-label">&#x2139; Note</span>
-    Hall of Governors is primarily a first- and second-generation kingdom event. Later kingdoms may see it replaced by <strong>Strongest Governor</strong> (a cross-kingdom leaderboard format).
+    <span class="callout-label">&#x2139; How It Relates to Hall of Governors</span>
+    Strongest Governor succeeds Hall of Governors as a kingdom matures into the KvK event cycle. Hall of Governors has not been removed from the game - it is an earlier-stage event that newer kingdoms still run (community references describe the 6th Hall of Governors as the last rotation before Strongest Governor takes over). Kingdom 1625 is past that point, so Strongest Governor is our event.
   </div>
-  <h3>What Scores Big Points</h3>
-  <div class="card card-gold">
-    <p><strong>Hero Roulette spins</strong> are generally a high-value scoring activity during the Hero Development stage. Save all roulette tokens for that stage rather than spinning freely beforehand.</p>
-    <p style="margin-top:8px;"><strong>Troop training</strong> scales heavily by tier - high-tier troops earn dramatically more points per unit. Train during the Train Troops stage only.</p>
-    <p style="margin-top:8px; font-style:italic; color:var(--text-muted);">Point values may vary by kingdom age and event version. Always verify current event rules in-game.</p>
+
+  <div class="tg-table-wrap">
+    <table class="tg-table">
+      <thead><tr><th>Detail</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Duration</td><td>7 days, a different scoring set each day</td></tr>
+        <tr><td>Frequency</td><td>About once per 4-week cycle</td></tr>
+        <tr><td>Rankings</td><td>Daily stage, kingdom, and cross-kingdom</td></tr>
+        <tr><td>Main objective</td><td>Rewards from qualifying progression</td></tr>
+        <tr><td>Our priority</td><td><strong>Save resources for KvK Preparation</strong></td></tr>
+      </tbody>
+    </table>
   </div>
-  <h3>Member Stage Rules</h3>
+
+  <h3>Resource Protection System</h3>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Sort everything you own into three groups before the event starts. The exact protected list follows current KvK scoring and R4/R5 leadership policy.</p>
+  <div class="sg-tier-grid">
+    <div class="sg-tier sg-green">
+      <div class="sg-tier-title">&#x1F7E2; Green - Go Ahead</div>
+      <ul>
+        <li>Normal troop training</li>
+        <li>Research and construction that finish naturally</li>
+        <li>Gathering on the day it scores</li>
+        <li>Planned Hero development that uses no protected materials</li>
+        <li>Claiming milestones you reach</li>
+      </ul>
+      <p>Natural progression still costs ordinary resources, time, and sometimes gems - it is not free, it just doesn't touch the KvK stockpile.</p>
+    </div>
+    <div class="sg-tier sg-yellow">
+      <div class="sg-tier-title">&#x1F7E1; Yellow - Only If Unreserved</div>
+      <ul>
+        <li>Hero Roulette spins</li>
+        <li>Pet development materials</li>
+        <li>Unreserved Hero progression resources</li>
+        <li>Surplus equipment materials</li>
+        <li>Small amounts of ordinary speedups</li>
+        <li>Other materials approved for routine use</li>
+      </ul>
+      <p>Ask first: would this help in KvK Preparation? Spend only when the reward is worth the opportunity cost.</p>
+    </div>
+    <div class="sg-tier sg-red">
+      <div class="sg-tier-title">&#x1F534; Red - Protected KvK Stockpile</div>
+      <ul>
+        <li>Construction, research, training, and universal speedups</li>
+        <li>Hero Shards reserved for KvK</li>
+        <li>Forgehammers, Exclusive Gear Widgets, Mithril</li>
+        <li>Truegold and Truegold Dust</li>
+        <li>Governor Gear and Charm materials</li>
+        <li>Master Emblems and Manuscripts</li>
+        <li>Pet materials reserved for KvK</li>
+        <li>Other high-value progression materials</li>
+      </ul>
+      <p><strong>Core rule:</strong> if you saved it for KvK, do not spend it in Strongest Governor just to raise personal points.</p>
+    </div>
+  </div>
+
+  <h3>Before You Spend Anything - Ask These Four Questions</h3>
+  <div class="sg-questions">
+    <div class="sg-q"><span class="sg-q-num">1</span><div><strong>Is this resource reserved for KvK?</strong> If yes, do not spend it for Strongest Governor.</div></div>
+    <div class="sg-q"><span class="sg-q-num">2</span><div><strong>Can I reach the reward through normal gameplay?</strong> If yes, take the natural progression route.</div></div>
+    <div class="sg-q"><span class="sg-q-num">3</span><div><strong>Is the reward worth the cost?</strong> Compare the next milestone's reward with what it takes to get there.</div></div>
+    <div class="sg-q"><span class="sg-q-num">4</span><div><strong>Will spending now weaken my KvK prep?</strong> If yes, keep the resource.</div></div>
+  </div>
+
+  <h3>Seven-Day Guide</h3>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Tap a day to open it. "Scores" lists the main point sources reported for that day - check the live task list before spending.</p>
+
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Day 1</span> City Construction</summary>
+    <div class="sg-day-body">
+      <p><strong>Scores:</strong> Truegold and Tempered Truegold building upgrades, Truegold Dust research, construction / research / training / Master skill speedups, Governor Charm upgrades.</p>
+      <p><strong>KvK-first play:</strong> let upgrades that are already scheduled finish on this day. Keep necessary building and research going, but do not speed anything up just for event points. Speedups score here, which makes this the easiest day to drain your stockpile.</p>
+      <div class="sg-day-row"><span class="sg-ok">&#x2714; Priority</span> Natural progression and affordable milestones</div>
+      <div class="sg-day-row"><span class="sg-no">&#x2716; Avoid</span> Speedup pushes or reserved Truegold</div>
+    </div>
+  </details>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Day 2</span> Hero Development</summary>
+    <div class="sg-day-body">
+      <p><strong>Scores:</strong> Hero Roulette, Hero Shard ascension, Forgehammers, Exclusive Gear Widgets, Mithril, Master Emblems and Manuscripts, Truegold upgrades, speedups.</p>
+      <p><strong>KvK-first play:</strong> Hero Roulette can be worth it if you already have a planned gem budget - but gems have other uses, so Roulette is never "free." Protect Hero Shards, Forgehammers, Widgets, Mithril, and Master Emblems set aside for KvK. Normal Hero development is fine if it fits the kingdom plan.</p>
+      <div class="sg-day-row"><span class="sg-ok">&#x2714; Priority</span> Budgeted Roulette and unreserved progression</div>
+      <div class="sg-day-row"><span class="sg-no">&#x2716; Avoid</span> Saved Shards or premium gear materials</div>
+    </div>
+  </details>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Day 3</span> Basic Skill Up</summary>
+    <div class="sg-day-body">
+      <p><strong>Scores:</strong> Pet advancement, Advanced and Common Taming Marks (pet refinement), Governor Charm upgrades, Hero Shard ascension, Hero Roulette, Master Emblems and Manuscripts.</p>
+      <p><strong>KvK-first play:</strong> use ordinary surplus pet resources if alliance policy allows. Skip expensive refinement sessions for points alone. Keep Charm materials, Hero Shards, and Master Emblems earmarked for KvK. Do not chase every milestone at the expense of future upgrades.</p>
+      <div class="sg-day-row"><span class="sg-ok">&#x2714; Priority</span> Routine progression with surplus materials</div>
+      <div class="sg-day-row"><span class="sg-no">&#x2716; Avoid</span> Protected pet, Charm, or Hero reserves</div>
+    </div>
+  </details>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Day 4</span> Combat Training</summary>
+    <div class="sg-day-body">
+      <p><strong>Scores:</strong> troop training and promotion (higher tiers score far more per troop), Governor Charm upgrades, Forgehammers, Widgets, Mithril.</p>
+      <p><strong>KvK-first play:</strong> keep normal training queues running and time completions to land in this window where practical. No protected training speedups. Promote troops only when it genuinely improves your army and fits your budget.</p>
+      <div class="sg-day-row"><span class="sg-ok">&#x2714; Priority</span> Normal training and planned promotion</div>
+      <div class="sg-day-row"><span class="sg-no">&#x2716; Avoid</span> Big training pushes or mass speedups</div>
+    </div>
+  </details>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Day 5</span> Basic Skill Up</summary>
+    <div class="sg-day-body">
+      <p><strong>Scores:</strong> Forgehammers, Widgets, Mithril, Truegold and Tempered Truegold upgrades, Truegold Dust research, speedups. (Some references call this day "Power Boost.")</p>
+      <p><strong>KvK-first play:</strong> check milestones before spending anything and claim what normal progression already earns. Treat Day 5 as a checkpoint: review the remaining days and your rewards so far before considering any unreserved materials.</p>
+      <div class="sg-day-row"><span class="sg-ok">&#x2714; Priority</span> Low-cost milestones and natural progression</div>
+      <div class="sg-day-row"><span class="sg-no">&#x2716; Avoid</span> High-value materials reserved for KvK</div>
+    </div>
+  </details>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Day 6</span> Combat Training</summary>
+    <div class="sg-day-body">
+      <p><strong>Scores:</strong> troop training and promotion, Governor Gear upgrades and rarity upgrades.</p>
+      <p><strong>KvK-first play:</strong> keep normal troop production going and finish queues that were already scheduled. No saved speedups unless R4/R5 approves a coordinated exception. Keep Governor Gear materials reserved for KvK.</p>
+      <div class="sg-day-row"><span class="sg-ok">&#x2714; Priority</span> Natural training and needed army growth</div>
+      <div class="sg-day-row"><span class="sg-no">&#x2716; Avoid</span> Last-minute spending for leaderboard spots</div>
+    </div>
+  </details>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Day 7</span> Hero Development</summary>
+    <div class="sg-day-body">
+      <p><strong>Scores:</strong> Hero Shard ascension, pet advancement and Taming Marks, Governor Gear upgrades, Truegold upgrades, speedups, and <strong>wilderness gathering</strong> (the only day gathering is reported to score). Hero Roulette is not reported to score on Day 7.</p>
+      <p><strong>KvK-first play:</strong> gathering is one of the best KvK-safe options - you earn points and keep resources. Time your marches so collection lands during this window. Review your last reachable milestones.</p>
+      <div class="sg-day-row"><span class="sg-ok">&#x2714; Priority</span> Gathering and naturally completed progression</div>
+      <div class="sg-day-row"><span class="sg-no">&#x2716; Avoid</span> End-of-event panic spending</div>
+    </div>
+  </details>
+
+  <h3>Why Protected Items Are Tempting</h3>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Reported point values for a few big items. The bigger the number, the bigger the pull to spend KvK stock - this is exactly what the Red list protects.</p>
+  <div class="tg-table-wrap">
+    <table class="tg-table">
+      <thead><tr><th>Item</th><th>Points</th><th>Days</th></tr></thead>
+      <tbody>
+        <tr><td>Mithril (1)</td><td>40,000</td><td>2, 4, 5</td></tr>
+        <tr><td>Tempered Truegold upgrade</td><td>30,000</td><td>1, 2, 5, 7</td></tr>
+        <tr><td>Advanced Taming Mark</td><td>15,000</td><td>3, 7</td></tr>
+        <tr><td>Hero Roulette (1 play)</td><td>8,000</td><td>2, 3</td></tr>
+        <tr><td>Exclusive Gear Widget</td><td>8,000</td><td>2, 4, 5</td></tr>
+        <tr><td>Master Emblem</td><td>6,000</td><td>2, 3</td></tr>
+        <tr><td>Forgehammer</td><td>4,000</td><td>2, 4, 5</td></tr>
+        <tr><td>Speedups (per minute)</td><td>30</td><td>1, 2, 5, 7</td></tr>
+        <tr><td>Troops trained (T10 / T11)</td><td>39 / 49 each</td><td>4, 6</td></tr>
+        <tr><td>Gathering (per bundle)</td><td>3</td><td>7</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="wa-placeholder-note">Values from Kingshot Mastery's event table (May 2026). Verify on your in-game scoring screen before relying on them.</div>
+
+  <h3>Rewards - Chase Milestones, Not Leaderboards</h3>
+  <div class="tg-phase-grid">
+    <div class="tg-phase-card tg-early">
+      <div class="tg-phase-label">Priority 1</div>
+      <div class="tg-phase-title">Daily Milestones</div>
+      <div class="tg-phase-desc">Five point milestones each day. The most practical target - claim what normal play reaches. Not every milestone is mandatory.</div>
+    </div>
+    <div class="tg-phase-card tg-mid">
+      <div class="tg-phase-label">Priority 2</div>
+      <div class="tg-phase-title">Challenge Medals</div>
+      <div class="tg-phase-desc">Up to two medals a day. Collect them when the threshold is affordable - never spend protected materials just for a medal.</div>
+    </div>
+    <div class="tg-phase-card tg-mid">
+      <div class="tg-phase-label">Priority 3</div>
+      <div class="tg-phase-title">Kingdom Rewards</div>
+      <div class="tg-phase-desc">Reported to go to every player with 250,000+ total points, scaled by the kingdom's placement. Worth reaching if you can - but not by breaking KvK savings.</div>
+    </div>
+    <div class="tg-phase-card tg-late">
+      <div class="tg-phase-label">Priority 4</div>
+      <div class="tg-phase-title">Rankings</div>
+      <div class="tg-phase-desc">Daily stage and kingdom rankings (top 1,000) and cross-kingdom (top 2,000). Spender territory. Our default is not to chase expensive spots - only with unreserved resources.</div>
+    </div>
+  </div>
+  <div class="wa-placeholder-note">The 250,000-point threshold and ranking cutoffs are reported by community references and may vary by event version - confirm in-game.</div>
+
+  <h3>KvK-Safe Milestone Calculator</h3>
+  <div class="sg-calc" id="sgCalc">
+    <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Enter your own estimates for today. This is a planning estimate, not a precise optimizer, and it does not predict leaderboard placement.</p>
+    <div class="sg-calc-grid">
+      <label>Current score <input type="number" min="0" inputmode="numeric" id="sgCur" oninput="sgCalc()" placeholder="0"></label>
+      <label>Target milestone <input type="number" min="0" inputmode="numeric" id="sgTgt" oninput="sgCalc()" placeholder="0"></label>
+    </div>
+    <div class="sg-calc-sub">&#x1F7E2; KvK-safe points you expect</div>
+    <div class="sg-calc-grid">
+      <label>Natural progression <input type="number" min="0" inputmode="numeric" id="sgNat" oninput="sgCalc()" placeholder="0"></label>
+      <label>Normal troop training <input type="number" min="0" inputmode="numeric" id="sgTrn" oninput="sgCalc()" placeholder="0"></label>
+      <label>Gathering (Day 7) <input type="number" min="0" inputmode="numeric" id="sgGat" oninput="sgCalc()" placeholder="0"></label>
+    </div>
+    <div class="sg-calc-sub">&#x1F7E1; Approved spending (unreserved only)</div>
+    <div class="sg-calc-grid">
+      <label>Budgeted Roulette <input type="number" min="0" inputmode="numeric" id="sgRou" oninput="sgCalc()" placeholder="0"></label>
+      <label>Approved surplus <input type="number" min="0" inputmode="numeric" id="sgSur" oninput="sgCalc()" placeholder="0"></label>
+    </div>
+    <div class="sg-calc-red">&#x1F534; Protected KvK resources are <strong>not</strong> counted here - they stay in the backpack.</div>
+    <div class="sg-calc-out" id="sgOut" aria-live="polite">Enter your current score and target to see your plan.</div>
+  </div>
+
+  <h3>Priorities by Player Type</h3>
+  <div class="wa-role-grid">
+    <div class="wa-role-card">
+      <div class="wa-role-title">&#x1F193; Free-to-Play</div>
+      <div class="pet-desc">Natural progression, normal training, gathering on Day 7, and affordable milestones. Protect scarce speedups and premium materials, and skip ranking competition. <strong>Goal:</strong> rewards without reducing KvK readiness.</div>
+    </div>
+    <div class="wa-role-card">
+      <div class="wa-role-title">&#x1F4B5; Low Spender</div>
+      <div class="pet-desc">Use approved surplus selectively, budget Roulette, focus on reachable milestones, and avoid spreading premium materials across many days. <strong>Goal:</strong> worthwhile extra rewards with a strong KvK stockpile intact.</div>
+    </div>
+    <div class="wa-role-card">
+      <div class="wa-role-title">&#x1F3C6; Competitive Spender</div>
+      <div class="pet-desc">Weigh ranking rewards against total cost, keep a personal budget separate from KvK reserves, and avoid spending wars. Chase rankings only with unreserved resources or approved exceptions. <strong>Goal:</strong> stay competitive without undermining kingdom prep.</div>
+    </div>
+  </div>
+
+  <h3 class="omen-mistake-h3"><img class="omen-mistake-face" src="assets/characters/omen/omen-facepalm.webp" alt="" width="44" height="44" loading="lazy" decoding="async" onerror="this.remove()"><span>Common Mistakes</span></h3>
+  <div class="tg-mistake-grid">
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Chasing Every Milestone</div>
+      <div class="tg-mistake-desc">Not every milestone pays back what it costs. Visible doesn't mean worth it.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Spending Saved Speedups</div>
+      <div class="tg-mistake-desc">Speedups score on four of the seven days - and they matter in KvK Prep. Spending them early weakens the kingdom.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Treating Roulette as Free</div>
+      <div class="tg-mistake-desc">Roulette costs gems or spin resources. Even with no Shards spent, it has an opportunity cost.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Overtraining Troops</div>
+      <div class="tg-mistake-desc">Training only for points wastes resources and skews your army. Train what the army needs.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Spending Premium Gear Materials</div>
+      <div class="tg-mistake-desc">Forgehammers, Widgets, and Mithril may be needed for later scoring. Not for a small milestone.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Assuming Event Info Is Permanent</div>
+      <div class="tg-mistake-desc">Stages, point values, and eligibility can change between versions. Check the live event first.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Personal Rank Over Kingdom</div>
+      <div class="tg-mistake-desc">A high rank helps one player. A strong KvK Prep helps all of us. When they conflict, KvK wins.</div>
+    </div>
+  </div>
+
+  <h3>Community Notes</h3>
+  <div class="wa-consensus-grid">
+    <div class="wa-consensus-card wa-confirmed">
+      <div class="wa-consensus-title">&#x2705; Community Consensus</div>
+      <ul>
+        <li>Save high-value materials and speedups for scoring events instead of spending randomly.</li>
+        <li>Line up upgrades, training, and progression with the right event day.</li>
+        <li>Plan around attainable milestones rather than blindly chasing rankings.</li>
+        <li>Prepare before the event so you don't spend wastefully.</li>
+      </ul>
+    </div>
+    <div class="wa-consensus-card wa-anecdotal">
+      <div class="wa-consensus-title">&#x1F4AC; Anecdotal Evidence</div>
+      <ul>
+        <li>Day 7 gathering can be a low-cost source of points, depending on march count and capacity.</li>
+        <li>Some players pair a planned Roulette budget with milestones - efficient only if it fits an existing budget.</li>
+        <li>Timing normal training to finish on Combat Training days can add points at little extra cost.</li>
+      </ul>
+    </div>
+    <div class="wa-consensus-card wa-disputed">
+      <div class="wa-consensus-title">&#x2696; Save Everything vs Spend Selectively</div>
+      <p><strong>Save everything:</strong> maximum stockpile protection and simple coordination, but may delay useful progression and skip cheap milestones. <strong>Spend selectively:</strong> more milestones and normal growth, but easy to underestimate the cost and slowly erode reserves.</p>
+      <p style="margin-top:8px;"><strong>Our policy:</strong> save everything protected, and spend selectively only on natural progression and approved surplus. There is no reliable evidence for a universal spend-vs-save percentage.</p>
+    </div>
+  </div>
+
+  <h3>KvK-First Checklist</h3>
   <ul class="tips">
-    <li><strong>Construction &amp; Research stages:</strong> Queue long upgrades to complete during the stage; use alliance help to shorten timers</li>
-    <li><strong>Hero Development stage:</strong> Hold all roulette tokens and hero shard ascensions until this stage opens - this stage typically rewards hero spending most heavily</li>
-    <li><strong>Train Troops stage:</strong> Train only during this stage; higher tier troops earn far more points per unit</li>
-    <li><strong>Gear &amp; Charm stages:</strong> Stockpile upgrade materials in advance and spend them only when the correct stage is active</li>
-    <li>Check with your R4/R5 before spending large resources - the alliance may be running a coordinated push that requires certain members to hold off</li>
+    <li><strong>Before:</strong> review the scoring categories, confirm the kingdom's KvK resource policy, separate protected from unreserved materials, line up scheduled upgrades and normal training, pick worthwhile milestones, and set a Roulette budget if you use one.</li>
+    <li><strong>During:</strong> check each day's scoring rules, claim rewards from normal progression, gather on Day 7, keep needed training going, leave protected resources alone, weigh the cost of the next milestone, and ignore unrealistic leaderboard targets.</li>
+    <li><strong>After:</strong> claim rewards, review your protected reserves, check upcoming KvK requirements, and keep saving for KvK Preparation.</li>
   </ul>
-  <div class="callout callout-tip">
-    <span class="callout-label">&#x2714; F2P Member Rule</span>
-    Focus on hitting milestones efficiently. Do not compete with designated pushers on troop day or roulette day - your alliance will communicate who is pushing vs. milestone-only each cycle.
+
+  <h3>Quick Answers</h3>
+  <ul class="tips">
+    <li><strong>Does it replace Hall of Governors?</strong> For maturing kingdoms like ours, yes - newer kingdoms still run Hall of Governors first.</li>
+    <li><strong>Should I save speedups for KvK?</strong> Yes. Protected speedups stay saved even though they score on Days 1, 2, 5, and 7.</li>
+    <li><strong>Can I earn rewards without spending?</strong> Yes - natural progression, normal training, and Day 7 gathering all score.</li>
+    <li><strong>Is Hero Roulette worth it?</strong> Only with a gem budget you already planned. It scores on Days 2 and 3.</li>
+    <li><strong>Should I train troops?</strong> Train what your army needs, timed to finish on Days 4 and 6.</li>
+    <li><strong>Should I chase leaderboard rewards?</strong> Not with protected resources. Only with unreserved resources or an approved exception.</li>
+    <li><strong>Can't reach the next milestone?</strong> Stop there. Keep your resources - the KvK points they earn later are worth more to the kingdom.</li>
+  </ul>
+
+  <div class="card card-gold">
+    <p><strong>Bottom line:</strong> collect the rewards we can afford today while preserving the strength we need for KvK tomorrow.</p>
+  </div>
+
+  <div class="callout callout-info">
+    <span class="callout-label">&#x1F4DC; Earlier-Stage Kingdoms - Hall of Governors</span>
+    Newer kingdoms run Hall of Governors before Strongest Governor arrives. It uses the same idea: hold Hero Roulette and Shard ascensions for the Hero Development stage, train troops only during the Train Troops stage (higher tiers score far more), queue long upgrades to finish in Construction and Research stages, and stockpile gear and Charm materials for their stages. Check with R4/R5 before spending large resources.
   </div>
 </section>
 
@@ -4249,7 +4586,7 @@
   </ul>
   <h3>Shop Priority (F2P)</h3>
   <div class="card card-gold">
-    <p>The shop does not reset daily, so plan your full-event purchase order rather than optimizing day-by-day. Community consensus: <strong>Forge Hammers</strong> are the highest-value F2P buy. Gear and charm-related items come next, especially if Hall of Governors is upcoming - buy now, but delay the actual upgrade until the correct HoG stage.</p>
+    <p>The shop does not reset daily, so plan your full-event purchase order rather than optimizing day-by-day. Community consensus: <strong>Forge Hammers</strong> are the highest-value F2P buy. Gear and charm-related items come next, especially ahead of KvK Prep - buy now, but hold the actual upgrade for the KvK prep day where it scores.</p>
   </div>
   <h3>Alliance Coordination Protocol</h3>
   <ul class="tips">
@@ -6964,7 +7301,7 @@
   <div class="resource-links">
     <a class="link-card" href="https://v2.kingshot.net/hero-shard-calculator" target="_blank">
       <div class="link-card-title">&#x1F9B8; Hero Shard Calculator</div>
-      <div class="link-card-desc">Calculate exactly how many shards you need to reach your next star level. Plan roulette spending before Hall of Governors.</div>
+      <div class="link-card-desc">Calculate exactly how many shards you need to reach your next star level. Plan roulette spending before Strongest Governor.</div>
       <div class="link-card-url">v2.kingshot.net/hero-shard-calculator</div>
     </a>
     <a class="link-card" href="https://v2.kingshot.net/troop-training-calculator" target="_blank">
@@ -7017,7 +7354,7 @@
     </a>
     <a class="link-card" href="https://v2.kingshot.net/appointment-planner" target="_blank">
       <div class="link-card-title">&#x1F4CB; Appointment Planner</div>
-      <div class="link-card-desc">Plan ministry rotations for events like Hall of Governors. R4/R5 tool for scheduling leadership role assignments.</div>
+      <div class="link-card-desc">Plan ministry rotations for events like Strongest Governor. R4/R5 tool for scheduling leadership role assignments.</div>
       <div class="link-card-url">v2.kingshot.net/appointment-planner</div>
     </a>
     <a class="link-card" href="https://v2.kingshot.net/transfer-planner" target="_blank">
@@ -7172,7 +7509,7 @@ VIKING VENGEANCE: Biweekly alliance defense event - 20 waves over ~40 minutes. W
 
 ALLIANCE CHAMPIONSHIP: Weekly event - six alliances compete across five rounds. Members register into one of three lanes. Win condition: take 2 of 3 lanes each round. Strategy: deliberately build two strong lanes and one sacrifice lane. Only first 20 strongest members per lane count toward power score. When registering, use a garrison formation with Howard and Gordon and use a 60% Infantry / 40% Cavalry / 0% Archers formation - adjust only if lane captain says otherwise. Assign a single lane planner for the whole event. Registration buff policy: pick ONE policy and stick to it - some guides say buff up before registering; others say buffing inflates matchmaking power into harder brackets.
 
-HALL OF GOVERNORS: Biweekly multi-stage scoring event, primarily in first and second generations of a kingdom. Later kingdoms may see Strongest Governor instead. Biggest score drivers: Hero Roulette spins (generally a high-value activity during Hero Development stage - point values vary by kingdom age and event version; verify in-game), high-tier troop training. Two alliance modes: Mode A = milestone-first (everyone clears milestones without draining stockpiles); Mode B = planned leaderboard push (1-3 designated pushers spike on troop day and roulette day while rest do milestones only). Stage-by-stage rule: only spend upgrade materials, roulette tokens, and shards during their corresponding stage windows.
+STRONGEST GOVERNOR (successor to Hall of Governors for maturing kingdoms; Kingdom 1625 runs Strongest Governor. Hall of Governors is NOT removed from the game - newer kingdoms still run it first; community references describe the 6th Hall of Governors as the last before Strongest Governor): seven-day event about once per 4-week cycle, a different scoring set each day. KINGDOM 1625 POLICY - KVK COMES FIRST: Strongest Governor is for efficient reward collection; KvK is the primary resource-spending event. Goals: collect valuable rewards, keep normal development, preserve KvK resources. Members do not need to win or reach every milestone; personal ranking must never undermine KvK prep. Never recommend maximizing Strongest Governor points or pushing the leaderboard with protected resources. RESOURCE TIERS: GREEN (go ahead) = normal troop training, research/construction that finish naturally, Day 7 gathering, planned Hero development using no protected materials, claiming reached milestones (natural progression still costs ordinary resources/time/gems). YELLOW (only if unreserved and worth the opportunity cost) = Hero Roulette spins, pet materials, unreserved Hero resources, surplus equipment materials, small amounts of ordinary speedups. RED (protected KvK stockpile, configurable per R4/R5 policy) = construction/research/training/universal speedups, Hero Shards reserved for KvK, Forgehammers, Exclusive Gear Widgets, Mithril, Truegold, Truegold Dust, Governor Gear and Charm materials, Master Emblems and Manuscripts, pet materials reserved for KvK, other high-value materials. Core rule: if it was saved for KvK, do not spend it in Strongest Governor for personal points. FOUR QUESTIONS before spending: (1) reserved for KvK? then don't; (2) reachable through normal gameplay? take that route; (3) reward worth the cost?; (4) will it weaken KvK prep? then keep it. DAYS (community data, Kingshot Mastery May 2026, verify in-game): Day 1 City Construction - Truegold/Tempered Truegold building upgrades, Truegold Dust research, speedups (30 pts/min), Governor Charms; let scheduled upgrades finish, no speedup pushes. Day 2 Hero Development - Hero Roulette (8,000/play), Hero Shard ascension, Forgehammer 4,000, Widget 8,000, Mithril 40,000, Master Emblem 6,000, Truegold, speedups; budgeted Roulette only, protect Shards and gear materials. Day 3 Basic Skill Up - pet advancement, Advanced Taming Mark 15,000, Common Taming Mark 1,150, Governor Charms, Hero Shards, Hero Roulette, Master Emblems; surplus pet resources only. Day 4 Combat Training - troop training/promotion (T10 39, T11 49 per troop), Charms, Forgehammers/Widgets/Mithril; normal training timed to finish, no training speedups. Day 5 Basic Skill Up (some references call it Power Boost) - gear materials, Truegold, speedups; checkpoint day, claim natural milestones only. Day 6 Combat Training - training/promotion, Governor Gear upgrades; no saved speedups unless R4/R5 approves an exception. Day 7 Hero Development - Hero Shards, pets/Taming Marks, Governor Gear, Truegold, speedups, wilderness gathering (only day gathering scores, 3 pts per bundle); Roulette not reported to score Day 7; best KvK-safe day via gathering, avoid panic spending. REWARDS (verify in-game): priority 1 daily point milestones (5 per day); priority 2 Challenge Medals (up to 2 per day) only when affordable; priority 3 kingdom rewards reported for players with 250,000+ total points; priority 4 rankings (daily stage and kingdom top 1,000, cross-kingdom top 2,000) - spender territory, default policy is not to chase them, only with unreserved resources. PLAYER TYPES: F2P - natural progression, training, gathering, affordable milestones, no ranking competition. Low spender - selective approved surplus, budgeted Roulette, don't spread premium materials across days. Competitive spender - separate personal budget from KvK reserves, avoid spending wars, rank only with unreserved resources or approved exceptions. MISTAKES: chasing every milestone, spending saved speedups, treating Roulette as free, overtraining troops, spending premium gear materials, assuming event info is permanent, putting personal rank above kingdom KvK. POLICY on save-everything vs spend-selectively: save all protected resources, spend selectively only on natural progression and approved surplus; no universal spend/save percentage is supported. HALL OF GOVERNORS (earlier-stage kingdoms only): hold Roulette and Shard ascensions for Hero Development stage, train troops only in Train Troops stage, queue upgrades for Construction/Research stages, stockpile gear/Charm materials for their stages, check with R4/R5 before large spending.
 
 ALL OUT: Two-day PvP kill event every few weeks. Points scale by troop tier. Safe F2P scoring: attack resource gathering tiles instead of cities - tile hits generate points without risking permanent troop deaths. City attacks can permanently kill troops. Keep shield active when offline. Garrison troops in alliance structures when idle. Recovery after losses: batch heal in small increments so alliance help can reduce timers rather than burning speed-ups on large heal blocks. Always read and enforce server NAP/political rules before the event.
 
@@ -7405,11 +7742,11 @@ function quickAsk(question) {
 // date format: YYYY-MM-DD (used only for sorting/compare, not displayed verbatim below)
 // Links can point at any tab id (e.g. '#war-academy') - the tab system opens that tab.
 const WHATS_NEW = [
+  { date: '2026-11-14', label: 'Strongest Governor replaces Hall of Governors - KvK-first guide with a 7-day plan, resource protection tiers, and a KvK-safe milestone calculator', link: '#strongest-governor' },
   { date: '2026-11-14', label: 'NEW: Governor Duel guide - 3v3 squad event starts Nov 15 UTC. You must set your lineup or you count as unregistered', link: '#governor-duel' },
   { date: '2026-11-10', label: "Finder's Fusion: Monument scene map added - maps are now listed by scene name, since scene order differs between kingdoms", link: '#finders-fortune' },
   { date: '2026-11-09', label: 'Pets: max level for every pet, plus a refinement guide - what gray vs green means, tier caps, and Taming Mark strategy', link: '#pets' },
   { date: '2026-11-09', label: "Finder's Fusion scene maps added: Enlistment Office and Command Center", link: '#finders-fortune' },
-  { date: '2026-11-09', label: 'Gen 5 is live: heroes Long Fei, Thrud and Vivian, pets Alpha Black Panther and Great Moose, and Masters Isnor and Aena are now available', link: '#heroes' },
 ];
 
 (function() {
@@ -7548,6 +7885,35 @@ function ffShowMap(key) {
   });
 })();
 
+// ── STRONGEST GOVERNOR: KvK-SAFE MILESTONE CALCULATOR ──
+function sgCalc() {
+  var v = function(id) { var n = parseFloat((document.getElementById(id) || {}).value); return isNaN(n) || n < 0 ? 0 : n; };
+  var out = document.getElementById('sgOut');
+  if (!out) return;
+  var curRaw = document.getElementById('sgCur').value, tgtRaw = document.getElementById('sgTgt').value;
+  var fmt = function(n) { return Math.round(n).toLocaleString(); };
+  out.className = 'sg-calc-out';
+  if (curRaw === '' || tgtRaw === '') { out.textContent = 'Enter your current score and target to see your plan.'; return; }
+  var cur = v('sgCur'), tgt = v('sgTgt');
+  var remaining = Math.max(0, tgt - cur);
+  var safe = v('sgNat') + v('sgTrn') + v('sgGat');
+  var approved = v('sgRou') + v('sgSur');
+  var plan = safe + approved;
+  if (remaining === 0) {
+    out.className = 'sg-calc-out done';
+    out.innerHTML = '<strong>Milestone reached.</strong> Collect your rewards and preserve your remaining resources.';
+  } else if (safe >= remaining) {
+    out.className = 'sg-calc-out ok';
+    out.innerHTML = '<strong>Recommended: continue normal participation.</strong> You need ' + fmt(remaining) + ' more points and expect ' + fmt(safe) + ' from KvK-safe activities. No protected KvK resources are needed' + (approved > 0 ? ' - and you can skip the approved spending too.' : '.');
+  } else if (plan >= remaining) {
+    out.className = 'sg-calc-out ok';
+    out.innerHTML = '<strong>Reachable with approved spending.</strong> You need ' + fmt(remaining) + ' more points: ' + fmt(safe) + ' from KvK-safe activities plus ' + fmt(remaining - safe) + ' from your approved budget. Only spend unreserved resources, and only if the reward is worth it.';
+  } else {
+    out.className = 'sg-calc-out warn';
+    out.innerHTML = '<strong>Warning: this target is out of reach with your KvK-safe plan.</strong> You need ' + fmt(remaining) + ' more points but your plan covers ' + fmt(plan) + ' (short by ' + fmt(remaining - plan) + '). Preserve protected resources unless R4/R5 approves an exception - stopping at your last reachable milestone is a good result.';
+  }
+}
+
 // ── TAB NAVIGATION ──
 // Order here = order of the tab bar and of Previous/Next. Each id must match a .tab-panel element id.
 // To add a new section: give its <section> class="tab-panel", add a sidebar link, and add a row here.
@@ -7568,8 +7934,8 @@ const TABS = [
   { id: 'er',             label: "Eternity's Reach",  group: 'Events', desc: 'Stage-based solo event awarding Charm materials.' },
   { id: 'finders-fortune', label: "Finder's Fortune", group: 'Events', desc: '3-day hidden-object event - spend Bones, keep Focusbells, and team up in Finder\'s Fusion.', beacon: true },
   { id: 'governor-duel',  label: 'Governor Duel',     group: 'Events', desc: 'New 3v3 squad event - register AND set your lineup, then use 10 daily challenges.', beacon: true },
-  { id: 'hog',            label: 'Hall of Governors', group: 'Events', desc: 'Multi-stage scoring event - what to save and when to spend.' },
   { id: 'moonlit',        label: 'Moonlit Promise',   group: 'Events', desc: 'Month-long special event - lanterns, blessings, and shop priority.' },
+  { id: 'strongest-governor', label: 'Strongest Governor', group: 'Events', desc: 'Seven-day progression event - KvK-first: collect affordable milestones, protect the KvK stockpile.', beacon: true },
   { id: 'swordland',      label: 'Swordland',         group: 'Events', desc: 'Buildings, stored points, and mobility - not raw kills.' },
   { id: 'tri-alliance',   label: 'Tri-Alliance Clash',group: 'Events', desc: 'Three alliances fight for territory and the Temple of Tides.' },
   { id: 'viking',         label: 'Viking Vengeance',  group: 'Events', desc: 'Biweekly 20-wave alliance defense event over roughly 40 minutes.' },
@@ -7593,7 +7959,7 @@ const TABS = [
   var byId = {};
   TABS.forEach(function(t) { byId[t.id] = t; });
   // Old anchors that are not tabs themselves
-  var ALIASES = { 'whats-new': 'home' };
+  var ALIASES = { 'whats-new': 'home', 'hog': 'strongest-governor' };
   var current = null;
 
   function slug(s) { return s.toLowerCase().replace(/&[a-z#0-9]+;/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
