@@ -1693,6 +1693,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
       <button class="action-btn" onclick="openSaveModal()">💾 Save Plan</button>
       <button class="action-btn" onclick="visualExport()">🖼 Visual Export</button>
       <button class="action-btn" onclick="shareMapImage(0)">🗺 Share Map</button>
+      <button class="action-btn" onclick="copyChatMap(0)">💬 Copy Map for Chat</button>
       <button class="action-btn danger" onclick="clearRoster(0)">🗑 Clear Legion 1</button>
     </div>
   </div>
@@ -1908,6 +1909,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
       <button class="action-btn" onclick="openSaveModal()">💾 Save Plan</button>
       <button class="action-btn" onclick="visualExport()">🖼 Visual Export</button>
       <button class="action-btn" onclick="shareMapImage(1)">🗺 Share Map</button>
+      <button class="action-btn" onclick="copyChatMap(1)">💬 Copy Map for Chat</button>
       <button class="action-btn danger" onclick="clearRoster(1)">🗑 Clear Legion 2</button>
     </div>
   </div>
@@ -4330,6 +4332,42 @@ function svgToPngBlob(svg, w, h) {
     img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Could not draw the map')); };
     img.src = url;
   });
+}
+
+/* Text map for in-game chat: building icons laid out like the map, each with
+   its lead's (shortened) name. Fits one message (<= 10 line breaks, <= 500 chars).
+   Legend wording is the alliance's own. */
+function chatMapName(di, b) {
+  const ps = GROUPS.filter(g => !isStandby(g.id)).flatMap(g => dispatches[di][g.id] || [])
+    .filter(p => p.name && p.name.trim() && p.building === b);
+  const p = ps.find(x => x.role === LEAD_ROLE) || ps[0];
+  if (!p) return '-';
+  const n = p.name.trim();
+  return n.length > 10 ? n.slice(0, 9) + '.' : n;
+}
+function buildChatMap(di) {
+  const n = b => chatMapName(di, b);
+  const pad = (t, w) => t + ' '.repeat(Math.max(1, w - t.length));
+  const shrineP = GROUPS.filter(g => !isStandby(g.id)).flatMap(g => dispatches[di][g.id] || [])
+    .find(p => p.shrine && p.name && p.name.trim());
+  const shrine = shrineP ? ' ' + (shrineP.name.trim().length > 12 ? shrineP.name.trim().slice(0, 11) + '.' : shrineP.name.trim()) : '';
+  return [
+    'Swordland Map - Legion ' + (di + 1),
+    ' 🔔' + pad(n('Bell Tower'), 15) + '⛪' + n('Top Abbey'),
+    '🏤' + pad(n('Sanctum'), 9) + '💥' + pad(n('Mercenary Camp'), 9) + '⛪Enemy',
+    '               ⭐S' + shrine,
+    '⛪' + pad(n('Mid Abbey'), 10) + '🔪' + pad(n('Hall of Reformation'), 9) + '🏤Enemy',
+    '     ⛪' + pad(n('Low Abbey'), 12) + '🐴' + n('Royal Stables'),
+    '🔔 Bell Tower (-50% control time) · 🐴 Royal Stables (-50% cooldown)',
+    '🏤 Sanctum (more points) · ⛪ Abbey (points) · ⭐S Swordshrine (most points, opens 15:00)',
+    '💥 Mercenaries (attack building) · 🔪 Reformation Hall (+15% Damage+Reduction)'
+  ].join('\n');
+}
+function copyChatMap(di) {
+  if (!GROUPS.some(g => (dispatches[di][g.id] || []).some(p => p.name && p.name.trim() && p.building))) {
+    showToast('⚠ Assign buildings in Legion ' + (di + 1) + ' first'); return;
+  }
+  copyText(buildChatMap(di), '✅ Copied the Legion ' + (di + 1) + ' map for in-game chat');
 }
 
 async function shareMapImage(di) {
