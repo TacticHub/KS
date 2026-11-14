@@ -2142,16 +2142,14 @@ function ioChatMessages(di) {
     'Only if the enemy has a lot of whales when we log in. Leads will call it - if not called, follow your normal orders.',
     '(I) Inside: stay in the safe zone for the first 10 min. Garrison as much as you can, other buildings too. Expect more speedups',
     '(O) Outside: roam out for the first 10 min to capture faster and secure max points. Back in the safe zone BEFORE the 10-min timer ends'].join('\n');
-  const who = ['INSIDE / OUTSIDE - WHO (only if called)']
-    .concat(ioNameLines(di, 'I', 'Inside (I)'), ioNameLines(di, 'O', 'Outside (O)'));
-  const c = ioCounts(dispatches[di]);
-  if (c.none) who.push(c.none + ' player' + (c.none > 1 ? 's' : '') + ' not tagged yet - ask your lead');
-  return splitForChat(rules).concat(who.length > 1 ? splitForChat(who.join('\n')) : []);
+  /* Each player's (I)/(O) already shows next to their name in the group messages */
+  return splitForChat(rules);
 }
 
 function copyIOChat(di) {
   const msgs = ioChatMessages(di);
   if (!msgs.length) { showToast('Turn on Inside / Outside first'); return; }
+  if (msgs.length === 1) { copyText(msgs[0], '✅ Copied Inside / Outside for in-game chat'); return; }
   openChatMessages(di, msgs, 'Inside / Outside messages for the legion chat. Only post these if the call is made. Tap Copy on each one and paste it as its own message.');
 }
 
