@@ -1660,6 +1660,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
               <li>Strike team: rally and capture buildings, then hand them off to the building lead</li>
               <li>Roam free</li>
               <li>Do not garrison (you will move a lot) - teleporting pulls your marches out</li>
+              <li>Before the event: sign up for a castle appointment with a slot covering the battle - Field Commander (Squads' Lethality +15%) or Marshal (Squads' Attack +8%). Confirm it on your stats once appointed</li>
               <li>After a capture, stay until the lead's marches arrive, then move on</li>
               <li>Phase 2: once our buildings hold, rally the enemy Sanctum, then the enemy Abbey</li>
               <li>Phase 3: hit the enemy building with the most banked points so the loot crew can collect</li>
@@ -1877,6 +1878,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
               <li>Strike team: rally and capture buildings, then hand them off to the building lead</li>
               <li>Roam free</li>
               <li>Do not garrison (you will move a lot) - teleporting pulls your marches out</li>
+              <li>Before the event: sign up for a castle appointment with a slot covering the battle - Field Commander (Squads' Lethality +15%) or Marshal (Squads' Attack +8%). Confirm it on your stats once appointed</li>
               <li>After a capture, stay until the lead's marches arrive, then move on</li>
               <li>Phase 2: once our buildings hold, rally the enemy Sanctum, then the enemy Abbey</li>
               <li>Phase 3: hit the enemy building with the most banked points so the loot crew can collect</li>
@@ -2862,6 +2864,8 @@ function buildDiscordOutput(di) {
   const shrineP = GROUPS.flatMap(g => (d[g.id] || []).filter(p => p.shrine && p.name && !isStandby(g.id))).map(p => p.name)[0];
   out += '────────────────────────────────\n';
   out += '🗺 BATTLE PLAN\n';
+  out += 'BEFORE THE EVENT\n';
+  out += "   • Strike team: sign up for a castle appointment with a slot covering the battle - Field Commander (Squads' Lethality +15%) or Marshal (Squads' Attack +8%). Community-reported as active in Swordland; confirm on your stats once appointed\n";
   out += 'PHASE 1 - Take ours\n';
   out += '   • Holders: main march on your building, secondary marches on the rest of your group\'s buildings (thinnest first)\n';
   out += "   • Strike team: capture (Bell Tower first), stay until the lead's marches arrive, then move on\n";
@@ -3053,9 +3057,14 @@ function strikeAssignLine(di) {
   return 'Assignments - ' + parts.join(' · ');
 }
 
+/* Castle appointments (Rob-supplied, from a community guide): reported active
+   in Swordland. Players should confirm the buff on their stats once appointed. */
+const APPOINTMENT_TIP = 'Before the event: sign up for a castle appointment with a slot covering the battle - Field Commander (Squads\' Lethality +15%) or Marshal (Squads\' Attack +8%). Confirm it on your stats once appointed';
+
 function strikePlanLines(di) {
   const a = di === undefined ? '' : strikeAssignLine(di);
   return (a ? [a] : []).concat([
+    APPOINTMENT_TIP,
     "Don't garrison: teleporting pulls your marches",
     "Phase 1: take our buildings, Bell Tower first. Stay until the lead's marches arrive, then move on",
     'Phase 2: Group 1 strikers hit the Enemy Abbey; Group 2 and Group 3 strikers hit the Enemy Sanctum together. Hold until the holding group\'s marches arrive',
@@ -3515,6 +3524,7 @@ ${renderDispatchSection('⚔ LEGION 2', d2)}
   ${['g1', 'g2', 'g3'].map(g => `<div class="role-key-item"><strong>${groupShort(g)}</strong> (${GROUP_AREA[g]}): ${GROUP_BUILDINGS[g].map(buildingWhere).join(', ')}</div>`).join('')}
   <div class="role-key-item"><strong>Enemy side:</strong> Enemy Abbey (top right) = Group 1; Enemy Sanctum (bottom right) = Group 3 + Group 2. Every Abbey shows as "Abbey" in game - go by location.</div>
   <div class="role-key-title" style="margin-top:8px;">Battle Plan</div>
+  <div class="role-key-item"><strong>Before the event:</strong> strike team signs up for a castle appointment with a slot covering the battle - Field Commander (Squads' Lethality +15%) or Marshal (Squads' Attack +8%). Community-reported as active in Swordland; confirm on your stats once appointed.</div>
   <div class="role-key-item"><strong>Phase 1 - Take ours:</strong> main march on your building, secondary marches on the rest of your group's buildings. Strike team captures (Bell Tower first) and moves on once the lead's marches arrive.</div>
   <div class="role-key-item"><strong>Phase 2 - Take theirs:</strong> Group 1's strike players hit the enemy Abbey while Group 2's and Group 3's hit the enemy Sanctum together. Group 3 and Group 2 hold the enemy Sanctum, Group 1 the enemy Abbey, with secondary marches. Group 2 keeps our Sanctum fully held and sends about a third of its secondary marches to back Swordshrine from 15:00.</div>
   <div class="role-key-item"><strong>Phase 3 - Loot:</strong> strike team hits the enemy building with the most banked points; the loot crew collects the Baggage Trains and gathers at the Undercellars (15:00 and 20:00 waves).</div>
