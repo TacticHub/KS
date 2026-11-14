@@ -1372,7 +1372,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 20px 60px; }
         </div></div>
         <div class="pg-step"><div class="pg-num">3</div><div>
           <div class="pg-step-title">Inside / Outside <span class="opt">Optional</span></div>
-          <div class="pg-step-text">Turn on <strong>Inside / Outside Strategy</strong> if you're using it. Players get tagged <strong>I</strong> (stay in the safe zone, garrison everything) or <strong>O</strong> (roam out to capture, back before 10:00). Only call it if the enemy has a lot of whales when you log in. Tap <strong>💬 Copy Inside / Outside</strong> for the chat messages explaining it (kept separate so they're only posted if the call is made; the Discord plan includes them while it's on).</div>
+          <div class="pg-step-text">Turn on <strong>Inside / Outside Strategy</strong> if you're using it. Players get tagged <strong>I</strong> (stay in the safe zone, garrison everything) or <strong>O</strong> (roam out to capture, back before 10:00). Only call it if the enemy has a lot of whales when you log in. Tap <strong>💬 Copy Inside / Outside</strong> for the chat messages explaining it (also included in Copy In-Game Chat and the Discord plan while it's on).</div>
         </div></div>
       </div>
 
@@ -3283,7 +3283,7 @@ function openChatMessages(di, msgs, hint) {
 function openChatModal(di) {
   const msgs = GROUPS.flatMap(g => chatMessages(di, g.id));
   if (!msgs.length) { showToast('⚠ No named players in Legion ' + (di + 1) + ' yet'); return; }
-  msgs.unshift(buildingGuideMessage());
+  msgs.unshift(buildingGuideMessage(), ...ioChatMessages(di));   /* I/O rules only while it's on */
   openChatMessages(di, msgs, 'Every message fits the in-game chat limit. Tap Copy on each one and paste it as its own chat message.');
 }
 
