@@ -3819,8 +3819,8 @@
     <img src="assets/characters/feline-flame/feline-warning.webp" alt="The Feline Flame, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
   </aside>
   <div class="callout callout-warn">
-    <span class="callout-label">&#x26A0; Never Miss Bear Hunt</span>
-    <strong>Forge Hammers</strong> - required for Mythic gear upgrades - have no other source. Missing Bear Hunts permanently sets back your gear progression.
+    <span class="callout-label">&#x26A0; Don't Skip Bear Hunt</span>
+    <strong>Forge Hammers</strong> - required for Mythic gear upgrades - are no longer exclusive to Bear Hunt, but it's still one of the best places to pick up a lot of them for free. Every Bear Hunt you skip is free hammers left on the table.
   </div>
   <h3>How It Works</h3>
   <ul class="tips">
@@ -7904,7 +7904,7 @@ TRI-ALLIANCE CLASH: Three alliances fight simultaneously for territory and the T
 
 ETERNITY'S REACH: Stage-based event awarding Charm Items. PRIMARY STRATEGY (Solo): (1) Skill Tree: Right - Right - Left - Left - Right. (2) Copper Strategy: occupy a vein every 60s, recall immediately, and keep killing guards. (3) Outburst Tactic: use the 5th skill for speed, rush to occupy Fracture Veins as soon as they appear. (4) Timeline: Gold first. Hero recommendations: primary = Quinn or Amadeus, support = Chenko (Lethality aura), utility = Quinn (Archer Attack). Upgrade Charms in order: Attack > Lethality > HP > Defense. F2P can consistently clear stages 8-10 for steady Charm progress.
 
-BEAR HUNT: Never miss Bear Hunt - Forge Hammers have no other source. STARTING A RALLY: always use your 3 strongest heroes - priority heroes are Zoe, Jabel, Quinn, and Marlin. Rally leader must be fully geared. JOINING A RALLY: place Chenko, Yeonwoo, Amane, or Amadeus in the first (left) slot; if none are available, send the march without heroes - sending the wrong heroes reduces the total damage of the entire rally. Archers deal the most damage - use one of these troop ratios (Infantry/Cavalry/Archer): 5/5/90, 10/10/80, or 10/20/70; otherwise just equalize troops. Players who do not follow these rules may be removed from rallies. GEN 5 JOINER NOTE (situational, anecdotal): Vivian (Gen 5 Archer, available in Kingdom 1625 since Nov 9, 2026) has an enemy-damage amplification skill and some players report excellent Bear joining value, but effectiveness depends on the rally's selected skill bonuses - she is a situational alternative, not a replacement for the official joiner list; follow the rally leader's call. R4/R5 joiner cap formula: (Rally Capacity - Leader Squad) divided by Expected Joiners.
+BEAR HUNT: Don't skip Bear Hunt - it is one of the best free sources of Forge Hammers (needed for Mythic gear upgrades). It is no longer the only source, but you can pick up a lot of hammers for free here. STARTING A RALLY: always use your 3 strongest heroes - priority heroes are Zoe, Jabel, Quinn, and Marlin. Rally leader must be fully geared. JOINING A RALLY: place Chenko, Yeonwoo, Amane, or Amadeus in the first (left) slot; if none are available, send the march without heroes - sending the wrong heroes reduces the total damage of the entire rally. Archers deal the most damage - use one of these troop ratios (Infantry/Cavalry/Archer): 5/5/90, 10/10/80, or 10/20/70; otherwise just equalize troops. Players who do not follow these rules may be removed from rallies. GEN 5 JOINER NOTE (situational, anecdotal): Vivian (Gen 5 Archer, available in Kingdom 1625 since Nov 9, 2026) has an enemy-damage amplification skill and some players report excellent Bear joining value, but effectiveness depends on the rally's selected skill bonuses - she is a situational alternative, not a replacement for the official joiner list; follow the rally leader's call. R4/R5 joiner cap formula: (Rally Capacity - Leader Squad) divided by Expected Joiners.
 
 VIKING VENGEANCE: Biweekly alliance defense event - 20 waves over ~40 minutes. Waves 10 and 20 hit the Alliance HQ. Waves 7, 14, and 17 hit online members only. Shields do NOT work against Viking attacks. The three non-negotiables: (1) Empty your city before the event and send troops to reinforce others. (2) Do not heal mid-event unless you immediately send healed troops back out. (3) Do not extinguish fires mid-event. Save 3,000-6,000 stamina before event. Run continuous rally chains: Leader 1 engages, Leader 2 prepares, Leader 3 prepares next.
 
@@ -8143,6 +8143,7 @@ function quickAsk(question) {
 // date format: YYYY-MM-DD (used only for sorting/compare, not displayed verbatim below)
 // Links can point at any tab id (e.g. '#war-academy') - the tab system opens that tab.
 const WHATS_NEW = [
+  { date: '2026-11-14', label: 'Bear Hunt updated: no longer the only source of Forge Hammers, but still one of the best places to stack them for free', link: '#bear-hunt' },
   { date: '2026-11-14', label: 'Pet Plans added to event tabs - which pet skills to turn on (and which to skip) for each event, plus a Which Pets for Which Event table', link: '#pets' },
   { date: '2026-11-14', label: 'Ministry Tips added across event tabs - which open appointments help in Strongest Governor, Bear Hunt, All Out, and more', link: '#events' },
   { date: '2026-11-14', label: 'KvK tab expanded: day-by-day prep plan, what to save for which day, chest targets, and minister appointment sign-ups', link: '#kvk' },
@@ -8330,7 +8331,7 @@ const TABS = [
   { id: 'events',         label: 'Events Overview',   group: 'Events', desc: 'Line up upgrades, training, and research with event windows to double their value.' },
   { id: 'all-out',        label: 'All Out',           group: 'Events', desc: 'Two-day PvP event - safe scoring and recovery after losses.' },
   { id: 'alliance-champ', label: 'Alliance Champ',    group: 'Events', desc: 'Weekly six-alliance event across five rounds and three lanes.' },
-  { id: 'bear-hunt',      label: 'Bear Hunt',         group: 'Events', desc: 'The only source of Forge Hammers - rally setup, joining rules, and troop ratios.' },
+  { id: 'bear-hunt',      label: 'Bear Hunt',         group: 'Events', desc: 'A top free source of Forge Hammers - rally setup, joining rules, and troop ratios.' },
   { id: 'blizzard-brawl', label: 'Blizzard Brawl',    group: 'Events', desc: 'Solo 10-player free-for-all - objectives, crates, and airdrops beat kills.', beacon: true },
   { id: 'er',             label: "Eternity's Reach",  group: 'Events', desc: 'Stage-based solo event awarding Charm materials.' },
   { id: 'finders-fortune', label: "Finder's Fortune", group: 'Events', desc: '3-day hidden-object event - spend Bones, keep Focusbells, and team up in Finder\'s Fusion.', beacon: true },
