@@ -4335,32 +4335,67 @@ function svgToPngBlob(svg, w, h) {
 }
 
 /* Text map for in-game chat: building icons laid out like the map, each with
-   its lead's (shortened) name. Fits one message (<= 10 line breaks, <= 500 chars).
+   its lead's name. The game font is proportional, so names are measured in
+   (approximate) pixels, calibrated from an in-game screenshot, and padded with
+   spaces to fixed column positions. Fits one message: 10 line breaks, < 500 chars.
    Legend wording is the alliance's own. */
+const CHAT_SPACE_PX = 9.6, CHAT_ICON_PX = 42, CHAT_NAME_MAX_PX = 240;
+function chatTextPx(t) {
+  let w = 0;
+  for (const ch of String(t)) {
+    if (ch === ' ') w += CHAT_SPACE_PX;
+    else if ('iljtfr.,:;!|\''.includes(ch) || ch === 'I') w += 11;
+    else if (ch === '1') w += 18;
+    else if ('mwMW'.includes(ch)) w += 33;
+    else if (ch >= '0' && ch <= '9') w += 25;
+    else if (ch >= 'A' && ch <= 'Z') w += 25;
+    else if (ch >= 'a' && ch <= 'z') w += 22.5;
+    else if (ch.charCodeAt(0) > 0x2e80) w += 40;      /* CJK etc. */
+    else w += 20;
+  }
+  return w;
+}
+function chatShortName(n) {
+  n = String(n || '').trim();
+  if (chatTextPx(n) <= CHAT_NAME_MAX_PX) return n;
+  while (n.length > 1 && chatTextPx(n + '.') > CHAT_NAME_MAX_PX) n = n.slice(0, -1);
+  return n + '.';
+}
+/* cells: [{ x: px from the left, icon, name }] */
+function chatRow(cells) {
+  let line = '', w = 0;
+  cells.forEach(c => {
+    const gap = Math.max(line ? 2 : 0, Math.round((c.x - w) / CHAT_SPACE_PX));
+    line += ' '.repeat(gap) + c.icon + c.name;
+    w += gap * CHAT_SPACE_PX + CHAT_ICON_PX + chatTextPx(c.name);
+  });
+  return line;
+}
 function chatMapName(di, b) {
   const ps = GROUPS.filter(g => !isStandby(g.id)).flatMap(g => dispatches[di][g.id] || [])
     .filter(p => p.name && p.name.trim() && p.building === b);
   const p = ps.find(x => x.role === LEAD_ROLE) || ps[0];
-  if (!p) return '-';
-  const n = p.name.trim();
-  return n.length > 10 ? n.slice(0, 9) + '.' : n;
+  return p ? chatShortName(p.name) : '-';
 }
 function buildChatMap(di) {
   const n = b => chatMapName(di, b);
-  const pad = (t, w) => t + ' '.repeat(Math.max(1, w - t.length));
   const shrineP = GROUPS.filter(g => !isStandby(g.id)).flatMap(g => dispatches[di][g.id] || [])
     .find(p => p.shrine && p.name && p.name.trim());
-  const shrine = shrineP ? ' ' + (shrineP.name.trim().length > 12 ? shrineP.name.trim().slice(0, 11) + '.' : shrineP.name.trim()) : '';
+  /* column positions (px) follow the planner map: home side left, enemy right */
+  /* chat bubble is ~660px wide; enemy buildings are icon-only (far right) */
+  const L = 0, LI = 50, MID = 295, RI = 375, R = 605;
   return [
     'Swordland Map - Legion ' + (di + 1),
-    ' 🔔' + pad(n('Bell Tower'), 15) + '⛪' + n('Top Abbey'),
-    '🏤' + pad(n('Sanctum'), 9) + '💥' + pad(n('Mercenary Camp'), 9) + '⛪Enemy',
-    '               ⭐S' + shrine,
-    '⛪' + pad(n('Mid Abbey'), 10) + '🔪' + pad(n('Hall of Reformation'), 9) + '🏤Enemy',
-    '     ⛪' + pad(n('Low Abbey'), 12) + '🐴' + n('Royal Stables'),
+    '',
+    chatRow([{ x: LI, icon: '🔔', name: n('Bell Tower') }, { x: RI, icon: '⛪', name: n('Top Abbey') }]),
+    chatRow([{ x: L, icon: '🏤', name: n('Sanctum') }, { x: MID, icon: '💥', name: n('Mercenary Camp') }, { x: R, icon: '⛪', name: '' }]),
+    chatRow([{ x: MID, icon: '⭐', name: 'S' + (shrineP ? ' ' + chatShortName(shrineP.name) : '') }]),
+    chatRow([{ x: L, icon: '⛪', name: n('Mid Abbey') }, { x: MID, icon: '🔪', name: n('Hall of Reformation') }, { x: R, icon: '🏤', name: '' }]),
+    chatRow([{ x: LI, icon: '⛪', name: n('Low Abbey') }, { x: RI, icon: '🐴', name: n('Royal Stables') }]),
+    '',
     '🔔 Bell Tower (-50% control time) · 🐴 Royal Stables (-50% cooldown)',
-    '🏤 Sanctum (more points) · ⛪ Abbey (points) · ⭐S Swordshrine (most points, opens 15:00)',
-    '💥 Mercenaries (attack building) · 🔪 Reformation Hall (+15% Damage+Reduction)'
+    '🏤 Sanctum (more points) · ⛪ Abbey (points) · far right = enemy',
+    '⭐S Swordshrine (most points, opens 15:00) · 💥 Mercenaries (attack building) · 🔪 Reformation Hall (+15% Damage+Reduction)'
   ].join('\n');
 }
 function copyChatMap(di) {
