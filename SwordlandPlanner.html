@@ -2923,12 +2923,12 @@ function chatBody(players, listLabel, io) {
   const tanks = players.filter(p => !isLead(p) && getRoleCls(p.role) === 'tank').map(p => p.name.trim());
   const others = players.filter(p => getRoleCls(p.role) !== 'tank').map(p => {
     const z = io && (p.zone === 'I' || p.zone === 'O') ? ' (' + p.zone + ')' : '';
-    return '• ' + p.name.trim() + z;
+    return p.name.trim() + z;
   });
   const lines = [];
   if (leads.length) lines.push('Lead: ' + leads.join(', '));
   if (tanks.length) lines.push('Tanks: ' + tanks.join(', '));
-  if (others.length) { lines.push(listLabel + ':'); lines.push(...others); }
+  if (others.length) lines.push(listLabel + ': ' + others.join(', '));
   return lines;
 }
 
@@ -3018,14 +3018,14 @@ function groupPlanLines(di, gid, building) {
     if (others.length) lines.push('Secondary marches: ' + others.join(', '));
   } else {
     lines.push('Main march: your building');
-    lines.push('Secondary marches: the other buildings here, thinnest first - ' + thinnestBuildings(di, gid).join(', '));
+    lines.push('Secondary marches (thinnest first): ' + thinnestBuildings(di, gid).join(', '));
   }
   /* 15:00 buildings: crew holds the group's top point building until it opens */
   const late = (GROUP_BUILDINGS[gid] || []).filter(b => LATE_BUILDINGS.includes(b) && (!building || building === b));
   if (late.length) {
     const base = (GROUP_BUILDINGS[gid] || []).slice().sort((x, y) => BUILDING_VALUE[y] - BUILDING_VALUE[x])[0];
     late.forEach(b => {
-      lines.push('Before 15:00: ' + b + ' crew puts main marches on ' + base + '. At 15:00 march (do not teleport) to ' + b);
+      lines.push('Before 15:00: ' + b + ' crew holds ' + base + ', then marches over at 15:00 (do not teleport)');
     });
   }
   const off = OFFENSE.find(o => o.holder === gid);
@@ -3110,7 +3110,7 @@ function buildGroupChatBlocks(di, gid) {
 function buildGroupChatBlocksBase(di, gid, d, players, io, cfg, mode, groupLabel) {
   if (isStandby(gid)) {
     const lines = players.map(p => '• ' + p.name.trim() + (p.role && p.role !== 'Unassigned' ? ' (' + p.role + ')' : '') + ' - ' + subForLabel(p.subFor));
-    return [[cfg.title, cfg.list + ':', ...lines].join('\n')];
+    return [[cfg.title + ' - ' + cfg.list + ':', ...lines].join('\n')];
   }
 
   if (mode === 'groups' || !GROUP_BUILDINGS[gid]) {
@@ -3123,30 +3123,49 @@ function buildGroupChatBlocksBase(di, gid, d, players, io, cfg, mode, groupLabel
   /* both: group header, then each building underneath */
   const lines = [cfg.title];
   split.forEach(x => {
-    lines.push('');
     lines.push('-- ' + (x.building || 'Building TBD') + ' --');
     lines.push(...chatBody(x.players, cfg.list, io));
   });
   return [lines.join('\n')];
 }
 
-/* In-game chat limit: the alliance message templates are capped at 512
-   characters, so every copied message stays under CHAT_LIMIT. */
+/* In-game chat limits (both seen in game):
+   - CHAT_LIMIT characters per message
+   - CHAT_MAX_BREAKS line breaks per message: after that the game drops the
+     line breaks and runs the rest together (e.g. "Lead: Josh26Garrison:")
+   Messages are split at building headers / paragraphs where possible, and
+   every continuation repeats the title. Blank lines are dropped (they cost a
+   line break each). */
 const CHAT_LIMIT = 500;
+const CHAT_MAX_BREAKS = 10;
+function chatFits(lines) {
+  return lines.join('\n').length <= CHAT_LIMIT && lines.length - 1 <= CHAT_MAX_BREAKS;
+}
 function splitForChat(block) {
-  if (block.length <= CHAT_LIMIT) return [block];
-  const out = []; let cur = '';
-  const lines = block.split('\n');
-  const title = lines[0];
-  lines.forEach((ln, i) => {
-    const add = (cur ? cur + '\n' : '') + ln;
-    if (add.length > CHAT_LIMIT && cur) {
-      out.push(cur.replace(/\n+$/, ''));
-      cur = (i > 0 ? title + ' (cont.)\n' : '') + ln;
-    } else cur = add;
+  const all = block.split('\n');
+  const title = all[0];
+  /* paragraphs: a new one starts after a blank line or at a "-- Building --" header */
+  const units = []; let cur = [];
+  all.slice(1).forEach(ln => {
+    if (!ln.trim()) { if (cur.length) units.push(cur); cur = []; return; }
+    if (/^-- .* --$/.test(ln) && cur.length) { units.push(cur); cur = []; }
+    cur.push(ln.length > CHAT_LIMIT - 40 ? ln.slice(0, CHAT_LIMIT - 40) : ln);
   });
-  if (cur.trim()) out.push(cur.replace(/\n+$/, ''));
-  return out.map(x => x.length > CHAT_LIMIT ? x.slice(0, CHAT_LIMIT) : x);
+  if (cur.length) units.push(cur);
+  const out = [];
+  let msg = [title];
+  const flush = () => { if (msg.length > 1 || !out.length) out.push(msg.join('\n')); msg = [title + ' (cont.)']; };
+  units.forEach(u => {
+    if (chatFits(msg.concat(u))) { msg = msg.concat(u); return; }
+    if (msg.length > 1) flush();
+    if (chatFits(msg.concat(u))) { msg = msg.concat(u); return; }
+    u.forEach(ln => {                      /* paragraph too big on its own: go line by line */
+      if (!chatFits(msg.concat([ln])) && msg.length > 1) flush();
+      msg.push(ln);
+    });
+  });
+  if (msg.length > 1) out.push(msg.join('\n'));
+  return out.length ? out : [title];
 }
 function chatMessages(di, gid) {
   return buildGroupChatBlocks(di, gid).flatMap(splitForChat);
