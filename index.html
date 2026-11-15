@@ -2813,6 +2813,7 @@
   .sg-calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 10px; }
   .sg-calc label { display: flex; flex-direction: column; gap: 4px; font-family: 'Lato', sans-serif; font-size: 0.78rem; color: var(--text-dim); }
   .sg-calc input { background: rgba(10,22,40,0.8); border: 1px solid rgba(224,163,57,0.3); border-radius: 6px; color: var(--text); font-family: 'Lato', sans-serif; font-size: 1rem; padding: 8px 10px; width: 100%; box-sizing: border-box; }
+  .sg-calc select { background: rgba(10,22,40,0.8); border: 1px solid rgba(224,163,57,0.3); border-radius: 6px; color: var(--text); font-family: 'Lato', sans-serif; font-size: 1rem; padding: 8px 10px; }
   .sg-calc input:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
   .sg-calc-sub { font-family: 'Lato', sans-serif; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin: 6px 0 6px; font-weight: 700; }
   .sg-calc-red { font-family: 'Merriweather', Georgia, serif; font-size: 0.82rem; color: #ff8070; margin: 4px 0 12px; }
@@ -2859,7 +2860,7 @@
     font-family: 'Merriweather', Georgia, serif; font-size: 0.82rem; line-height: 1.6;
   }
   section.tab-panel .home-card-links { font-family: 'Lato', sans-serif; }
-  #governor-duel .tg-table, #kvk .tg-table, #strongest-governor .tg-table, #transfer .tg-table, #events .tg-table, #pets .tg-table { min-width: 0; }
+  #governor-duel .tg-table, #kvk .tg-table, #strongest-governor .tg-table, #alliance-brawl .tg-table, #transfer .tg-table, #events .tg-table, #pets .tg-table { min-width: 0; }
 </style>
 <noscript><style>.tab-panel{display:block !important;} .tab-bar{display:none;}</style></noscript>
 </head>
@@ -2919,6 +2920,7 @@
     <div class="sidebar-divider">Events</div>
     <a href="#events"><span class="nav-icon">&#x1F4C5;</span>Events Overview</a>
     <a href="#all-out"><span class="nav-icon">&#x2694;</span>All Out</a>
+    <a href="#alliance-brawl" style="display:flex;align-items:center;"><span class="nav-icon">&#x1F4EF;</span>Alliance Brawl<span class="nav-beacon" aria-hidden="true"></span></a>
     <a href="#alliance-champ"><span class="nav-icon">&#x1F3C6;</span>Alliance Champ</a>
     <a href="#bear-hunt"><span class="nav-icon">&#x1F43B;</span>Bear Hunt</a>
     <a href="#blizzard-brawl"><span class="nav-icon">&#x2744;&#xFE0F;</span>Blizzard Brawl<span class="nav-beacon" aria-hidden="true"></span></a>
@@ -3773,6 +3775,7 @@
   <h3>Core Recurring Events</h3>
   <ul class="tips">
     <li><strong>Cesares Fury:</strong> Score points each phase via building upgrades, research, troop training, and gear crafting. Queue your longest upgrades to complete <em>during</em> each fury phase - save speed-ups to double the value. <strong>Ministry:</strong> a Chief Minister slot (+15% construction, research, and training) right before you start long upgrades shortens them for free.</li>
+    <li><strong>Alliance Brawl:</strong> Monthly six-stage matchup against another kingdom's alliance, alongside Merchant Empire. Win through caravans, Intel, beasts, and Terror rallies - not the KvK stockpile. See the <a href="#alliance-brawl">Alliance Brawl</a> tab.</li>
     <li><strong>Swordland Showdown:</strong> Alliance vs Alliance territorial event. Coordinate rally timing with R4/R5 leaders. Prioritize resource tiles near alliance territory. Discord communication is critical.</li>
     <li><strong>Growth Missions:</strong> Daily and weekly task lists. Complete them for significant free rewards - tasks align with normal gameplay.</li>
     <li><strong>Gear Events:</strong> Craft and upgrade gear during these windows for bonus rewards. Stock materials in advance.</li>
@@ -3786,8 +3789,8 @@
     <table class="tg-table">
       <thead><tr><th>Office</th><th>Buff</th><th>Best Event Uses</th></tr></thead>
       <tbody>
-        <tr><td><strong>Noble Advisor</strong></td><td>Training Speed +75%, Training Capacity +300</td><td>Strongest Governor Days 4 and 6, KvK prep Day 4, rebuilding after All Out</td></tr>
-        <tr><td><strong>Chief Minister</strong></td><td>Construction, Research, Training Speed +15%</td><td>Strongest Governor Days 1, 4, 6, KvK prep Days 1, 4, 5, Cesares Fury phases</td></tr>
+        <tr><td><strong>Noble Advisor</strong></td><td>Training Speed +75%, Training Capacity +300</td><td>Strongest Governor Days 4 and 6, Alliance Brawl Day 4, KvK prep Day 4, rebuilding after All Out</td></tr>
+        <tr><td><strong>Chief Minister</strong></td><td>Construction, Research, Training Speed +15%</td><td>Strongest Governor Days 1, 4, 6, Alliance Brawl Day 1, KvK prep Days 1, 4, 5, Cesares Fury phases</td></tr>
         <tr><td><strong>Field Commander</strong></td><td>Appointment-based Squads' Lethality +15%</td><td>Bear Hunt rally leaders, All Out attackers, Swordland</td></tr>
         <tr><td><strong>Marshal</strong></td><td>Appointment-based Squads' Attack +8%, Troops Deployment Capacity +3,750</td><td>Bear Hunt rally leaders, All Out attackers, Swordland</td></tr>
         <tr><td><strong>Minister of the Interior</strong></td><td>Healing Speed +150%, Infirmary Capacity +7,500</td><td>All Out recovery</td></tr>
@@ -4627,6 +4630,364 @@
   <div class="callout callout-info">
     <span class="callout-label">&#x1F4DC; Earlier-Stage Kingdoms - Hall of Governors</span>
     Newer kingdoms run Hall of Governors before Strongest Governor arrives. It uses the same idea: hold Hero Roulette and Shard ascensions for the Hero Development stage, train troops only during the Train Troops stage (higher tiers score far more), queue long upgrades to finish in Construction and Research stages, and stockpile gear and Charm materials for their stages. Check with R4/R5 before spending large resources.
+  </div>
+</section>
+
+<div class="divider">&#x2756; &#x2756; &#x2756;</div>
+
+<!-- ALLIANCE BRAWL -->
+<section id="alliance-brawl" class="tab-panel">
+  <div class="section-header">
+    <span class="section-icon">&#x1F4EF;</span>
+    <h2>Alliance Brawl</h2>
+  </div>
+  <div class="wa-placeholder-note">&#x26A0;&#xFE0F; <span>Stage names, scoring tasks, point values, horns, and milestone thresholds below come from community references (mainly Kingshot Mastery, checked Nov 2026). Kingshot can change point values by event version or server age, and Master Wilson's Duel Sponsorship can change your milestone tiers - your in-game event screen always wins if it differs from this page.</span></div>
+
+  <div class="sg-policy">
+    <div class="sg-policy-label">&#x1F6E1;&#xFE0F; Kingdom #1625 Policy - Compete Through Activity</div>
+    <div class="sg-policy-quote">We don't sacrifice KvK to win Alliance Brawl - but we also don't use KvK as an excuse for low Alliance Brawl participation.</div>
+    <ol>
+      <li><strong>Every member:</strong> chase the repeatable, low-cost points hard - caravans, Intel missions, gathering, beast hunts, and Terror rallies.</li>
+      <li><strong>Leadership:</strong> coordinate those activities, watch each day's opportunities, and discourage spending protected KvK materials just to win a daily matchup.</li>
+    </ol>
+    <p>Being KvK-first does not mean being inactive. It means working harder on the activities that don't burn protected resources. A win earned through organized play is welcome. A win that drains the KvK stockpile is not worth it.</p>
+  </div>
+
+  <h3>What It Is</h3>
+  <div class="card card-blue">
+    <p>Two matched alliances from different kingdoms compete over <strong>six stages across about 6.5 days</strong>. Alliance Brawl runs about <strong>once a month, right after Kingdom of Power</strong>, and always alongside <strong>Merchant Empire</strong> - that's where caravan escorts and raids happen. Every point you earn counts toward your <strong>personal milestones</strong> and your <strong>alliance's daily score</strong>. Your alliance must be in your kingdom's <strong>top 20</strong> to qualify.</p>
+  </div>
+
+  <h3>How Victory Works - Horns</h3>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Win a stage, take its horns. 13 horns are available and 7 wins the match.</p>
+  <div class="tg-table-wrap">
+    <table class="tg-table">
+      <thead><tr><th>Stage</th><th>Theme</th><th>Length</th><th>Horns</th></tr></thead>
+      <tbody>
+        <tr><td>Day 1</td><td>Rise of the City</td><td>24h</td><td>1</td></tr>
+        <tr><td>Day 2</td><td>Hero Development</td><td>24h</td><td>2</td></tr>
+        <tr><td>Day 3</td><td>Pet Training</td><td>24h</td><td>2</td></tr>
+        <tr><td>Day 4</td><td>Gear Enhancement</td><td>24h</td><td>2</td></tr>
+        <tr><td>Day 5</td><td>Trade Baron</td><td>24h</td><td>2</td></tr>
+        <tr class="tg-highlight"><td><strong>Day 6</strong></td><td><strong>Full-Scale Competition</strong></td><td>36h (ends Sunday 12:00 UTC)</td><td><strong>4</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-info">
+    <span class="callout-label">&#x2139; Four Horns Is an Opportunity, Not an Order</span>
+    The 36-hour final stage (some references call it "Days 6-7") can flip the whole match. If an activity-based win is on the table, go get it. If winning would take a big dip into protected materials, leadership accepts the result and the kingdom keeps its reserves for KvK.
+  </div>
+
+  <h3>Resource Protection System</h3>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Not every scoring task costs the same. Some compete directly with KvK prep; others only cost time, stamina, and showing up.</p>
+  <div class="sg-tier-grid">
+    <div class="sg-tier sg-green">
+      <div class="sg-tier-title">&#x1F7E2; Green - Pursue Aggressively</div>
+      <ul>
+        <li>Caravan escorts and raids (every stage)</li>
+        <li>Intel missions (Days 2 and 4)</li>
+        <li>Gathering (Days 1 and 3)</li>
+        <li>Beast hunts (Days 5 and 6)</li>
+        <li>Calling Terror rallies (Days 5 and 6)</li>
+      </ul>
+      <p>These are limited by activity, stamina, and timing - not by your KvK stockpile. Max them out.</p>
+    </div>
+    <div class="sg-tier sg-yellow">
+      <div class="sg-tier-title">&#x1F7E1; Yellow - Use Strategically</div>
+      <ul>
+        <li>Planned pet advancement</li>
+        <li>Routine Hero improvements (Rare and Epic shards for an ascension you already planned)</li>
+        <li>Naturally finishing troop training</li>
+        <li>Daily gem spending you'd do anyway</li>
+        <li>Naturally recovered stamina</li>
+      </ul>
+      <p>Fine when it's progression you were going to do. Compare against KvK needs first.</p>
+    </div>
+    <div class="sg-tier sg-red">
+      <div class="sg-tier-title">&#x1F534; Red - Protected KvK Stockpile</div>
+      <ul>
+        <li>Mythic Hero Shards</li>
+        <li>Construction, research, training, and Master skill speedup stockpiles</li>
+        <li>Truegold, Tempered Truegold, and Truegold Dust</li>
+        <li>Forgehammers, Exclusive Gear Widgets, Mithril</li>
+        <li>Governor Gear and Charm materials</li>
+        <li>Advanced Taming Marks and Master Emblems set aside for KvK</li>
+        <li>Stamina items and big gem purchases</li>
+      </ul>
+      <p><strong>Core rule:</strong> if you saved it for KvK, don't spend it to chase Brawl points. Using one takes an explicit reason, not just "it scores today."</p>
+    </div>
+  </div>
+
+  <aside class="omen-tip-card omen-tip-card--feline" aria-label="The Feline Flame is guarding the stockpile" role="button" tabindex="0" data-pose="assets/characters/feline-flame/feline-warning.webp" data-react="assets/characters/feline-flame/feline-cheering.webp" title="Tap The Feline Flame">
+    <div><strong>The Feline Flame is guarding the stockpile</strong><p>One Mithril is worth 18,750 points - nearly two caravans. That's exactly why it's tempting. Run the caravans and keep the Mithril for KvK.</p></div>
+    <img src="assets/characters/feline-flame/feline-warning.webp" alt="The Feline Flame, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+  </aside>
+
+  <h3>The Low-Cost Point Sources</h3>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Base points before any Wilson bonuses. These are the backbone of a KvK-first Brawl.</p>
+  <div class="tg-table-wrap">
+    <table class="tg-table">
+      <thead><tr><th>Activity</th><th>Points</th><th>Stages</th></tr></thead>
+      <tbody>
+        <tr class="tg-highlight"><td><strong>Escort or raid a caravan</strong> (each)</td><td>10,000</td><td>All six</td></tr>
+        <tr><td>Call a rally and defeat a Terror</td><td>15,000</td><td>5, 6</td></tr>
+        <tr><td>Defeat a Beast, Lv. 1-10 / 11-15 / 16-20 / 21-25 / 26-30</td><td>4,000 / 4,500 / 5,000 / 5,500 / 6,000</td><td>5, 6</td></tr>
+        <tr><td>Complete an Intel mission</td><td>3,000</td><td>2, 4</td></tr>
+        <tr><td>Train a troop, T8 / T9 / T10 / T11 (promotions score the level difference)</td><td>14 / 18 / 24 / 30</td><td>4</td></tr>
+        <tr><td>Raise Pet Advancement Score by 1</td><td>30</td><td>3, 6</td></tr>
+        <tr><td>Gather 2,000 Bread or Wood, 400 Stone, or 100 Iron</td><td>2</td><td>1, 3</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="wa-placeholder-note"><span>Terror points are listed for <strong>calling</strong> the rally. Joining a Terror rally is not listed as a scoring task - spread the calls around so more members score. Whether Intel and gathering also score in the final stage isn't clear in community references - check the in-game task list on Day 6.</span></div>
+
+  <h3>Six-Day Guide</h3>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Tap a day to open it. Effort: Days 1 and 3 Moderate, Days 2 and 4 High, Days 5 and 6 Maximum.</p>
+
+  <div class="callout callout-tip">
+    <span class="callout-label">&#x1F451; Ministry Tip - Free Speed, KvK-Safe</span>
+    Appointments are open during Alliance Brawl, and an office buff costs nothing from your KvK stockpile. The best slot is <strong>Noble Advisor on Day 4</strong> - Training Capacity +300 puts more troops in each batch, and troops are what score that day. <strong>Chief Minister</strong> on Day 1 shortens upgrades you already planned. Buffs only apply to queues you <strong>start</strong> while appointed.
+  </div>
+
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Day 1</span> Rise of the City &middot; 1 horn</summary>
+    <div class="sg-day-body">
+      <p><strong>Scores:</strong> caravans (10,000 each), gathering (2 per bundle), Truegold building upgrades (1,250), Tempered Truegold upgrades (18,750), Truegold Dust research (625), speedups (18 per minute), Master Emblems and Manuscripts, gems (1 each).</p>
+      <p><strong>KvK-first play:</strong> aim for participation, not an expensive one-horn win. Run every caravan, keep gathering marches out between normal play, and time gathering returns inside the stage. Let scheduled construction and research finish naturally - speedups and Truegold score today, which makes Day 1 an easy way to drain the stockpile.</p>
+      <div class="sg-day-row"><span class="sg-ok">&#x2714; Priority</span> All caravans, steady gathering, scheduled upgrades</div>
+      <div class="sg-day-row"><span class="sg-no">&#x2716; Avoid</span> Truegold, speedup pushes, Master Emblems</div>
+      <div class="sg-day-row"><span class="sg-ok">&#x1F451; Ministry</span> Chief Minister (+15% construction and research) before starting planned upgrades - shorter timers, no stockpile spent</div>
+    </div>
+  </details>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Day 2</span> Hero Development &middot; 2 horns</summary>
+    <div class="sg-day-body">
+      <p><strong>Scores:</strong> caravans (10,000), <strong>Intel missions (3,000 each)</strong>, Rare / Epic / Mythic Hero Shards (210 / 750 / 1,875), Truegold upgrades, Truegold Dust, speedups, Master Emblems and Manuscripts, gems.</p>
+      <p><strong>KvK-first play:</strong> one of the strongest activity days. Intel and caravans give big points without touching Hero Shards. Complete every available Intel mission during the stage. Use Rare and Epic shards only for an ascension you already planned. Keep Mythic shards for KvK.</p>
+      <p><strong>Example:</strong> 12 Intel missions (36,000) + 3 escorts and 3 raids (60,000) = <strong>96,000 points</strong> with nothing spent from the stockpile. Your actual mission and caravan counts depend on what's available to you.</p>
+      <div class="sg-day-row"><span class="sg-ok">&#x2714; Priority</span> Every Intel mission and every caravan</div>
+      <div class="sg-day-row"><span class="sg-no">&#x2716; Avoid</span> Mythic Hero Shards just for points</div>
+      <div class="sg-day-row"><span class="sg-ok">&#x1F451; Ministry</span> None needed - leave the slots for others</div>
+    </div>
+  </details>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Day 3</span> Pet Training &middot; 2 horns</summary>
+    <div class="sg-day-body">
+      <p><strong>Scores:</strong> caravans (10,000), Pet Advancement Score (30 per point), Common / Advanced Taming Marks (680 / 9,370), Governor Charm score (45 per point), gathering (2 per bundle), gems.</p>
+      <p><strong>KvK-first play:</strong> normally a resource-conservation day. Run caravans and keep gathering all day. Planned pet advancements are fine. Don't open stored Charm materials or premium pet materials to chase the matchup, and leadership shouldn't set spending requirements that punish members who are saving.</p>
+      <div class="sg-day-row"><span class="sg-ok">&#x2714; Priority</span> Caravans, all-day gathering, planned pet advancement</div>
+      <div class="sg-day-row"><span class="sg-no">&#x2716; Avoid</span> Charm materials, Advanced Taming Marks saved for KvK</div>
+      <div class="sg-day-row"><span class="sg-ok">&#x1F451; Ministry</span> None needed</div>
+    </div>
+  </details>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Day 4</span> Gear Enhancement &middot; 2 horns</summary>
+    <div class="sg-day-body">
+      <p><strong>Scores:</strong> caravans (10,000), <strong>Intel missions (3,000)</strong>, troop training (T8 14, T9 18, T10 24, T11 30 per troop), Forgehammers (1,875), Exclusive Gear Widgets (3,750), Mithril (18,750), Governor Charm score (45), gems.</p>
+      <p><strong>KvK-first play:</strong> complete every Intel mission, run every caravan, and keep normal troop training at full capacity. Time batches that were already running to finish inside Day 4 where you can. Ordinary training is useful for the kingdom; burning a training speedup stockpile to force more troops into Day 4 is a different decision. Save Forgehammers, Widgets, and Mithril for KvK.</p>
+      <div class="sg-day-row"><span class="sg-ok">&#x2714; Priority</span> Intel, caravans, full natural training queues</div>
+      <div class="sg-day-row"><span class="sg-no">&#x2716; Avoid</span> Mass training speedups, Hero Gear materials</div>
+      <div class="sg-day-row"><span class="sg-ok">&#x1F451; Ministry</span> <strong>Noble Advisor</strong> (Training Speed +75%, Training Capacity +300) before starting each batch - the best Brawl slot</div>
+    </div>
+  </details>
+
+  <aside class="omen-tip-card omen-tip-card--omen" aria-label="Omen's rally cry" role="button" tabindex="0" data-pose="assets/characters/omen/omen-winning.webp" data-react="assets/characters/omen/omen-dancing.webp" title="Tap Omen">
+    <div><strong>Omen's rally cry: Days 5 and 6 are ours</strong><p>This is where organization beats spending. Beasts, Terrors, and caravans score big, and none of them touch the KvK stockpile. Show up, fill rallies fast, and take turns calling.</p></div>
+    <img src="assets/characters/omen/omen-winning.webp" alt="Omen, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+  </aside>
+
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Day 5</span> Trade Baron &middot; 2 horns</summary>
+    <div class="sg-day-body">
+      <p><strong>Scores:</strong> caravans (10,000), <strong>beasts (4,000 to 6,000 by level)</strong>, <strong>calling a Terror rally (15,000)</strong>, Governor Gear score (22 per point), Truegold upgrades, Truegold Dust, speedups, gems.</p>
+      <p><strong>KvK-first play:</strong> the best day to compete through organization. Run organized beast-hunting sessions during peak alliance hours and a continuous, rotating Terror rally schedule - only the caller scores, so take turns. Fill rallies promptly. Spend naturally regenerating stamina; keep stamina items for KvK unless leadership authorizes a limited push.</p>
+      <p><strong>Example:</strong> 6 beasts at Lv. 26-30 (36,000) + 4 Terror rallies called (60,000) + 3 escorts and 3 raids (60,000) = <strong>156,000 points</strong> - enough for the fourth Day 5 chest.</p>
+      <div class="sg-day-row"><span class="sg-ok">&#x2714; Priority</span> Beasts, rotating Terror calls, caravans</div>
+      <div class="sg-day-row"><span class="sg-no">&#x2716; Avoid</span> Stamina items, Governor Gear materials, speedups</div>
+      <div class="sg-day-row"><span class="sg-ok">&#x1F451; Ministry</span> Usually none - Terror rallies are limited by stamina, not damage. If your Terror rallies are failing, the caller can try Field Commander (Lethality +15%) or Marshal (Attack +8%, Deployment Capacity +3,750) - untested on Terrors</div>
+    </div>
+  </details>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Day 6</span> Full-Scale &middot; 4 horns</summary>
+    <div class="sg-day-body">
+      <p><strong>Scores:</strong> almost every earlier task at the same values - caravans, beasts, Terrors, pet advancement and Taming Marks, Hero Shards, Forgehammers, Widgets, Mithril, Governor Gear and Charms, Truegold, speedups, gems.</p>
+      <p><strong>KvK-first play:</strong> maximum coordinated participation across time zones. Prioritize caravans, beast hunts, and Terror rallies, and use any planned low-cost upgrades that happen to score. Check your milestones before every spend and stop before protected reserves. Halfway through, leadership checks whether an activity-only win is still realistic.</p>
+      <div class="sg-day-row"><span class="sg-ok">&#x2714; Priority</span> Caravans, beasts, Terrors, planned upgrades</div>
+      <div class="sg-day-row"><span class="sg-no">&#x2716; Avoid</span> Spending the stockpile to chase four horns</div>
+      <div class="sg-day-row"><span class="sg-ok">&#x1F451; Ministry</span> Same as Day 5 - only rally callers who are struggling with Terrors</div>
+    </div>
+  </details>
+
+  <div class="pet-plan">
+    <div class="pet-plan-title">&#x1F43E; Pet Plan</div>
+    <div class="sg-day-row"><span class="sg-ok">&#x2714; Turn on</span> <strong>Day 1:</strong> Gray Wolf (Construction +15% for 5 min) right before a planned upgrade. <strong>Days 1 and 3:</strong> Bison (instant gather) on a large or nearly full tile. <strong>Days 5 and 6:</strong> Lynx (restores 60 Stamina) for extra beasts and Terror calls - the 36-hour final stage fits a second use after the cooldown. Grizzly Bear (March Speed +30% for 2h) at the start of a beast-hunting session for faster trips.</div>
+    <div class="sg-day-row"><span class="sg-ok">&#x2714; Rally callers</span> Giant Rhino, Alpha Black Panther, Great Moose, and Mighty Bison only if your Terror rallies are struggling to kill.</div>
+    <div class="sg-day-row"><span class="sg-no">&#x2716; Skip</span> Combat pets on Days 1-4 - there's nothing to fight. Cheetah and Lion are daily-use pets, not Brawl pets.</div>
+    <p class="pet-plan-note">Pet skills don't score points by themselves. Day 3 and Day 6 pet points come from pet advancement and Taming Marks - that's progression, not skill activation.</p>
+  </div>
+
+  <h3>Personal Milestones - The Real Scoreboard</h3>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Milestone chests pay out whether or not the alliance wins the matchup. For a KvK-first kingdom, collecting these efficiently matters more than the horn count.</p>
+  <div class="tg-table-wrap">
+    <table class="tg-table">
+      <thead><tr><th>Chest</th><th>Days 1-4</th><th>Days 5-6</th></tr></thead>
+      <tbody>
+        <tr><td>Chest 1</td><td>100</td><td>100</td></tr>
+        <tr><td>Chest 2</td><td>25,000</td><td>37,500</td></tr>
+        <tr><td>Chest 3</td><td>50,000</td><td>75,000</td></tr>
+        <tr><td>Chest 4</td><td>87,500</td><td>125,000</td></tr>
+        <tr><td>Chest 5</td><td>125,000</td><td>187,500</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="wa-placeholder-note"><span>Base thresholds from Kingshot Mastery (Nov 2026). Higher bonus tiers can unlock with Master Wilson's Duel Sponsorship - use your actual in-game thresholds where they differ.</span></div>
+  <p class="body-note">Our policy: set the <strong>highest milestone you can reach with Green and Yellow activity</strong>. Nobody is required to reach every chest.</p>
+
+  <h3>Brawl Activity Point Planner</h3>
+  <div class="sg-calc" id="abCalc">
+    <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Estimate today's points from repeatable activities before you consider spending anything. Uses base point values without Wilson bonuses - a planning estimate, not a guarantee those activities will be available.</p>
+    <div class="sg-calc-grid">
+      <label style="grid-column:1/-1;">Stage
+        <select id="abDay" onchange="abCalc()">
+          <option value="1">Day 1 - Rise of the City</option>
+          <option value="2">Day 2 - Hero Development</option>
+          <option value="3">Day 3 - Pet Training</option>
+          <option value="4">Day 4 - Gear Enhancement</option>
+          <option value="5" selected>Day 5 - Trade Baron</option>
+          <option value="6">Day 6 - Full-Scale Competition</option>
+        </select>
+      </label>
+      <label>Current score today <input type="number" min="0" inputmode="numeric" id="abCur" oninput="abCalc()" placeholder="0"></label>
+    </div>
+    <div class="sg-calc-sub">&#x1F7E2; Low-cost activity</div>
+    <div class="sg-calc-grid">
+      <label data-ab-days="1,2,3,4,5,6">Caravan escorts <input type="number" min="0" inputmode="numeric" id="abEsc" oninput="abCalc()" placeholder="0" value="3"></label>
+      <label data-ab-days="1,2,3,4,5,6">Caravan raids <input type="number" min="0" inputmode="numeric" id="abRaid" oninput="abCalc()" placeholder="0" value="3"></label>
+      <label data-ab-days="2,4">Intel missions <input type="number" min="0" inputmode="numeric" id="abIntel" oninput="abCalc()" placeholder="0"></label>
+      <label data-ab-days="1,3">Gathering bundles <input type="number" min="0" inputmode="numeric" id="abGat" oninput="abCalc()" placeholder="0"></label>
+      <label data-ab-days="5,6">Beasts Lv. 1-10 <input type="number" min="0" inputmode="numeric" id="abB1" oninput="abCalc()" placeholder="0"></label>
+      <label data-ab-days="5,6">Beasts Lv. 11-15 <input type="number" min="0" inputmode="numeric" id="abB2" oninput="abCalc()" placeholder="0"></label>
+      <label data-ab-days="5,6">Beasts Lv. 16-20 <input type="number" min="0" inputmode="numeric" id="abB3" oninput="abCalc()" placeholder="0"></label>
+      <label data-ab-days="5,6">Beasts Lv. 21-25 <input type="number" min="0" inputmode="numeric" id="abB4" oninput="abCalc()" placeholder="0"></label>
+      <label data-ab-days="5,6">Beasts Lv. 26-30 <input type="number" min="0" inputmode="numeric" id="abB5" oninput="abCalc()" placeholder="0" value="6"></label>
+      <label data-ab-days="5,6">Terror rallies you call <input type="number" min="0" inputmode="numeric" id="abTer" oninput="abCalc()" placeholder="0" value="4"></label>
+    </div>
+    <div class="sg-calc-sub" data-ab-days="3,4,6">&#x1F7E1; Planned progression (only if you'd do it anyway)</div>
+    <div class="sg-calc-grid">
+      <label data-ab-days="4">Troops trained <input type="number" min="0" inputmode="numeric" id="abTrn" oninput="abCalc()" placeholder="0"></label>
+      <label data-ab-days="4">Troop tier
+        <select id="abTier" onchange="abCalc()">
+          <option value="14">T8 (14 each)</option>
+          <option value="18">T9 (18 each)</option>
+          <option value="24" selected>T10 (24 each)</option>
+          <option value="30">T11 (30 each)</option>
+        </select>
+      </label>
+      <label data-ab-days="3,6">Pet Advancement Score gained <input type="number" min="0" inputmode="numeric" id="abPet" oninput="abCalc()" placeholder="0"></label>
+    </div>
+    <div class="sg-calc-red">&#x1F534; Protected KvK resources are <strong>not</strong> counted here - they stay in the backpack.</div>
+    <div class="sg-calc-out" id="abOut" aria-live="polite">Pick a stage and enter your activities to see your plan.</div>
+  </div>
+
+  <aside class="omen-tip-card omen-tip-card--omen" aria-label="Omen is studying the board" role="button" tabindex="0" data-pose="assets/characters/omen/omen-studying-strategy.webp" data-react="assets/characters/omen/omen-thumbs-up.webp" title="Tap Omen">
+    <div><strong>Omen is studying the board</strong><p>Plan the caravans and beasts first. If that already reaches your chest, the backpack stays shut. If it doesn't, stopping at your last chest is still a win.</p></div>
+    <img src="assets/characters/omen/omen-studying-strategy.webp" alt="Omen, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+  </aside>
+
+  <h3>Leadership and Coordination</h3>
+  <ul class="tips">
+    <li><strong>Before the event:</strong> post the KvK reserve policy, make sure participating members are in the right alliance before matchmaking, and mark the days where activity can produce strong scores (2, 4, 5, and 6).</li>
+    <li><strong>Days 1-4:</strong> universal caravan participation, Intel on Days 2 and 4, gathering on Days 1 and 3, normal training on Day 4. Remind members before reset to hold Intel missions they can complete during Day 2 - points come from completing the mission during the stage.</li>
+    <li><strong>Days 5-6:</strong> step up coordination. Schedule beast hunts and Terror rallies across time zones, rotate who calls, and track whether an activity-only win is still achievable.</li>
+    <li><strong>After the event:</strong> review participation, milestones reached, and whether members kept their KvK reserves. Celebrate efficient participation even if the matchup was lost.</li>
+  </ul>
+  <div class="tg-table-wrap">
+    <table class="tg-table">
+      <thead><tr><th>Metric</th><th>Target</th></tr></thead>
+      <tbody>
+        <tr><td>Daily active participation</td><td>80%+ of available members</td></tr>
+        <tr><td>Caravans</td><td>Every practical daily opportunity</td></tr>
+        <tr><td>Intel missions</td><td>Every available mission on Days 2 and 4</td></tr>
+        <tr><td>Gathering</td><td>Active marches on Days 1 and 3</td></tr>
+        <tr><td>Beasts and Terrors</td><td>Maximum sustainable activity on Days 5-6</td></tr>
+        <tr><td>Protected KvK resources</td><td>No compulsory Brawl spending</td></tr>
+        <tr><td>Personal milestones</td><td>Highest affordable chest each day</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="wa-placeholder-note"><span>These are Kingdom 1625 leadership standards, not official event requirements.</span></div>
+
+  <h3 class="omen-mistake-h3"><img class="omen-mistake-face" src="assets/characters/omen/omen-facepalm.webp" alt="" width="44" height="44" loading="lazy" decoding="async" onerror="this.remove()"><span>Common Mistakes</span></h3>
+  <div class="tg-mistake-grid">
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Treating KvK-First as "Skip Brawl"</div>
+      <div class="tg-mistake-desc">Caravans, Intel, beasts, and Terrors cost nothing from the stockpile. Skipping them just throws away free chests.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Collecting Old Intel and Expecting Points</div>
+      <div class="tg-mistake-desc">Points come from completing missions during the stage, not from claiming a reward you finished earlier.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Everyone Joins, Nobody Calls</div>
+      <div class="tg-mistake-desc">Only the rally caller is listed as scoring for Terrors. Rotate the calls so more members bank 15,000.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Gathering on the Wrong Day</div>
+      <div class="tg-mistake-desc">Gathering is listed only on Days 1 and 3. Time your returns to land inside those stages.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Spending Mythic Shards on Day 2</div>
+      <div class="tg-mistake-desc">1,875 points each is tempting, but Intel and caravans score far more for free. Mythic shards belong to KvK.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Burning Pet Cooldowns Early</div>
+      <div class="tg-mistake-desc">Combat pets on Days 1-4 do nothing. Save Lynx and Grizzly Bear for the Day 5 and 6 hunting sessions.</div>
+    </div>
+  </div>
+
+  <h3>Community Notes</h3>
+  <div class="wa-consensus-grid">
+    <div class="wa-consensus-card wa-confirmed">
+      <div class="wa-consensus-title">&#x2705; Community Consensus</div>
+      <ul>
+        <li>Alliance Brawl awards points through themed daily tasks, and personal milestones pay out whether or not you win the matchup.</li>
+        <li>Caravans score on all six stages, making them the most reliable recurring point source.</li>
+        <li>Intel on Days 2 and 4 and beasts and Terrors on Days 5 and 6 score without premium upgrade materials.</li>
+        <li>KvK-focused players widely recommend saving scarce resources for higher-priority events.</li>
+      </ul>
+    </div>
+    <div class="wa-consensus-card wa-anecdotal">
+      <div class="wa-consensus-title">&#x1F4AC; Anecdotal Evidence</div>
+      <ul>
+        <li>Several KvK-focused alliances report accepting early-stage losses, then pushing later in the week with beast hunts, Terrors, and active participation.</li>
+        <li>One alliance reported conserving materials early and concentrating on beasts and Terrors at the end.</li>
+        <li>These support an activity-first approach, but don't prove it beats heavy spending in every matchup.</li>
+      </ul>
+    </div>
+    <div class="wa-consensus-card wa-disputed">
+      <div class="wa-consensus-title">&#x2696; Is Brawl Worth More Than KvK?</div>
+      <p>Players disagree. Some argue personal Brawl rewards give smaller players better returns; others put kingdom-wide KvK prep, combat results, and morale first.</p>
+      <p style="margin-top:8px;"><strong>Our policy:</strong> KvK-first fits Kingdom 1625's competitive goals. It's a strategic priority, not an objectively better choice for every player or kingdom.</p>
+    </div>
+  </div>
+
+  <h3>Quick Answers</h3>
+  <ul class="tips">
+    <li><strong>Should we try to win?</strong> Yes, through activity. Not by draining the stockpile.</li>
+    <li><strong>Does joining a Terror rally score?</strong> Only calling is listed. Rotate the calls.</li>
+    <li><strong>Can I save Intel missions for Day 2?</strong> Hold missions you can complete during the stage - points come from completing them, not from claiming old rewards.</li>
+    <li><strong>Which ministry slot matters most?</strong> Noble Advisor on Day 4, before starting a training batch.</li>
+    <li><strong>Which pets?</strong> Bison and Gray Wolf early, Lynx and Grizzly Bear on Days 5-6. Combat pets only for struggling Terror callers.</li>
+    <li><strong>Can't reach the next chest?</strong> Stop there. Your resources are worth more to the kingdom in KvK.</li>
+  </ul>
+
+  <aside class="omen-tip-card omen-tip-card--feline" aria-label="The Feline Flame approves" role="button" tabindex="0" data-pose="assets/characters/feline-flame/feline-victory.webp" data-react="assets/characters/feline-flame/feline-cheering.webp" title="Tap The Feline Flame">
+    <div><strong>The Feline Flame calls it a win</strong><p>Every caravan run, every chest claimed, stockpile still full. Win or lose the horns, that's a kingdom ready for KvK.</p></div>
+    <img src="assets/characters/feline-flame/feline-victory.webp" alt="The Feline Flame, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+  </aside>
+
+  <div class="card card-gold">
+    <p><strong>Bottom line:</strong> Alliance Brawl is earned through coordination, discipline, and activity. We welcome victories won through organized effort, and we will never require members to exhaust strategic reserves to win a matchup.</p>
   </div>
 </section>
 
@@ -7506,11 +7867,11 @@
         <tr><td>Giant Rhino</td><td>All Squads Attack +10%, 2h</td><td>Bear Hunt (rally leaders), All Out, Swordland, Tri-Alliance, Viking, KvK battle</td></tr>
         <tr><td>Great Moose</td><td>Rally Capacity up to +150,000, 2h</td><td>Rally leaders only - Bear Hunt, KvK battle</td></tr>
         <tr><td>Mighty Bison</td><td>Squad Capacity +15,000, 2h</td><td>Bear Hunt (rally leaders), All Out, Swordland, Viking, KvK battle</td></tr>
-        <tr><td>Grizzly Bear</td><td>March Speed +30%, enemy Lethality -5%, 2h</td><td>KvK battle, Swordland, All Out</td></tr>
+        <tr><td>Grizzly Bear</td><td>March Speed +30%, enemy Lethality -5%, 2h</td><td>KvK battle, Swordland, All Out, Alliance Brawl Days 5-6 beast hunting</td></tr>
         <tr><td>Moose</td><td>Enemy Squad Health -5%, 2h</td><td>All Out, Swordland, Tri-Alliance, Viking, KvK battle</td></tr>
-        <tr><td>Gray Wolf</td><td>Construction Speed +15%, 5 min</td><td>Strongest Governor Day 1, KvK prep Day 1 - right before starting a big upgrade</td></tr>
-        <tr><td>Bison</td><td>Instant gather on next tile</td><td>Strongest Governor Day 7, KvK prep gathering days</td></tr>
-        <tr><td>Lynx</td><td>Restores 60 Stamina</td><td>Whenever stamina runs short - rallies and events that use stamina</td></tr>
+        <tr><td>Gray Wolf</td><td>Construction Speed +15%, 5 min</td><td>Strongest Governor Day 1, Alliance Brawl Day 1, KvK prep Day 1 - right before starting a big upgrade</td></tr>
+        <tr><td>Bison</td><td>Instant gather on next tile</td><td>Strongest Governor Day 7, Alliance Brawl Days 1 and 3, KvK prep gathering days</td></tr>
+        <tr><td>Lynx</td><td>Restores 60 Stamina</td><td>Whenever stamina runs short - Alliance Brawl Days 5-6 beasts and Terrors, rallies, and events that use stamina</td></tr>
         <tr><td>Cheetah / Lion</td><td>Pet food / Badlands item</td><td>Daily use - not event-specific</td></tr>
       </tbody>
     </table>
@@ -7888,7 +8249,7 @@ const GUIDE_KNOWLEDGE = `
 
 KINGDOM #1 RULE - SAVE FOR KVK: This kingdom's top priority, above everything else, is KvK preparation. Every player in every alliance should be saving key resources rather than spending them as they are earned. Only spend these resources on the specific KvK preparation phase days where they count toward scoring - never spend them outside those windows. When in doubt, hold the resource and check with R4/R5 leadership first. This rule overrides general event-spending advice elsewhere in this guide during active KvK prep windows. SAVE THESE ITEMS: Speedups (General & Research), Truegold Dust (War Academy's "Increase Power" stage draws on the same Dust as research - see War Academy section for the Day 1-2 start / Day 4 claim timing pattern), Resource packs, Stamina, Teleports, Shields/Buffs, Pet items, Hammers/Widgets, Gov Gear/Charms. DAILY TERROR RALLIES (Home tab): Kingdom #1625 daily goal = 10 Terror special rewards + 50 rally participation rewards. Leading: your first 10 qualifying Terror rally victories each day earn special rewards; leading after 10 still gives normal rally rewards but no more special rewards. Joining: up to 50 daily participation rewards from joining allied Terror rallies - a SEPARATE limit, not 50 more special-reward rolls. Rewards include resources, speedups, Satin, and more. Prioritize Level 8 Terrors when the alliance can defeat them reliably (higher levels generally give better rewards). Enable Auto-Join to collect participation rewards while away. Check reward counters by selecting a Terror on the map and tapping the magnifying glass. Joining is generally stamina-free; leading uses stamina - use naturally regenerated stamina for daily rallies and keep backpack stamina items for KvK. Save earned speedups, resource packs, and upgrade materials for KvK prep phases. Anecdotal only: some players report Level 8 Terrors can drop Badlands Chests as special rewards, and some prefer manually joining Level 8 rallies so Auto-Join doesn't spend the 50 participation rewards on lower-level Terrors - exact Level 8 drops are unverified. TROOP TRAINING DAY TIP: Get early points for troop training day by using your Training Capacity buff - tap the arrow under your profile, go to the Growth tab, and activate it for a big boost of points. Leave troops running overnight and you get a full day's worth of points as soon as the event starts.
 PET PLANS BY EVENT: Most combat pet skills last 2 hours with a 20-hour cooldown (one window per day); different pet skills can be active at once. Do NOT turn on every pet for every event - activate only what the event uses, right before the window. Bear Hunt: rally leaders use Alpha Black Panther, Giant Rhino, Great Moose, Mighty Bison right before the rally; joiners need none (leader stats apply); skip Grizzly and Moose (bear doesn't fight back) and utility pets. Viking Vengeance: Giant Rhino, Alpha Black Panther, Moose (helps reach 50% kill threshold), Mighty Bison, just before wave 1 (2h covers ~40 min); Lynx if short on stamina; skip Great Moose unless leading rallies and utility pets; reinforcement applicability not fully confirmed. All Out: Giant Rhino, Alpha Black Panther, Moose, Grizzly, Mighty Bison for the planned hitting session (Great Moose only for city rallies); about one 2h window per event day. Swordland: Grizzly (march speed for mobility), Giant Rhino, Alpha Black Panther, Moose, Mighty Bison right before the battlefield opens (Great Moose if leading rallies); a community guide reports pet skills, appointments, and consumables are active in Swordland. Tri-Alliance Clash: Giant Rhino, Alpha Black Panther, Moose (combat bonuses reportedly active); skip Mighty Bison, Great Moose, and Grizzly's march speed (deployment capacity, march speed, rally buffs reportedly disabled). Alliance Championship: combat pets (Giant Rhino, Alpha Black Panther, Mighty Bison) right before registering - buffs active at registration reportedly last the whole event; follow leader buff policy; Regal White Lion and Ironclad War Elephant fit the garrison formation once unlocked (~Jan 2027). Strongest Governor: Gray Wolf on Day 1 right before a big upgrade, Bison on Day 7 gathering, Cheetah anytime; all combat pets do nothing (no battles). Pet skills don't score points; Days 3 and 7 score pet advancement and Taming Marks. KvK: prep Day 1 Gray Wolf, gathering days 2/4/5 Bison; battle day Grizzly, Giant Rhino, Alpha Black Panther, Moose, Mighty Bison, Great Moose for rally leaders, timed to the main castle push (battle 12h, pets 2h); don't waste combat pets during prep. Blizzard Brawl, Eternity's Reach, Governor Duel: NOT confirmed whether pet skills apply - test and report. Utility pets (Gray Wolf, Lynx, Bison, Cheetah, Lion) should be saved for growth days, not fired off for combat events.
-MINISTRY APPOINTMENTS FOR EVENTS: Outside KvK prep week, Kingdom 1625 appointments are wide open (no kingdom sign-up sheet) - open the in-game Appointment screen, pick an office, and apply for an open 30-minute slot or use Quick Reserve; time the slot to cover when the buff matters. Office buffs (in-game screen, Nov 2026): Noble Advisor Training Speed +75%, Training Capacity +300; Chief Minister Construction/Research/Training Speed +15%; Field Commander Appointment-based Squads' Lethality +15%; Marshal Appointment-based Squads' Attack +8%, Troops Deployment Capacity +3,750; Minister of the Interior Healing Speed +150%, Infirmary Capacity +7,500; Minister of Justice Resource Production Speed +120% (general growth, no event). EVENT FITS: Strongest Governor - Noble Advisor on Days 4 and 6 before starting normal training, Chief Minister on Day 1 before upgrades/research; free and KvK-safe (no stockpile spent). Cesares Fury - Chief Minister before long upgrades. Bear Hunt - rally stats come from the rally leader, so only rally leaders benefit: Field Commander (Lethality is the top Bear stat) or Marshal during the trap window; joiners don't need offices. All Out - Field Commander or Marshal for planned attacks; Minister of the Interior for fast batch healing and Noble Advisor for rebuilding. Swordland - troops can't permanently die and hospital can't fill, so Interior isn't needed; a community guide reports castle appointments are active in Swordland, so Field Commander or Marshal covering the battle is worth it (confirm on stats). Alliance Championship - buffs active at registration reportedly stay for the whole event, so time office slots to registration. Tri-Alliance Clash, Blizzard Brawl, Eternity's Reach, Governor Duel - NOT confirmed whether office buffs apply; treat as something to test and report, never as proven.
+MINISTRY APPOINTMENTS FOR EVENTS: Outside KvK prep week, Kingdom 1625 appointments are wide open (no kingdom sign-up sheet) - open the in-game Appointment screen, pick an office, and apply for an open 30-minute slot or use Quick Reserve; time the slot to cover when the buff matters. Office buffs (in-game screen, Nov 2026): Noble Advisor Training Speed +75%, Training Capacity +300; Chief Minister Construction/Research/Training Speed +15%; Field Commander Appointment-based Squads' Lethality +15%; Marshal Appointment-based Squads' Attack +8%, Troops Deployment Capacity +3,750; Minister of the Interior Healing Speed +150%, Infirmary Capacity +7,500; Minister of Justice Resource Production Speed +120% (general growth, no event). EVENT FITS: Strongest Governor - Noble Advisor on Days 4 and 6 before starting normal training, Chief Minister on Day 1 before upgrades/research; free and KvK-safe (no stockpile spent). Alliance Brawl - Noble Advisor on Day 4 before each training batch (best Brawl slot; +300 capacity means more scoring troops per batch), Chief Minister on Day 1 before planned upgrades; Days 2-3 no office needed; Days 5-6 only Terror rally callers whose rallies are failing might try Field Commander or Marshal (untested on Terrors). Cesares Fury - Chief Minister before long upgrades. Bear Hunt - rally stats come from the rally leader, so only rally leaders benefit: Field Commander (Lethality is the top Bear stat) or Marshal during the trap window; joiners don't need offices. All Out - Field Commander or Marshal for planned attacks; Minister of the Interior for fast batch healing and Noble Advisor for rebuilding. Swordland - troops can't permanently die and hospital can't fill, so Interior isn't needed; a community guide reports castle appointments are active in Swordland, so Field Commander or Marshal covering the battle is worth it (confirm on stats). Alliance Championship - buffs active at registration reportedly stay for the whole event, so time office slots to registration. Tri-Alliance Clash, Blizzard Brawl, Eternity's Reach, Governor Duel - NOT confirmed whether office buffs apply; treat as something to test and report, never as proven.
 KVK PREP SCHEDULE (Kingdom of Power; community data from Kingshot Mastery, Nov 2026 - verify on live event screen; the 5-day order is how guides present it, not officially confirmed as fixed): Phases: matchmaking 2 days, preparation 5 days, battle 12 hours (10:00-22:00 UTC, prep winner attacks with State Bonus buffs), field triage after. Day 1 City Construction: Truegold/Tempered Truegold building upgrades, Truegold Dust research, Watchtower Intel Missions (6,000), Governor Charms, construction/research/training/Master skill speedups (30 per minute) - don't dump the whole stockpile. Day 2 Hero Progression: Hero Roulette (8,000), Hero Shards (Mythic 3,040, Epic 1,220, Rare 350), Master Emblems (6,000) and Manuscripts (60), Truegold, speedups, gathering - main day for Master Emblems/Manuscripts/Master skill speedups. Day 3 Pets and Heroes: Advanced Taming Mark (15,000), Hero Roulette, Intel Missions, Hero Shards, Common Taming Mark (1,150), pet advancement, Charms, Master Emblems. Day 4 Mithril and Training: Mithril (40,000), Widgets (8,000), Forgehammers (4,000), troop training per troop T11 75, T10 60, T9 45, T8 35 down to T1 3, Charms, gathering - swing day, spend training speedups here; no-Mithril players score via training, Widgets, Forgehammers, gathering. Day 5 Power Boost: widest list - Mithril, Advanced Taming Marks, Tempered Truegold, Widgets, Forgehammers, Intel Missions, Truegold/Dust, Common Taming Marks, pet advancement, Governor Gear, all speedups, gathering - cleanup and surge day. SAVE FOR WHICH DAY: Truegold Days 1, 2, 5; Master Emblems/Manuscripts/Master skill speedups Day 2 (Day 3 backup); Hero Roulette and Mythic Shards Days 2, 3; Advanced Taming Marks Days 3, 5; training speedups Day 4; Widgets and Forgehammers Days 4, 5; Mithril Days 4, 5; Governor Gear Day 5. Biggest mistake: spending everything on Day 1. DAILY PERSONAL CHEST TARGETS (1st/2nd/final): Day 1 30K/100K/200K, Day 2 40K/120K/270K, Day 3 80K/150K/300K, Day 4 80K/150K/300K, Day 5 40K/130K/250K (verify in-game). MINISTER APPOINTMENTS: before every KvK prep, Kingdom 1625 shares a sign-up link for King's ministry appointments - watch alliance chat and the Discord channels and sign up early because slots fill. Slots are 30 minutes. OFFICES (buffs as shown on the in-game Appointment screen, Nov 2026 - may change): Noble Advisor = Training Speed +75%, Training Capacity +300 (best prep slot, use on Day 4); Chief Minister = Construction, Research, and Training Speed +15% each (Days 1, 4, 5; Day 2 only if starting research); Minister of the Interior = Healing Speed +150%, Infirmary Capacity +7,500 (battle recovery, NOT a prep slot); Field Commander = Appointment-based Squads' Lethality +15% (battle, NOT prep); Marshal = Appointment-based Squads' Attack +8%, Troops Deployment Capacity +3,750 (battle, NOT prep); Minister of Justice = Resource Production Speed +120% and can appoint/remove officials in the King's place (administration, NOT prep). Only Noble Advisor and Chief Minister help prep scoring; there is no construction-only or research-only office. Day 3 (pets/heroes) has no matching office. Be online with queues ready the moment you're appointed; the in-game screen can show local time but sign-up sheets are often in UTC; tell the organizer early if you can't make your slot.
 
 CESARES FURY: Score points each phase by performing specific game actions. Key actions include: building upgrades, research completion, troop training, gear crafting. Align your planned upgrades to start at the beginning of each fury phase. F2P tip: save speed-ups for Cesares Fury to double the value of actions.
@@ -7905,6 +8266,7 @@ VIKING VENGEANCE: Biweekly alliance defense event - 20 waves over ~40 minutes. W
 
 ALLIANCE CHAMPIONSHIP: Weekly event - six alliances compete across five rounds. Members register into one of three lanes. Win condition: take 2 of 3 lanes each round. Strategy: deliberately build two strong lanes and one sacrifice lane. Only first 20 strongest members per lane count toward power score. When registering, use a garrison formation with Howard and Gordon and use a 60% Infantry / 40% Cavalry / 0% Archers formation - adjust only if lane captain says otherwise. Assign a single lane planner for the whole event. Registration buff policy: pick ONE policy and stick to it - some guides say buff up before registering; others say buffing inflates matchmaking power into harder brackets.
 
+ALLIANCE BRAWL (new tab, Nov 2026; source mainly Kingshot Mastery, verify in-game): monthly event right after Kingdom of Power, always alongside Merchant Empire (caravans). Two matched alliances from different kingdoms; alliance must be top 20 in its kingdom. Six stages over about 6.5 days: Day 1 Rise of the City (1 horn), Day 2 Hero Development (2), Day 3 Pet Training (2), Day 4 Gear Enhancement (2), Day 5 Trade Baron (2), Day 6 Full-Scale Competition (36h, ends Sunday 12:00 UTC, 4 horns; some references call it Days 6-7). 13 horns total, 7 to win. KINGDOM 1625 POLICY: KvK-first but not inactive - "We don't sacrifice KvK to win Alliance Brawl, but we also don't use KvK as an excuse for low Alliance Brawl participation." Green (pursue): caravans, Intel, gathering, beasts, calling Terror rallies. Yellow: planned pet advancement, Rare/Epic shards for planned ascensions, natural training, routine gems, natural stamina. Red (protected): Mythic Hero Shards, speedup stockpiles, Truegold/Tempered Truegold/Truegold Dust, Forgehammers, Widgets, Mithril, Governor Gear and Charm materials, KvK-reserved Advanced Taming Marks and Master Emblems, stamina items, big gem purchases. BASE POINTS: escort or raid a caravan 10,000 each (all stages); call a rally and defeat a Terror 15,000 (Days 5-6; joining is NOT listed as scoring - rotate callers); beasts Lv1-10/11-15/16-20/21-25/26-30 = 4,000/4,500/5,000/5,500/6,000 (Days 5-6); Intel mission 3,000 (Days 2 and 4; points come from completing during the stage, not claiming old rewards); troops T8/T9/T10/T11 = 14/18/24/30 each, promotions score the level difference (Day 4); Pet Advancement Score 30 per point (Days 3, 6); Common/Advanced Taming Mark 680/9,370; Governor Charm 45 per point; Governor Gear 22 per point; Rare/Epic/Mythic shard 210/750/1,875; Forgehammer 1,875; Widget 3,750; Mithril 18,750; Truegold upgrade 1,250; Tempered Truegold 18,750; Truegold Dust 625; speedups 18 per minute; gem 1; gathering 2 per 2,000 Bread/Wood, 400 Stone, or 100 Iron (Days 1 and 3 only). Unclear whether Intel and gathering score on Day 6 - check in-game. MILESTONES (base, Wilson's Duel Sponsorship can change): Days 1-4 = 100 / 25,000 / 50,000 / 87,500 / 125,000; Days 5-6 = 100 / 37,500 / 75,000 / 125,000 / 187,500. Policy: highest chest reachable with Green and Yellow activity; nobody required to reach every chest. EXAMPLES: Day 2 - 12 Intel + 3 escorts + 3 raids = 96,000 (4th chest). Day 5 - 6 Lv26-30 beasts + 4 Terror calls + 3 escorts + 3 raids = 156,000 (4th chest). PETS: Day 1 Gray Wolf before a planned upgrade; Days 1 and 3 Bison instant gather; Days 5-6 Lynx (60 stamina, second use fits in the 36h final stage) and Grizzly Bear (March Speed +30%) for beast sessions; combat pets only for Terror callers whose rallies struggle; skip combat pets Days 1-4. Pet skills don't score by themselves. LEADERSHIP TARGETS (Kingdom 1625 standards, not official): 80%+ daily participation, every practical caravan, every Intel mission Days 2 and 4, gathering Days 1 and 3, maximum sustainable beasts/Terrors Days 5-6, no compulsory Brawl spending of protected resources. The guide has a Brawl Activity Point Planner on the Alliance Brawl tab.
 STRONGEST GOVERNOR (successor to Hall of Governors for maturing kingdoms; Kingdom 1625 runs Strongest Governor. Hall of Governors is NOT removed from the game - newer kingdoms still run it first; community references describe the 6th Hall of Governors as the last before Strongest Governor): seven-day event about once per 4-week cycle, a different scoring set each day. KINGDOM 1625 POLICY - KVK COMES FIRST: Strongest Governor is for efficient reward collection; KvK is the primary resource-spending event. Goals: collect valuable rewards, keep normal development, preserve KvK resources. Members do not need to win or reach every milestone; personal ranking must never undermine KvK prep. Never recommend maximizing Strongest Governor points or pushing the leaderboard with protected resources. RESOURCE TIERS: GREEN (go ahead) = normal troop training, research/construction that finish naturally, Day 7 gathering, planned Hero development using no protected materials, claiming reached milestones (natural progression still costs ordinary resources/time/gems). YELLOW (only if unreserved and worth the opportunity cost) = Hero Roulette spins, pet materials, unreserved Hero resources, surplus equipment materials, small amounts of ordinary speedups. RED (protected KvK stockpile, configurable per R4/R5 policy) = construction/research/training/universal speedups, Hero Shards reserved for KvK, Forgehammers, Exclusive Gear Widgets, Mithril, Truegold, Truegold Dust, Governor Gear and Charm materials, Master Emblems and Manuscripts, pet materials reserved for KvK, other high-value materials. Core rule: if it was saved for KvK, do not spend it in Strongest Governor for personal points. FOUR QUESTIONS before spending: (1) reserved for KvK? then don't; (2) reachable through normal gameplay? take that route; (3) reward worth the cost?; (4) will it weaken KvK prep? then keep it. DAYS (community data, Kingshot Mastery May 2026, verify in-game): Day 1 City Construction - Truegold/Tempered Truegold building upgrades, Truegold Dust research, speedups (30 pts/min), Governor Charms; let scheduled upgrades finish, no speedup pushes. Day 2 Hero Development - Hero Roulette (8,000/play), Hero Shard ascension, Forgehammer 4,000, Widget 8,000, Mithril 40,000, Master Emblem 6,000, Truegold, speedups; budgeted Roulette only, protect Shards and gear materials. Day 3 Basic Skill Up - pet advancement, Advanced Taming Mark 15,000, Common Taming Mark 1,150, Governor Charms, Hero Shards, Hero Roulette, Master Emblems; surplus pet resources only. Day 4 Combat Training - troop training/promotion (T10 39, T11 49 per troop), Charms, Forgehammers/Widgets/Mithril; normal training timed to finish, no training speedups. Day 5 Basic Skill Up (some references call it Power Boost) - gear materials, Truegold, speedups; checkpoint day, claim natural milestones only. Day 6 Combat Training - training/promotion, Governor Gear upgrades; no saved speedups unless R4/R5 approves an exception. Day 7 Hero Development - Hero Shards, pets/Taming Marks, Governor Gear, Truegold, speedups, wilderness gathering (only day gathering scores, 3 pts per bundle); Roulette not reported to score Day 7; best KvK-safe day via gathering, avoid panic spending. REWARDS (verify in-game): priority 1 daily point milestones (5 per day); priority 2 Challenge Medals (up to 2 per day) only when affordable; priority 3 kingdom rewards reported for players with 250,000+ total points; priority 4 rankings (daily stage and kingdom top 1,000, cross-kingdom top 2,000) - spender territory, default policy is not to chase them, only with unreserved resources. PLAYER TYPES: F2P - natural progression, training, gathering, affordable milestones, no ranking competition. Low spender - selective approved surplus, budgeted Roulette, don't spread premium materials across days. Competitive spender - separate personal budget from KvK reserves, avoid spending wars, rank only with unreserved resources or approved exceptions. MISTAKES: chasing every milestone, spending saved speedups, treating Roulette as free, overtraining troops, spending premium gear materials, assuming event info is permanent, putting personal rank above kingdom KvK. POLICY on save-everything vs spend-selectively: save all protected resources, spend selectively only on natural progression and approved surplus; no universal spend/save percentage is supported. HALL OF GOVERNORS (earlier-stage kingdoms only): hold Roulette and Shard ascensions for Hero Development stage, train troops only in Train Troops stage, queue upgrades for Construction/Research stages, stockpile gear/Charm materials for their stages, check with R4/R5 before large spending.
 
 ALL OUT: Two-day PvP kill event every few weeks. Points scale by troop tier. Safe F2P scoring: attack resource gathering tiles instead of cities - tile hits generate points without risking permanent troop deaths. City attacks can permanently kill troops. Keep shield active when offline. Garrison troops in alliance structures when idle. Recovery after losses: batch heal in small increments so alliance help can reduce timers rather than burning speed-ups on large heal blocks. Always read and enforce server NAP/political rules before the event.
@@ -8138,6 +8500,7 @@ function quickAsk(question) {
 // date format: YYYY-MM-DD (used only for sorting/compare, not displayed verbatim below)
 // Links can point at any tab id (e.g. '#war-academy') - the tab system opens that tab.
 const WHATS_NEW = [
+  { date: '2026-11-15', label: 'New Alliance Brawl tab - KvK-first plan for all six stages, ministry and pet tips by day, milestone tables, and a Brawl Activity Point Planner', link: '#alliance-brawl' },
   { date: '2026-11-15', label: 'Governor Duel updated with the official rules: sign up Sunday (TC 30+), no troop loss, 1 Win Point per winning squad, and squad order matters', link: '#governor-duel' },
   { date: '2026-11-14', label: 'Bear Hunt updated: no longer the only source of Forge Hammers, but still one of the best places to stack them for free', link: '#bear-hunt' },
   { date: '2026-11-14', label: 'Pet Plans added to event tabs - which pet skills to turn on (and which to skip) for each event, plus a Which Pets for Which Event table', link: '#pets' },
@@ -8282,6 +8645,41 @@ function ffShowMap(key) {
 })();
 
 // ── STRONGEST GOVERNOR: KvK-SAFE MILESTONE CALCULATOR ──
+function abCalc() {
+  var out = document.getElementById('abOut');
+  if (!out) return;
+  var v = function(id) { var n = parseFloat((document.getElementById(id) || {}).value); return isNaN(n) || n < 0 ? 0 : n; };
+  var fmt = function(n) { return Math.round(n).toLocaleString(); };
+  var day = (document.getElementById('abDay') || {}).value || '5';
+  var on = function(days) { return days.split(',').indexOf(day) !== -1; };
+  document.querySelectorAll('#abCalc [data-ab-days]').forEach(function(el) {
+    el.style.display = on(el.getAttribute('data-ab-days')) ? '' : 'none';
+  });
+  var pts = 0;
+  pts += (v('abEsc') + v('abRaid')) * 10000;
+  if (on('2,4')) pts += v('abIntel') * 3000;
+  if (on('1,3')) pts += v('abGat') * 2;
+  if (on('5,6')) pts += v('abB1') * 4000 + v('abB2') * 4500 + v('abB3') * 5000 + v('abB4') * 5500 + v('abB5') * 6000 + v('abTer') * 15000;
+  if (on('4')) pts += v('abTrn') * v('abTier');
+  if (on('3,6')) pts += v('abPet') * 30;
+  var tiers = on('5,6') ? [100, 37500, 75000, 125000, 187500] : [100, 25000, 50000, 87500, 125000];
+  var total = v('abCur') + pts;
+  var reached = 0;
+  tiers.forEach(function(t) { if (total >= t) reached++; });
+  out.className = 'sg-calc-out';
+  if (total === 0) { out.textContent = 'Pick a stage and enter your activities to see your plan.'; return; }
+  var head = '<strong>Estimated points: ' + fmt(pts) + '</strong>' + (v('abCur') > 0 ? ' (' + fmt(total) + ' with your current score)' : '') + '. Base chests reached: <strong>' + reached + ' / 5</strong>. ';
+  if (reached === 5) {
+    out.className = 'sg-calc-out done';
+    out.innerHTML = head + 'Every base chest is covered by low-cost activity alone - no protected KvK resources needed.';
+  } else {
+    var next = tiers[reached];
+    out.className = reached >= 3 ? 'sg-calc-out ok' : 'sg-calc-out warn';
+    out.innerHTML = head + fmt(next - total) + ' more points to reach chest ' + (reached + 1) + ' (' + fmt(next) + '). Look for more of today\'s low-cost activity first. If those run out, stopping at your last chest keeps the stockpile safe for KvK.';
+  }
+}
+document.addEventListener('DOMContentLoaded', abCalc);
+
 function sgCalc() {
   var v = function(id) { var n = parseFloat((document.getElementById(id) || {}).value); return isNaN(n) || n < 0 ? 0 : n; };
   var out = document.getElementById('sgOut');
@@ -8324,6 +8722,7 @@ const TABS = [
   { id: 'troops',         label: 'Troops',            group: 'Combat', desc: 'Standard formations and training priorities.' },
   { id: 'events',         label: 'Events Overview',   group: 'Events', desc: 'Line up upgrades, training, and research with event windows to double their value.' },
   { id: 'all-out',        label: 'All Out',           group: 'Events', desc: 'Two-day PvP event - safe scoring and recovery after losses.' },
+  { id: 'alliance-brawl', label: 'Alliance Brawl',    group: 'Events', desc: 'Six-stage alliance matchup - KvK-first: win through caravans, Intel, beasts, and Terrors, not the stockpile.', beacon: true },
   { id: 'alliance-champ', label: 'Alliance Champ',    group: 'Events', desc: 'Weekly six-alliance event across five rounds and three lanes.' },
   { id: 'bear-hunt',      label: 'Bear Hunt',         group: 'Events', desc: 'A top free source of Forge Hammers - rally setup, joining rules, and troop ratios.' },
   { id: 'blizzard-brawl', label: 'Blizzard Brawl',    group: 'Events', desc: 'Solo 10-player free-for-all - objectives, crates, and airdrops beat kills.', beacon: true },
