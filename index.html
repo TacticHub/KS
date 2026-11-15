@@ -2802,10 +2802,7 @@
     .mt-lab-row { grid-template-columns: 62px 1fr 42px; }
   }
 
-  .mt-stage-field { display: flex; flex-direction: column; gap: 4px; font-family: 'Lato', sans-serif; font-size: 0.78rem; color: var(--text-dim); }
-  .mt-stage-pair { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 6px; }
-  .mt-stage-dash { color: var(--gold); font-weight: 700; font-size: 1.1rem; }
-  .mt-stage-pair input[aria-invalid=true] { border-color: #e05a4a !important; }
+  #mtRaidGrid select, #mtwfStage { width: 100%; }
 
   /* Mystic Trial - Winning Formations + leaderboard */
   .mtwf-profile { background: linear-gradient(135deg, rgba(224,163,57,0.12), rgba(20,38,63,0.6)); border: 1px solid rgba(224,163,57,0.35); border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; font-family: 'Lato', sans-serif; }
@@ -5346,12 +5343,12 @@
 
   <h3>Raid Crystal Estimator</h3>
   <div class="sg-calc" id="mtRaid">
-    <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Enter the highest stage you've cleared in each zone, the way the game shows it - for example <strong>28-9</strong>. The second number goes from 1 to 10, so 28-10 is followed by 29-1. Saved in this browser, so it doubles as your stage record.</p>
+    <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Pick the highest stage you've cleared in each zone, the way the game shows it - for example <strong>28-9</strong> (28-10 is followed by 29-1). Saved in this browser, so it doubles as your stage record.</p>
     <div class="sg-calc-grid" id="mtRaidGrid"></div>
     <div class="sg-calc-grid">
       <label>Raid bonus % (if any) <input type="number" min="0" max="100" inputmode="numeric" id="mtRaidBonus" placeholder="0"></label>
     </div>
-    <div class="sg-calc-out" id="mtRaidOut" aria-live="polite">Enter your stages to estimate weekly Raid crystals.</div>
+    <div class="sg-calc-out" id="mtRaidOut" aria-live="polite">Pick your stages to estimate weekly Raid crystals.</div>
     <div class="mt-btn-row" style="margin-top:10px;">
       <button type="button" class="mt-btn" id="mtRaidCopy">Copy results</button>
     </div>
@@ -5438,7 +5435,7 @@
     <form id="mtwfForm" class="sg-calc mtwf-form" autocomplete="off" novalidate>
       <div class="sg-calc-grid">
         <label>Zone <select id="mtwfZone"></select></label>
-        <div class="mt-stage-field">Stage cleared<span class="mt-stage-pair"><input type="number" id="mtwfStage" min="1" max="99" inputmode="numeric" placeholder="28" aria-label="Stage chapter"><span class="mt-stage-dash">-</span><input type="number" id="mtwfStep" min="1" max="10" inputmode="numeric" placeholder="9" aria-label="Stage step (1 to 10)"></span></div>
+        <label>Stage cleared <select id="mtwfStage"><option value="">Pick your stage</option></select></label>
       </div>
       <div class="sg-calc-sub">Troop ratio (must add up to 100%)</div>
       <div class="sg-calc-grid mtwf-ratio">
@@ -9346,58 +9343,58 @@ const WHATS_NEW = [
 
   // Raid Crystal Estimator
   // Stages are numbered chapter-step (e.g. 28-9). Each chapter has 10 steps: 28-10 is followed by 29-1.
-  var RAID_KEY = 'mt-raid-stages-v2';
+  // A stage is stored as its running count: 28-9 = (28 - 1) * 10 + 9 = 279 cleared stages.
+  var MT_MAX_STAGE = 1500;
+  function stageLabel(n) { return Math.floor((n - 1) / 10) + 1 + '-' + ((n - 1) % 10 + 1); }
+  var stageOpts = (function() {
+    var h = '<option value="0">Not started</option>';
+    for (var n = 1; n <= MT_MAX_STAGE; n++) h += '<option value="' + n + '">' + stageLabel(n) + '</option>';
+    return h;
+  })();
+  window.mtStageOptions = stageOpts;
+  var RAID_KEY = 'mt-raid-stages-v3';
   var raidGrid = document.getElementById('mtRaidGrid');
   var raidBonus = document.getElementById('mtRaidBonus');
   var raidOut = document.getElementById('mtRaidOut');
-  var saved = store(RAID_KEY) || {};
+  var saved = store(RAID_KEY);
+  if (!saved) {
+    // carry over stages saved by the earlier two-box version
+    var old = store('mt-raid-stages-v2') || {};
+    saved = {};
+    ZONES.forEach(function(z) { var o = old[z.id]; if (o && o.c) saved[z.id] = Math.min(MT_MAX_STAGE, (o.c - 1) * 10 + Math.min(10, o.s || 0)); });
+    if (old.bonus) saved.bonus = old.bonus;
+  }
   ZONES.forEach(function(z) {
-    var l = document.createElement('div');
-    l.className = 'mt-stage-field';
-    l.innerHTML = '<span class="mt-stage-label">' + esc(z.name) + '</span><span class="mt-stage-pair">'
-      + '<input type="number" min="0" max="99" inputmode="numeric" placeholder="0" aria-label="' + esc(z.name) + ' chapter" data-mt-raid="' + z.id + '" data-part="c">'
-      + '<span class="mt-stage-dash">-</span>'
-      + '<input type="number" min="1" max="10" inputmode="numeric" placeholder="0" aria-label="' + esc(z.name) + ' step (1 to 10)" data-mt-raid="' + z.id + '" data-part="s">'
-      + '</span>';
+    var l = document.createElement('label');
+    l.innerHTML = esc(z.name) + ' <select data-mt-raid="' + z.id + '" aria-label="' + esc(z.name) + ' highest stage cleared">' + stageOpts + '</select>';
     raidGrid.appendChild(l);
-    var sv = saved[z.id] || {};
-    var ins = l.querySelectorAll('input');
-    if (sv.c) ins[0].value = sv.c;
-    if (sv.s) ins[1].value = sv.s;
-    ins.forEach(function(inp) { inp.addEventListener('input', raidCalc); });
+    var sel = l.querySelector('select');
+    if (saved[z.id]) sel.value = String(saved[z.id]);
+    sel.addEventListener('change', raidCalc);
   });
   if (saved.bonus) raidBonus.value = saved.bonus;
   raidBonus.addEventListener('input', raidCalc);
   var raidText = '';
   function raidCalc() {
-    var data = {}, total = 0, rows = [], locked = [], bad = [];
+    var data = {}, total = 0, rows = [], locked = [];
     var bonus = Math.max(0, Math.min(100, Number(raidBonus.value) || 0));
-    ZONES.forEach(function(z) {
-      var cIn = raidGrid.querySelector('input[data-mt-raid="' + z.id + '"][data-part="c"]');
-      var sIn = raidGrid.querySelector('input[data-mt-raid="' + z.id + '"][data-part="s"]');
-      var ch = Math.max(0, Math.floor(Number(cIn.value) || 0));
-      var st = Math.max(0, Math.floor(Number(sIn.value) || 0));
-      data[z.id] = { c: ch || '', s: st || '' };
-      if (!ch && !st) return;
-      if (st > 10) { bad.push(z.name); sIn.setAttribute('aria-invalid', 'true'); return; }
-      sIn.removeAttribute('aria-invalid');
-      if (!ch) return;
-      var cleared = (ch - 1) * 10 + st;
-      var c = cleared >= 10 ? cleared * 10 : 0;
+    raidGrid.querySelectorAll('select[data-mt-raid]').forEach(function(sel) {
+      var id = sel.getAttribute('data-mt-raid'), n = Number(sel.value) || 0;
+      data[id] = n || '';
+      if (!n) return;
+      var c = n >= 10 ? n * 10 : 0;
       total += c;
-      if (cleared < 10) locked.push(z.name);
-      rows.push(z.name + ': ' + ch + '-' + (st || 0) + ' (' + cleared + ' stages) = ' + c.toLocaleString());
+      if (n < 10) locked.push(byId[id].name);
+      rows.push(byId[id].name + ': ' + stageLabel(n) + ' (' + n + ' stages) = ' + c.toLocaleString());
     });
     data.bonus = bonus || '';
     store(RAID_KEY, data);
     var withBonus = Math.round(total * (1 + bonus / 100));
-    var badMsg = bad.length ? '<br><span style="color:#ff8070;">The second number only goes up to 10 (28-10 is followed by 29-1). Check: ' + esc(bad.join(', ')) + '.</span>' : '';
-    if (!total && !locked.length) { raidOut.className = 'sg-calc-out' + (bad.length ? ' warn' : ''); raidOut.innerHTML = 'Enter your stages to estimate weekly Raid crystals.' + badMsg; raidText = ''; return; }
-    raidOut.className = 'sg-calc-out ' + (bad.length ? 'warn' : 'ok');
+    if (!total && !locked.length) { raidOut.className = 'sg-calc-out'; raidOut.textContent = 'Pick your stages to estimate weekly Raid crystals.'; raidText = ''; return; }
+    raidOut.className = 'sg-calc-out ok';
     raidOut.innerHTML = 'Estimated weekly Raid: <strong>' + withBonus.toLocaleString() + ' Trial Crystals</strong>'
       + (bonus ? ' (' + total.toLocaleString() + ' base + ' + bonus + '% bonus)' : '')
-      + (locked.length ? '<br><span style="color:var(--text-dim);">Raid not unlocked yet in: ' + esc(locked.join(', ')) + ' - clear Stage 1-10 to start earning there.</span>' : '')
-      + badMsg;
+      + (locked.length ? '<br><span style="color:var(--text-dim);">Raid not unlocked yet in: ' + esc(locked.join(', ')) + ' - clear Stage 1-10 to start earning there.</span>' : '');
     raidText = 'Mystic Trial weekly Raid estimate: ' + withBonus.toLocaleString() + ' Trial Crystals' + (bonus ? ' (+' + bonus + '% bonus)' : '') + '\n' + rows.join('\n');
   }
   raidCalc();
@@ -9624,6 +9621,7 @@ const WHATS_NEW = [
   var sumEl = document.getElementById('mtwfSum');
   var formOut = document.getElementById('mtwfFormOut');
   ZONES.forEach(function(z) { var o = document.createElement('option'); o.value = z.id; o.textContent = z.name; fZone.appendChild(o); });
+  if (window.mtStageOptions) document.getElementById('mtwfStage').innerHTML = '<option value="">Pick your stage</option>' + window.mtStageOptions.replace('<option value="0">Not started</option>', '');
   var todayZone = ZONES.filter(function(z) { return z.days.indexOf(new Date().getUTCDay()) !== -1; })[0] || ZONES[0];
   fZone.value = todayZone.id;
   function setRatio(r) { fIn.forEach(function(inp, i) { inp.value = r[i]; }); updSum(); }
@@ -9651,10 +9649,8 @@ const WHATS_NEW = [
     formOut.hidden = false;
     if (!profile) { formOut.className = 'sg-calc-out warn'; formOut.textContent = 'Join the board first - pick your name and alliance tag above.'; profileEl.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
     if (updSum() !== 100) { formOut.className = 'sg-calc-out warn'; formOut.textContent = 'Your troop ratio needs to add up to 100%.'; return; }
-    var ch = Math.floor(Number(document.getElementById('mtwfStage').value) || 0);
-    var stp = Math.floor(Number(document.getElementById('mtwfStep').value) || 0);
-    if (ch < 1 || ch > 99 || stp < 1 || stp > 10) { formOut.className = 'sg-calc-out warn'; formOut.textContent = 'Enter the stage the way the game shows it, like 28-9. The second number goes from 1 to 10.'; return; }
-    var stageIdx = (ch - 1) * 10 + stp;
+    var stageIdx = Number(document.getElementById('mtwfStage').value) || 0;
+    if (!stageIdx) { formOut.className = 'sg-calc-out warn'; formOut.textContent = 'Pick the stage you cleared.'; return; }
     var btn = document.getElementById('mtwfSubmit');
     btn.disabled = true; formOut.className = 'sg-calc-out'; formOut.textContent = 'Posting...';
     var prevRank = profile.rank;
@@ -9666,7 +9662,6 @@ const WHATS_NEW = [
     }).then(function(d) {
       formOut.className = 'sg-calc-out ok'; formOut.textContent = 'Posted! Your formation is live on the board.';
       document.getElementById('mtwfStage').value = '';
-      document.getElementById('mtwfStep').value = '';
       document.getElementById('mtwfNote').value = '';
       setProfile(d.profile);
       celebrate(d, prevRank);
