@@ -2803,6 +2803,12 @@
   }
 
   #mtRaidGrid select, #mtwfStage { width: 100%; }
+  .mtwf-squads { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 10px; }
+  .mtwf-squad { background: rgba(10,22,40,0.45); border: 1px solid rgba(224,163,57,0.18); border-radius: 8px; padding: 8px 10px 10px; }
+  .mtwf-squad-label { display: block; font-family: 'Lato', sans-serif; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 6px; }
+  .mtwf-squad-row { display: grid; grid-template-columns: 1fr; gap: 6px; }
+  .mtwf-squad select { width: 100%; background: rgba(10,22,40,0.8); border: 1px solid rgba(224,163,57,0.3); border-radius: 6px; color: var(--text); font-family: 'Lato', sans-serif; font-size: 0.95rem; padding: 7px 8px; min-height: 38px; }
+  @media (max-width: 640px) { .mtwf-squads { grid-template-columns: 1fr; } .mtwf-squad-row { grid-template-columns: repeat(3, 1fr); } .mtwf-squad select { font-size: 0.85rem; padding: 7px 4px; } }
 
   /* Mystic Trial - Winning Formations + leaderboard */
   .mtwf-profile { background: linear-gradient(135deg, rgba(224,163,57,0.12), rgba(20,38,63,0.6)); border: 1px solid rgba(224,163,57,0.35); border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; font-family: 'Lato', sans-serif; }
@@ -5448,10 +5454,8 @@
         <span class="mt-chat-meta" id="mtwfSum">Total: 100%</span>
       </div>
       <div class="sg-calc-sub">Optional - earns bonus points</div>
+      <div id="mtwfSquads" class="mtwf-squads"></div>
       <div class="sg-calc-grid">
-        <label>Squad 1 Heroes <input type="text" id="mtwfH1" maxlength="60" placeholder="e.g. Amadeus, Jabel"></label>
-        <label>Squad 2 Heroes <input type="text" id="mtwfH2" maxlength="60"></label>
-        <label>Squad 3 Heroes <input type="text" id="mtwfH3" maxlength="60"></label>
         <label>Hero generation <select id="mtwfGen"><option value="">Not sure</option><option>Gen 1</option><option>Gen 2</option><option>Gen 3</option><option>Gen 4</option><option>Gen 5</option><option>Gen 6</option></select></label>
       </div>
       <label class="mtwf-note-label">Strategy note
@@ -9644,6 +9648,58 @@ const WHATS_NEW = [
     setRatio(s.ratio);
     smallToast('Formation Lab mix loaded');
   });
+  // Hero pickers: 3 squads x 3 Heroes, filled from the guide's Hero Database
+  var squadsEl = document.getElementById('mtwfSquads');
+  var genSel = document.getElementById('mtwfGen');
+  var heroSels = [], heroGen = {}, genAuto = true;
+  (function() {
+    var h = '';
+    for (var q = 0; q < 3; q++) {
+      h += '<div class="mtwf-squad"><span class="mtwf-squad-label">Squad ' + (q + 1) + '</span><div class="mtwf-squad-row">';
+      for (var k = 0; k < 3; k++) h += '<select data-squad="' + q + '" aria-label="Squad ' + (q + 1) + ' Hero ' + (k + 1) + '"><option value="">Hero ' + (k + 1) + '</option></select>';
+      h += '</div></div>';
+    }
+    squadsEl.innerHTML = h;
+    heroSels = Array.prototype.slice.call(squadsEl.querySelectorAll('select'));
+  })();
+  function fillHeroes() {
+    var list = [];
+    try { list = (typeof HERO_DATA !== 'undefined' ? HERO_DATA : []).slice(); } catch (e) { list = []; }
+    if (!list.length) return false;
+    var gens = {};
+    list.forEach(function(x) { heroGen[x.name] = x.generation; (gens[x.generation] = gens[x.generation] || []).push(x.name); });
+    var opts = Object.keys(gens).sort(function(a, b) { return a - b; }).map(function(g) {
+      return '<optgroup label="Gen ' + g + '">' + gens[g].sort().map(function(n) { return '<option value="' + esc(n) + '">' + esc(n) + '</option>'; }).join('') + '</optgroup>';
+    }).join('');
+    heroSels.forEach(function(sel, i) { sel.innerHTML = '<option value="">Hero ' + (i % 3 + 1) + '</option>' + opts; });
+    return true;
+  }
+  // The same Hero can't be used twice: hide picks already used in another slot
+  function syncHeroes() {
+    var used = heroSels.map(function(s) { return s.value; });
+    heroSels.forEach(function(sel, i) {
+      Array.prototype.forEach.call(sel.options, function(o) {
+        if (!o.value) return;
+        var taken = used.indexOf(o.value) !== -1 && used[i] !== o.value;
+        o.disabled = taken; o.hidden = taken;
+      });
+    });
+    if (genAuto) {
+      var maxGen = 0;
+      used.forEach(function(n) { if (n && heroGen[n] > maxGen) maxGen = heroGen[n]; });
+      genSel.value = maxGen ? 'Gen ' + maxGen : '';
+    }
+  }
+  squadsEl.addEventListener('change', syncHeroes);
+  genSel.addEventListener('change', function() { genAuto = !genSel.value; });
+  function squadHeroes() {
+    return [0, 1, 2].map(function(q) {
+      return heroSels.filter(function(s) { return Number(s.getAttribute('data-squad')) === q && s.value; })
+        .map(function(s) { return s.value; }).join(', ');
+    });
+  }
+  if (!fillHeroes()) document.addEventListener('DOMContentLoaded', fillHeroes);
+
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     formOut.hidden = false;
@@ -9657,12 +9713,15 @@ const WHATS_NEW = [
     api('POST', '/post', {
       zone: fZone.value, stage: stageIdx,
       inf: Number(fIn[0].value), cav: Number(fIn[1].value), arc: Number(fIn[2].value),
-      heroes: ['mtwfH1', 'mtwfH2', 'mtwfH3'].map(function(id) { return document.getElementById(id).value; }),
+      heroes: squadHeroes(),
       gen: document.getElementById('mtwfGen').value, note: document.getElementById('mtwfNote').value
     }).then(function(d) {
       formOut.className = 'sg-calc-out ok'; formOut.textContent = 'Posted! Your formation is live on the board.';
       document.getElementById('mtwfStage').value = '';
       document.getElementById('mtwfNote').value = '';
+      heroSels.forEach(function(sel) { sel.value = ''; });
+      genAuto = true;
+      syncHeroes();
       setProfile(d.profile);
       celebrate(d, prevRank);
       filter = 'all'; sort = 'new'; document.getElementById('mtwfSort').value = 'new'; renderFilter();
