@@ -3006,7 +3006,77 @@
     font-family: 'Merriweather', Georgia, serif; font-size: 0.82rem; line-height: 1.6;
   }
   section.tab-panel .home-card-links { font-family: 'Lato', sans-serif; }
-  #governor-duel .tg-table, #kvk .tg-table, #strongest-governor .tg-table, #alliance-brawl .tg-table, #transfer .tg-table, #events .tg-table, #pets .tg-table { min-width: 0; }
+  #backpack .tg-table, #governor-duel .tg-table, #kvk .tg-table, #strongest-governor .tg-table, #alliance-brawl .tg-table, #transfer .tg-table, #events .tg-table, #pets .tg-table { min-width: 0; }
+
+  /* ── BACKPACK RESOURCE MANAGEMENT ── */
+  .bp-legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin: 10px 0 18px; }
+  .bp-legend div { background: rgba(20,38,63,0.6); border-radius: 8px; padding: 9px 12px; border-left: 4px solid; font-family: 'Merriweather', Georgia, serif; font-size: 0.82rem; line-height: 1.45; color: var(--text-dim); }
+  .bp-legend b { display: block; font-family: 'Lato', sans-serif; font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+  .bp-l-bank { border-color: #e05a4a !important; } .bp-l-bank b { color: #ff8070; }
+  .bp-l-sit { border-color: #e0c13a !important; } .bp-l-sit b { color: #f0d35a; }
+  .bp-l-use { border-color: #4caf6a !important; } .bp-l-use b { color: #6fd08c; }
+  .bp-l-battle { border-color: #5fa0d8 !important; } .bp-l-battle b { color: #8cc4f0; }
+  .bp-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 10px; }
+  .bp-tab, .bp-filter { font-family: 'Lato', sans-serif; font-size: 0.8rem; font-weight: 700; cursor: pointer; border-radius: 6px; padding: 7px 12px; min-height: 36px; background: transparent; color: var(--text); border: 1px solid rgba(224,163,57,0.4); -webkit-appearance: none; }
+  .bp-filter { font-size: 0.72rem; font-weight: 600; padding: 5px 10px; min-height: 32px; border-radius: 16px; }
+  .bp-tab[aria-pressed="true"], .bp-filter[aria-pressed="true"] { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+  .bp-tab:focus-visible, .bp-filter:focus-visible, .bp-yn button:focus-visible { outline: 2px solid var(--gold-pale); outline-offset: 2px; }
+  .bp-search { width: 100%; box-sizing: border-box; background: rgba(10,22,40,0.8); border: 1px solid rgba(224,163,57,0.3); border-radius: 6px; color: var(--text); font-family: 'Lato', sans-serif; font-size: 1rem; padding: 9px 12px; margin: 4px 0 10px; }
+  .bp-search:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+  .bp-count { font-family: 'Lato', sans-serif; font-size: 0.74rem; color: var(--text-dim); margin-bottom: 8px; }
+  .bp-item { background: rgba(20,38,63,0.6); border: 1px solid rgba(224,163,57,0.2); border-left: 4px solid; border-radius: 10px; margin-bottom: 8px; }
+  .bp-item.bp-t-bank { border-left-color: #e05a4a; } .bp-item.bp-t-sit { border-left-color: #e0c13a; }
+  .bp-item.bp-t-use { border-left-color: #4caf6a; } .bp-item.bp-t-battle { border-left-color: #5fa0d8; }
+  .bp-item summary { cursor: pointer; padding: 11px 14px; list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.92rem; color: var(--text); }
+  .bp-item summary::-webkit-details-marker { display: none; }
+  .bp-item summary::after { content: '\25BE'; margin-left: auto; color: var(--gold); transition: transform .2s; }
+  .bp-item[open] summary::after { transform: rotate(180deg); }
+  .bp-item-name { flex: 1 1 160px; }
+  .bp-badge { font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 4px; padding: 2px 7px; border: 1px solid; white-space: nowrap; font-weight: 700; }
+  .bp-b-bank { color: #ff8070; border-color: rgba(255,128,112,0.5); background: rgba(255,128,112,0.1); }
+  .bp-b-sit { color: #f2c94c; border-color: rgba(242,201,76,0.5); background: rgba(242,201,76,0.1); }
+  .bp-b-use { color: #6fd08c; border-color: rgba(111,208,140,0.5); background: rgba(111,208,140,0.1); }
+  .bp-b-battle { color: #8cc4f0; border-color: rgba(140,196,240,0.5); background: rgba(140,196,240,0.1); }
+  .bp-b-days { color: var(--gold); border-color: rgba(224,163,57,0.5); background: rgba(224,163,57,0.08); }
+  .bp-b-verify { color: #d9a0ff; border-color: rgba(217,160,255,0.5); background: rgba(217,160,255,0.1); }
+  .bp-item-body { padding: 0 14px 12px; }
+  .bp-item-body dl { display: grid; grid-template-columns: minmax(96px, 30%) 1fr; gap: 6px 12px; margin: 0; font-size: 0.85rem; line-height: 1.5; }
+  .bp-item-body dt { font-family: 'Lato', sans-serif; font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); padding-top: 3px; }
+  .bp-item-body dd { margin: 0; font-family: 'Merriweather', Georgia, serif; color: var(--text); }
+  .bp-ev { font-family: 'Lato', sans-serif; font-size: 0.7rem; color: var(--text-dim); margin-top: 8px; }
+  @media (max-width: 520px) { .bp-item-body dl { grid-template-columns: 1fr; gap: 2px; } .bp-item-body dd { margin-bottom: 6px; } }
+  .bp-gem-hero { border: 2px solid var(--gold); background: linear-gradient(135deg, rgba(224,163,57,0.14), rgba(20,38,63,0.6)); border-radius: 12px; padding: 16px 18px 12px; margin: 12px 0 18px; }
+  .bp-gem-hero .sg-policy-label { margin-bottom: 6px; }
+  .bp-results { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 10px 0; }
+  .bp-result { background: rgba(255,255,255,0.04); border-radius: 8px; padding: 10px 12px; border-top: 3px solid var(--text-dim); }
+  .bp-result.bp-r-total { border-top-color: var(--gold); background: rgba(224,163,57,0.1); }
+  .bp-result small { display: block; font-family: 'Lato', sans-serif; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-dim); }
+  .bp-result strong { font-family: 'Lato', sans-serif; font-size: 1.2rem; color: var(--text); font-variant-numeric: tabular-nums; }
+  .bp-err { font-family: 'Lato', sans-serif; font-size: 0.78rem; color: #ff8070; min-height: 1em; }
+  .bp-cal { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 10px 0 14px; }
+  .bp-cal-day { background: rgba(20,38,63,0.6); border: 1px solid rgba(224,163,57,0.25); border-radius: 10px; padding: 10px; font-size: 0.8rem; line-height: 1.45; }
+  .bp-cal-day h4 { font-family: 'Lato', sans-serif; font-size: 0.86rem; margin: 6px 0 6px; color: var(--text); }
+  .bp-cal-day ul { margin: 0 0 6px 16px; padding: 0; font-family: 'Merriweather', Georgia, serif; }
+  .bp-cal-day p { font-family: 'Merriweather', Georgia, serif; color: var(--text-dim); margin: 0; }
+  @media (max-width: 900px) { .bp-cal { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .bp-cal { grid-template-columns: 1fr; } }
+  .bp-yn-q { background: rgba(20,38,63,0.6); border: 1px solid rgba(224,163,57,0.25); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; font-family: 'Merriweather', Georgia, serif; font-size: 0.87rem; }
+  .bp-yn { display: flex; gap: 6px; }
+  .bp-yn button { font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.8rem; min-width: 56px; min-height: 36px; border-radius: 6px; cursor: pointer; background: transparent; color: var(--text); border: 1px solid rgba(224,163,57,0.4); }
+  .bp-yn button[aria-pressed="true"] { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+  .bp-rc-table { width: 100%; }
+  .bp-rc-row { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(80px, 1fr) minmax(90px, 1fr); gap: 8px; align-items: end; margin-bottom: 8px; }
+  .bp-rc-row select { width: 100%; }
+  @media (max-width: 520px) { .bp-rc-row { grid-template-columns: 1fr 1fr; } .bp-rc-row > span { grid-column: 1 / -1; } }
+  .bp-rc-row > span { font-family: 'Lato', sans-serif; font-size: 0.82rem; color: var(--text); align-self: center; }
+  .bp-rc-row > span small { display: block; color: var(--text-dim); font-size: 0.7rem; }
+  .bp-out-list { margin: 6px 0 0 18px; padding: 0; }
+  .bp-out-list li { margin-bottom: 4px; }
+  .bp-check { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 6px; }
+  .bp-check label { display: flex; gap: 10px; align-items: center; background: rgba(20,38,63,0.6); border: 1px solid rgba(224,163,57,0.2); border-radius: 8px; padding: 9px 12px; min-height: 40px; cursor: pointer; font-family: 'Merriweather', Georgia, serif; font-size: 0.86rem; color: var(--text); }
+  .bp-check input { width: 20px; height: 20px; accent-color: var(--gold); flex: none; }
+  .bp-check input:checked + span { color: var(--text-dim); text-decoration: line-through; }
+  .bp-save-note { font-family: 'Lato', sans-serif; font-size: 0.74rem; color: var(--text-dim); }
 </style>
 <noscript><style>.tab-panel{display:block !important;} .tab-bar{display:none;}</style></noscript>
 </head>
@@ -3081,6 +3151,7 @@
     <a href="#viking"><span class="nav-icon">&#x1F6E1;</span>Viking Vengeance</a>
 
     <div class="sidebar-divider">Strategy</div>
+    <a href="#backpack" style="display:flex;align-items:center;"><span class="nav-icon">&#x1F392;</span>Backpack<span class="nav-beacon" aria-hidden="true"></span></a>
     <a href="#f2p"><span class="nav-icon">&#x1F4B0;</span>F2P Strategy</a>
     <a href="#transfer"><span class="nav-icon">&#x1F30D;</span>Kingdom Transfer</a>
     <a href="#kvk"><span class="nav-icon">&#x2694;</span>KvK</a>
@@ -3294,6 +3365,7 @@
     <li>Hammers / Widgets</li>
     <li>Gov Gear / Charms</li>
   </ul>
+  <p style="margin:10px 0 0;font-size:0.85rem;">&#x1F392; Not sure what an item does or which day it scores? Open the <a href="#backpack" style="color:var(--gold);">Backpack</a> tab.</p>
 </div>
 <div class="card card-blue" style="margin-top:8px;">
   <p style="font-family:'Lato',sans-serif;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue-bright);margin-bottom:6px;">&#x1F43E; Daily Terror Rewards - Build Your KvK Stockpile</p>
@@ -7066,61 +7138,14 @@
   <h3>Day-by-Day Prep Plan</h3>
   <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Tap a day to open it. The order below is how community guides present the days - confirm on the live event screen.</p>
 
-  <details class="sg-day">
-    <summary><span class="sg-day-num">Day 1</span> City Construction</summary>
-    <div class="sg-day-body">
-      <p><strong>Use today:</strong> Truegold and Tempered Truegold building upgrades, Truegold Dust research, Watchtower Intel Missions, Governor Charm upgrades, and construction / research / training / Master skill speedups.</p>
-      <p><strong>Plan:</strong> score efficiently, but do <strong>not</strong> dump your whole stockpile. Truegold also scores on Days 2 and 5.</p>
-      <div class="sg-day-row"><span class="sg-ok">&#x1F451; Ministry</span> Chief Minister (construction and research +15%)</div>
-    </div>
-  </details>
-  <details class="sg-day">
-    <summary><span class="sg-day-num">Day 2</span> Hero Progression</summary>
-    <div class="sg-day-body">
-      <p><strong>Use today:</strong> Hero Roulette, Hero Shards (Mythic, Epic, Rare), Master Emblems and Manuscripts, Master skill speedups, Truegold and Truegold Dust, speedups, and gathering.</p>
-      <p><strong>Plan:</strong> this is the main day for Master Emblems, Manuscripts, and Master skill speedups. Roulette and Mythic Shards score again on Day 3, so split them if that helps you hit chest targets both days.</p>
-      <div class="sg-day-row"><span class="sg-ok">&#x1F451; Ministry</span> Chief Minister only if you're starting research - otherwise leave slots for Days 1, 4, 5</div>
-    </div>
-  </details>
-  <details class="sg-day">
-    <summary><span class="sg-day-num">Day 3</span> Pets and Heroes</summary>
-    <div class="sg-day-body">
-      <p><strong>Use today:</strong> Advanced Taming Marks, Hero Roulette, Watchtower Intel Missions, Hero Shards, Common Taming Marks, pet advancement, Governor Charms, Master Emblems.</p>
-      <p><strong>Plan:</strong> first of two Taming Mark days (Day 5 is the other). Finish your Roulette and Shard plan here.</p>
-      <div class="sg-day-row"><span class="sg-ok">&#x1F451; Ministry</span> No office boosts pets or heroes - skip</div>
-    </div>
-  </details>
-  <details class="sg-day">
-    <summary><span class="sg-day-num">Day 4</span> Mithril and Training</summary>
-    <div class="sg-day-body">
-      <p><strong>Use today:</strong> Mithril, Exclusive Gear Widgets, Forgehammers, troop training (higher tiers score far more per troop), training speedups, Governor Charms, gathering.</p>
-      <p><strong>Plan:</strong> the swing day of prep. Spend training speedups here - the troops they finish score on top. Players without Mithril still score through training, Widgets, Forgehammers, and gathering.</p>
-      <div class="sg-day-row"><span class="sg-ok">&#x1F451; Ministry</span> Noble Advisor (Training Speed +75%) - the best prep slot of the week; Chief Minister also helps</div>
-    </div>
-  </details>
-  <details class="sg-day">
-    <summary><span class="sg-day-num">Day 5</span> Power Boost</summary>
-    <div class="sg-day-body">
-      <p><strong>Use today:</strong> the widest list - Mithril, Advanced Taming Marks, Tempered Truegold, Widgets, Forgehammers, Watchtower Intel Missions, Truegold and Dust, Common Taming Marks, pet advancement, Governor Gear, all speedups, gathering.</p>
-      <p><strong>Plan:</strong> cleanup and surge day. This is where kingdoms steal prep late or lock in a lead - spend what you saved for it.</p>
-      <div class="sg-day-row"><span class="sg-ok">&#x1F451; Ministry</span> Chief Minister (all three speeds +15%); Noble Advisor if you're training</div>
-    </div>
-  </details>
+  <div id="kvkPrepDays"><!-- rendered from KVK_PREP (Backpack script) --></div>
 
   <h3>What to Save for Which Day</h3>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:6px;">Not sure what an item is or whether it scores? Look it up in the <a href="#backpack" style="color:var(--gold);">Backpack</a> tab.</p>
   <div class="tg-table-wrap">
     <table class="tg-table">
       <thead><tr><th>Resource</th><th>Best Day(s)</th></tr></thead>
-      <tbody>
-        <tr><td>Truegold</td><td>1, 2, 5</td></tr>
-        <tr><td>Master Emblems, Manuscripts, Master skill speedups</td><td>2 (3 as backup)</td></tr>
-        <tr><td>Hero Roulette and Mythic Hero Shards</td><td>2, 3</td></tr>
-        <tr><td>Advanced Taming Marks</td><td>3, 5</td></tr>
-        <tr><td>Training speedups</td><td>4</td></tr>
-        <tr><td>Widgets and Forgehammers</td><td>4, 5</td></tr>
-        <tr><td>Mithril</td><td>4, 5</td></tr>
-        <tr><td>Governor Gear</td><td>5</td></tr>
-      </tbody>
+      <tbody id="kvkSaveBody"></tbody>
     </table>
   </div>
 
@@ -7128,18 +7153,7 @@
   <div class="tg-table-wrap">
     <table class="tg-table">
       <thead><tr><th>Item</th><th>Points</th><th>Days</th></tr></thead>
-      <tbody>
-        <tr><td>Mithril</td><td>40,000</td><td>4, 5</td></tr>
-        <tr><td>Tempered Truegold</td><td>30,000</td><td>1, 2, 5</td></tr>
-        <tr><td>Advanced Taming Mark</td><td>15,000</td><td>3, 5</td></tr>
-        <tr><td>Hero Roulette (1 play)</td><td>8,000</td><td>2, 3</td></tr>
-        <tr><td>Widget</td><td>8,000</td><td>4, 5</td></tr>
-        <tr><td>Master Emblem</td><td>6,000</td><td>2, 3</td></tr>
-        <tr><td>Watchtower Intel Mission</td><td>6,000</td><td>1, 3, 5</td></tr>
-        <tr><td>Forgehammer</td><td>4,000</td><td>4, 5</td></tr>
-        <tr><td>Speedups (per minute)</td><td>30</td><td>1, 2, 5</td></tr>
-        <tr><td>Troops trained (T10 / T11)</td><td>60 / 75 each</td><td>4</td></tr>
-      </tbody>
+      <tbody id="kvkPointsBody"></tbody>
     </table>
   </div>
 
@@ -7147,13 +7161,7 @@
   <div class="tg-table-wrap">
     <table class="tg-table">
       <thead><tr><th>Day</th><th>1st Chest</th><th>2nd Chest</th><th>Final Chest</th></tr></thead>
-      <tbody>
-        <tr><td>Day 1</td><td>30K</td><td>100K</td><td>200K</td></tr>
-        <tr><td>Day 2</td><td>40K</td><td>120K</td><td>270K</td></tr>
-        <tr><td>Day 3</td><td>80K</td><td>150K</td><td>300K</td></tr>
-        <tr><td>Day 4</td><td>80K</td><td>150K</td><td>300K</td></tr>
-        <tr><td>Day 5</td><td>40K</td><td>130K</td><td>250K</td></tr>
-      </tbody>
+      <tbody id="kvkChestBody"></tbody>
     </table>
   </div>
   <div class="wa-placeholder-note">Standard chest thresholds reported by Kingshot Mastery. Verify in-game - targets may differ by event version.</div>
@@ -7196,6 +7204,995 @@
 </section>
 
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
+
+<!-- BACKPACK RESOURCE MANAGEMENT -->
+<section id="backpack" class="tab-panel">
+  <div class="section-header">
+    <span class="section-icon">&#x1F392;</span>
+    <h2>Backpack Resource Management</h2>
+  </div>
+  <aside class="omen-tip-card omen-tip-card--omen" aria-label="Omen opens the backpack" role="button" tabindex="0" data-pose="assets/characters/omen/omen-studying-strategy.webp" data-react="assets/characters/omen/omen-thumbs-up.webp" title="Tap Omen">
+    <div><strong>Save with purpose. Spend for points. Keep enough to fight.</strong><p>Open your Backpack, find the item, and this tab tells you what it really does, whether it scores, and which KvK prep day it belongs to.</p></div>
+    <img src="assets/characters/omen/omen-studying-strategy.webp" alt="Omen, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+  </aside>
+  <div class="wa-placeholder-note">&#x26A0;&#xFE0F; <span>Prep-day timing and point values on this tab come from the <a href="#kvk" style="color:var(--gold);">KvK tab</a> (community references, mainly Kingshot Mastery, checked November 2026). The live Kingdom of Power event screen always wins - check it before spending. Everything here is personal and optional: nothing is reported to anyone.</span></div>
+
+  <h3>Overview</h3>
+  <div class="callout callout-warn">
+    <span class="callout-label">&#x26A0; Kingdom #1625 Rule #1 - Save For KvK</span>
+    This tab is how you apply Rule #1 to your own Backpack. KvK prep comes first: items that score in KvK stay in the Backpack until the prep day where they score. Spending outside those windows is for <strong>essential upgrades that don't score</strong>, or the smallest amount an essential upgrade needs. When in doubt, hold and check with your R4/R5.
+  </div>
+  <p>Many governors underestimate what they own because their Backpack holds items that have never been claimed. Some add currency or supplies. Others are upgrade materials that only score points when you <em>use</em> them during the right event. Before you tap Use, ask three questions:</p>
+  <div class="sg-questions">
+    <div class="sg-q"><span class="sg-q-num">1</span><span>What does this item actually do?</span></div>
+    <div class="sg-q"><span class="sg-q-num">2</span><span>Does using it score points in KvK prep or another event?</span></div>
+    <div class="sg-q"><span class="sg-q-num">3</span><span>Is using it now worth more than saving it for that day?</span></div>
+  </div>
+  <p>The goal isn't hoarding forever. It's spending each item at the moment it gives the most combined value: account growth, KvK prep points, and battle readiness.</p>
+
+  <div class="tg-phase-grid">
+    <div class="tg-phase-card tg-mid">
+      <div class="tg-phase-label">A</div>
+      <div class="tg-phase-title">Protected stockpiles</div>
+      <div class="tg-phase-desc">Bread, Wood, Stone, and Iron items and resource selection chests. Keep them unopened until a planned upgrade needs them - unopened items can't be plundered, and opening them doesn't score.</div>
+    </div>
+    <div class="tg-phase-card tg-late">
+      <div class="tg-phase-label">B</div>
+      <div class="tg-phase-title">Event-scoring investments</div>
+      <div class="tg-phase-desc">Hero Shards, Truegold, speedups, Governor Gear and Charm materials, Forgehammers, Widgets, Mithril, Taming Marks, Master Academy items. These are Rule #1 items - bank them for their KvK prep day.</div>
+    </div>
+    <div class="tg-phase-card tg-early">
+      <div class="tg-phase-label">C</div>
+      <div class="tg-phase-title">Battle reserves</div>
+      <div class="tg-phase-desc">Healing speedups, shields, teleports, healing resources, and emergency Gems. Winning prep and then arriving at battle day with nothing to recover with is poor planning.</div>
+    </div>
+  </div>
+
+  <div class="bp-legend" aria-label="Recommendation badges">
+    <div class="bp-l-bank"><b>&#x1F534; Bank for events</b>High-priority KvK scoring item. Rule #1 applies.</div>
+    <div class="bp-l-sit"><b>&#x1F7E1; Situational</b>Depends on your progression, timing, and needs.</div>
+    <div class="bp-l-use"><b>&#x1F7E2; Use as needed</b>Little or no verified KvK scoring benefit from saving.</div>
+    <div class="bp-l-battle"><b>&#x1F535; Battle reserve</b>Keep available for combat and recovery.</div>
+  </div>
+
+  <h3>Hidden Backpack Gems</h3>
+  <div class="bp-gem-hero">
+    <div class="sg-policy-label">&#x1F48E; Featured lesson</div>
+    <div class="sg-policy-quote">Gem items in your Backpack are <em>extra</em> Gems - they are not already in the balance shown at the top of your screen.</div>
+    <p>A Gem item (1, 10, 100, or 1K Gems) is Gems you haven't claimed yet. Select it and tap <strong>Use</strong>, and those Gems are added to your spendable balance. Until then they sit in the Resources tab of your Backpack, uncounted.</p>
+  </div>
+  <p><strong>Real example.</strong> This is one governor's actual inventory - yours will be different.</p>
+  <div class="tg-table-wrap">
+    <table class="tg-table">
+      <thead><tr><th>Gem Item</th><th>Quantity</th><th>Total Value</th></tr></thead>
+      <tbody>
+        <tr><td>1 Gem</td><td>137,388</td><td>137,388</td></tr>
+        <tr><td>10 Gems</td><td>3,578</td><td>35,780</td></tr>
+        <tr><td>100 Gems</td><td>2,992</td><td>299,200</td></tr>
+        <tr><td>1,000 Gems</td><td>460</td><td>460,000</td></tr>
+        <tr class="tg-highlight"><td><strong>Total</strong></td><td></td><td><strong>932,368</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>That's <strong>932,368 additional Gems</strong> on top of the visible balance.</p>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Gems</span> How to manage them</summary>
+    <div class="sg-day-body">
+      <p><strong>Suggested habit:</strong> leave Gem items unclaimed until you have a planned purchase. It's a budgeting habit, not a scoring trick - there's no KvK bonus for keeping them unclaimed.</p>
+      <p><strong>Worth evaluating, in order:</strong></p>
+      <ol style="margin:0 0 8px 20px;">
+        <li>Hero Roulette for a Hero you actually plan to develop - on KvK prep Days 2 and 3, where each play scores.</li>
+        <li>Permanent progression when the cost is justified.</li>
+        <li>VIP when it's worthwhile for you.</li>
+        <li>Genuine battle emergencies.</li>
+        <li>Other purchases backed by a clear value calculation.</li>
+      </ol>
+      <p><strong>Avoid:</strong> impulse buys, speedups at poor Gem rates, low-value temporary boosts, and claiming every Gem item and losing track of your budget.</p>
+      <div class="sg-day-row"><span class="sg-no">&#x2716; Myth</span> Claiming Gems earns KvK points. It doesn't - only what you buy with them (like a Roulette play on Day 2 or 3) can score.</div>
+    </div>
+  </details>
+
+  <h3>Gem Calculator</h3>
+  <div class="sg-calc" id="bpGem">
+    <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Enter the counts from your Backpack's Resources tab. Results update as you type.</p>
+    <div class="sg-calc-grid">
+      <label>Available Gems (shown in-game) <input type="number" min="0" step="1" inputmode="numeric" id="bpGemAvail" placeholder="0"></label>
+    </div>
+    <div class="sg-calc-sub">&#x1F392; Gem items in your Backpack</div>
+    <div class="sg-calc-grid">
+      <label>1-Gem items <input type="number" min="0" step="1" inputmode="numeric" id="bpGem1" data-gem="1" placeholder="0"></label>
+      <label>10-Gem items <input type="number" min="0" step="1" inputmode="numeric" id="bpGem10" data-gem="10" placeholder="0"></label>
+      <label>100-Gem items <input type="number" min="0" step="1" inputmode="numeric" id="bpGem100" data-gem="100" placeholder="0"></label>
+      <label>1,000-Gem items <input type="number" min="0" step="1" inputmode="numeric" id="bpGem1000" data-gem="1000" placeholder="0"></label>
+    </div>
+    <div class="sg-calc-grid">
+      <label>Other denomination (Gems each) <input type="number" min="0" step="1" inputmode="numeric" id="bpGemXv" placeholder="e.g. 500"></label>
+      <label>How many of those <input type="number" min="0" step="1" inputmode="numeric" id="bpGemXq" placeholder="0"></label>
+    </div>
+    <div class="bp-err" id="bpGemErr" aria-live="polite"></div>
+    <div class="bp-results" aria-live="polite">
+      <div class="bp-result"><small>Available Gems</small><strong id="bpGemOutA">0</strong></div>
+      <div class="bp-result"><small>Unclaimed Backpack Gems</small><strong id="bpGemOutB">0</strong></div>
+      <div class="bp-result bp-r-total"><small>Total potential Gems</small><strong id="bpGemOutT">0</strong></div>
+    </div>
+    <div class="sg-calc-sub">&#x1F3B0; Roulette budget (optional)</div>
+    <div class="sg-calc-grid">
+      <label>Gems per spin (check in-game) <input type="number" min="0" step="1" inputmode="numeric" id="bpGemSpin" placeholder="current price"></label>
+      <label>Free spins you have <input type="number" min="0" step="1" inputmode="numeric" id="bpGemFree" placeholder="0"></label>
+      <label>Gems to keep for emergencies <input type="number" min="0" step="1" inputmode="numeric" id="bpGemKeep" placeholder="0"></label>
+    </div>
+    <div class="sg-calc-out" id="bpGemSpinOut" aria-live="polite">Enter the current spin price from the Roulette screen to see how many spins your budget covers. Discounts and bundle prices change - use what the game shows today.</div>
+    <div class="mt-btn-row">
+      <button type="button" class="mt-btn mt-btn-ghost" id="bpGemExample">Load the example</button>
+      <button type="button" class="mt-btn" data-bp-save="gem">Save on this device</button>
+      <button type="button" class="mt-btn mt-btn-ghost" id="bpGemReset">Reset</button>
+    </div>
+    <p class="bp-save-note" data-bp-note="gem">Nothing is saved unless you tap Save. Saved numbers stay in this browser only - no one else can see them.</p>
+  </div>
+
+  <h3>Item Library</h3>
+  <p>Organized like your in-game Backpack. Tap a tab, filter, or search, then tap an item for the details. Items are placed by what they do; if your game version shows one under a different tab, search for it.</p>
+  <div class="bp-tabs" role="group" aria-label="Backpack tab" id="bpTabs"></div>
+  <div class="bp-tabs" role="group" aria-label="Filter" id="bpFilters"></div>
+  <input type="search" class="bp-search" id="bpSearch" placeholder="Search items (e.g. Mithril, shield, Satin)" aria-label="Search Backpack items">
+  <div class="bp-count" id="bpCount" aria-live="polite"></div>
+  <div id="bpItems"></div>
+  <noscript><p class="wa-placeholder-note">The item library needs JavaScript.</p></noscript>
+
+  <h3>KvK Spending Calendar</h3>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:6px;">Built from the same data as the <a href="#kvk" style="color:var(--gold);">KvK tab's</a> day-by-day plan, so the two always match. A planning reference only - the in-game event screen is authoritative.</p>
+  <div class="bp-cal" id="bpCal"></div>
+  <div class="callout callout-warn">
+    <span class="callout-label">&#x26A0; Not everything scores on Day 5</span>
+    Day 5 has the widest list, but Governor Gear, Hero Gear, troops, pets, and speedups each follow their own rules. Read the day's task list before you spend, and stop once you reach the chest you're aiming for.
+  </div>
+
+  <h3>Should I Use This Item Now?</h3>
+  <div class="sg-calc" id="bpDecide">
+    <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Answer for one item. There's no single right answer for every governor - this applies Rule #1 to your situation.</p>
+    <div class="bp-yn-q"><span>Is a KvK prep day running right now?</span><span class="bp-yn" data-q="prep"></span></div>
+    <div class="bp-yn-q"><span>1. Is it needed for an immediate, essential upgrade?</span><span class="bp-yn" data-q="q1"></span></div>
+    <div class="bp-yn-q"><span>2. Does using it score in the event running now?</span><span class="bp-yn" data-q="q2"></span></div>
+    <div class="bp-yn-q"><span>3. Would it score KvK prep points if you saved it?</span><span class="bp-yn" data-q="q3"></span></div>
+    <div class="bp-yn-q"><span>4. Is a valuable overlapping event reward available now?</span><span class="bp-yn" data-q="q4"></span></div>
+    <div class="bp-yn-q"><span>5. Would spending it weaken your battle readiness?</span><span class="bp-yn" data-q="q5"></span></div>
+    <div class="bp-yn-q"><span>6. Is upgrading now clearly worth more than waiting?</span><span class="bp-yn" data-q="q6"></span></div>
+    <div class="sg-calc-out" id="bpDecideOut" aria-live="polite">Answer the questions to see a recommendation.</div>
+    <div class="mt-btn-row"><button type="button" class="mt-btn mt-btn-ghost" id="bpDecideReset">Reset</button></div>
+  </div>
+  <div class="tg-phase-grid">
+    <div class="tg-phase-card tg-late"><div class="tg-phase-title">&#x1F534; Save</div><div class="tg-phase-desc">It's a KvK scoring item and nothing urgent needs it. The Rule #1 default.</div></div>
+    <div class="tg-phase-card tg-early"><div class="tg-phase-title">&#x1F7E2; Use now</div><div class="tg-phase-desc">It's a qualifying prep day, or the item doesn't score in KvK and an essential upgrade needs it.</div></div>
+    <div class="tg-phase-card tg-mid"><div class="tg-phase-title">&#x1F7E1; Use partially</div><div class="tg-phase-desc">Spend only what reaches the upgrade or chest you need; the rest stays banked.</div></div>
+    <div class="tg-phase-card tg-temper"><div class="tg-phase-title">&#x1F535; Keep for battle</div><div class="tg-phase-desc">It supports healing, survival, positioning, or recovery.</div></div>
+  </div>
+
+  <h3>Banking Between KvKs</h3>
+  <details class="sg-day" open>
+    <summary><span class="sg-day-num">Weeks 1-3</span> Normal development</summary>
+    <div class="sg-day-body">
+      <ul class="tips">
+        <li>Keep making essential upgrades that don't use KvK scoring items.</li>
+        <li>Bank Rule #1 items as you earn them - Terrors, Bear Hunt, and event rewards all add up.</li>
+        <li>Keep resource packs and Gem items unopened until a planned purchase needs them.</li>
+        <li>Event milestones are worth taking only when they don't cost KvK stockpile (see each event tab's KvK-first plan).</li>
+        <li>Keep your battle reserves topped up.</li>
+      </ul>
+    </div>
+  </details>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Week 4</span> Before prep starts</summary>
+    <div class="sg-day-body">
+      <p>Do a personal readiness check: Gems (available and Backpack), all four speedup types, Hero Shards, Truegold materials, Charm and Governor Gear materials, Hero Gear materials, pet materials, and healing reserves. Use the <strong>Readiness Calculator</strong> and <strong>Checklist</strong> below - both are private.</p>
+      <p>Watch alliance chat and Discord for the minister sign-up link, and line up upgrades so they're ready to start the moment your slot opens.</p>
+    </div>
+  </details>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Prep</span> Days 1-5</summary>
+    <div class="sg-day-body">
+      <ul class="tips">
+        <li>Check the day's task list before spending - only qualifying items score.</li>
+        <li>Use your minister slot or kingdom buffs when you have them.</li>
+        <li>Stop once you hit your target chest; save the rest for its other scoring day or next KvK.</li>
+        <li>Never spend battle recovery resources for prep points.</li>
+      </ul>
+    </div>
+  </details>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Battle</span> Battle day</summary>
+    <div class="sg-day-body">
+      <p>Switch from scoring to fighting. Keep enough healing resources and healing speedups, teleports, shields, emergency Gems, and troop recovery supplies to stay in the fight - and follow your R4/R5's rally timing.</p>
+    </div>
+  </details>
+
+  <h3>KvK Readiness Calculator</h3>
+  <div class="sg-calc" id="bpRc">
+    <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Private and optional - no login, no alliance or player name, nothing sent anywhere. Pick <strong>one</strong> prep day for each item so nothing is counted twice.</p>
+
+    <div class="sg-calc-sub">&#x1F48E; Gems</div>
+    <div class="sg-calc-grid">
+      <label>Available Gems <input type="number" min="0" step="1" inputmode="numeric" id="bpRcGemA" placeholder="0"></label>
+      <label>Backpack Gems <input type="number" min="0" step="1" inputmode="numeric" id="bpRcGemB" placeholder="0"></label>
+      <label>Gems per spin (check in-game) <input type="number" min="0" step="1" inputmode="numeric" id="bpRcSpin" placeholder="current price"></label>
+    </div>
+    <div class="mt-btn-row" style="margin-top:0;margin-bottom:10px;"><button type="button" class="mt-btn mt-btn-ghost mt-btn-sm" id="bpRcPull">Use Gem Calculator totals</button></div>
+
+    <div class="sg-calc-sub">&#x1F3AF; Items with a fixed point value</div>
+    <div id="bpRcRows"></div>
+
+    <div class="sg-calc-sub">&#x1F4CB; Items whose points depend on the upgrade</div>
+    <div class="sg-calc-grid" id="bpRcPlain"></div>
+
+    <div class="sg-calc-sub">&#x1F535; Battle reserves</div>
+    <div class="sg-calc-grid">
+      <label>Healing speedups (hours) <input type="number" min="0" step="any" inputmode="decimal" id="bpRcHeal" placeholder="0"></label>
+      <label>Shields <input type="number" min="0" step="1" inputmode="numeric" id="bpRcShield" placeholder="0"></label>
+      <label>Teleports <input type="number" min="0" step="1" inputmode="numeric" id="bpRcTele" placeholder="0"></label>
+      <label>Gems to keep for emergencies <input type="number" min="0" step="1" inputmode="numeric" id="bpRcKeep" placeholder="0"></label>
+    </div>
+
+    <details class="sg-day" style="margin-top:6px;">
+      <summary><span class="sg-day-num">Rates</span> Point rates used</summary>
+      <div class="sg-day-body">
+        <p class="body-note" style="color:var(--text-dim);">From the KvK tab's Key Point Values (Kingshot Mastery, checked November 2026). If the event screen shows a different value, change it here - your change applies only to this calculator.</p>
+        <div class="sg-calc-grid" id="bpRcRates"></div>
+      </div>
+    </details>
+
+    <div class="bp-err" id="bpRcErr" aria-live="polite"></div>
+    <div class="sg-calc-out" id="bpRcOut" aria-live="polite">Enter what you have to see your readiness summary.</div>
+    <div class="mt-btn-row">
+      <button type="button" class="mt-btn" data-bp-save="rc">Save on this device</button>
+      <button type="button" class="mt-btn mt-btn-ghost" id="bpRcReset">Reset</button>
+    </div>
+    <p class="bp-save-note" data-bp-note="rc">Nothing is saved unless you tap Save. Saved numbers stay in this browser only.</p>
+  </div>
+
+  <h3>My KvK Backpack Checklist</h3>
+  <div class="sg-calc" id="bpChk">
+    <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Just for you. Tick items as you go during the week before prep.</p>
+    <ul class="bp-check" id="bpChkList"></ul>
+    <div class="mt-btn-row">
+      <button type="button" class="mt-btn" data-bp-save="chk">Save on this device</button>
+      <button type="button" class="mt-btn mt-btn-ghost" id="bpChkReset">Clear checklist</button>
+    </div>
+    <p class="bp-save-note" data-bp-note="chk">Nothing is saved unless you tap Save. Saved ticks stay in this browser only.</p>
+  </div>
+
+  <h3 class="omen-mistake-h3"><img class="omen-mistake-face" src="assets/characters/omen/omen-facepalm.webp" alt="" width="44" height="44" loading="lazy" decoding="async" onerror="this.remove()"><span>Common Backpack Mistakes</span></h3>
+  <div class="tg-mistake-grid" id="bpMistakes"></div>
+
+  <aside class="omen-tip-card omen-tip-card--feline" aria-label="The Feline Flame is guarding the stockpile" role="button" tabindex="0" data-pose="assets/characters/feline-flame/feline-watchful.webp" data-react="assets/characters/feline-flame/feline-thumbs-up.webp" title="Tap The Feline Flame">
+    <div><strong>The Feline Flame checks the battle bag</strong><p>Prep points win the attack. Healing speedups, shields, and teleports win the fight. Never trade the second for the first.</p></div>
+    <img src="assets/characters/feline-flame/feline-watchful.webp" alt="The Feline Flame, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+  </aside>
+
+  <h3>Advanced Strategy</h3>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Overlap</span> Event overlap</summary>
+    <div class="sg-day-body">
+      <p>Spending one qualifying item while two events both count it can pay twice. Do it only when both scoring screens confirm it - and in Kingdom 1625, only when one of those events is KvK prep. A different event scoring the same item is not a reason to spend it outside KvK.</p>
+    </div>
+  </details>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Milestones</span> Smallest spend that works</summary>
+    <div class="sg-day-body">
+      <p>Work out the least you need to reach your next chest on each prep day (see the daily chest targets on the KvK tab). Stopping just past a threshold keeps the rest banked for the item's other scoring day. Not every milestone is worth its cost.</p>
+    </div>
+  </details>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Roulette</span> Budgeting spins</summary>
+    <div class="sg-day-body">
+      <p>Spin for a Hero you'll actually build. Points are a bonus, not the reason. Price your spins with the Gem Calculator, keep an emergency reserve, and split spins between Days 2 and 3 only if it helps you hit chests on both.</p>
+    </div>
+  </details>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Duel</span> Duel of the Elites</summary>
+    <div class="sg-day-body">
+      <p>Duel of the Elites (added in the August 2026 update) runs alongside KvK prep for the kingdom's top 150 Governors by power, locked in at matchmaking. Community guides report that finishing first in your Duel group earns the kingdom a prep point bonus for the <em>next</em> prep day. Some players hold flexible items for the day after a strong Duel result - that timing is anecdotal, and taking part is your choice. Check the event screen for the current bonus.</p>
+    </div>
+  </details>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Value</span> Long-term value</summary>
+    <div class="sg-day-body">
+      <p>Weigh immediate combat strength, prep points, event rewards, future progression, how scarce the item is, and your battle reserves. The best choice maximizes total value over time - not the most points from one item today.</p>
+    </div>
+  </details>
+
+  <h3>Community Notes</h3>
+  <div class="wa-consensus-grid">
+    <div class="wa-consensus-card wa-confirmed">
+      <div class="wa-consensus-title">&#x2705; Community Consensus</div>
+      <ul>
+        <li>Save KvK scoring items for their prep day.</li>
+        <li>Don't waste speedups outside scoring windows.</li>
+        <li>Save Gems for high-value buys like Roulette for a Hero you'll build.</li>
+        <li>Keep resource packs unopened until needed - unopened items can't be plundered.</li>
+        <li>Keep healing and battle reserves.</li>
+      </ul>
+    </div>
+    <div class="wa-consensus-card wa-anecdotal">
+      <div class="wa-consensus-title">&#x1F4AC; Anecdotal Evidence</div>
+      <ul>
+        <li>Saving most scoring items across several KvK cycles.</li>
+        <li>Queuing troop batches before Day 4 so they finish on the day.</li>
+        <li>Spending only to reach each day's chest thresholds.</li>
+        <li>Keeping a personal Gem budget in unclaimed Gem items.</li>
+        <li>Duel of the Elites timing for flexible items.</li>
+      </ul>
+    </div>
+    <div class="wa-consensus-card wa-disputed">
+      <div class="wa-consensus-title">&#x2696; Disputed Claims</div>
+      <ul>
+        <li><strong>Save everything vs. spend to milestones?</strong> Kingdom 1625 saves for KvK, then spends to chest targets during prep.</li>
+        <li><strong>Earliest eligible day vs. best overlap day?</strong> Stronger support for the "best day" on the KvK tab.</li>
+        <li><strong>Exhaust reserves vs. carry forward?</strong> Carry forward anything past your chest target.</li>
+        <li><strong>Timing of late-game gear?</strong> Depends on your build - no universal answer.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Sources</h3>
+  <div class="wa-placeholder-note">Item functions and scoring days checked November 17, 2026. Sources: <a href="#kvk" style="color:var(--gold);">KvK tab</a> (prep days, point values, chest targets - Kingshot Mastery, November 2026); <a href="https://kingshotmastery.com/guides/kingshot-kvk-prep-guide" target="_blank" rel="noopener" style="color:var(--gold);">Kingshot Mastery - KvK Prep Guide</a>; <a href="https://kingshotmastery.com/guides/resource-protection-guide" target="_blank" rel="noopener" style="color:var(--gold);">Kingshot Mastery - Resource Protection</a> (secured vs. non-secured, unopened items); <a href="https://kingshotmastery.com/guides/kingshot-governor-gear-guide" target="_blank" rel="noopener" style="color:var(--gold);">Kingshot Mastery - Governor Gear</a> (Satin, Gilded Threads, Artisan's Vision); <a href="https://kingshotmastery.com/guides/cesares-fury" target="_blank" rel="noopener" style="color:var(--gold);">Kingshot Mastery - Cesares Fury</a> (stamina); <a href="https://www.kingshotguide.com/en/calculator/pets-upgrade" target="_blank" rel="noopener" style="color:var(--gold);">Kingshot Guide - Pets Upgrade Calculator</a> (Growth Manual, Nutrient Potion, Promotion Medallion); <a href="https://www.kingshotguide.com/items" target="_blank" rel="noopener" style="color:var(--gold);">Kingshot Guide - Items</a> (Charm Design, Charm Guide); <a href="https://www.treyexgaming.com/kingshot-kvk-prep-guide/" target="_blank" rel="noopener" style="color:var(--gold);">Treyex Gaming - KvK Prep Guide</a> (cross-check of best days); <a href="https://g2384.github.io/Kingshot-Data/items.html" target="_blank" rel="noopener" style="color:var(--gold);">KingshotData item guide</a>; <a href="https://www.reddit.com/r/KingShot/comments/1nn5ixm/item_guide_what_to_save_when_to_spend/" target="_blank" rel="noopener" style="color:var(--gold);">r/KingShot - Item guide: what to save, when to spend</a>; <a href="https://www.reddit.com/r/KingShot/comments/1p8gone/best_ways_to_spend_gems/" target="_blank" rel="noopener" style="color:var(--gold);">r/KingShot - Best ways to spend Gems</a>. Items marked <span class="bp-badge bp-b-verify">Verify</span> could not be confirmed and should be checked in-game.</div>
+</section>
+
+<div class="divider">&#x2756; &#x2756; &#x2756;</div>
+
+<script>
+/* ===================================================================
+   KVK PREP DATA - single source for the KvK tab and the Backpack tab.
+   Edit prep days, point values, and chest targets HERE ONLY.
+   Source: Kingshot Mastery (checked November 2026). The live event
+   screen always wins. When "use" text changes, update "scores" too.
+   =================================================================== */
+var KVK_PREP = {
+  checked: 'November 2026',
+  source: 'Kingshot Mastery',
+  days: [
+    { n: 1, name: 'City Construction',
+      use: 'Truegold and Tempered Truegold building upgrades, Truegold Dust research, Watchtower Intel Missions, Governor Charm upgrades, and construction / research / training / Master skill speedups.',
+      plan: 'score efficiently, but do <strong>not</strong> dump your whole stockpile. Truegold also scores on Days 2 and 5.',
+      ministry: 'Chief Minister (construction and research +15%)' },
+    { n: 2, name: 'Hero Progression',
+      use: 'Hero Roulette, Hero Shards (Mythic, Epic, Rare), Master Emblems and Manuscripts, Master skill speedups, Truegold and Truegold Dust, speedups, and gathering.',
+      plan: 'this is the main day for Master Emblems, Manuscripts, and Master skill speedups. Roulette and Mythic Shards score again on Day 3, so split them if that helps you hit chest targets both days.',
+      ministry: 'Chief Minister only if you\'re starting research - otherwise leave slots for Days 1, 4, 5' },
+    { n: 3, name: 'Pets and Heroes',
+      use: 'Advanced Taming Marks, Hero Roulette, Watchtower Intel Missions, Hero Shards, Common Taming Marks, pet advancement, Governor Charms, Master Emblems.',
+      plan: 'first of two Taming Mark days (Day 5 is the other). Finish your Roulette and Shard plan here.',
+      ministry: 'No office boosts pets or heroes - skip' },
+    { n: 4, name: 'Mithril and Training',
+      use: 'Mithril, Exclusive Gear Widgets, Forgehammers, troop training (higher tiers score far more per troop), training speedups, Governor Charms, gathering.',
+      plan: 'the swing day of prep. Spend training speedups here - the troops they finish score on top. Players without Mithril still score through training, Widgets, Forgehammers, and gathering.',
+      ministry: 'Noble Advisor (Training Speed +75%) - the best prep slot of the week; Chief Minister also helps' },
+    { n: 5, name: 'Power Boost',
+      use: 'the widest list - Mithril, Advanced Taming Marks, Tempered Truegold, Widgets, Forgehammers, Watchtower Intel Missions, Truegold and Dust, Common Taming Marks, pet advancement, Governor Gear, all speedups, gathering.',
+      plan: 'cleanup and surge day. This is where kingdoms steal prep late or lock in a lead - spend what you saved for it.',
+      ministry: 'Chief Minister (all three speeds +15%); Noble Advisor if you\'re training' }
+  ],
+  // "What to Save for Which Day" table (KvK tab)
+  save: [
+    { item: 'Truegold', text: '1, 2, 5', days: [1, 2, 5] },
+    { item: 'Master Emblems, Manuscripts, Master skill speedups', text: '2 (3 as backup)', days: [2], backup: [3] },
+    { item: 'Hero Roulette and Mythic Hero Shards', text: '2, 3', days: [2, 3] },
+    { item: 'Advanced Taming Marks', text: '3, 5', days: [3, 5] },
+    { item: 'Training speedups', text: '4', days: [4] },
+    { item: 'Widgets and Forgehammers', text: '4, 5', days: [4, 5] },
+    { item: 'Mithril', text: '4, 5', days: [4, 5] },
+    { item: 'Governor Gear', text: '5', days: [5] }
+  ],
+  // "Key Point Values" table (KvK tab). pts = points per unit; null = no single fixed value
+  points: [
+    { key: 'mithril', label: 'Mithril', pts: 40000, days: [4, 5] },
+    { key: 'temperedTruegold', label: 'Tempered Truegold', pts: 30000, days: [1, 2, 5] },
+    { key: 'advTaming', label: 'Advanced Taming Mark', pts: 15000, days: [3, 5] },
+    { key: 'roulette', label: 'Hero Roulette (1 play)', pts: 8000, days: [2, 3] },
+    { key: 'widget', label: 'Widget', pts: 8000, days: [4, 5] },
+    { key: 'masterEmblem', label: 'Master Emblem', pts: 6000, days: [2, 3] },
+    { key: 'intel', label: 'Watchtower Intel Mission', pts: 6000, days: [1, 3, 5] },
+    { key: 'forgehammer', label: 'Forgehammer', pts: 4000, days: [4, 5] },
+    { key: 'speedupMin', label: 'Speedups (per minute)', pts: 30, days: [1, 2, 5] },
+    { key: 'troops', label: 'Troops trained (T10 / T11)', pts: null, ptsText: '60 / 75 each', days: [4] }
+  ],
+  // Daily personal chest targets, in points
+  chests: [
+    { day: 1, t: [30000, 100000, 200000] },
+    { day: 2, t: [40000, 120000, 270000] },
+    { day: 3, t: [80000, 150000, 300000] },
+    { day: 4, t: [80000, 150000, 300000] },
+    { day: 5, t: [40000, 130000, 250000] }
+  ],
+  // Which prep days each item type appears on (from the "use" lists above)
+  scores: {
+    truegold: [1, 2, 5], temperedTruegold: [1, 2, 5], tgDust: [1, 2, 5], intel: [1, 3, 5],
+    charms: [1, 3, 4], speedConstruction: [1, 2, 5], speedResearch: [1, 2, 5],
+    speedTraining: [1, 2, 4, 5], speedGeneral: [1, 2, 5], speedMaster: [1, 2, 5],
+    roulette: [2, 3], heroShards: [2, 3], masterEmblems: [2, 3], manuscripts: [2],
+    gathering: [2, 4, 5], advTaming: [3, 5], commonTaming: [3, 5], petAdv: [3, 5],
+    mithril: [4, 5], widgets: [4, 5], forgehammers: [4, 5], troops: [4], govGear: [5]
+  }
+};
+
+(function() {
+  'use strict';
+  function fmt(n) { return Number(n).toLocaleString('en-US'); }
+  function kfmt(n) { return (n / 1000) + 'K'; }
+  function el(id) { return document.getElementById(id); }
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  function ptsOf(key) { for (var i = 0; i < KVK_PREP.points.length; i++) if (KVK_PREP.points[i].key === key) return KVK_PREP.points[i]; return null; }
+  function daysText(a) { return a.join(', '); }
+
+  /* ---------- KvK tab: render from KVK_PREP ---------- */
+  (function renderKvk() {
+    var d = el('kvkPrepDays');
+    if (d) d.innerHTML = KVK_PREP.days.map(function(x) {
+      return '<details class="sg-day">\n    <summary><span class="sg-day-num">Day ' + x.n + '</span> ' + esc(x.name) + '</summary>\n    <div class="sg-day-body">\n' +
+        '      <p><strong>Use today:</strong> ' + x.use + '</p>\n' +
+        '      <p><strong>Plan:</strong> ' + x.plan + '</p>\n' +
+        '      <div class="sg-day-row"><span class="sg-ok">&#x1F451; Ministry</span> ' + x.ministry + '</div>\n    </div>\n  </details>';
+    }).join('\n');
+    var s = el('kvkSaveBody');
+    if (s) s.innerHTML = KVK_PREP.save.map(function(r) { return '<tr><td>' + esc(r.item) + '</td><td>' + esc(r.text) + '</td></tr>'; }).join('');
+    var p = el('kvkPointsBody');
+    if (p) p.innerHTML = KVK_PREP.points.map(function(r) { return '<tr><td>' + esc(r.label) + '</td><td>' + (r.pts === null ? esc(r.ptsText) : fmt(r.pts)) + '</td><td>' + daysText(r.days) + '</td></tr>'; }).join('');
+    var c = el('kvkChestBody');
+    if (c) c.innerHTML = KVK_PREP.chests.map(function(r) { return '<tr><td>Day ' + r.day + '</td><td>' + kfmt(r.t[0]) + '</td><td>' + kfmt(r.t[1]) + '</td><td>' + kfmt(r.t[2]) + '</td></tr>'; }).join('');
+  })();
+
+  if (!el('backpack')) return;
+
+  /* ---------- Browser-only save (opt-in) ---------- */
+  var STORE = 'tactichub-backpack-v1';
+  function readStore() { try { var v = localStorage.getItem(STORE); return v ? JSON.parse(v) : {}; } catch (e) { return {}; } }
+  function writeStore(o) { try { localStorage.setItem(STORE, JSON.stringify(o)); return true; } catch (e) { return false; } }
+  var NOTE_DEFAULT = {};
+  function setNote(which, html) { var n = document.querySelector('[data-bp-note="' + which + '"]'); if (n) n.innerHTML = html; }
+  function savedNote(which, msg) {
+    setNote(which, msg + ' <button type="button" class="mt-btn mt-btn-ghost mt-btn-sm" data-bp-forget="' + which + '">Delete saved</button>');
+  }
+  document.addEventListener('click', function(e) {
+    var f = e.target.closest ? e.target.closest('[data-bp-forget]') : null;
+    if (!f) return;
+    var w = f.getAttribute('data-bp-forget');
+    var o = readStore(); delete o[w]; writeStore(o);
+    setNote(w, 'Saved data deleted from this device. ' + NOTE_DEFAULT[w]);
+  });
+  ['gem', 'rc', 'chk'].forEach(function(w) { var n = document.querySelector('[data-bp-note="' + w + '"]'); NOTE_DEFAULT[w] = n ? n.textContent : ''; });
+  function collect(root) { var o = {}; root.querySelectorAll('input[id], select[id]').forEach(function(i) { if (i.type === 'checkbox') { if (i.checked) o[i.id] = 1; } else if (i.value !== '') o[i.id] = i.value; }); return o; }
+  function restore(root, o) { root.querySelectorAll('input[id], select[id]').forEach(function(i) { if (!(i.id in o)) return; if (i.type === 'checkbox') i.checked = true; else i.value = o[i.id]; }); }
+  var ROOTS = { gem: 'bpGem', rc: 'bpRc', chk: 'bpChk' };
+  document.querySelectorAll('[data-bp-save]').forEach(function(b) {
+    b.addEventListener('click', function() {
+      var w = b.getAttribute('data-bp-save');
+      var o = readStore(); o[w] = collect(el(ROOTS[w]));
+      if (writeStore(o)) savedNote(w, 'Saved in this browser only.');
+      else setNote(w, 'This browser blocked saving (private mode?). Your numbers still work until you close the page.');
+    });
+  });
+
+  /* ---------- Number input helpers ---------- */
+  function num(id, errs, label) {
+    var i = el(id); if (!i || i.value === '') return 0;
+    var v = Number(i.value);
+    if (!isFinite(v) || v < 0) { if (errs) errs.push((label || 'A value') + ' must be zero or more'); i.setAttribute('aria-invalid', 'true'); return 0; }
+    i.removeAttribute('aria-invalid');
+    return v;
+  }
+
+  /* ---------- Gem calculator ---------- */
+  var gemIds = ['bpGemAvail', 'bpGem1', 'bpGem10', 'bpGem100', 'bpGem1000', 'bpGemXv', 'bpGemXq', 'bpGemSpin', 'bpGemFree', 'bpGemKeep'];
+  function gemTotals() {
+    var errs = [];
+    var a = Math.floor(num('bpGemAvail', errs, 'Available Gems'));
+    var b = Math.floor(num('bpGem1', errs, '1-Gem items')) * 1 + Math.floor(num('bpGem10', errs, '10-Gem items')) * 10 +
+            Math.floor(num('bpGem100', errs, '100-Gem items')) * 100 + Math.floor(num('bpGem1000', errs, '1,000-Gem items')) * 1000 +
+            Math.floor(num('bpGemXv', errs, 'Other denomination')) * Math.floor(num('bpGemXq', errs, 'Other quantity'));
+    return { a: a, b: b, t: a + b, errs: errs };
+  }
+  function gemCalc() {
+    var g = gemTotals();
+    el('bpGemOutA').textContent = fmt(g.a);
+    el('bpGemOutB').textContent = fmt(g.b);
+    el('bpGemOutT').textContent = fmt(g.t);
+    var price = Math.floor(num('bpGemSpin', g.errs, 'Spin price'));
+    var free = Math.floor(num('bpGemFree', g.errs, 'Free spins'));
+    var keep = Math.floor(num('bpGemKeep', g.errs, 'Emergency Gems'));
+    el('bpGemErr').textContent = g.errs.length ? g.errs.join('. ') + '.' : '';
+    var out = el('bpGemSpinOut');
+    if (!price) { out.className = 'sg-calc-out'; out.innerHTML = 'Enter the current spin price from the Roulette screen to see how many spins your budget covers. Discounts and bundle prices change - use what the game shows today.'; return; }
+    var budget = g.t - keep;
+    if (budget < 0) { out.className = 'sg-calc-out warn'; out.innerHTML = 'Your emergency reserve (' + fmt(keep) + ') is more than your total Gems (' + fmt(g.t) + '). No Gems are free for Roulette.'; return; }
+    var paid = Math.floor(budget / price);
+    out.className = 'sg-calc-out done';
+    out.innerHTML = '<strong>' + fmt(paid + free) + ' spins</strong> (' + fmt(paid) + ' paid at ' + fmt(price) + ' Gems + ' + fmt(free) + ' free), keeping ' + fmt(keep) + ' Gems in reserve. ' +
+      'That uses ' + fmt(paid * price) + ' Gems. Each play scores on KvK Days 2 or 3 - only spin for a Hero you plan to build.';
+  }
+  gemIds.forEach(function(id) { var i = el(id); if (i) i.addEventListener('input', gemCalc); });
+  el('bpGemReset').addEventListener('click', function() { gemIds.forEach(function(id) { el(id).value = ''; el(id).removeAttribute('aria-invalid'); }); gemCalc(); });
+  el('bpGemExample').addEventListener('click', function() {
+    el('bpGem1').value = 137388; el('bpGem10').value = 3578; el('bpGem100').value = 2992; el('bpGem1000').value = 460; gemCalc();
+  });
+
+  /* ---------- Item library ---------- */
+  var TABS = [
+    { id: 'all', label: 'All tabs' }, { id: 'resources', label: 'Resources' }, { id: 'speedups', label: 'Speedups' },
+    { id: 'bonuses', label: 'Bonuses' }, { id: 'gear', label: 'Gear' }, { id: 'other', label: 'Other' }
+  ];
+  var FILTERS = [
+    { id: 'all', label: 'All resources' }, { id: 'bank', label: '🔴 Save for KvK' }, { id: 'use', label: '🟢 Safe to use' },
+    { id: 'battle', label: '🔵 Battle reserves' }, { id: 'event', label: '🎯 Event-specific' }
+  ];
+  var TAG = {
+    bank: { cls: 'bank', label: '🔴 Bank for events' }, sit: { cls: 'sit', label: '🟡 Situational' },
+    use: { cls: 'use', label: '🟢 Use as needed' }, battle: { cls: 'battle', label: '🔵 Battle reserve' }
+  };
+  var EV = { c: 'Community consensus', a: 'Anecdotal - depends on your situation', d: 'Disputed - see Community Notes' };
+  // key -> KVK_PREP.scores; pts -> KVK_PREP.points
+  var ITEMS = [
+    { tab: 'resources', n: 'Gem items (1, 10, 100, 1K)', tag: 'bank', key: 'roulette', kw: 'gems diamonds currency',
+      does: 'Adds that many Gems to your spendable balance when you tap Use. These are extra to the balance shown in-game - not a copy of it.',
+      best: 'Planned Hero Roulette for a Hero you\'ll build (each play scores on Days 2-3), worthwhile permanent progression, VIP, real battle emergencies.',
+      why: 'Unclaimed items keep your budget visible and stop impulse spending. Claiming Gems scores nothing - what you buy with them can.',
+      mistake: 'Assuming they\'re already in your visible balance; claiming them all and losing track; buying speedups at poor Gem rates.',
+      exc: 'There\'s no KvK bonus for keeping them unclaimed - it\'s a budgeting habit, not a rule.', ev: 'c' },
+    { tab: 'resources', n: 'Bread, Wood, Stone, and Iron items', tag: 'sit', kw: 'resource packs chests food',
+      does: 'Adds the resource to your city when used. Resources from Backpack items are non-secured: anything above your Storehouse protection can be plundered.',
+      best: 'Open only what a planned upgrade, research, training, or healing needs.',
+      why: 'Unopened items can\'t be stolen and keep you flexible. Opening a resource item never scores - the upgrade it pays for might, on its prep day.',
+      mistake: 'Opening packs to make the top bar look bigger, or right before PvP; thinking opening them scores KvK points.',
+      exc: 'Gathering on the map is a separate scoring action (Days 2, 4, 5) - not the same as opening packs. Don\'t delay essential growth just to keep a big pack total. Keep enough for battle-day healing.', ev: 'c' },
+    { tab: 'resources', n: 'Resource selection chests', tag: 'sit', kw: 'choose pick chest',
+      does: 'Lets you choose which resource you receive.',
+      best: 'Your real bottleneck - often Stone or Iron rather than Bread or Wood.',
+      why: 'Resources aren\'t interchangeable one-for-one. Stone and Iron come in smaller amounts and are protected at much lower Storehouse caps, so a blind pick wastes value.',
+      mistake: 'Picking Bread when Iron is what\'s blocking you; opening every chest with no plan.',
+      exc: 'Leave them closed until you know the need.', ev: 'c' },
+    { tab: 'resources', n: 'Hero EXP items', tag: 'use', kw: 'experience xp level',
+      does: 'Levels up Heroes.',
+      best: 'Heroes you\'re actively building.',
+      why: 'Hero leveling isn\'t on the KvK prep lists, so saving it gains nothing for KvK.',
+      mistake: 'Confusing Hero EXP with Hero Shards. Shards are the KvK item.',
+      exc: 'If another event\'s screen lists Hero EXP use, that\'s a fine time to spend it.', ev: 'c' },
+    { tab: 'resources', n: 'Governor Stamina items', tag: 'sit', evt: true, kw: 'energy rally beast terror cesares',
+      does: 'Restores Governor Stamina for scouting, solo attacks, and rallies.',
+      best: 'Cesares Fury (a 3-day stamina event) and Beast or Terror objectives you\'ve planned.',
+      why: 'Kingdom 1625 keeps Backpack stamina in reserve (it\'s on the Rule #1 list). Spend naturally regenerating stamina first.',
+      mistake: 'Sitting at the stamina cap so natural regen is wasted; burning items on daily Terror rallies.',
+      exc: 'Stamina isn\'t on the KvK prep lists - Cesares Fury is its main planned use.', ev: 'c' },
+
+    { tab: 'speedups', n: 'Construction speedups', tag: 'bank', key: 'speedConstruction', pts: 'speedupMin', kw: 'building build',
+      does: 'Instantly cuts time off a building upgrade.',
+      best: 'Day 1 with Truegold building upgrades, ideally in a Chief Minister slot.',
+      why: 'Speedup minutes score on prep Days 1, 2, and 5.',
+      mistake: 'Spending them on upgrades outside prep; starting prep without upgrades and resources lined up.',
+      exc: 'An essential upgrade that doesn\'t score can justify a partial spend - run it through the decision tool.', ev: 'c' },
+    { tab: 'speedups', n: 'Research speedups', tag: 'bank', key: 'speedResearch', pts: 'speedupMin', kw: 'tech academy',
+      does: 'Instantly cuts time off research.',
+      best: 'Days 1-2 with Truegold Dust research; Chief Minister boosts research speed.',
+      why: 'Speedup minutes score on prep Days 1, 2, and 5.',
+      mistake: 'Using them just because they\'re there; not having research prerequisites ready before prep.',
+      exc: 'Major research milestones can be worth a partial spend - check what waiting costs you.', ev: 'c' },
+    { tab: 'speedups', n: 'Training speedups', tag: 'bank', key: 'speedTraining', pts: 'speedupMin', kw: 'troops promote',
+      does: 'Instantly cuts time off troop training or promotion.',
+      best: 'Day 4 - the troops they finish score too (T10 60, T11 75 each), and Noble Advisor gives +75% training speed.',
+      why: 'Training speedups are the Day 4 item on the KvK tab. Burning them early wastes that.',
+      mistake: 'Spending them early; assuming every tier or promotion scores the same.',
+      exc: 'Check on the event screen whether promotion scores and how tier changes points.', ev: 'c' },
+    { tab: 'speedups', n: 'General (universal) speedups', tag: 'bank', key: 'speedGeneral', pts: 'speedupMin', kw: 'universal any',
+      does: 'Works on any timer: building, research, training, or healing.',
+      best: 'Fill gaps on any scoring day once the specialized speedups run out.',
+      why: 'Flexibility is valuable. Use specialized speedups first when they do the same job.',
+      mistake: 'Using general before specialized; planning the same general speedups for two different days.',
+      exc: 'Because they also heal, they double as a battle reserve.', ev: 'c' },
+    { tab: 'speedups', n: 'Master Skill speedups', tag: 'bank', key: 'speedMaster', pts: 'speedupMin', kw: 'master academy mta',
+      does: 'Speeds up Master skill training in the Master Training Academy.',
+      best: 'Day 2, the main Master Academy day (Day 3 as backup).',
+      why: 'Listed as scoring on the KvK tab\'s Day 1 and Day 2 lists.',
+      mistake: 'Treating Master Academy scoring as the same as regular research.',
+      exc: 'See the Master Academy tab for what\'s KvK-sensitive.', ev: 'c' },
+    { tab: 'speedups', n: 'Healing speedups', tag: 'battle', kw: 'hospital infirmary heal',
+      does: 'Cuts healing time for wounded troops.',
+      best: 'Battle-day recovery.',
+      why: 'They keep you in the fight when it counts.',
+      mistake: 'Treating them like normal speedups and spending them during prep.',
+      exc: 'Whether healing speedups score on any prep day isn\'t confirmed - check the event screen before assuming.', ev: 'c', verify: 'Prep scoring unverified' },
+
+    { tab: 'bonuses', n: 'Shields', tag: 'battle', kw: 'peace protection bubble',
+      does: 'Protects your city from attack while active.',
+      best: 'Offline time during the KvK battle and other PvP windows.',
+      why: 'Your troops and resources are worth more than the shield item. Shield up whenever you\'re offline during KvK.',
+      mistake: 'Saving shields and getting hit while offline.',
+      exc: 'During active fighting you may need to be unshielded to attack - follow your rally leads.', ev: 'c' },
+    { tab: 'bonuses', n: 'Teleports', tag: 'battle', kw: 'move relocate',
+      does: 'Moves your city on the map.',
+      best: 'Battlefield positioning and emergency relocation.',
+      why: 'Running out leaves you stuck far from allies - solo cities get picked off first.',
+      mistake: 'Spending them on convenience moves before KvK.',
+      exc: 'Keep enough for at least one emergency move on battle day.', ev: 'c' },
+    { tab: 'bonuses', n: 'Gathering boosts', tag: 'sit', key: 'gathering', evt: true, kw: 'gather speed',
+      does: 'Raises gathering speed for a time.',
+      best: 'Gathering scoring days (KvK Days 2, 4, 5) or a gathering event.',
+      why: 'The boost doesn\'t score by itself - resources gathered during the scoring window do.',
+      mistake: 'Activating one with no marches out.',
+      exc: 'Gather on your own kingdom\'s tiles before KvK battle starts.', ev: 'c' },
+    { tab: 'bonuses', n: 'Construction, research, and training boosts', tag: 'sit', kw: 'speed buff capacity growth',
+      does: 'Temporary percentage boosts to build, research, or training speed, or extra training capacity. They are not instant speedups.',
+      best: 'Activate right before the qualifying action on its prep day.',
+      why: 'A percentage boost makes your speedups go further, and it stacks with a minister slot.',
+      mistake: 'Activating with nothing queued; confusing a percentage boost with an instant speedup.',
+      exc: 'Tip from the Home tab: activate the Training Capacity buff (profile > Growth tab) before Day 4 and leave troops running overnight.', ev: 'c', verify: 'Item names vary' },
+    { tab: 'bonuses', n: 'Combat boosts', tag: 'battle', kw: 'attack defense lethality health buff',
+      does: 'Temporary boosts to troop combat stats.',
+      best: 'Battle-day pushes, timed with your alliance.',
+      why: 'They don\'t score prep points. Their value is in the fight.',
+      mistake: 'Using them during prep or on solo attacks that don\'t matter.',
+      exc: 'Match the item to what\'s in your Bonuses tab - names and strengths vary.', ev: 'c', verify: 'Item names vary' },
+
+    { tab: 'gear', n: 'Forgehammers', tag: 'bank', key: 'forgehammers', pts: 'forgehammer', kw: 'hammer hero gear mastery',
+      does: 'Levels up Mythic Hero Gear mastery.',
+      best: 'Days 4-5.',
+      why: 'A fixed-value prep item - bank it for Days 4-5.',
+      mistake: 'Spending them before prep; upgrading the wrong Hero just to use them.',
+      exc: 'Bear Hunt is one of the best free sources - see the Bear Hunt tab.', ev: 'c' },
+    { tab: 'gear', n: 'Hero Exclusive Gear Widgets', tag: 'bank', key: 'widgets', pts: 'widget', kw: 'widget exclusive',
+      does: 'Upgrades a Hero\'s Exclusive Gear.',
+      best: 'Days 4-5.',
+      why: 'A fixed-value prep item worth twice a Forgehammer.',
+      mistake: 'Upgrading a Hero you won\'t field just to use Widgets.',
+      exc: 'Combat value still matters - pick the Hero that improves your fights.', ev: 'c' },
+    { tab: 'gear', n: 'Mithril', tag: 'bank', key: 'mithril', pts: 'mithril', kw: 'hero gear late game',
+      does: 'High-tier Hero Gear material - the biggest single point item in prep.',
+      best: 'Days 4-5.',
+      why: 'One Mithril can be worth a whole chest on its own.',
+      mistake: 'Spending it before prep; splitting it across days without a chest plan.',
+      exc: 'Not every account has Mithril yet. Day 4 still scores through training, Widgets, and Forgehammers.', ev: 'c' },
+    { tab: 'gear', n: 'Hero Gear XP (enhancement parts)', tag: 'sit', kw: 'enhancement xp part',
+      does: 'Adds enhancement XP to Hero Gear.',
+      best: 'Events whose screen lists Hero Gear enhancement.',
+      why: 'Hero Gear enhancement isn\'t on the KvK tab\'s prep lists.',
+      mistake: 'Assuming every Hero Gear item scores like Forgehammers and Widgets.',
+      exc: 'Other events may score it - check that event\'s tab.', ev: 'c', verify: 'KvK scoring unverified' },
+    { tab: 'gear', n: 'Satin', tag: 'bank', key: 'govGear', kw: 'governor gear thread',
+      does: 'Main Governor Gear crafting and upgrade material.',
+      best: 'Day 5 Governor Gear upgrades.',
+      why: 'Governor Gear scores on Day 5. Points come from upgrades completed, not materials held.',
+      mistake: 'Counting materials you own as points; mixing up Governor Gear with Hero Gear.',
+      exc: 'Check on the event screen whether it counts materials used or upgrades finished.', ev: 'c' },
+    { tab: 'gear', n: 'Gilded Threads', tag: 'bank', key: 'govGear', kw: 'governor gear thread',
+      does: 'Governor Gear material used alongside Satin at every tier.',
+      best: 'Day 5 Governor Gear upgrades.',
+      why: 'Same as Satin - scores through Day 5 Governor Gear upgrades.',
+      mistake: 'Running short mid-upgrade because Threads weren\'t counted.',
+      exc: 'Plan the full upgrade cost before Day 5.', ev: 'c' },
+    { tab: 'gear', n: 'Artisan\'s Vision', tag: 'bank', key: 'govGear', kw: 'governor gear vision',
+      does: 'Needed for Governor Gear from Blue 2-star upward.',
+      best: 'Day 5 Governor Gear upgrades.',
+      why: 'Often the bottleneck material at higher tiers.',
+      mistake: 'Not collecting it before you reach mid-Blue.',
+      exc: 'Swordland\'s shop is a common source.', ev: 'c' },
+    { tab: 'gear', n: 'Charm Designs', tag: 'bank', key: 'charms', kw: 'governor charm',
+      does: 'Governor Charm upgrade material.',
+      best: 'Days 1, 3, or 4.',
+      why: 'Charm upgrades score on Days 1, 3, and 4. Points depend on the upgrade level reached, not materials owned.',
+      mistake: 'Spending them on the same day you already hit your chest with other items.',
+      exc: 'Pick the day that fits your chest plan best.', ev: 'c' },
+    { tab: 'gear', n: 'Charm Guides', tag: 'bank', key: 'charms', kw: 'governor charm',
+      does: 'Governor Charm upgrade material used with Charm Designs.',
+      best: 'Days 1, 3, or 4.',
+      why: 'Same scoring as Charm Designs.',
+      mistake: 'Running out of one material halfway through an upgrade.',
+      exc: 'Count both materials before choosing your day.', ev: 'c' },
+
+    { tab: 'other', n: 'Hero Shards (Mythic, Epic, Rare)', tag: 'bank', key: 'heroShards', kw: 'general shard ascend star',
+      does: 'Ascends (stars up) a Hero. Getting shards, converting general shards to a specific Hero, ascending, and leveling are separate steps - only ascending is on the prep lists.',
+      best: 'Days 2-3.',
+      why: 'Owning or opening shards doesn\'t score. Ascending does.',
+      mistake: 'Ascending outside prep; confusing shards with Hero EXP.',
+      exc: 'Points vary by Hero rarity and star - check the event screen.', ev: 'c' },
+    { tab: 'other', n: 'Hero recruitment items', tag: 'sit', evt: true, kw: 'recruit keys summon tavern',
+      does: 'Used for Hero recruitment.',
+      best: 'Recruitment events with extra rewards.',
+      why: 'Recruitment isn\'t on the KvK tab\'s prep lists.',
+      mistake: 'Treating them as a KvK scoring item.',
+      exc: 'Match the name to your Backpack - recruitment item names vary by version.', ev: 'c', verify: 'Name and scoring unverified' },
+    { tab: 'other', n: 'Advanced Taming Marks', tag: 'bank', key: 'advTaming', pts: 'advTaming', kw: 'pet refine',
+      does: 'Refines pet stats, with better odds at higher rarities.',
+      best: 'Days 3 and 5.',
+      why: 'One of the highest-value items in prep for non-spenders.',
+      mistake: 'Refining for fun between KvKs.',
+      exc: 'See the Pets tab for refinement priorities.', ev: 'c' },
+    { tab: 'other', n: 'Common Taming Marks', tag: 'bank', key: 'commonTaming', kw: 'pet refine',
+      does: 'Refines pet stats.',
+      best: 'Days 3 and 5.',
+      why: 'Listed as scoring on Days 3 and 5.',
+      mistake: 'Using them outside prep.',
+      exc: 'There\'s no single fixed point value on the KvK tab - check the event screen.', ev: 'c' },
+    { tab: 'other', n: 'Pet advancement materials', tag: 'bank', key: 'petAdv', kw: 'growth manual nutrient potion promotion medallion',
+      does: 'Growth Manuals, Nutrient Potions, and Promotion Medallions are needed at each 10-level pet advancement gate.',
+      best: 'Days 3 and 5.',
+      why: 'Pet advancement scores on Days 3 and 5.',
+      mistake: 'Advancing a pet the day before prep starts.',
+      exc: 'Level the pet up to the gate beforehand so the advancement itself lands on Day 3 or 5.', ev: 'c' },
+    { tab: 'other', n: 'Pet Food', tag: 'use', kw: 'pet level',
+      does: 'Levels pets between advancement gates.',
+      best: 'As needed, to reach the next gate before prep.',
+      why: 'Leveling isn\'t the scoring step - advancement is.',
+      mistake: 'Overinvesting in pets you\'ll replace.',
+      exc: 'Some guides advise holding food for newer pets - check the Pets tab.', ev: 'a' },
+    { tab: 'other', n: 'Truegold', tag: 'bank', key: 'truegold', kw: 'tg building',
+      does: 'Material for Truegold building upgrades.',
+      best: 'Days 1, 2, and 5 - mainly Day 1 building upgrades.',
+      why: 'Points depend on the upgrade completed.',
+      mistake: 'Stockpiling forever while a key upgrade stays blocked.',
+      exc: 'See the True Gold tab for upgrade order.', ev: 'c' },
+    { tab: 'other', n: 'Tempered Truegold', tag: 'bank', key: 'temperedTruegold', pts: 'temperedTruegold', kw: 'tempered tg',
+      does: 'Advanced Truegold material for higher-tier upgrades.',
+      best: 'Days 1, 2, and 5.',
+      why: 'A fixed-value prep item.',
+      mistake: 'Using it before prep.',
+      exc: 'See the True Gold tab for where it fits.', ev: 'c' },
+    { tab: 'other', n: 'Truegold Dust', tag: 'bank', key: 'tgDust', kw: 'dust research war academy',
+      does: 'Research material for Truegold research (War Academy).',
+      best: 'Days 1, 2, and 5.',
+      why: 'Listed as scoring on those days.',
+      mistake: 'Spending it on research between KvKs.',
+      exc: 'War Academy\'s Increase Power stage uses the same Dust - see the War Academy tab for the Day 1-2 start / Day 4 claim timing.', ev: 'c' },
+    { tab: 'other', n: 'Master Emblems', tag: 'bank', key: 'masterEmblems', pts: 'masterEmblem', kw: 'master academy mta',
+      does: 'Master Training Academy upgrade material.',
+      best: 'Day 2 (Day 3 as backup).',
+      why: 'A fixed-value prep item.',
+      mistake: 'Spending them as soon as you get them.',
+      exc: 'See the Master Academy tab.', ev: 'c' },
+    { tab: 'other', n: 'Master\'s Manuscripts', tag: 'bank', key: 'manuscripts', kw: 'master academy mta',
+      does: 'Master Training Academy material.',
+      best: 'Day 2 (Day 3 as backup).',
+      why: 'Listed with Master Emblems on the KvK tab.',
+      mistake: 'Treating it like regular research.',
+      exc: 'There\'s no fixed point value on the KvK tab - check the event screen.', ev: 'c' },
+    { tab: 'other', n: 'Selection chests (shards, speedups, gear)', tag: 'sit', kw: 'choose pick chest',
+      does: 'Let you choose which item you get.',
+      best: 'Open once you know which item you need, ideally right before its prep day.',
+      why: 'Choosing late keeps you flexible.',
+      mistake: 'Opening them as soon as they drop.',
+      exc: 'Check whether the chest expires.', ev: 'c' },
+    { tab: 'other', n: 'Expiring event currencies', tag: 'use', evt: true, kw: 'buttery bones event ticket token',
+      does: 'Pay for attempts in a limited event and disappear when it ends (for example Buttery Bones in Finder\'s Fortune).',
+      best: 'Spend them during their event.',
+      why: 'Saving something that expires gains nothing.',
+      mistake: 'Hoarding them past the end of the event.',
+      exc: 'Read the item description - some event items (like Focusbells and Royal Cans) carry forward.', ev: 'c' }
+  ];
+
+  var state = { tab: 'all', filter: 'all', q: '' };
+  function btn(group, list, attr) {
+    var g = el(group);
+    g.innerHTML = list.map(function(t) { return '<button type="button" class="' + (attr === 'tab' ? 'bp-tab' : 'bp-filter') + '" data-' + attr + '="' + t.id + '" aria-pressed="' + (t.id === 'all') + '">' + esc(t.label) + '</button>'; }).join('');
+    g.addEventListener('click', function(e) {
+      var b = e.target.closest('button'); if (!b) return;
+      state[attr] = b.getAttribute('data-' + attr);
+      g.querySelectorAll('button').forEach(function(x) { x.setAttribute('aria-pressed', String(x === b)); });
+      renderItems();
+    });
+  }
+  btn('bpTabs', TABS, 'tab');
+  btn('bpFilters', FILTERS, 'filter');
+  el('bpSearch').addEventListener('input', function() { state.q = this.value.trim().toLowerCase(); renderItems(); });
+
+  function itemHtml(it) {
+    var t = TAG[it.tag];
+    var days = it.key && KVK_PREP.scores[it.key] ? KVK_PREP.scores[it.key] : null;
+    var p = it.pts ? ptsOf(it.pts) : null;
+    var head = '<span class="bp-item-name">' + esc(it.n) + '</span><span class="bp-badge bp-b-' + t.cls + '">' + t.label + '</span>' +
+      (days ? '<span class="bp-badge bp-b-days">KvK Day' + (days.length > 1 ? 's ' : ' ') + daysText(days) + '</span>' : '') +
+      (it.verify ? '<span class="bp-badge bp-b-verify">Verify: ' + esc(it.verify) + '</span>' : '');
+    var rows = [
+      ['What it does', it.does], ['Recommended', t.label.replace(/^\S+\s/, '')], ['Best use', it.best],
+      ['KvK prep days', days ? 'Scores on Day' + (days.length > 1 ? 's ' : ' ') + daysText(days) + (p ? ' - ' + fmt(p.pts) + ' points ' + (it.pts === 'speedupMin' ? 'per minute on Days ' + daysText(p.days) : 'each') : '') : 'Not on the KvK prep lists'],
+      ['Why', it.why], ['Common mistake', it.mistake], ['Exception', it.exc]
+    ];
+    return '<details class="bp-item bp-t-' + t.cls + '"><summary>' + head + '</summary><div class="bp-item-body"><dl>' +
+      rows.map(function(r) { return '<dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd>'; }).join('') +
+      '</dl><div class="bp-ev">Evidence: ' + EV[it.ev] + '</div></div></details>';
+  }
+  function renderItems() {
+    var list = ITEMS.filter(function(it) {
+      if (state.tab !== 'all' && it.tab !== state.tab) return false;
+      if (state.filter === 'event' && !it.evt) return false;
+      if (state.filter !== 'all' && state.filter !== 'event' && it.tag !== state.filter) return false;
+      if (state.q && (it.n + ' ' + (it.kw || '') + ' ' + it.does).toLowerCase().indexOf(state.q) === -1) return false;
+      return true;
+    });
+    el('bpCount').textContent = list.length + ' item' + (list.length === 1 ? '' : 's');
+    el('bpItems').innerHTML = list.length ? list.map(itemHtml).join('') : '<p class="body-note" style="color:var(--text-dim);">No items match. Try another tab or clear the search.</p>';
+  }
+  renderItems();
+
+  /* ---------- Spending calendar ---------- */
+  el('bpCal').innerHTML = KVK_PREP.days.map(function(d) {
+    var save = KVK_PREP.save.filter(function(r) { return r.days.indexOf(d.n) > -1 || (r.backup && r.backup.indexOf(d.n) > -1); })
+      .map(function(r) { return '<li>' + esc(r.item) + (r.backup && r.backup.indexOf(d.n) > -1 ? ' (backup)' : '') + '</li>'; }).join('');
+    var ch = KVK_PREP.chests[d.n - 1];
+    return '<div class="bp-cal-day"><span class="sg-day-num">Day ' + d.n + '</span><h4>' + esc(d.name) + '</h4>' +
+      (save ? '<p><strong>Best day for:</strong></p><ul>' + save + '</ul>' : '') +
+      '<p><strong>Scores today:</strong> ' + d.use.replace(/^the widest list - /, '') + '</p>' +
+      (ch ? '<p style="margin-top:6px;">Chests: ' + ch.t.map(kfmt).join(' / ') + '</p>' : '') + '</div>';
+  }).join('');
+
+  /* ---------- Decision tool ---------- */
+  var ans = {};
+  document.querySelectorAll('#bpDecide .bp-yn').forEach(function(g) {
+    var q = g.getAttribute('data-q');
+    g.innerHTML = '<button type="button" data-v="1" aria-pressed="false">Yes</button><button type="button" data-v="0" aria-pressed="false">No</button>';
+    g.addEventListener('click', function(e) {
+      var b = e.target.closest('button'); if (!b) return;
+      ans[q] = b.getAttribute('data-v') === '1';
+      g.querySelectorAll('button').forEach(function(x) { x.setAttribute('aria-pressed', String(x === b)); });
+      decide();
+    });
+  });
+  function decide() {
+    var out = el('bpDecideOut');
+    var need = ['prep', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6'];
+    var left = need.filter(function(k) { return !(k in ans); }).length;
+    if (left) { out.className = 'sg-calc-out'; out.textContent = left + ' question' + (left > 1 ? 's' : '') + ' left.'; return; }
+    var v, why;
+    if (ans.q5) { v = '🔵 Keep for battle'; why = 'Spending it would weaken your battle readiness. Prep points don\'t help if you can\'t heal, move, or protect your city on battle day.'; out.className = 'sg-calc-out warn'; }
+    else if (ans.prep && ans.q2) { v = '🟢 Use now'; why = 'It scores on today\'s prep day - this is what you saved it for. Spend toward your chest target, then stop and carry the rest to its other scoring day or the next KvK.'; out.className = 'sg-calc-out ok'; }
+    else if (ans.q3) {
+      if (ans.q1 && ans.q6) { v = '🟡 Use partially'; why = 'It\'s a KvK scoring item, but an essential upgrade needs it now. Use only what that upgrade needs and keep the rest banked for its prep day.'; out.className = 'sg-calc-out done'; }
+      else { v = '🔴 Save'; why = 'Rule #1: it scores in KvK prep, so it waits for its prep day.' + ((ans.q2 || ans.q4) ? ' Another event scoring it, or a reward on offer now, isn\'t a reason to spend KvK stockpile.' : '') + ' When in doubt, hold and check with your R4/R5.'; out.className = 'sg-calc-out warn'; }
+    }
+    else if (ans.q1 || ans.q6) { v = '🟢 Use now'; why = 'It doesn\'t score in KvK and using it now gives real value. Go ahead.'; out.className = 'sg-calc-out ok'; }
+    else if (ans.q2 || ans.q4) { v = '🟡 Use partially'; why = 'It doesn\'t score in KvK, so spending toward a worthwhile milestone is fine. Spend only what reaches it.'; out.className = 'sg-calc-out done'; }
+    else { v = '🔴 Save'; why = 'Nothing is gained by spending it now. Hold it until a real use comes along.'; out.className = 'sg-calc-out'; }
+    out.innerHTML = '<strong>' + v + '.</strong> ' + why;
+  }
+  el('bpDecideReset').addEventListener('click', function() {
+    ans = {}; document.querySelectorAll('#bpDecide .bp-yn button').forEach(function(x) { x.setAttribute('aria-pressed', 'false'); });
+    el('bpDecideOut').className = 'sg-calc-out'; el('bpDecideOut').textContent = 'Answer the questions to see a recommendation.';
+  });
+
+  /* ---------- Readiness calculator ---------- */
+  // Fixed-value rows: rate key -> points entry; unit text; allowed days come from the rate (plus extras)
+  var RC = [
+    { id: 'mithril', label: 'Mithril', unit: 'count', rate: 'mithril' },
+    { id: 'tempered', label: 'Tempered Truegold', unit: 'count', rate: 'temperedTruegold' },
+    { id: 'advTaming', label: 'Advanced Taming Marks', unit: 'count', rate: 'advTaming' },
+    { id: 'widget', label: 'Widgets', unit: 'count', rate: 'widget' },
+    { id: 'forge', label: 'Forgehammers', unit: 'count', rate: 'forgehammer' },
+    { id: 'emblem', label: 'Master Emblems', unit: 'count', rate: 'masterEmblem', def: 2 },
+    { id: 'spins', label: 'Planned Roulette plays', unit: 'count', rate: 'roulette', def: 2, note: 'Uses Gems - checked against your budget' },
+    { id: 'spdCon', label: 'Construction speedups', unit: 'hours', rate: 'speedupMin', def: 1 },
+    { id: 'spdRes', label: 'Research speedups', unit: 'hours', rate: 'speedupMin', def: 2 },
+    { id: 'spdTrn', label: 'Training speedups', unit: 'hours', rate: 'speedupMin', extra: [4], def: 4 },
+    { id: 'spdGen', label: 'General speedups', unit: 'hours', rate: 'speedupMin' },
+    { id: 'spdMas', label: 'Master Skill speedups', unit: 'hours', rate: 'speedupMin', def: 2 }
+  ];
+  var PLAIN = [
+    { id: 'tg', label: 'Truegold', key: 'truegold' }, { id: 'tgDust', label: 'Truegold Dust', key: 'tgDust' },
+    { id: 'shMy', label: 'Mythic Hero Shards', key: 'heroShards' }, { id: 'shEp', label: 'Epic Hero Shards', key: 'heroShards' },
+    { id: 'cTam', label: 'Common Taming Marks', key: 'commonTaming' }, { id: 'petAdv', label: 'Pet advancement materials', key: 'petAdv' },
+    { id: 'chDes', label: 'Charm Designs', key: 'charms' }, { id: 'chGui', label: 'Charm Guides', key: 'charms' },
+    { id: 'satin', label: 'Satin', key: 'govGear' }, { id: 'gild', label: 'Gilded Threads', key: 'govGear' },
+    { id: 'artV', label: 'Artisan\'s Vision', key: 'govGear' }, { id: 'manu', label: 'Master\'s Manuscripts', key: 'manuscripts' }
+  ];
+  el('bpRcRows').innerHTML = RC.map(function(r) {
+    var p = ptsOf(r.rate);
+    var days = p.days.concat(r.extra || []).sort();
+    var def = r.def || days[days.length - 1];
+    var opts = days.map(function(d) { return '<option value="' + d + '"' + (d === def ? ' selected' : '') + '>Day ' + d + (r.extra && r.extra.indexOf(d) > -1 ? ' (troops)' : '') + '</option>'; }).join('');
+    return '<div class="bp-rc-row"><span>' + esc(r.label) + (r.note ? '<small>' + esc(r.note) + '</small>' : '') + '</span>' +
+      '<label style="display:flex;flex-direction:column;gap:4px;font-family:Lato,sans-serif;font-size:0.72rem;color:var(--text-dim);">' + (r.unit === 'hours' ? 'Hours' : 'How many') +
+      '<input type="number" min="0" step="' + (r.unit === 'hours' ? 'any' : '1') + '" inputmode="' + (r.unit === 'hours' ? 'decimal' : 'numeric') + '" id="bpRcQ_' + r.id + '" placeholder="0"></label>' +
+      '<label style="display:flex;flex-direction:column;gap:4px;font-family:Lato,sans-serif;font-size:0.72rem;color:var(--text-dim);">Plan for<select id="bpRcD_' + r.id + '" aria-label="Prep day for ' + esc(r.label) + '">' + opts + '</select></label></div>';
+  }).join('');
+  el('bpRcPlain').innerHTML = PLAIN.map(function(r) {
+    return '<label>' + esc(r.label) + ' <input type="number" min="0" step="1" inputmode="numeric" id="bpRcP_' + r.id + '" placeholder="0"></label>';
+  }).join('');
+  var RATE_KEYS = ['mithril', 'temperedTruegold', 'advTaming', 'widget', 'forgehammer', 'masterEmblem', 'roulette', 'speedupMin'];
+  el('bpRcRates').innerHTML = RATE_KEYS.map(function(k) {
+    var p = ptsOf(k);
+    return '<label>' + esc(p.label) + ' <input type="number" min="0" step="1" inputmode="numeric" id="bpRcR_' + k + '" value="' + p.pts + '"></label>';
+  }).join('');
+
+  function rcCalc() {
+    var errs = [];
+    var gemA = Math.floor(num('bpRcGemA', errs, 'Available Gems')), gemB = Math.floor(num('bpRcGemB', errs, 'Backpack Gems'));
+    var price = Math.floor(num('bpRcSpin', errs, 'Spin price')), keep = Math.floor(num('bpRcKeep', errs, 'Emergency Gems'));
+    var rate = {}; RATE_KEYS.forEach(function(k) { var i = el('bpRcR_' + k); rate[k] = i.value === '' ? ptsOf(k).pts : num('bpRcR_' + k, errs, ptsOf(k).label + ' rate'); });
+    var perDay = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }, used = { 1: [], 2: [], 3: [], 4: [], 5: [] }, notEst = [], any = false, spins = 0;
+    RC.forEach(function(r) {
+      var q = num('bpRcQ_' + r.id, errs, r.label); if (r.unit === 'count') q = Math.floor(q);
+      if (!q) return; any = true;
+      var d = Number(el('bpRcD_' + r.id).value);
+      if (r.id === 'spins') spins = q;
+      var minutes = r.unit === 'hours' ? Math.round(q * 60) : 0;
+      if (r.extra && r.extra.indexOf(d) > -1) { notEst.push(r.label + ' on Day ' + d + ' - the troops they finish score by tier (T10 60, T11 75 each); speedup minutes on Day 4 have no listed rate'); used[d].push(r.label); return; }
+      var pts = r.unit === 'hours' ? minutes * rate[r.rate] : q * rate[r.rate];
+      perDay[d] += pts; used[d].push(r.label);
+    });
+    var plain = [];
+    PLAIN.forEach(function(r) { var q = Math.floor(num('bpRcP_' + r.id, errs, r.label)); if (q) { any = true; plain.push(fmt(q) + ' ' + r.label + ' (Day ' + daysText(KVK_PREP.scores[r.key]) + ')'); } });
+    var heal = num('bpRcHeal', errs, 'Healing speedups'), shield = Math.floor(num('bpRcShield', errs, 'Shields')), tele = Math.floor(num('bpRcTele', errs, 'Teleports'));
+    el('bpRcErr').textContent = errs.length ? errs.join('. ') + '.' : '';
+    var out = el('bpRcOut');
+    if (!any && !gemA && !gemB) { out.className = 'sg-calc-out'; out.textContent = 'Enter what you have to see your readiness summary.'; return; }
+
+    var h = '';
+    var total = gemA + gemB;
+    h += '<strong>Gems:</strong> ' + fmt(gemA) + ' available + ' + fmt(gemB) + ' in Backpack = <strong>' + fmt(total) + '</strong> total' + (keep ? ', ' + fmt(keep) + ' kept for emergencies' : '') + '.';
+    var warn = [];
+    if (keep > total) warn.push('Your emergency Gem reserve is more than your total Gems.');
+    if (spins) {
+      if (!price) warn.push('Enter the current spin price to check your ' + fmt(spins) + ' planned Roulette plays against your Gems.');
+      else if (spins * price > total - keep) warn.push(fmt(spins) + ' plays cost ' + fmt(spins * price) + ' Gems, but only ' + fmt(Math.max(0, total - keep)) + ' are free after your reserve. Free spins you own reduce this.');
+      else h += ' ' + fmt(spins) + ' planned plays cost ' + fmt(spins * price) + ' Gems, within budget.';
+    }
+    h += '<div class="sg-calc-sub" style="margin-top:10px;">Estimated prep points by day</div><ul class="bp-out-list">';
+    var grand = 0;
+    KVK_PREP.chests.forEach(function(c) {
+      var p = perDay[c.day]; grand += p;
+      var reached = c.t.filter(function(t) { return p >= t; }).length;
+      var chest = reached === 0 ? (p ? 'below the 1st chest (' + kfmt(c.t[0]) + ')' : '') : (reached === 3 ? 'reaches the final chest (' + kfmt(c.t[2]) + ')' : 'reaches the ' + (reached === 1 ? '1st' : '2nd') + ' chest; next at ' + kfmt(c.t[reached]));
+      h += '<li><strong>Day ' + c.day + ':</strong> ' + fmt(p) + ' pts' + (chest ? ' - ' + chest : '') + (used[c.day].length ? ' <span style="color:var(--text-dim);">(' + esc(used[c.day].join(', ')) + ')</span>' : '') + '</li>';
+    });
+    h += '</ul><strong>Total estimate: ' + fmt(grand) + ' points</strong> from fixed-value items only. Each item is counted on one day.';
+    if (notEst.length || plain.length) {
+      h += '<div class="sg-calc-sub" style="margin-top:10px;">Not estimated</div><p>Exact points require the planned upgrade or current event scoring information.</p><ul class="bp-out-list">' +
+        notEst.concat(plain).map(function(x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';
+    }
+    if (!heal) warn.push('No healing speedups entered - keep some for battle day.');
+    if (!shield) warn.push('No shields entered - you\'ll want one for offline time during KvK.');
+    if (!tele) warn.push('No teleports entered - keep at least one for emergency relocation.');
+    if (warn.length) h += '<div class="sg-calc-sub" style="margin-top:10px;">Check these</div><ul class="bp-out-list">' + warn.map(function(x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';
+    out.className = 'sg-calc-out ' + (warn.length ? 'warn' : 'ok');
+    out.innerHTML = h;
+  }
+  el('bpRc').addEventListener('input', rcCalc);
+  el('bpRc').addEventListener('change', rcCalc);
+  el('bpRcPull').addEventListener('click', function() { var g = gemTotals(); el('bpRcGemA').value = g.a || ''; el('bpRcGemB').value = g.b || ''; if (el('bpGemSpin').value) el('bpRcSpin').value = el('bpGemSpin').value; if (el('bpGemKeep').value) el('bpRcKeep').value = el('bpGemKeep').value; rcCalc(); });
+  el('bpRcReset').addEventListener('click', function() {
+    el('bpRc').querySelectorAll('input').forEach(function(i) { i.value = ''; i.removeAttribute('aria-invalid'); });
+    RATE_KEYS.forEach(function(k) { el('bpRcR_' + k).value = ptsOf(k).pts; });
+    RC.forEach(function(r) { var s = el('bpRcD_' + r.id); s.selectedIndex = -1; s.querySelectorAll('option').forEach(function(o) { if (o.defaultSelected) o.selected = true; }); });
+    rcCalc();
+  });
+
+  /* ---------- Checklist ---------- */
+  var CHK = ['Reviewed Gem balance', 'Calculated unclaimed Backpack Gems', 'Reviewed construction speedups', 'Reviewed research speedups',
+    'Reviewed training speedups', 'Preserved healing reserves', 'Checked Hero Shards', 'Checked Truegold materials', 'Checked Governor Charm materials',
+    'Checked Governor Gear materials', 'Checked Hero Gear materials', 'Checked Pet materials', 'Reviewed current KvK scoring rules',
+    'Planned important upgrades', 'Checked event overlap opportunities', 'Preserved battle recovery resources'];
+  el('bpChkList').innerHTML = CHK.map(function(c, i) { return '<li><label><input type="checkbox" id="bpChk_' + i + '"><span>' + esc(c) + '</span></label></li>'; }).join('');
+  el('bpChkReset').addEventListener('click', function() { el('bpChkList').querySelectorAll('input').forEach(function(i) { i.checked = false; }); });
+
+  /* ---------- Mistakes ---------- */
+  var MIS = [
+    ['Opening every Gem item', 'You lose sight of what you have. Keep them unclaimed until a planned purchase.'],
+    ['Thinking Backpack Gems are already counted', 'They\'re extra to the visible balance. Run the Gem Calculator.'],
+    ['Spending Gems without a plan', 'Price Roulette and other buys first, and keep an emergency reserve.'],
+    ['Claiming more resources than you need', 'Opened resources are non-secured and can be plundered. Open only what the next upgrade costs.'],
+    ['Thinking opening packs scores points', 'Opening never scores. Upgrades, research, training, and gathering can, on their prep day.'],
+    ['Ascending Heroes outside prep', 'Hero Shards score on Days 2-3. Ascend then.'],
+    ['Speedups on the wrong day', 'Speedup minutes score on Days 1, 2, and 5; training speedups belong on Day 4.'],
+    ['General speedups before specialized ones', 'Use the specialized type first and keep general ones flexible.'],
+    ['Hero Gear materials before prep', 'Forgehammers, Widgets, and Mithril wait for Days 4-5.'],
+    ['Mixing up Hero Gear and Governor Gear', 'Hero Gear scores on Days 4-5; Governor Gear on Day 5. Different materials, different rules.'],
+    ['Ignoring troop tier on Day 4', 'Higher tiers score far more per troop (T10 60, T11 75). Train your best tier.'],
+    ['Delaying essential upgrades forever', 'Rule #1 protects KvK items, not a growth freeze. Non-scoring essentials can go ahead.'],
+    ['Missing milestones outside KvK', 'Event milestones you can reach without KvK stockpile are free value - see each event tab.'],
+    ['Burning battle reserves in prep', 'Healing speedups, shields, and teleports are for battle day.'],
+    ['Following an old day chart', 'Scoring changes with updates. Check the in-game task list every day.']
+  ];
+  el('bpMistakes').innerHTML = MIS.map(function(m) { return '<div class="tg-mistake-card"><div class="tg-mistake-title">' + esc(m[0]) + '</div><div class="tg-mistake-desc">' + esc(m[1]) + '</div></div>'; }).join('');
+
+  /* ---------- Load anything the player saved on this device ---------- */
+  var saved = readStore();
+  ['gem', 'rc', 'chk'].forEach(function(w) { if (saved[w]) { restore(el(ROOTS[w]), saved[w]); savedNote(w, 'Loaded your saved numbers from this browser.'); } });
+  gemCalc(); rcCalc();
+})();
+</script>
+
 
 <!-- ETERNITY'S REACH -->
 <section id="er" class="tab-panel">
@@ -8734,7 +9731,7 @@ const WORKER_URL = 'https://bbq-kingshot.burseer.workers.dev';
 const GUIDE_KNOWLEDGE = `
 === KINGDOM 1625 GUIDE KNOWLEDGE ===
 
-KINGDOM #1 RULE - SAVE FOR KVK: This kingdom's top priority, above everything else, is KvK preparation. Every player in every alliance should be saving key resources rather than spending them as they are earned. Only spend these resources on the specific KvK preparation phase days where they count toward scoring - never spend them outside those windows. When in doubt, hold the resource and check with R4/R5 leadership first. This rule overrides general event-spending advice elsewhere in this guide during active KvK prep windows. SAVE THESE ITEMS: Speedups (General & Research), Truegold Dust (War Academy's "Increase Power" stage draws on the same Dust as research - see War Academy section for the Day 1-2 start / Day 4 claim timing pattern), Resource packs, Stamina, Teleports, Shields/Buffs, Pet items, Hammers/Widgets, Gov Gear/Charms. DAILY TERROR RALLIES (Home tab): Kingdom #1625 daily goal = 10 Terror special rewards + 50 rally participation rewards. Leading: your first 10 qualifying Terror rally victories each day earn special rewards; leading after 10 still gives normal rally rewards but no more special rewards. Joining: up to 50 daily participation rewards from joining allied Terror rallies - a SEPARATE limit, not 50 more special-reward rolls. Rewards include resources, speedups, Satin, and more. Prioritize Level 8 Terrors when the alliance can defeat them reliably (higher levels generally give better rewards). Enable Auto-Join to collect participation rewards while away. Check reward counters by selecting a Terror on the map and tapping the magnifying glass. Joining is generally stamina-free; leading uses stamina - use naturally regenerated stamina for daily rallies and keep backpack stamina items for KvK. Save earned speedups, resource packs, and upgrade materials for KvK prep phases. Anecdotal only: some players report Level 8 Terrors can drop Badlands Chests as special rewards, and some prefer manually joining Level 8 rallies so Auto-Join doesn't spend the 50 participation rewards on lower-level Terrors - exact Level 8 drops are unverified. TROOP TRAINING DAY TIP: Get early points for troop training day by using your Training Capacity buff - tap the arrow under your profile, go to the Growth tab, and activate it for a big boost of points. Leave troops running overnight and you get a full day's worth of points as soon as the event starts.
+BACKPACK TAB (Strategy group, #backpack): personal Backpack resource management for KvK-focused governors, built on Rule #1. Badges: Bank for events (KvK scoring items), Situational, Use as needed, Battle reserve. HIDDEN GEMS: Gem items in the Backpack (1, 10, 100, 1K) are EXTRA to the Gem balance shown in-game - tap Use to add them. Example inventory on the tab: 137,388 x1 + 3,578 x10 + 2,992 x100 + 460 x1,000 = 932,368 Backpack Gems. Claiming Gems scores no KvK points; Hero Roulette plays bought with them score 8,000 each on prep Days 2-3. Suggested habit (budgeting, not a rule): keep Gem items unclaimed until a planned purchase. RESOURCE ITEMS: opening Bread/Wood/Stone/Iron items never scores; resources from Backpack items are non-secured (above Storehouse protection they can be plundered); unopened items cannot be stolen - open only what a planned upgrade needs. Resource selection chests: pick the real bottleneck (often Stone or Iron). Prep days and point values on the Backpack tab come from the same KVK_PREP data as the KvK tab. Speedups: construction, research, general, and Master skill speedup minutes score 30 points per minute on Days 1, 2, 5; training speedups belong on Day 4 (troops finished score T10 60 / T11 75 each). Healing speedups, shields, teleports, combat boosts = battle reserves (healing speedup prep scoring unverified). Hero Gear (Forgehammers 4,000, Widgets 8,000, Mithril 40,000) scores Days 4-5; Governor Gear (Satin, Gilded Threads, Artisan's Vision - needed from Blue 2-star) scores Day 5 from upgrades completed, not materials held; Governor Charms (Charm Designs, Charm Guides) Days 1, 3, 4. Hero Shards score when ascending on Days 2-3 (owning or opening them does not score). Pets: Advanced Taming Marks 15,000 on Days 3 and 5; Common Taming Marks and pet advancement (Growth Manuals, Nutrient Potions, Promotion Medallions at each 10-level gate) Days 3, 5; Pet Food and Hero EXP = use as needed. Truegold and Truegold Dust Days 1, 2, 5; Tempered Truegold 30,000 on Days 1, 2, 5; Master Emblems 6,000 Days 2-3; Manuscripts Day 2. Governor Stamina items: Kingdom 1625 keeps them in reserve; main planned use is Cesares Fury. Expiring event currencies (e.g. Buttery Bones): spend during the event. Hero recruitment item names and Hero Gear XP KvK scoring are unverified. Duel of the Elites (Aug 2026 update): runs during prep for the kingdom's top 150 by power; finishing first in a Duel group reportedly gives the kingdom a prep point bonus the next day - participation is voluntary. Tools on the tab: Gem Calculator (available + Backpack = total, Roulette spin budget with a user-entered spin price), Should I Use This Item Now? (Rule #1 decision tool: Save / Use now / Use partially / Keep for battle), KvK Readiness Calculator (fixed-value items only, each assigned to one day, compared with daily chest targets; upgrade-dependent items show 'Exact points require the planned upgrade or current event scoring information'), and My KvK Backpack Checklist. All tools are private and optional; nothing is saved unless the player taps Save on this device (browser only). KINGDOM #1 RULE - SAVE FOR KVK: This kingdom's top priority, above everything else, is KvK preparation. Every player in every alliance should be saving key resources rather than spending them as they are earned. Only spend these resources on the specific KvK preparation phase days where they count toward scoring - never spend them outside those windows. When in doubt, hold the resource and check with R4/R5 leadership first. This rule overrides general event-spending advice elsewhere in this guide during active KvK prep windows. SAVE THESE ITEMS: Speedups (General & Research), Truegold Dust (War Academy's "Increase Power" stage draws on the same Dust as research - see War Academy section for the Day 1-2 start / Day 4 claim timing pattern), Resource packs, Stamina, Teleports, Shields/Buffs, Pet items, Hammers/Widgets, Gov Gear/Charms. DAILY TERROR RALLIES (Home tab): Kingdom #1625 daily goal = 10 Terror special rewards + 50 rally participation rewards. Leading: your first 10 qualifying Terror rally victories each day earn special rewards; leading after 10 still gives normal rally rewards but no more special rewards. Joining: up to 50 daily participation rewards from joining allied Terror rallies - a SEPARATE limit, not 50 more special-reward rolls. Rewards include resources, speedups, Satin, and more. Prioritize Level 8 Terrors when the alliance can defeat them reliably (higher levels generally give better rewards). Enable Auto-Join to collect participation rewards while away. Check reward counters by selecting a Terror on the map and tapping the magnifying glass. Joining is generally stamina-free; leading uses stamina - use naturally regenerated stamina for daily rallies and keep backpack stamina items for KvK. Save earned speedups, resource packs, and upgrade materials for KvK prep phases. Anecdotal only: some players report Level 8 Terrors can drop Badlands Chests as special rewards, and some prefer manually joining Level 8 rallies so Auto-Join doesn't spend the 50 participation rewards on lower-level Terrors - exact Level 8 drops are unverified. TROOP TRAINING DAY TIP: Get early points for troop training day by using your Training Capacity buff - tap the arrow under your profile, go to the Growth tab, and activate it for a big boost of points. Leave troops running overnight and you get a full day's worth of points as soon as the event starts.
 PET PLANS BY EVENT: Most combat pet skills last 2 hours with a 20-hour cooldown (one window per day); different pet skills can be active at once. Do NOT turn on every pet for every event - activate only what the event uses, right before the window. Bear Hunt: rally leaders use Alpha Black Panther, Giant Rhino, Great Moose, Mighty Bison right before the rally; joiners need none (leader stats apply); skip Grizzly and Moose (bear doesn't fight back) and utility pets. Viking Vengeance: Giant Rhino, Alpha Black Panther, Moose (helps reach 50% kill threshold), Mighty Bison, just before wave 1 (2h covers ~40 min); Lynx if short on stamina; skip Great Moose unless leading rallies and utility pets; reinforcement applicability not fully confirmed. All Out: Giant Rhino, Alpha Black Panther, Moose, Grizzly, Mighty Bison for the planned hitting session (Great Moose only for city rallies); about one 2h window per event day. Swordland: Grizzly (march speed for mobility), Giant Rhino, Alpha Black Panther, Moose, Mighty Bison right before the battlefield opens (Great Moose if leading rallies); a community guide reports pet skills, appointments, and consumables are active in Swordland. Tri-Alliance Clash: Giant Rhino, Alpha Black Panther, Moose (combat bonuses reportedly active); skip Mighty Bison, Great Moose, and Grizzly's march speed (deployment capacity, march speed, rally buffs reportedly disabled). Alliance Championship: combat pets (Giant Rhino, Alpha Black Panther, Mighty Bison) right before registering - buffs active at registration reportedly last the whole event; follow leader buff policy; Regal White Lion and Ironclad War Elephant fit the garrison formation once unlocked (~Jan 2027). Strongest Governor: Bison on Day 7 gathering, Cheetah anytime; no Gray Wolf (Day 1 is a sit-out day); all combat pets do nothing (no battles). Pet skills don't score points; Days 3 and 7 score pet advancement and Taming Marks. KvK: prep Day 1 Gray Wolf, gathering days 2/4/5 Bison; battle day Grizzly, Giant Rhino, Alpha Black Panther, Moose, Mighty Bison, Great Moose for rally leaders, timed to the main castle push (battle 12h, pets 2h); don't waste combat pets during prep. Blizzard Brawl, Eternity's Reach, Governor Duel: NOT confirmed whether pet skills apply - test and report. Utility pets (Gray Wolf, Lynx, Bison, Cheetah, Lion) should be saved for growth days, not fired off for combat events.
 MINISTRY APPOINTMENTS FOR EVENTS: Outside KvK prep week, Kingdom 1625 appointments are wide open (no kingdom sign-up sheet) - open the in-game Appointment screen, pick an office, and apply for an open 30-minute slot or use Quick Reserve; time the slot to cover when the buff matters. Office buffs (in-game screen, Nov 2026): Noble Advisor Training Speed +75%, Training Capacity +300; Chief Minister Construction/Research/Training Speed +15%; Field Commander Appointment-based Squads' Lethality +15%; Marshal Appointment-based Squads' Attack +8%, Troops Deployment Capacity +3,750; Minister of the Interior Healing Speed +150%, Infirmary Capacity +7,500; Minister of Justice Resource Production Speed +120% (general growth, no event). EVENT FITS: Strongest Governor - Noble Advisor on Days 4 and 6 before starting normal training; free and KvK-safe (no stockpile spent); no office on other days (Chief Minister is NOT recommended for Day 1 - Day 1 is a sit-out day). Alliance Brawl - Noble Advisor on Day 4 before each training batch (best Brawl slot; +300 capacity means more scoring troops per batch), Chief Minister on Day 1 before planned upgrades; Days 2-3 no office needed; Days 5-6 only Terror rally callers whose rallies are failing might try Field Commander or Marshal (untested on Terrors). Cesares Fury - Chief Minister before long upgrades. Bear Hunt - rally stats come from the rally leader, so only rally leaders benefit: Field Commander (Lethality is the top Bear stat) or Marshal during the trap window; joiners don't need offices. All Out - Field Commander or Marshal for planned attacks; Minister of the Interior for fast batch healing and Noble Advisor for rebuilding. Swordland - troops can't permanently die and hospital can't fill, so Interior isn't needed; a community guide reports castle appointments are active in Swordland, so Field Commander or Marshal covering the battle is worth it (confirm on stats). Alliance Championship - buffs active at registration reportedly stay for the whole event, so time office slots to registration. Tri-Alliance Clash, Blizzard Brawl, Eternity's Reach, Governor Duel - NOT confirmed whether office buffs apply; treat as something to test and report, never as proven.
 KVK PREP SCHEDULE (Kingdom of Power; community data from Kingshot Mastery, Nov 2026 - verify on live event screen; the 5-day order is how guides present it, not officially confirmed as fixed): Phases: matchmaking 2 days, preparation 5 days, battle 12 hours (10:00-22:00 UTC, prep winner attacks with State Bonus buffs), field triage after. Day 1 City Construction: Truegold/Tempered Truegold building upgrades, Truegold Dust research, Watchtower Intel Missions (6,000), Governor Charms, construction/research/training/Master skill speedups (30 per minute) - don't dump the whole stockpile. Day 2 Hero Progression: Hero Roulette (8,000), Hero Shards (Mythic 3,040, Epic 1,220, Rare 350), Master Emblems (6,000) and Manuscripts (60), Truegold, speedups, gathering - main day for Master Emblems/Manuscripts/Master skill speedups. Day 3 Pets and Heroes: Advanced Taming Mark (15,000), Hero Roulette, Intel Missions, Hero Shards, Common Taming Mark (1,150), pet advancement, Charms, Master Emblems. Day 4 Mithril and Training: Mithril (40,000), Widgets (8,000), Forgehammers (4,000), troop training per troop T11 75, T10 60, T9 45, T8 35 down to T1 3, Charms, gathering - swing day, spend training speedups here; no-Mithril players score via training, Widgets, Forgehammers, gathering. Day 5 Power Boost: widest list - Mithril, Advanced Taming Marks, Tempered Truegold, Widgets, Forgehammers, Intel Missions, Truegold/Dust, Common Taming Marks, pet advancement, Governor Gear, all speedups, gathering - cleanup and surge day. SAVE FOR WHICH DAY: Truegold Days 1, 2, 5; Master Emblems/Manuscripts/Master skill speedups Day 2 (Day 3 backup); Hero Roulette and Mythic Shards Days 2, 3; Advanced Taming Marks Days 3, 5; training speedups Day 4; Widgets and Forgehammers Days 4, 5; Mithril Days 4, 5; Governor Gear Day 5. Biggest mistake: spending everything on Day 1. DAILY PERSONAL CHEST TARGETS (1st/2nd/final): Day 1 30K/100K/200K, Day 2 40K/120K/270K, Day 3 80K/150K/300K, Day 4 80K/150K/300K, Day 5 40K/130K/250K (verify in-game). MINISTER APPOINTMENTS: before every KvK prep, Kingdom 1625 shares a sign-up link for King's ministry appointments - watch alliance chat and the Discord channels and sign up early because slots fill. Slots are 30 minutes. OFFICES (buffs as shown on the in-game Appointment screen, Nov 2026 - may change): Noble Advisor = Training Speed +75%, Training Capacity +300 (best prep slot, use on Day 4); Chief Minister = Construction, Research, and Training Speed +15% each (Days 1, 4, 5; Day 2 only if starting research); Minister of the Interior = Healing Speed +150%, Infirmary Capacity +7,500 (battle recovery, NOT a prep slot); Field Commander = Appointment-based Squads' Lethality +15% (battle, NOT prep); Marshal = Appointment-based Squads' Attack +8%, Troops Deployment Capacity +3,750 (battle, NOT prep); Minister of Justice = Resource Production Speed +120% and can appoint/remove officials in the King's place (administration, NOT prep). Only Noble Advisor and Chief Minister help prep scoring; there is no construction-only or research-only office. Day 3 (pets/heroes) has no matching office. Be online with queues ready the moment you're appointed; the in-game screen can show local time but sign-up sheets are often in UTC; tell the organizer early if you can't make your slot.
@@ -8988,6 +9985,7 @@ function quickAsk(question) {
 // date format: YYYY-MM-DD (used only for sorting/compare, not displayed verbatim below)
 // Links can point at any tab id (e.g. '#war-academy') - the tab system opens that tab.
 const WHATS_NEW = [
+  { date: '2026-11-17', label: 'New Backpack tab - what every item does, which KvK prep day it scores on, the hidden Backpack Gems lesson, a Gem Calculator, a KvK Readiness Calculator, and a private checklist', link: '#backpack' },
   { date: '2026-11-15', label: 'Strongest Governor now KvK-first by day: play Days 4, 6, and 7, budget-only Days 2 and 3, sit out Days 1 and 5 - no more Day 1 Chief Minister or Gray Wolf', link: '#strongest-governor' },
   { date: '2026-11-15', label: 'Mystic Trial Raid Crystal Estimator now counts Trial Chests too - 1 purple and 1 gold per completed chapter, confirmed in-game', link: '#mystic-trial' },
   { date: '2026-11-15', label: 'Mystic Trial: new Winning Formations board - post what cleared your stage, high-five what helped you, and climb Omen\'s weekly and all-time leaderboard', link: '#mystic-trial' },
@@ -10082,6 +11080,7 @@ const TABS = [
   { id: 'swordland',      label: 'Swordland',         group: 'Events', desc: 'Buildings, stored points, and mobility - not raw kills.' },
   { id: 'tri-alliance',   label: 'Tri-Alliance Clash',group: 'Events', desc: 'Three alliances fight for territory and the Temple of Tides.' },
   { id: 'viking',         label: 'Viking Vengeance',  group: 'Events', desc: 'Biweekly 20-wave alliance defense event over roughly 40 minutes.' },
+  { id: 'backpack',       label: 'Backpack',          group: 'Strategy', desc: 'What every Backpack item does, which KvK prep day it scores on, hidden Gems, and private planning calculators.', beacon: true },
   { id: 'f2p',            label: 'F2P Strategy',      group: 'Strategy', desc: 'Consistency and efficiency over speed.' },
   { id: 'transfer',       label: 'Kingdom Transfer',  group: 'Strategy', desc: 'You are already in the best kingdom - plus how to recruit strong players (not bullies) to 1625.' },
   { id: 'kvk',            label: 'KvK',               group: 'Strategy', desc: 'Day-by-day prep plan, what to save for which day, minister sign-ups, and battle survival rules.' },
