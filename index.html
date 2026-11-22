@@ -2967,6 +2967,10 @@
   .sg-calc-out.ok { border-color: #4caf6a; background: rgba(76,175,106,0.1); }
   .sg-calc-out.warn { border-color: #e05a4a; background: rgba(224,90,74,0.1); }
   .sg-calc-out.done { border-color: var(--gold); background: rgba(224,163,57,0.1); }
+  .cf-row { display: grid; grid-template-columns: minmax(0,1.6fr) minmax(0,1fr) minmax(0,0.8fr); gap: 8px; align-items: center; margin-bottom: 8px; }
+  .cf-row-head span { font-family: 'Lato', sans-serif; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); font-weight: 700; }
+  .cf-name { font-family: 'Lato', sans-serif; font-size: 0.82rem; color: var(--text); line-height: 1.3; }
+  @media (max-width: 420px) { .cf-name { font-size: 0.76rem; } .cf-row { gap: 6px; } }
 
   /* ── PET PLAN (per-event pet skill guidance) ── */
   .pet-plan { background: rgba(20,38,63,0.6); border: 1px solid rgba(111,208,140,0.35); border-left: 4px solid #6fd08c; border-radius: 10px; padding: 12px 14px; margin: 14px 0 20px; }
@@ -3140,6 +3144,7 @@
     <a href="#alliance-champ"><span class="nav-icon">&#x1F3C6;</span>Alliance Champ</a>
     <a href="#bear-hunt"><span class="nav-icon">&#x1F43B;</span>Bear Hunt</a>
     <a href="#blizzard-brawl"><span class="nav-icon">&#x2744;&#xFE0F;</span>Blizzard Brawl<span class="nav-beacon" aria-hidden="true"></span></a>
+    <a href="#champagne-fair" style="display:flex;align-items:center;"><span class="nav-icon">&#x1F942;</span>Champagne Fair<span class="nav-beacon" aria-hidden="true"></span></a>
     <a href="#er"><span class="nav-icon">&#x2728;</span>Eternity's Reach</a>
     <a href="#finders-fortune" style="display:flex;align-items:center;"><span class="nav-icon">&#x1F50E;</span>Finder's Fortune<span class="nav-beacon" aria-hidden="true"></span></a>
     <a href="#governor-duel" style="display:flex;align-items:center;"><span class="nav-icon">&#x1F93A;</span>Governor Duel<span class="nav-beacon" aria-hidden="true"></span></a>
@@ -3995,6 +4000,7 @@
   <ul class="tips">
     <li><strong>Cesares Fury:</strong> Score points each phase via building upgrades, research, troop training, and gear crafting. Queue your longest upgrades to complete <em>during</em> each fury phase - save speed-ups to double the value. <strong>Ministry:</strong> a Chief Minister slot (+15% construction, research, and training) right before you start long upgrades shortens them for free.</li>
     <li><strong>Alliance Brawl:</strong> Monthly six-stage matchup against another kingdom's alliance, alongside Merchant Empire. Win through caravans, Intel, beasts, and Terror rallies - not the KvK stockpile. See the <a href="#alliance-brawl">Alliance Brawl</a> tab.</li>
+    <li><strong>Champagne Fair:</strong> Two-day exchange event, roughly monthly (check the calendar). Trade surplus shards from maxed Heroes and spare skill books for Trading Vouchers, buy Widgets for Heroes you're building, and bank the rest - vouchers never expire. See the <a href="#champagne-fair">Champagne Fair</a> tab.</li>
     <li><strong>Mystic Trial:</strong> Permanent weekly PvE with six zones, each testing a different system. No troop losses - push stages with natural progress, claim each zone's Raid on its first open day, and buy TG Dust in the Trial Shop. See the <a href="#mystic-trial">Mystic Trial</a> tab.</li>
     <li><strong>Swordland Showdown:</strong> Alliance vs Alliance territorial event. Coordinate rally timing with R4/R5 leaders. Prioritize resource tiles near alliance territory. Discord communication is critical.</li>
     <li><strong>Growth Missions:</strong> Daily and weekly task lists. Complete them for significant free rewards - tasks align with normal gameplay.</li>
@@ -5588,6 +5594,363 @@
   </div>
   <p class="body-note" style="color:var(--text-dim);font-size:0.82rem;">Ranks (all-time points): <strong>Scout</strong> 0 &#xB7; <strong>Tactician</strong> 50 &#xB7; <strong>Strategist</strong> 150 &#xB7; <strong>Warlord</strong> 400 &#xB7; <strong>Grandmaster</strong> 1,000. This Week resets every Monday at 00:00 UTC. Up to 10 posts a day. Deleting a post removes the points it earned.</p>
   <div class="wa-placeholder-note"><span>Your board name is tied to this browser - no login needed. Use the same phone or browser to keep your points and delete your own posts. Posted formations are player reports, not verified results.</span></div>
+</section>
+
+<div class="divider">&#x2756; &#x2756; &#x2756;</div>
+
+<!-- CHAMPAGNE FAIR -->
+<section id="champagne-fair" class="tab-panel">
+  <div class="section-header">
+    <span class="section-icon">&#x1F942;</span>
+    <h2>Champagne Fair</h2>
+  </div>
+  <div class="wa-placeholder-note">&#x26A0;&#xFE0F; <span>Rules on duration, shard eligibility, and voucher expiry come from the official Kingshot Help Center. Conversion rates, limits, and shop advice come from community references (KingshotData, Kingshot Wiki, KingShot Toolkit, and Reddit, Nov 2026). <strong>Check the live exchange screen before any irreversible trade.</strong></span></div>
+
+  <div class="sg-policy">
+    <div class="sg-policy-label">&#x1F6E1;&#xFE0F; Kingdom #1625 Policy - Buy, Don't Burn</div>
+    <div class="sg-policy-quote">Champagne Fair turns dead surplus into KvK stockpile. Trade only what has no use left, and bank what you buy for the KvK prep day where it scores.</div>
+    <ol>
+      <li><strong>Trade true surplus only:</strong> extra shards from a <strong>maxed</strong> Hero can't be used for ascension anymore, so trading them costs your KvK stockpile nothing. Shards for a Hero you still plan to ascend stay in the backpack.</li>
+      <li><strong>Bank what you buy:</strong> Widgets, Mithril, and Forgehammers score on KvK prep Days 4-5 when you use them in upgrades. Charm materials and Governor Gear materials score on their own prep days. Buy them here, then leave them in the backpack. See the <a href="#backpack" style="color:var(--gold);">Backpack</a> and <a href="#kvk" style="color:var(--gold);">KvK</a> tabs.</li>
+      <li><strong>Vouchers never expire:</strong> if nothing in the shop is worth it, keep your vouchers for the next Fair.</li>
+    </ol>
+  </div>
+
+  <aside class="omen-tip-card omen-tip-card--feline" aria-label="The Feline Flame is guarding the stockpile" role="button" tabindex="0" data-pose="assets/characters/feline-flame/feline-warning.webp" data-react="assets/characters/feline-flame/feline-cheering.webp" title="Tap The Feline Flame">
+    <div><strong>The Feline Flame is guarding the stockpile</strong><p>A Widget bought at the Fair is a Widget banked for KvK. Buy it, then leave it in the backpack until prep day.</p></div>
+    <img src="assets/characters/feline-flame/feline-warning.webp" alt="The Feline Flame, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+  </aside>
+
+  <h3>Quick Strategy Summary</h3>
+  <div class="card card-gold">
+    <p>Champagne Fair is one of Kingshot's most useful resource-conversion events. Instead of letting surplus Hero shards, skill books, and eligible Hero-exclusive materials sit unused, you exchange them for <strong>Trading Vouchers</strong> and buy valuable progression materials.</p>
+    <ol style="padding-left:22px;line-height:1.7;margin-top:10px;">
+      <li>Max eligible Heroes to unlock surplus shard exchanges.</li>
+      <li>Keep collecting useful surplus shards, especially from repeatable activities.</li>
+      <li>Exchange materials that no longer have a meaningful progression use.</li>
+      <li>Prioritize Widgets for Heroes you intend to develop long-term.</li>
+      <li>Evaluate Mithril, Charm materials, and other advanced upgrades based on your current bottleneck.</li>
+      <li>Save unspent Trading Vouchers instead of buying low-value rewards.</li>
+    </ol>
+    <p style="margin-top:10px;"><strong>Most important rule:</strong> don't confuse <em>unused</em> shards with <em>exchangeable</em> shards. The official game FAQ limits Hero shard exchanges to surplus shards from <strong>maxed</strong> Heroes.</p>
+  </div>
+
+  <h3>How It Works</h3>
+  <div class="card card-blue">
+    <p>Champagne Fair is a <strong>two-day, non-combat</strong> event that lets you convert eligible materials into a special currency and spend that currency on progression rewards.</p>
+  </div>
+  <div class="tg-table-wrap">
+    <table class="tg-table">
+      <thead><tr><th>Rule</th><th>How It Works</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Obtain Vouchers</strong></td><td>Exchange eligible surplus materials for Trading Vouchers (community guides also call them Fair Vouchers).</td></tr>
+        <tr><td><strong>Redemption</strong></td><td>Spend vouchers on rewards such as Widgets, Mithril, Forgehammers, Governor Gear materials, Charm materials, and other progression items.</td></tr>
+        <tr class="tg-highlight"><td><strong>Vouchers</strong></td><td><strong>Never expire.</strong> Anything left over can be spent at a future Champagne Fair (official Help Center).</td></tr>
+        <tr><td><strong>Duration</strong></td><td>Two days each time it appears (official Help Center). Check the in-game event calendar.</td></tr>
+        <tr><td><strong>Schedule</strong></td><td>Community reports say it often returns about monthly, sometimes near or after KvK or other major event cycles. Timing differs between kingdoms, so it isn't a fixed universal schedule.</td></tr>
+        <tr><td><strong>Shop stock</strong></td><td>Items have per-item limits. Players report sold-out offers generally <strong>don't restock on Day 2</strong> - treat the two days as one shopping trip.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:14px;"><strong>Best practice:</strong> check the kingdom calendar, confirm the two-day window, and have your materials ready before the event starts.</p>
+
+  <h3>What Can Be Exchanged</h3>
+  <ul class="tips">
+    <li>Excess shards belonging to <strong>maxed</strong> Heroes</li>
+    <li>Eligible Rare and Epic shards</li>
+    <li>Eligible Conquest and Expedition skill books</li>
+    <li>Surplus Hero-exclusive Widgets, where exchange requirements are met</li>
+  </ul>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:14px;">Eligibility depends on the material, Hero progression, and the offers in that Fair. <strong>A Hero you've stopped using is not automatically eligible</strong> - an unfinished Hero's shards can't be exchanged.</p>
+
+  <h3>Reported Voucher Rates</h3>
+  <div class="tg-table-wrap">
+    <table class="tg-table">
+      <thead><tr><th>Material</th><th>Reported Vouchers per Item</th></tr></thead>
+      <tbody>
+        <tr><td>Rare Hero Shard</td><td>6</td></tr>
+        <tr><td>Epic Hero Shard</td><td>10</td></tr>
+        <tr><td>Rare Conquest Skill Book</td><td>2</td></tr>
+        <tr><td>Rare Expedition Skill Book</td><td>2</td></tr>
+        <tr><td>Epic Conquest Skill Book</td><td>6</td></tr>
+        <tr><td>Epic Expedition Skill Book</td><td>6</td></tr>
+        <tr><td>Amadeus Shard</td><td>300</td></tr>
+        <tr><td>Mythic Hero Shard</td><td>150-250, depending on Hero</td></tr>
+        <tr><td>Eligible Widget</td><td>500</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="wa-placeholder-note"><span>Rates are KingshotData reference values, not guaranteed live prices. Kingshot Wiki and newer community guides report different Mythic Hero, Widget, and Epic skill book rates, including generation-based ranges. Some sources report exchange limits of 500 for shard categories and 100 for Widgets - treat these as reported limits, not guarantees. Check the in-game exchange before using these numbers.</span></div>
+
+  <h3>Voucher Calculator</h3>
+  <div class="sg-calc" id="cfCalc">
+    <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Enter how many <strong>eligible</strong> items you have. Rates are pre-filled with KingshotData reference values - type over them with the live rates from your exchange screen. Saved in this browser.</p>
+    <div id="cfRows"></div>
+    <div class="sg-calc-sub">Planning</div>
+    <div class="sg-calc-grid">
+      <label>Vouchers already banked <input type="number" min="0" inputmode="numeric" id="cfBanked" placeholder="0"></label>
+      <label>Target purchase cost (optional) <input type="number" min="0" inputmode="numeric" id="cfTarget" placeholder="e.g. Widget price"></label>
+    </div>
+    <div class="sg-calc-out" id="cfOut" aria-live="polite">Enter your eligible materials to estimate your vouchers.</div>
+    <div class="mt-btn-row" style="margin-top:10px;">
+      <button type="button" class="mt-btn" id="cfCopy">Copy results</button>
+      <button type="button" class="mt-btn mt-btn-ghost" id="cfRates">Reset rates</button>
+      <button type="button" class="mt-btn mt-btn-ghost" id="cfClear">Clear all</button>
+    </div>
+  </div>
+  <div class="wa-placeholder-note"><span>Total Vouchers = sum of (eligible quantity x current exchange rate). The calculator flags quantities above the reported limits (500 per shard category, 100 Widgets) but still counts them, because limits may differ in your Fair. Mythic Hero Shard rates vary by Hero (reported 150-250), so enter the live rate yourself.</span></div>
+
+  <h3>Example Totals</h3>
+  <div class="tg-table-wrap">
+    <table class="tg-table">
+      <thead><tr><th>Example</th><th>Materials</th><th>Vouchers</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Mixed stockpile</strong></td><td>300 Epic shards x 10 = 3,000<br>200 Rare shards x 6 = 1,200<br>100 Epic skill books x 6 = 600<br>100 Rare skill books x 2 = 200</td><td><strong>5,000</strong></td></tr>
+        <tr><td><strong>A: Surplus Epic shards</strong></td><td>500 Epic shards x 10</td><td><strong>5,000</strong></td></tr>
+        <tr><td><strong>B: Multiple sources</strong></td><td>250 Epic shards = 2,500<br>250 Rare shards = 1,500<br>100 Rare skill books = 200</td><td><strong>4,200</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:14px;">Examples use KingshotData reference rates and assume every item is eligible and within limits. What matters most isn't how many items you hold but whether they're eligible and what the live rate is. <strong>Example C:</strong> if you already own the Widgets your main Heroes need but plan to build a new-generation Hero, bank your vouchers instead of buying filler, then reassess when that generation's rewards appear (future shop stock isn't guaranteed).</p>
+
+  <h3>Farm Maxed Hero Shards</h3>
+  <div class="card card-blue">
+    <p>For many F2P players, surplus Hero shards are the most dependable source of Fair currency. Once a Hero reaches max ascension, extra eligible shards become a continuing source of exchange value.</p>
+  </div>
+  <div class="card card-gold">
+    <p style="font-family:'Lato',sans-serif;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Diana - A Frequently Recommended Farming Target</p>
+    <ol style="padding-left:22px;line-height:1.7;margin:0;">
+      <li>Fully ascend Diana to five stars.</li>
+      <li>Keep doing activities that give Diana shards.</li>
+      <li>Collect eligible surplus Diana shards after max ascension.</li>
+      <li>Hold the shards for Champagne Fair.</li>
+      <li>Exchange the surplus when the event opens.</li>
+    </ol>
+    <p style="margin-top:10px;">Reddit discussions name <strong>Desert Trial, Clawshards, Dreadwolf activities, and joining alliance rallies</strong> as ways players collect Diana shards. Some players aim for about <strong>500 surplus Diana shards per Fair</strong>, based on reported exchange limits - a target, not a guaranteed yield.</p>
+  </div>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;"><strong>Watch the alternatives:</strong> some Diana-related activities let you spend event materials on other rewards, such as Challenger Pouches. The frequent recommendation is to keep collecting Diana shards after max ascension rather than redirecting everything to the alternative - but check that event's alternative rewards and the opportunity cost first.</p>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:6px;"><strong>Other surplus sources:</strong></p>
+  <ul class="tips">
+    <li>Hero recruitment and keys</li>
+    <li>Intel missions</li>
+    <li>Regular Hero shard events</li>
+    <li>Repeatable activities that award eligible shards</li>
+    <li>Rewards from ongoing alliance participation</li>
+  </ul>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:14px;">Prioritize free or efficient sources. Don't spend premium currency just to produce surplus shards without comparing that cost to getting the reward you want directly.</p>
+
+  <h3>What to Buy - Priority Order</h3>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Community discussions lean strongly toward Widgets first, especially for F2P and low spenders. There's no single best buy for every account - it depends on Hero generation, existing gear investment, the current shop, and your bottlenecks.</p>
+  <div class="card card-gold">
+    <p><strong>Priority 1 - Widgets</strong></p>
+    <p style="margin-top:6px;"><em>For:</em> players actively building long-term Mythic Heroes who lack exclusive gear Widgets.</p>
+    <ul class="tips" style="margin-top:8px;">
+      <li>They support a Hero's exclusive gear development.</li>
+      <li>They're hard to get in enough quantity without spending.</li>
+      <li>The Fair is a repeatable way to get them from surplus.</li>
+      <li>Other sources give Hero shards more readily than Widgets.</li>
+    </ul>
+    <p style="margin-top:8px;"><strong>Selection rule:</strong> buy Widgets for a specific Hero with a realistic long-term plan, not spread across Heroes likely to be replaced. New Hero generations can change which Widgets matter most.</p>
+  </div>
+  <div class="card card-blue">
+    <p><strong>Priority 2 - Mithril, when it's your bottleneck</strong></p>
+    <p style="margin-top:6px;"><em>For:</em> players entering advanced Mythic Hero gear progression or expecting a big Mithril shortage.</p>
+    <p style="margin-top:8px;">A well-engaged Reddit discussion supported <strong>Widgets &#x2192; Mithril &#x2192; save the rest</strong>. This is disputed on price: some players say Mithril is too expensive here and cheaper through other shops or small purchases.</p>
+    <p style="margin-top:8px;"><strong>Decision rule:</strong> buy Mithril when it's the limiting material for planned upgrades and other sources fall short. Otherwise compare its voucher cost with cheaper upgrades and future Widgets.</p>
+  </div>
+  <div class="card card-blue">
+    <p><strong>Priority 3 - Charm Designs and Charm Guides</strong></p>
+    <p style="margin-top:6px;"><em>For:</em> players with a real Governor Charm bottleneck. Charms support long-term combat progression and don't depend on keeping the same Hero. Buy whichever material is limiting your next planned upgrade - don't buy one if the paired material is missing and the upgrade can't be finished.</p>
+  </div>
+  <div class="card card-blue">
+    <p><strong>Priority 4 - Forgehammers</strong></p>
+    <p style="margin-top:6px;"><em>For:</em> players whose hammer supply is short. Hammers are valuable but come from several other activities - many players collect them through <a href="#bear-hunt" style="color:var(--gold);">Bear Hunt</a> instead. Worth vouchers when a specific Hero gear milestone is blocked by hammers right now.</p>
+  </div>
+  <div class="card card-blue">
+    <p><strong>Priority 5 - Artisan's Visions and Governor Gear materials</strong></p>
+    <p style="margin-top:6px;"><em>For:</em> players with set Governor Gear targets. Account-wide progression - worth it after Widget, Mithril, and Charm needs, especially when the next upgrade needs only a few more.</p>
+  </div>
+  <div class="card card-purple">
+    <p><strong>Situational - Pet advancement materials:</strong> worth it when Pets are a major bottleneck. The Fair may offer Pet chests or marks depending on kingdom age and current offers - compare the price with other event shops first.</p>
+    <p style="margin-top:8px;"><strong>Usually lower priority:</strong> raw resources, common coins, stamina, and easily farmed materials. Don't buy them just to empty your balance.</p>
+  </div>
+
+  <h3>Reward Decision Matrix</h3>
+  <div class="tg-table-wrap">
+    <table class="tg-table">
+      <thead><tr><th>Your Situation</th><th>Recommended Approach</th></tr></thead>
+      <tbody>
+        <tr><td>Early game, few maxed Heroes</td><td>Develop Heroes, prepare surplus, keep vouchers</td></tr>
+        <tr class="tg-highlight"><td>F2P building core Mythic Heroes</td><td>Prioritize relevant Widgets</td></tr>
+        <tr><td>Low spender with a Widget shortage</td><td>Widgets first, then evaluate Mithril</td></tr>
+        <tr><td>Advanced Hero gear blocked by Mithril</td><td>Strongly consider Mithril</td></tr>
+        <tr><td>Governor Charm upgrade blocked</td><td>Buy missing Charm materials if the value is competitive</td></tr>
+        <tr><td>Forgehammers easy to get elsewhere</td><td>Don't overpay at the Fair</td></tr>
+        <tr><td>New Hero generation approaching</td><td>Consider banking vouchers for future Widgets</td></tr>
+        <tr><td>No useful shop rewards</td><td>Save vouchers for the next Fair</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="body-note" style="color:var(--text-dim);margin-bottom:14px;"><strong>Guiding principle:</strong> buy the reward that unlocks your highest-value planned upgrade - not just the rarest-looking item.</p>
+
+  <h3>Playbooks</h3>
+  <div class="wa-role-grid">
+    <div class="wa-role-card">
+      <div class="wa-role-title">&#x1F4B0; F2P</div>
+      <p><strong>Before:</strong> finish useful ascension milestones, stack eligible extra shards, keep farming repeatable shard rewards, keep useful surplus skill books, pick your 2-3 most important upgrades, check the calendar.</p>
+      <p style="margin-top:6px;"><strong>During:</strong> open Obtain Vouchers, review every eligible material and rate, make sure no trade breaks an unfinished upgrade, exchange surplus, check your balance, review the whole Redemption shop, buy the Widgets your long-term Heroes need, compare Mithril and other materials against bottlenecks, keep the rest if nothing is efficient.</p>
+      <p style="margin-top:6px;"><strong>After:</strong> resume collecting surplus and plan around future Hero generations. Consistent collection and selective spending beat using every voucher.</p>
+    </div>
+    <div class="wa-role-card">
+      <div class="wa-role-title">&#x1F4B3; Low Spender</div>
+      <p>Same farming routine, but compare Fair prices with small packs and other recurring activities. If you get Forgehammers cheaply elsewhere, spend vouchers on rarer Mithril; if you get Mithril efficiently elsewhere, take several smaller upgrades here.</p>
+      <ol style="padding-left:22px;line-height:1.7;margin-top:6px;">
+        <li>Price each item you want in vouchers.</li>
+        <li>List other free and paid routes to it.</li>
+        <li>Compare cost per unit and what the next real upgrade needs.</li>
+        <li>Spend on your hardest bottleneck.</li>
+        <li>Save the rest when offers are weak.</li>
+      </ol>
+    </div>
+    <div class="wa-role-card">
+      <div class="wa-role-title">&#x2694;&#xFE0F; Advanced / Competitive</div>
+      <p>Treat the Fair as resource reallocation: speed up your strongest long-term investment, not just grab anything valuable.</p>
+      <ul class="tips" style="margin-top:6px;">
+        <li>Plan for upcoming Hero generations</li>
+        <li>Support your top combat marches</li>
+        <li>Avoid overinvesting in soon-replaced Heroes</li>
+        <li>Improve advanced Mythic gear</li>
+        <li>Target expensive Charm and Governor Gear milestones</li>
+        <li>Keep vouchers for better future offers</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Voucher Banking</h3>
+  <div class="card card-blue">
+    <p>Because vouchers <strong>don't expire</strong> (official Help Center), you can separate earning from spending. If the shop has nothing valuable, it's fine to stack vouchers across several Fairs.</p>
+    <p style="margin-top:8px;"><strong>Example:</strong> you have 12,000 vouchers and the item you want costs 20,000 (hypothetical price). Instead of spending 12,000 on lower-priority rewards, keep it and add 8,000 at a later Fair.</p>
+  </div>
+  <div class="tg-table-wrap">
+    <table class="tg-table">
+      <thead><tr><th>Save vouchers when...</th><th>But spend when...</th></tr></thead>
+      <tbody>
+        <tr><td>The Widget you want isn't offered<br>A new Hero generation is coming<br>A key upgrade isn't ready yet<br>Available rewards are poor value<br>You can't afford the target item<br>A stronger option is expected but unconfirmed</td><td>A current limited reward would finish an important upgrade right now</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <aside class="omen-tip-card omen-tip-card--omen" aria-label="Omen says bank it" role="button" tabindex="0" data-pose="assets/characters/omen/omen-wait.webp" data-react="assets/characters/omen/omen-thumbs-up.webp" title="Tap Omen">
+    <div><strong>Omen says: bank it</strong><p>Sold out on Day 1? It won't come back on Day 2. Keep your vouchers for the next Fair instead of buying filler.</p></div>
+    <img src="assets/characters/omen/omen-wait.webp" alt="Omen, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+  </aside>
+
+  <h3>Your Fair Routine</h3>
+  <div class="tg-table-wrap">
+    <table class="tg-table">
+      <thead><tr><th>When</th><th>What to Do</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Before</strong></td><td>Farm surplus shards, write a shopping list, review upcoming Hero needs.</td></tr>
+        <tr class="tg-highlight"><td><strong>Day 1</strong></td><td>Check current rates, exchange eligible surplus, review every price and limit, buy your top-priority rewards. Bank them for KvK.</td></tr>
+        <tr><td><strong>Day 2</strong></td><td>Make sure nothing eligible or valuable was missed. Don't count on restocks.</td></tr>
+        <tr><td><strong>After</strong></td><td>Keep leftover vouchers and start gathering surplus for the next Fair.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="omen-mistake-h3"><img class="omen-mistake-face" src="assets/characters/omen/omen-facepalm.webp" alt="" width="44" height="44" loading="lazy" decoding="async" onerror="this.remove()"><span>Common Mistakes</span></h3>
+  <div class="tg-mistake-grid">
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Trading Shards From Unfinished Heroes</div>
+      <div class="tg-mistake-desc">The official exchange rule is based on max Hero progression. Stopped using a Hero doesn't make it eligible.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Spending Every Voucher</div>
+      <div class="tg-mistake-desc">Vouchers carry over between Fairs. You never need a weak purchase to avoid expiry.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Widgets for Every Hero</div>
+      <div class="tg-mistake-desc">Focus on Heroes with a real, lasting role in your main combat setup.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Trading Without Checking Future Use</div>
+      <div class="tg-mistake-desc">Not everything in your backpack is truly surplus. Check before you convert.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Assuming Every Kingdom's Schedule Matches</div>
+      <div class="tg-mistake-desc">Timing varies by kingdom. Check the in-game calendar.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Using Outdated Rates</div>
+      <div class="tg-mistake-desc">Generation-based values and shop offers change. Use the live screen.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Buying Mithril Without Comparing</div>
+      <div class="tg-mistake-desc">Mithril is valuable, but whether it's good voucher value is disputed.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Ignoring Repeat Shard Sources</div>
+      <div class="tg-mistake-desc">Once Heroes are maxed, routine farming adds up to real voucher income.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Expecting a Day 2 Restock</div>
+      <div class="tg-mistake-desc">Players report sold-out offers stay sold out for that Fair.</div>
+    </div>
+    <div class="tg-mistake-card">
+      <div class="tg-mistake-title">Buying Resources Over Scarce Upgrades</div>
+      <div class="tg-mistake-desc">Most farmable rewards should wait. Buy what actually speeds up progression.</div>
+    </div>
+  </div>
+
+  <h3>Community Notes</h3>
+  <div class="wa-consensus-grid">
+    <div class="wa-consensus-card wa-confirmed">
+      <div class="wa-consensus-title">&#x2705; Community Consensus</div>
+      <ul>
+        <li>Two-day event with an Obtain Vouchers section and a Redemption shop (official).</li>
+        <li>Only surplus shards from maxed Heroes can be exchanged (official).</li>
+        <li>Trading Vouchers don't expire (official).</li>
+        <li>Widgets for actively built long-term Mythic Heroes are the most consistently recommended buy.</li>
+        <li>Sold-out offers generally don't restock on Day 2.</li>
+      </ul>
+    </div>
+    <div class="wa-consensus-card wa-anecdotal">
+      <div class="wa-consensus-title">&#x1F4AC; Anecdotal Evidence</div>
+      <ul>
+        <li>Several experienced players report collecting hundreds of surplus Diana shards between Fairs. The exact amount depends on the player and the event.</li>
+        <li>Some players describe limits of about 500 items per eligible category, while guides show category-specific limits.</li>
+        <li>Players report benefits from saving vouchers for future Hero Widgets, but future rewards aren't guaranteed and saving has an opportunity cost.</li>
+      </ul>
+    </div>
+    <div class="wa-consensus-card wa-disputed">
+      <div class="wa-consensus-title">&#x2696; Disputed or Conflicting</div>
+      <p><strong>Widgets vs Mithril:</strong> Widgets-first is backed by KingshotData and several Reddit threads. Others put Mithril first or second for long-term gear, and some argue its voucher price is too high next to Hammers or Charms.</p>
+      <p style="margin-top:8px;"><strong>Schedule:</strong> several sources say roughly monthly, some tie it to KvK, but official support doesn't promise a universal schedule.</p>
+      <p style="margin-top:8px;"><strong>Rates:</strong> KingshotData reports 6 per Epic skill book and 150-250 per Mythic Hero shard; Kingshot Wiki and others publish different, generation-based values.</p>
+      <p style="margin-top:8px;"><strong>Our view:</strong> Widgets are the stronger general first buy for core Mythic Heroes. Mithril is strong when your gear needs it. There isn't enough evidence to call Mithril the second-best buy for every account. Use the live rates and the in-game calendar.</p>
+    </div>
+  </div>
+
+  <h3>Quick Answers</h3>
+  <ul class="tips">
+    <li><strong>Can I exchange shards before the Hero is maxed?</strong> No. The official FAQ says only surplus shards of a maxed Hero qualify.</li>
+    <li><strong>Do unused vouchers expire?</strong> No. The official Help Center confirms they carry over to future Fairs.</li>
+    <li><strong>Is it worth it for F2P?</strong> Yes, if you have eligible surplus and buy useful progression materials.</li>
+    <li><strong>What's usually the best buy?</strong> Widgets for Mythic Heroes you're actively building. Advanced players should also weigh Mithril and other bottlenecks.</li>
+    <li><strong>Should I spend all my vouchers?</strong> No. Keep the balance if nothing is worth it.</li>
+    <li><strong>Can I swap Diana shards for another Hero's shards?</strong> The Fair turns shards into vouchers, and vouchers buy whatever the Redemption shop offers. Don't assume direct Hero-to-Hero conversion.</li>
+    <li><strong>Does it happen during KvK?</strong> Some players report a link to KvK timing, but schedules are kingdom-specific. Check the calendar.</li>
+    <li><strong>Is there a leaderboard?</strong> The documented format is an exchange shop, not a points leaderboard. Check your event screen for any linked activities.</li>
+    <li><strong>Should I use universal shards just for vouchers?</strong> Not if you need them for unfinished or planned Heroes. Confirm eligibility and opportunity cost first.</li>
+    <li><strong>Should I use what I buy right away?</strong> Not in Kingdom 1625. Widgets, Mithril, Forgehammers, and Charm and Governor Gear materials score on KvK prep days - bank them.</li>
+  </ul>
+
+  <h3>Sources</h3>
+  <ul class="tips">
+    <li><strong>Official:</strong> Kingshot Help Center - Champagne Fair (duration, shard eligibility, voucher persistence)</li>
+    <li><strong>Community databases:</strong> KingshotData, Kingshot Wiki, and KingShot Toolkit - Champagne Fair pages</li>
+    <li><strong>Reddit:</strong> Best Use of Tickets After Widgets (Aug 2026), Widgets or Hero Shards (Aug 2026), Diana Shards Farming (Jun 2025), Exchanging Surplus Epic Hero Shards (Jun 2026), How to Get Widgets for Free (Jul 2026), Does Champagne Fair Redemption Reset Daily? (Dec 2025)</li>
+  </ul>
+  <div class="wa-placeholder-note"><span>Official rules get the highest confidence for game mechanics. Reddit supports strategy advice but doesn't set game rules. Rates and shop selections should be rechecked after big game updates.</span></div>
 </section>
 
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
@@ -9745,6 +10108,7 @@ VIKING VENGEANCE: Biweekly alliance defense event - 20 waves over ~40 minutes. W
 ALLIANCE CHAMPIONSHIP: Weekly event - six alliances compete across five rounds. Members register into one of three lanes. Win condition: take 2 of 3 lanes each round. Strategy: deliberately build two strong lanes and one sacrifice lane. Only first 20 strongest members per lane count toward power score. When registering, use a garrison formation with Howard and Gordon and use a 60% Infantry / 40% Cavalry / 0% Archers formation - adjust only if lane captain says otherwise. Assign a single lane planner for the whole event. Registration buff policy: pick ONE policy and stick to it - some guides say buff up before registering; others say buffing inflates matchmaking power into harder brackets.
 
 MYSTIC TRIAL (new tab, Nov 2026; sources mainly Kingshot Mastery, KingshotData, official Help Center - verify in-game): permanent weekly PvE in the Command Center, normally opens at Town Center 19 (new kingdoms may wait for a kingdom-age unlock); a zone stays locked until its system exists (e.g. Forest of Life needs Pets). Six zones, schedule in UTC: Coliseum Mon-Tue (Heroes, Hero Gear, Exclusive Gear; start 50/10/40, alternative 55/15/30); Forest of Life Wed-Thu (Pets, Pet Skills; 50/15/35, alt 55/10/35; Pet Skills reportedly activate automatically here and in Radiant Spire); Crystal Cave Wed-Thu (Governor Charms; 60/20/20, alt 65/15/20); Knowledge Nexus Fri-Sat (Research - only combat research helps; 50/20/30, alt 55/15/30); Molten Fort Fri-Sat (Governor Gear; 60/15/25, alt 65/15/20); Radiant Spire Sunday (combined eligible stats and own troops; 50/15/35, alts 55/10/35 or 50/10/40). Ratios are Infantry/Cavalry/Archer starting points to test, not guaranteed best. Five zones give standardized Level 10 troops; Radiant Spire uses the governor's own troops. No troops die or get wounded. 5 attempts per open zone, refresh 00:00 UTC; only a loss uses an attempt; unused attempts don't carry over. Most temporary buffs don't apply. STAGE NUMBERS: stages are shown chapter-step, e.g. 28-9; each chapter has 10 steps, so 28-10 is followed by 29-1, and 28-9 means 279 stages cleared. Raid: clearing Stage 1-10 (end of the first chapter) in a zone unlocks its Raid; Raid can ONLY be claimed on the first day each zone opens each week (Monday Coliseum; Wednesday Forest of Life and Crystal Cave; Friday Knowledge Nexus and Molten Fort; Sunday Radiant Spire - per Kingdom 1625 players) and pays Trial Crystals based on the highest stage ever cleared in that zone (10 Trial Crystals per cleared stage per zone, confirmed in-game by Kingdom 1625 players; 28-9 = 279 stages = 2,790 crystals from that zone each week; Raid also gives 1 purple and 1 gold Trial Chest per completed chapter (20-4 = 19 completed chapters = 1,940 crystals + 19 purple + 19 gold chests, confirmed in-game); the game gives the Raid for all previously cleared stages each time the zone first opens again). Rewards: First Win (one-time chest + Mystic XP), Raid (weekly Trial Crystals), Milestones (Mystic XP from all six zones: Mithril, Mythic General Hero Shards, Mythic Gear chests, decoration upgrades). Master Catherine's Mystic Privileges reportedly adds up to +30% Raid crystals at level 5, but its Nov 9 2026 rollout was listed for Kingdoms 1-1331 - unconfirmed for Kingdom 1625. Trial Shop (weekly stock; Kingshot Mastery order): 1 TG Dust every week once it appears, 2 Mithril when Red Hero Gear is relevant, 3 Gear XP Parts, 4 Charm Designs when Charms are the bottleneck, 5 Mythic General Hero Shards or Gold Gear chests only for a planned build; if TG Dust isn't in stock yet, save crystals. The currency is called Trial Crystals. KINGDOM 1625 POLICY: push with progress, not the stockpile - clear stages with upgrades you were making anyway; never spend protected KvK materials (Mithril, Truegold, Charm or Governor Gear materials, Mythic shards) just to clear one more stage; buying TG Dust and Mithril with Trial Crystals adds to the stockpile. Heroes: pick by Expedition skills, not displayed Power; squad setup matters most in Coliseum and Radiant Spire. ANECDOTAL: a Reddit player reported 10+ more stages by spreading strong Heroes across three squads with an unusual 60/40/0 squad in Coliseum and Radiant Spire; KingshotData also lists a 60/40/0 squad but recommends the best gear on one main squad - an experiment, not guaranteed. DISPUTED: fixed ratios vs personalized optimization from own stats (commenters recommend the Frakinator tool); enemy formation roughly equal (KingshotData, outside stage 10) vs 40/30/30 (other guides). No proven combat formula exists, so no tool can promise a win. Troubleshooting: almost won - retry once (skill triggers vary), then test the alternative ratio with everything else unchanged, and check the battle report for which troop type ran out first; lost by a lot - it is a stats gap, upgrade the zone's system later and don't spend KvK materials; one squad fails - rebalance Heroes and gear by Expedition skills; stuck - match upgrades to the zone's system, Raid still pays for your best-ever stage. The tab has a zone picker with alliance-chat copy buttons (messages under 390 characters), a Formation Lab (sliders, presets, saved setups - shows mixes only, no win prediction), a Stage Troubleshooter, a Raid Crystal Estimator, a weekly checklist that resets Monday 00:00 UTC, and a WINNING FORMATIONS board: players join with their in-game name plus alliance tag (e.g. [VIP] Omen, tied to their browser - no login), post formations that cleared a stage (zone, stage in chapter-step format like 28-9, troop ratio, optional Heroes per squad picked from the Hero Database, note), and high-five posts that helped them (one per person per post, not your own). Omen awards points: 10 per post, +5 with Hero lineup, +5 with a note, +10 Trailblazer bonus for the first clear posted for that zone and stage, +3 per high-five received, +1 per high-five given (first 5 a day). Leaderboard has This Week (resets Monday 00:00 UTC) and All-Time. Ranks by all-time points: Scout 0, Tactician 50, Strategist 150, Warlord 400, Grandmaster 1,000. Limit 10 posts a day; players can delete their own posts (removes the points that post earned). Posted formations are player reports, not verified results.
+CHAMPAGNE FAIR (new tab, Nov 2026, #champagne-fair; official rules from the Kingshot Help Center, rates and strategy from KingshotData, Kingshot Wiki, KingShot Toolkit, and Reddit - verify in-game): a two-day, non-combat exchange event. Two sections: Obtain Vouchers (exchange eligible surplus for Trading Vouchers, also called Fair Vouchers) and Redemption (spend vouchers on Widgets, Mithril, Forgehammers, Governor Gear materials such as Artisan's Vision, Charm Designs and Charm Guides, Pet materials, and other items). OFFICIAL: each appearance lasts two days; only surplus shards of a MAXED Hero can be exchanged (an unfinished Hero is not eligible just because the player stopped using it); Trading Vouchers never expire and carry over to future Fairs. Schedule: community reports say roughly monthly, sometimes near or after KvK, but timing differs by kingdom - check the in-game calendar. Exchangeable: excess shards of maxed Heroes, eligible Rare and Epic shards, eligible Conquest and Expedition skill books, surplus Hero-exclusive Widgets where requirements are met. REPORTED RATES (KingshotData reference values, not guaranteed live prices): Rare Hero Shard 6, Epic Hero Shard 10, Rare Conquest or Expedition Skill Book 2, Epic Conquest or Expedition Skill Book 6, Amadeus Shard 300, Mythic Hero Shard 150-250 depending on Hero, Eligible Widget 500. Kingshot Wiki and newer guides report different Mythic, Widget, and Epic skill book rates, including generation-based ranges. Reported limits: 500 per shard category, 100 Widgets (not guaranteed). Total vouchers = sum of eligible quantity x current rate (example: 300 Epic shards + 200 Rare shards + 100 Epic skill books + 100 Rare skill books = 5,000). Shop: per-item limits; players report sold-out offers generally don't restock on Day 2. FARMING: max Heroes, then keep collecting surplus shards; Diana is the common example - ascend her to five stars, keep earning Diana shards (Desert Trial, Clawshards, Dreadwolf activities, alliance rallies), and exchange the surplus; some players aim for about 500 surplus Diana shards per Fair (target, not guaranteed); compare alternatives such as Challenger Pouches first. Other sources: Hero recruitment and keys, Intel missions, Hero shard events, repeatable activities, alliance participation; don't spend premium currency just to make surplus. WHAT TO BUY (community priority, no single best for every account): 1 Widgets for long-term Mythic Heroes you are actively building (not for every Hero); 2 Mithril when it is your real bottleneck (Reddit supports Widgets then Mithril then save the rest, but some players say Mithril is overpriced here - disputed); 3 Charm Designs and Charm Guides when Charms are blocked (don't buy one if the paired material is missing); 4 Forgehammers only when hammers block a milestone (Bear Hunt and other sources supply them); 5 Artisan's Visions and Governor Gear materials for set targets; situational Pet advancement materials; usually low priority: raw resources, common coins, stamina, easily farmed items. Guiding principle: buy what unlocks your highest-value planned upgrade. Low spenders compare voucher prices with small packs and other routes. VOUCHER BANKING: save vouchers when the wanted Widget isn't offered, a new Hero generation is coming, an upgrade isn't ready, rewards are poor value, or the target is unaffordable; spend if a current limited reward finishes an important upgrade now. KINGDOM 1625 POLICY - BUY, DON'T BURN: trade only true surplus (surplus shards from a maxed Hero can't be used for ascension, so trading them costs the KvK stockpile nothing; shards for a Hero you still plan to ascend stay in the backpack); bank purchases for KvK - Widgets, Mithril, and Forgehammers score on KvK prep Days 4-5 when used in upgrades, and Charm and Governor Gear materials score on their own prep days (see Backpack and KvK tabs). Routine: before - farm surplus and write a shopping list; Day 1 - check live rates, exchange surplus, buy top priorities; Day 2 - check nothing was missed, don't count on restocks; after - keep leftover vouchers. No direct Hero-to-Hero shard conversion should be assumed. The documented format is an exchange shop, not a leaderboard. The tab has a Voucher Calculator (eligible quantity x editable rate per material, banked vouchers, optional target cost, flags quantities above reported limits; Mythic Hero Shard rate must be entered by the player; saved in the browser only).
 ALLIANCE BRAWL (new tab, Nov 2026; source mainly Kingshot Mastery, verify in-game): monthly event right after Kingdom of Power, always alongside Merchant Empire (caravans). Two matched alliances from different kingdoms; alliance must be top 20 in its kingdom. Six stages over about 6.5 days: Day 1 Rise of the City (1 horn), Day 2 Hero Development (2), Day 3 Pet Training (2), Day 4 Gear Enhancement (2), Day 5 Trade Baron (2), Day 6 Full-Scale Competition (36h, ends Sunday 12:00 UTC, 4 horns; some references call it Days 6-7). 13 horns total, 7 to win. KINGDOM 1625 POLICY: KvK-first but not inactive - "We don't sacrifice KvK to win Alliance Brawl, but we also don't use KvK as an excuse for low Alliance Brawl participation." Green (pursue): caravans, Intel, gathering, beasts, calling Terror rallies. Yellow: planned pet advancement, Rare/Epic shards for planned ascensions, natural training, routine gems, natural stamina. Red (protected): Mythic Hero Shards, speedup stockpiles, Truegold/Tempered Truegold/Truegold Dust, Forgehammers, Widgets, Mithril, Governor Gear and Charm materials, KvK-reserved Advanced Taming Marks and Master Emblems, stamina items, big gem purchases. BASE POINTS: escort or raid a caravan 10,000 each (all stages); call a rally and defeat a Terror 15,000 (Days 5-6; joining is NOT listed as scoring - rotate callers); beasts Lv1-10/11-15/16-20/21-25/26-30 = 4,000/4,500/5,000/5,500/6,000 (Days 5-6); Intel mission 3,000 (Days 2 and 4; points come from completing during the stage, not claiming old rewards); troops T8/T9/T10/T11 = 14/18/24/30 each, promotions score the level difference (Day 4); Pet Advancement Score 30 per point (Days 3, 6); Common/Advanced Taming Mark 680/9,370; Governor Charm 45 per point; Governor Gear 22 per point; Rare/Epic/Mythic shard 210/750/1,875; Forgehammer 1,875; Widget 3,750; Mithril 18,750; Truegold upgrade 1,250; Tempered Truegold 18,750; Truegold Dust 625; speedups 18 per minute; gem 1; gathering 2 per 2,000 Bread/Wood, 400 Stone, or 100 Iron (Days 1 and 3 only). Unclear whether Intel and gathering score on Day 6 - check in-game. MILESTONES (base, Wilson's Duel Sponsorship can change): Days 1-4 = 100 / 25,000 / 50,000 / 87,500 / 125,000; Days 5-6 = 100 / 37,500 / 75,000 / 125,000 / 187,500. Policy: highest chest reachable with Green and Yellow activity; nobody required to reach every chest. EXAMPLES: Day 2 - 12 Intel + 3 escorts + 3 raids = 96,000 (4th chest). Day 5 - 6 Lv26-30 beasts + 4 Terror calls + 3 escorts + 3 raids = 156,000 (4th chest). PETS: Day 1 Gray Wolf before a planned upgrade; Days 1 and 3 Bison instant gather; Days 5-6 Lynx (60 stamina, second use fits in the 36h final stage) and Grizzly Bear (March Speed +30%) for beast sessions; combat pets only for Terror callers whose rallies struggle; skip combat pets Days 1-4. Pet skills don't score by themselves. LEADERSHIP TARGETS (Kingdom 1625 standards, not official): 80%+ daily participation, every practical caravan, every Intel mission Days 2 and 4, gathering Days 1 and 3, maximum sustainable beasts/Terrors Days 5-6, no compulsory Brawl spending of protected resources. The guide has a Brawl Activity Point Planner on the Alliance Brawl tab.
 STRONGEST GOVERNOR (successor to Hall of Governors for maturing kingdoms; Kingdom 1625 runs Strongest Governor. Hall of Governors is NOT removed from the game - newer kingdoms still run it first; community references describe the 6th Hall of Governors as the last before Strongest Governor): seven-day event about once per 4-week cycle, a different scoring set each day. KINGDOM 1625 POLICY - KVK COMES FIRST: Strongest Governor is for efficient reward collection; KvK is the primary resource-spending event. Goals: collect valuable rewards, keep normal development, preserve KvK resources. Members do not need to win or reach every milestone; personal ranking must never undermine KvK prep. Never recommend maximizing Strongest Governor points or pushing the leaderboard with protected resources. DAY VERDICTS: for Kingdom 1625 it is a three-day event - PLAY Days 4 and 6 (normal training, Noble Advisor) and Day 7 (gathering, Bison); BUDGET ONLY Days 2 and 3 (budgeted Roulette, Day 3 also surplus pet materials; otherwise sit out); SIT OUT Days 1 and 5 (every scoring item is KvK stockpile). Day 1 only exception: Town Center level 30 or below, whose builds don't need Truegold or Truegold Dust, can keep building normally. Do not recommend Chief Minister or Gray Wolf for Strongest Governor Day 1. RESOURCE TIERS: GREEN (go ahead) = normal troop training, research/construction that finish naturally, Day 7 gathering, planned Hero development using no protected materials, claiming reached milestones (natural progression still costs ordinary resources/time/gems). YELLOW (only if unreserved and worth the opportunity cost) = Hero Roulette spins, pet materials, unreserved Hero resources, surplus equipment materials, small amounts of ordinary speedups. RED (protected KvK stockpile, configurable per R4/R5 policy) = construction/research/training/universal speedups, Hero Shards reserved for KvK, Forgehammers, Exclusive Gear Widgets, Mithril, Truegold, Truegold Dust, Governor Gear and Charm materials, Master Emblems and Manuscripts, pet materials reserved for KvK, other high-value materials. Core rule: if it was saved for KvK, do not spend it in Strongest Governor for personal points. FOUR QUESTIONS before spending: (1) reserved for KvK? then don't; (2) reachable through normal gameplay? take that route; (3) reward worth the cost?; (4) will it weaken KvK prep? then keep it. DAYS (community data, Kingshot Mastery May 2026, verify in-game): Day 1 City Construction - Truegold/Tempered Truegold building upgrades, Truegold Dust research, speedups (30 pts/min), Governor Charms; SIT OUT (all KvK stockpile), except TC 30 or below building normally. Day 2 Hero Development - Hero Roulette (8,000/play), Hero Shard ascension, Forgehammer 4,000, Widget 8,000, Mithril 40,000, Master Emblem 6,000, Truegold, speedups; budgeted Roulette only, protect Shards and gear materials. Day 3 Basic Skill Up - pet advancement, Advanced Taming Mark 15,000, Common Taming Mark 1,150, Governor Charms, Hero Shards, Hero Roulette, Master Emblems; surplus pet resources only. Day 4 Combat Training - troop training/promotion (T10 39, T11 49 per troop), Charms, Forgehammers/Widgets/Mithril; normal training timed to finish, no training speedups. Day 5 Basic Skill Up (some references call it Power Boost) - gear materials, Truegold, speedups; SIT OUT (all KvK stockpile), plan Day 6 training and Day 7 gathering. Day 6 Combat Training - training/promotion, Governor Gear upgrades; no saved speedups unless R4/R5 approves an exception. Day 7 Hero Development - Hero Shards, pets/Taming Marks, Governor Gear, Truegold, speedups, wilderness gathering (only day gathering scores, 3 pts per bundle); Roulette not reported to score Day 7; best KvK-safe day via gathering, avoid panic spending. REWARDS (verify in-game): priority 1 daily point milestones (5 per day); priority 2 Challenge Medals (up to 2 per day) only when affordable; priority 3 kingdom rewards reported for players with 250,000+ total points; priority 4 rankings (daily stage and kingdom top 1,000, cross-kingdom top 2,000) - spender territory, default policy is not to chase them, only with unreserved resources. PLAYER TYPES: F2P - natural progression, training, gathering, affordable milestones, no ranking competition. Low spender - selective approved surplus, budgeted Roulette, don't spread premium materials across days. Competitive spender - separate personal budget from KvK reserves, avoid spending wars, rank only with unreserved resources or approved exceptions. MISTAKES: chasing every milestone, spending saved speedups, treating Roulette as free, overtraining troops, spending premium gear materials, assuming event info is permanent, putting personal rank above kingdom KvK. POLICY on save-everything vs spend-selectively: save all protected resources, spend selectively only on natural progression and approved surplus; no universal spend/save percentage is supported. HALL OF GOVERNORS (earlier-stage kingdoms only): hold Roulette and Shard ascensions for Hero Development stage, train troops only in Train Troops stage, queue upgrades for Construction/Research stages, stockpile gear/Charm materials for their stages, check with R4/R5 before large spending.
 
@@ -9979,6 +10343,7 @@ function quickAsk(question) {
 // date format: YYYY-MM-DD (used only for sorting/compare, not displayed verbatim below)
 // Links can point at any tab id (e.g. '#war-academy') - the tab system opens that tab.
 const WHATS_NEW = [
+  { date: '2026-11-22', label: 'New Champagne Fair tab - trade maxed-Hero surplus for Trading Vouchers, what to buy first, voucher banking, and a Voucher Calculator. Buy, don\'t burn: bank what you buy for KvK', link: '#champagne-fair' },
   { date: '2026-11-17', label: 'New Backpack tab - what every item does, which KvK prep day it scores on, the hidden Backpack Gems lesson, a Gem Calculator, a KvK Readiness Calculator, and a private checklist', link: '#backpack' },
   { date: '2026-11-15', label: 'Strongest Governor now KvK-first by day: play Days 4, 6, and 7, budget-only Days 2 and 3, sit out Days 1 and 5 - no more Day 1 Chief Minister or Gray Wolf', link: '#strongest-governor' },
   { date: '2026-11-15', label: 'Mystic Trial Raid Crystal Estimator now counts Trial Chests too - 1 purple and 1 gold per completed chapter, confirmed in-game', link: '#mystic-trial' },
@@ -11047,6 +11412,152 @@ function sgCalc() {
   }
 }
 
+// ── CHAMPAGNE FAIR VOUCHER CALCULATOR ──
+(function() {
+  'use strict';
+  if (!document.getElementById('cfCalc')) return;
+  // Reference rates from KingshotData (Nov 2026). Players can type over them with live rates.
+  // limit = reported exchange limit (shard categories 500, Widgets 100) - flagged, never enforced.
+  var CF_ITEMS = [
+    { id: 'rareShard',  name: 'Rare Hero Shard',            rate: 6,   limit: 500, group: 'shard' },
+    { id: 'epicShard',  name: 'Epic Hero Shard',            rate: 10,  limit: 500, group: 'shard' },
+    { id: 'rareConq',   name: 'Rare Conquest Skill Book',   rate: 2 },
+    { id: 'rareExp',    name: 'Rare Expedition Skill Book', rate: 2 },
+    { id: 'epicConq',   name: 'Epic Conquest Skill Book',   rate: 6 },
+    { id: 'epicExp',    name: 'Epic Expedition Skill Book', rate: 6 },
+    { id: 'amadeus',    name: 'Amadeus Shard',              rate: 300, limit: 500, group: 'shard' },
+    { id: 'mythic',     name: 'Mythic Hero Shard',          rate: null, hint: 'live', limit: 500, group: 'shard' },
+    { id: 'widget',     name: 'Eligible Widget',            rate: 500, limit: 100 }
+  ];
+  var KEY = 'cf-voucher-calc-v1';
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  function store(key, val) {
+    try {
+      if (val === undefined) { var v = localStorage.getItem(key); return v ? JSON.parse(v) : null; }
+      if (val === null) { localStorage.removeItem(key); return null; }
+      localStorage.setItem(key, JSON.stringify(val));
+    } catch (e) { return null; }
+    return null;
+  }
+  function toast(msg) {
+    var t = document.getElementById('giftToast');
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, 2000);
+  }
+  function copy(text, msg) {
+    var done = function() { toast(msg || 'Copied!'); };
+    var fallback = function() {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+        document.body.removeChild(ta);
+      } catch (e) {}
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function() { fallback(); done(); });
+    } else { fallback(); done(); }
+  }
+  function num(v) { var n = Number(v); return isFinite(n) && n > 0 ? Math.floor(n) : 0; }
+
+  var rowsEl = document.getElementById('cfRows');
+  var banked = document.getElementById('cfBanked');
+  var target = document.getElementById('cfTarget');
+  var out = document.getElementById('cfOut');
+  var saved = store(KEY) || {};
+  saved.q = saved.q || {}; saved.r = saved.r || {};
+
+  var head = document.createElement('div');
+  head.className = 'cf-row cf-row-head';
+  head.innerHTML = '<span>Material</span><span>Eligible qty</span><span>Rate</span>';
+  rowsEl.appendChild(head);
+  CF_ITEMS.forEach(function(it) {
+    var row = document.createElement('div');
+    row.className = 'cf-row';
+    row.innerHTML = '<span class="cf-name">' + esc(it.name) + '</span>'
+      + '<input type="number" min="0" inputmode="numeric" data-cf-q="' + it.id + '" placeholder="0" aria-label="' + esc(it.name) + ' eligible quantity">'
+      + '<input type="number" min="0" inputmode="numeric" data-cf-r="' + it.id + '" placeholder="' + esc(it.hint || String(it.rate)) + '" aria-label="' + esc(it.name) + ' vouchers per item">';
+    rowsEl.appendChild(row);
+    var q = row.querySelector('[data-cf-q]'), r = row.querySelector('[data-cf-r]');
+    if (saved.q[it.id]) q.value = saved.q[it.id];
+    if (saved.r[it.id] !== undefined && saved.r[it.id] !== '') r.value = saved.r[it.id];
+    else if (it.rate !== null) r.value = it.rate;
+    q.addEventListener('input', calc);
+    r.addEventListener('input', calc);
+  });
+  if (saved.banked) banked.value = saved.banked;
+  if (saved.target) target.value = saved.target;
+  banked.addEventListener('input', calc);
+  target.addEventListener('input', calc);
+
+  var copyText = '';
+  function calc() {
+    var data = { q: {}, r: {}, banked: banked.value, target: target.value };
+    var total = 0, lines = [], over = [], noRate = [];
+    CF_ITEMS.forEach(function(it) {
+      var qEl = rowsEl.querySelector('[data-cf-q="' + it.id + '"]');
+      var rEl = rowsEl.querySelector('[data-cf-r="' + it.id + '"]');
+      var q = num(qEl.value), rate = num(rEl.value);
+      data.q[it.id] = qEl.value;
+      data.r[it.id] = (it.rate !== null && rate === it.rate) ? '' : rEl.value;
+      if (!q) return;
+      if (!rate) { noRate.push(it.name); return; }
+      var v = q * rate;
+      total += v;
+      lines.push(it.name + ': ' + q.toLocaleString() + ' x ' + rate + ' = ' + v.toLocaleString());
+      if (it.limit && q > it.limit) over.push(it.name + ' (' + q.toLocaleString() + ', reported limit ' + it.limit + ')');
+    });
+    store(KEY, data);
+    var bank = num(banked.value), goal = num(target.value);
+    var all = total + bank;
+    if (!total && !bank && !noRate.length) {
+      out.className = 'sg-calc-out';
+      out.textContent = 'Enter your eligible materials to estimate your vouchers.';
+      copyText = '';
+      return;
+    }
+    var html = 'From this Fair: <strong>' + total.toLocaleString() + ' Trading Vouchers</strong>';
+    if (bank) html += '<br>Plus banked: ' + bank.toLocaleString() + ' &#x2192; <strong>' + all.toLocaleString() + ' available</strong>';
+    var cls = 'sg-calc-out ok';
+    var goalLine = '';
+    if (goal) {
+      if (all >= goal) { goalLine = 'Target covered: ' + all.toLocaleString() + ' of ' + goal.toLocaleString() + ' (' + (all - goal).toLocaleString() + ' left over to bank).'; cls = 'sg-calc-out done'; }
+      else { goalLine = 'Short of target by ' + (goal - all).toLocaleString() + ' vouchers. Bank them and add more at the next Fair.'; cls = 'sg-calc-out warn'; }
+      html += '<br>' + goalLine;
+    }
+    if (over.length) html += '<br><span style="color:var(--text-dim);">Above reported limits: ' + esc(over.join(', ')) + '. Check your exchange screen - you may not be able to trade all of these.</span>';
+    if (noRate.length) html += '<br><span style="color:var(--text-dim);">Enter the live rate for: ' + esc(noRate.join(', ')) + ' (not counted yet).</span>';
+    out.className = cls;
+    out.innerHTML = html;
+    copyText = 'Champagne Fair voucher estimate: ' + total.toLocaleString() + ' Trading Vouchers'
+      + (bank ? ' + ' + bank.toLocaleString() + ' banked = ' + all.toLocaleString() + ' available' : '')
+      + (lines.length ? '\n' + lines.join('\n') : '')
+      + (goalLine ? '\n' + goalLine : '')
+      + '\nRates are estimates - check the live exchange. Guide: tactichub.github.io/KS/#champagne-fair';
+  }
+  calc();
+  document.getElementById('cfCopy').addEventListener('click', function() {
+    if (!copyText) { toast('Enter your materials first'); return; }
+    copy(copyText, 'Voucher estimate copied!');
+  });
+  document.getElementById('cfRates').addEventListener('click', function() {
+    CF_ITEMS.forEach(function(it) {
+      rowsEl.querySelector('[data-cf-r="' + it.id + '"]').value = it.rate === null ? '' : it.rate;
+    });
+    calc();
+    toast('Rates reset to reference values');
+  });
+  document.getElementById('cfClear').addEventListener('click', function() {
+    rowsEl.querySelectorAll('[data-cf-q]').forEach(function(el) { el.value = ''; });
+    banked.value = ''; target.value = '';
+    calc();
+    toast('Calculator cleared');
+  });
+})();
+
 // ── TAB NAVIGATION ──
 // Order here = order of the tab bar and of Previous/Next. Each id must match a .tab-panel element id.
 // To add a new section: give its <section> class="tab-panel", add a sidebar link, and add a row here.
@@ -11065,6 +11576,7 @@ const TABS = [
   { id: 'alliance-champ', label: 'Alliance Champ',    group: 'Events', desc: 'Weekly six-alliance event across five rounds and three lanes.' },
   { id: 'bear-hunt',      label: 'Bear Hunt',         group: 'Events', desc: 'A top free source of Forge Hammers - rally setup, joining rules, and troop ratios.' },
   { id: 'blizzard-brawl', label: 'Blizzard Brawl',    group: 'Events', desc: 'Solo 10-player free-for-all - objectives, crates, and airdrops beat kills.', beacon: true },
+  { id: 'champagne-fair', label: 'Champagne Fair',    group: 'Events', desc: 'Two-day exchange event - turn maxed-Hero surplus into Trading Vouchers, buy Widgets first, bank the rest for KvK. Includes a Voucher Calculator.', beacon: true },
   { id: 'er',             label: "Eternity's Reach",  group: 'Events', desc: 'Stage-based solo event awarding Charm materials.' },
   { id: 'finders-fortune', label: "Finder's Fortune", group: 'Events', desc: '3-day hidden-object event - spend Bones, keep Focusbells, and team up in Finder\'s Fusion.', beacon: true },
   { id: 'governor-duel',  label: 'Governor Duel',     group: 'Events', desc: 'Sign up Sunday (TC 30+), set 3 squads with 9 different Heroes, then 10 challenges a day Mon-Sat.', beacon: true },
