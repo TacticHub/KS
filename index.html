@@ -13515,12 +13515,12 @@ document.addEventListener('DOMContentLoaded', function() {
   var STORE_KEY = 'tactichubPetsHidden';
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var GROUP_W = 104, OMEN_W = 46, SPEED = 34; // px per second
-  var THOUGHTS = WHATS_NEW.slice(0, 6);
+  var THOUGHTS = WHATS_NEW.slice(0, 20); // cycles the 20 newest updates
   var OPENERS = ['Hmm...', 'Been thinking about this one.', 'Did you catch this?', 'Worth a look:', 'Pondering the latest...', 'Now this is interesting.'];
   var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
   var x = 0, dir = 1, state = 'walk', stateEnd = 0, lastT = 0, rafId = 0;
-  var thoughtIdx = 0, hovering = false, running = false, timers = [];
+  var thoughtIdx = Math.floor(Math.random() * THOUGHTS.length), hovering = false, running = false, timers = [];
 
   function store(get, val) {
     try { if (get) return localStorage.getItem(STORE_KEY) === '1'; localStorage.setItem(STORE_KEY, val ? '1' : '0'); } catch (e) {}
