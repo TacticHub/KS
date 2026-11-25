@@ -5534,7 +5534,7 @@
     <li><strong>I almost won - now what?</strong> Try the zone's alternative ratio with everything else the same, and retry once in case a skill didn't trigger.</li>
   </ul>
 
-  <h3>Winning Formations</h3>
+  <h3 id="winning-formations">Winning Formations</h3>
   <p class="body-note" style="color:var(--text-dim);margin-bottom:10px;">Real formations that cleared real stages, posted by Kingdom 1625 players. Post yours, high-five the ones that helped you, and climb Omen's leaderboard.</p>
   <div id="mtwfProfile" class="mtwf-profile"></div>
   <details class="mtwf-postbox" id="mtwfPostBox">
@@ -11317,6 +11317,7 @@ const WHATS_NEW = [
       syncHeroes();
       setProfile(d.profile);
       celebrate(d, prevRank);
+      try { window.dispatchEvent(new CustomEvent('mtwf:posted', { detail: d.post || null })); } catch (e) {}
       filter = 'all'; sort = 'new'; document.getElementById('mtwfSort').value = 'new'; renderFilter();
       loadBoard(); loadLb();
     }).catch(function(err) { formOut.className = 'sg-calc-out warn'; formOut.textContent = err.message; })
@@ -13522,6 +13523,56 @@ document.addEventListener('DOMContentLoaded', function() {
   var x = 0, dir = 1, state = 'walk', stateEnd = 0, lastT = 0, rafId = 0;
   var thoughtIdx = Math.floor(Math.random() * THOUGHTS.length), hovering = false, running = false, timers = [];
 
+  // Winning Formations: the 20 newest posts from the Mystic Trial board join the cycle,
+  // alternating with What's New. A player's own posts are recognized by their board token.
+  var FORM_API = (typeof WORKER_URL !== 'undefined' ? WORKER_URL : 'https://bbq-kingshot.burseer.workers.dev') + '/mt/board?zone=all&sort=new';
+  var ZONE_NAMES = { coliseum: 'Coliseum', forest: 'Forest of Life', crystal: 'Crystal Cave', nexus: 'Knowledge Nexus', molten: 'Molten Fort', spire: 'Radiant Spire' };
+  var FORM_OPENERS = ['Hmm...', 'Look at this one.', 'Noted for later:', 'Fresh off the board:', 'Now that is a clear.'];
+  var formations = [], formIdx = 0, nextIsForm = false, pendingMine = null;
+  function boardToken() {
+    try { var t = JSON.parse(localStorage.getItem('mt-token') || 'null'); return /^[a-f0-9]{32}$/.test(t) ? t : null; } catch (e) { return null; }
+  }
+  function loadFormations(thenMine) {
+    var tok = boardToken();
+    return fetch(FORM_API, tok ? { headers: { 'X-MT-Token': tok } } : {}).then(function(r) { return r.ok ? r.json() : {}; }).then(function(d) {
+      formations = (d.posts || []).slice(0, 20);
+      if (formIdx >= formations.length) formIdx = 0;
+      if (thenMine) {
+        var mine = formations.filter(function(p) { return p.mine; })[0];
+        if (mine) pendingMine = mine;
+      }
+    }).catch(function() {});
+  }
+  function stageText(n) { return Math.floor((n - 1) / 10) + 1 + '-' + ((n - 1) % 10 + 1); }
+  function formationThought(p) {
+    var where = (ZONE_NAMES[p.zone] || p.zone) + ' ' + stageText(p.stage);
+    var mix = (p.ratio || []).join('/');
+    var hf = Number(p.highfives) || 0;
+    var hfText = hf ? ' ' + hf + ' high-five' + (hf === 1 ? '' : 's') + ' so far.' : '';
+    var html;
+    if (p.mine) {
+      html = '<b>Nice clear!</b> Your ' + esc(where) + ' win with a ' + esc(mix) + ' mix is on the board' + (p.trailblazer ? ' - and you were the Trailblazer' : '') + '.' + esc(hfText);
+    } else {
+      var who = '[' + p.tag + '] ' + p.name;
+      html = '<b>' + esc(FORM_OPENERS[Math.floor(Math.random() * FORM_OPENERS.length)]) + '</b> ' + esc(who) + ' cleared ' + esc(where) + ' with a ' + esc(mix) + ' mix' + (p.trailblazer ? ', first to post it' : '') + '.';
+      if (p.note) html += ' Their tip: &#x201C;' + esc(p.note.length > 90 ? p.note.slice(0, 87).replace(/\s+\S*$/, '') + '...' : p.note) + '&#x201D;';
+      else html += esc(hfText);
+    }
+    return { kicker: p.mine ? 'Omen\'s thoughts - your formation' : 'Omen\'s thoughts - Winning Formations', html: html, link: '#winning-formations', linkText: 'See the board &rarr;' };
+  }
+  function updateThought(it) {
+    var opener = OPENERS[Math.floor(Math.random() * OPENERS.length)];
+    return { kicker: 'Omen\'s thoughts - ' + fmtDate(it.date) + ' update', html: '<b>' + esc(opener) + '</b> ' + esc(shorten(it.label)), link: it.link || '#whats-new', linkText: 'Take a look &rarr;' };
+  }
+  function nextThought() {
+    if (pendingMine) { var m = pendingMine; pendingMine = null; return formationThought(m); }
+    var useForm = nextIsForm && formations.length;
+    nextIsForm = !nextIsForm;
+    if (useForm) return formationThought(formations[formIdx++ % formations.length]);
+    var it = THOUGHTS[thoughtIdx % THOUGHTS.length]; thoughtIdx++;
+    return updateThought(it);
+  }
+
   function store(get, val) {
     try { if (get) return localStorage.getItem(STORE_KEY) === '1'; localStorage.setItem(STORE_KEY, val ? '1' : '0'); } catch (e) {}
     return false;
@@ -13571,17 +13622,16 @@ document.addEventListener('DOMContentLoaded', function() {
   function startPonder(immediate) {
     clearTimers();
     setState('ponder');
-    var it = THOUGHTS[thoughtIdx % THOUGHTS.length];
-    thoughtIdx++;
+    var th = nextThought();
     kicker.textContent = 'Omen is pondering...';
     body.innerHTML = '<span class="omp-dots" aria-hidden="true"><i></i><i></i><i></i></span>';
     actions.hidden = true;
     showBubble();
     later(function() {
-      var opener = OPENERS[Math.floor(Math.random() * OPENERS.length)];
-      kicker.textContent = 'Omen\'s thoughts - ' + fmtDate(it.date) + ' update';
-      body.innerHTML = '<p class="omp-text"><b>' + esc(opener) + '</b> ' + esc(shorten(it.label)) + '</p>';
-      readLink.href = it.link || '#whats-new';
+      kicker.textContent = th.kicker;
+      body.innerHTML = '<p class="omp-text">' + th.html + '</p>';
+      readLink.href = th.link;
+      readLink.innerHTML = th.linkText;
       actions.hidden = false;
       positionBubble();
       later(function waitToLeave() {
@@ -13642,6 +13692,15 @@ document.addEventListener('DOMContentLoaded', function() {
     if (layer.hidden) return;
     if (document.hidden) { cancelAnimationFrame(rafId); }
     else if (running && !reduced) { lastT = 0; rafId = requestAnimationFrame(tick); }
+  });
+
+  loadFormations();
+  setInterval(function() { if (running && !document.hidden) loadFormations(); }, 600000);
+  window.addEventListener('mtwf:posted', function() {
+    // Let Omen's points pop-up finish, then have him ponder the new post
+    loadFormations(true).then(function() {
+      if (running && pendingMine) later(function() { startPonder(true); }, 6500);
+    });
   });
 
   if (store(true)) { layer.hidden = true; restoreBtn.hidden = false; }
