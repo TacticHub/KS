@@ -10565,6 +10565,7 @@ function quickAsk(question) {
 // date format: YYYY-MM-DD (used only for sorting/compare, not displayed verbatim below)
 // Links can point at any tab id (e.g. '#war-academy') - the tab system opens that tab.
 const WHATS_NEW = [
+  { date: '2026-11-25', label: 'Meet the roaming pets - Omen and the Feline Flame now walk the bottom of every tab and stop to ponder the latest updates. Tap Omen for his next thought', link: '#whats-new' },
   { date: '2026-11-22', label: 'New Harvest Celebration tab (Nov 24-30) - free Feast Bags from Beasts and gathering, featured dishes first, a day-by-day KvK-first plan, and a Feast Points Estimator. Stay in your alliance!', link: '#harvest-celebration' },
   { date: '2026-11-22', label: 'New Champagne Fair tab - trade maxed-Hero surplus for Trading Vouchers, what to buy first, voucher banking, and a Voucher Calculator. Buy, don\'t burn: bank what you buy for KvK', link: '#champagne-fair' },
   { date: '2026-11-17', label: 'New Backpack tab - what every item does, which KvK prep day it scores on, the hidden Backpack Gems lesson, a Gem Calculator, a KvK Readiness Calculator, and a private checklist', link: '#backpack' },
@@ -13421,6 +13422,232 @@ document.addEventListener('DOMContentLoaded', function() {
   // War Academy priority table boot
   waRender();
 });
+</script>
+
+
+<!-- ══ ROAMING PETS: Omen & the Feline Flame walk the bottom of the screen and ponder the latest What's New entries ══ -->
+<style>
+.omp-layer { position: fixed; left: 0; right: 0; bottom: 0; height: 0; z-index: 280; pointer-events: none; font-family: 'Lato', sans-serif; }
+.omp-layer[hidden], .omp-restore[hidden] { display: none !important; }
+.omp-group { position: absolute; left: 0; bottom: max(6px, env(safe-area-inset-bottom)); width: 104px; height: 70px; will-change: transform; }
+.omp-flip { position: absolute; inset: 0; transition: transform .25s ease; }
+.omp-group.omp-left .omp-flip { transform: scaleX(-1); }
+.omp-sprite { position: absolute; bottom: 0; background-repeat: no-repeat; background-size: 800% 100%; background-position: 0 0; filter: drop-shadow(0 0 5px rgba(178,101,235,.55)) drop-shadow(0 2px 2px rgba(0,0,0,.45)); }
+.omp-omen { right: 0; width: 46px; height: 70px; background-image: url('assets/characters/pets/omen-walk.webp'); pointer-events: auto; cursor: pointer; border: 0; padding: 0; background-color: transparent; }
+.omp-cat { left: 0; width: 50px; height: 44px; background-image: url('assets/characters/pets/feline-walk.webp'); }
+.omp-walking .omp-sprite { animation: omp-walk .8s steps(8) infinite; }
+.omp-walking .omp-cat { animation-duration: .64s; }
+@keyframes omp-walk { from { background-position: 0 0; } to { background-position: 114.2857% 0; } }
+.omp-pondering .omp-omen { animation: omp-ponder 2.4s ease-in-out infinite; }
+.omp-pondering .omp-cat { animation: omp-ponder 3.1s ease-in-out infinite; }
+@keyframes omp-ponder { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+.omp-omen:focus-visible { outline: 2px solid #e9bc74; outline-offset: 2px; border-radius: 6px; }
+
+.omp-bubble { position: absolute; bottom: calc(max(6px, env(safe-area-inset-bottom)) + 112px); left: 0; width: min(270px, calc(100vw - 16px)); box-sizing: border-box; padding: 10px 12px 9px; border-radius: 16px; border: 1px solid rgba(178,101,235,.6); background: linear-gradient(140deg, rgba(40,23,66,.97), rgba(18,37,60,.97)); box-shadow: 0 8px 26px rgba(0,0,0,.45), 0 0 14px rgba(178,101,235,.25); color: #e4d9ef; pointer-events: auto; opacity: 0; transform: translateY(8px) scale(.96); transform-origin: var(--omp-tail, 40px) 100%; transition: opacity .25s ease, transform .3s cubic-bezier(.2,1.3,.4,1); visibility: hidden; }
+.omp-bubble.omp-show { opacity: 1; transform: none; visibility: visible; }
+.omp-bubble::before, .omp-bubble::after { content: ''; position: absolute; border-radius: 50%; border: 1px solid rgba(178,101,235,.6); background: rgba(30,30,63,.97); }
+.omp-bubble::before { width: 13px; height: 13px; bottom: -19px; left: calc(var(--omp-tail, 40px) - 6px); }
+.omp-bubble::after { width: 7px; height: 7px; bottom: -31px; left: calc(var(--omp-tail, 40px) - 1px); }
+.omp-kicker { display: block; color: #e9bc74; font-size: .62rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 4px; }
+.omp-text { margin: 0; font-size: .82rem; line-height: 1.45; }
+.omp-text b { color: #f6d49b; font-weight: 700; }
+.omp-dots { display: inline-flex; gap: 5px; padding: 4px 2px; }
+.omp-dots i { width: 7px; height: 7px; border-radius: 50%; background: #c993f2; animation: omp-dot 1.2s ease-in-out infinite; }
+.omp-dots i:nth-child(2) { animation-delay: .18s; } .omp-dots i:nth-child(3) { animation-delay: .36s; }
+@keyframes omp-dot { 0%,80%,100% { opacity: .3; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-3px); } }
+.omp-actions { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 7px; }
+.omp-actions[hidden] { display: none; }
+.omp-read { color: #e9bc74; font-size: .74rem; font-weight: 700; text-decoration: none; }
+.omp-read:hover { text-decoration: underline; }
+.omp-rest { background: none; border: 0; padding: 2px 0; color: #a99bbb; font: inherit; font-size: .7rem; cursor: pointer; }
+.omp-rest:hover { color: #e4d9ef; }
+.omp-restore { position: fixed; right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); z-index: 280; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(178,101,235,.55); background: rgba(20,38,63,.9); color: #e9bc74; font-size: 16px; line-height: 1; cursor: pointer; opacity: .75; box-shadow: 0 4px 14px rgba(0,0,0,.35); }
+.omp-restore:hover { opacity: 1; }
+@media (max-width: 600px) {
+  .omp-group { transform-origin: bottom left; }
+  .omp-bubble { width: min(240px, calc(100vw - 16px)); }
+  .omp-text { font-size: .78rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .omp-walking .omp-sprite, .omp-pondering .omp-omen, .omp-pondering .omp-cat, .omp-dots i { animation: none; }
+  .omp-bubble, .omp-flip { transition: none; }
+}
+@media print { .omp-layer, .omp-restore { display: none !important; } }
+</style>
+
+<div class="omp-layer" id="ompLayer">
+  <div class="omp-group" id="ompGroup">
+    <div class="omp-flip">
+      <div class="omp-sprite omp-cat" aria-hidden="true"></div>
+      <button type="button" class="omp-sprite omp-omen" id="ompOmen" aria-label="Omen - tap to hear what he's thinking about"></button>
+    </div>
+  </div>
+  <div class="omp-bubble" id="ompBubble" aria-live="off">
+    <span class="omp-kicker" id="ompKicker">Omen is pondering...</span>
+    <div id="ompBody"></div>
+    <div class="omp-actions" id="ompActions" hidden>
+      <a class="omp-read" id="ompRead" href="#whats-new">Take a look &rarr;</a>
+      <button type="button" class="omp-rest" id="ompRest">Let them rest</button>
+    </div>
+  </div>
+</div>
+<button type="button" class="omp-restore" id="ompRestore" hidden aria-label="Bring back Omen and the Feline Flame" title="Bring back Omen">&#128062;</button>
+
+<script>
+// ── ROAMING PETS ──
+// Omen and the Feline Flame walk along the bottom of every tab. Every so often they stop,
+// ponder, and share a thought about one of the newest WHATS_NEW entries, so new updates
+// become new thoughts automatically. Hidden state is remembered per browser.
+(function() {
+  'use strict';
+  var layer = document.getElementById('ompLayer');
+  if (!layer || typeof WHATS_NEW === 'undefined' || !WHATS_NEW.length) return;
+
+  var group = document.getElementById('ompGroup');
+  var omen = document.getElementById('ompOmen');
+  var bubble = document.getElementById('ompBubble');
+  var kicker = document.getElementById('ompKicker');
+  var body = document.getElementById('ompBody');
+  var actions = document.getElementById('ompActions');
+  var readLink = document.getElementById('ompRead');
+  var restBtn = document.getElementById('ompRest');
+  var restoreBtn = document.getElementById('ompRestore');
+
+  var STORE_KEY = 'tactichubPetsHidden';
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var GROUP_W = 104, OMEN_W = 46, SPEED = 34; // px per second
+  var THOUGHTS = WHATS_NEW.slice(0, 6);
+  var OPENERS = ['Hmm...', 'Been thinking about this one.', 'Did you catch this?', 'Worth a look:', 'Pondering the latest...', 'Now this is interesting.'];
+  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  var x = 0, dir = 1, state = 'walk', stateEnd = 0, lastT = 0, rafId = 0;
+  var thoughtIdx = 0, hovering = false, running = false, timers = [];
+
+  function store(get, val) {
+    try { if (get) return localStorage.getItem(STORE_KEY) === '1'; localStorage.setItem(STORE_KEY, val ? '1' : '0'); } catch (e) {}
+    return false;
+  }
+  function rand(a, b) { return a + Math.random() * (b - a); }
+  function maxX() { return Math.max(0, window.innerWidth - GROUP_W - 8); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function(c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function fmtDate(d) { var p = d.split('-'); return MONTHS[parseInt(p[1], 10) - 1] + ' ' + parseInt(p[2], 10); }
+  function shorten(s) {
+    if (s.length <= 125) return s;
+    var cut = s.slice(0, 120); var sp = cut.lastIndexOf(' ');
+    return cut.slice(0, sp > 60 ? sp : 120).replace(/[\s,\-]+$/, '') + '...';
+  }
+  function later(fn, ms) { var id = setTimeout(fn, ms); timers.push(id); return id; }
+  function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+
+  function place() {
+    group.style.transform = 'translateX(' + Math.round(x) + 'px)';
+    group.classList.toggle('omp-left', dir < 0);
+    if (bubble.classList.contains('omp-show')) positionBubble();
+  }
+  function positionBubble() {
+    var bw = bubble.offsetWidth;
+    // Omen sits on the right of the group when facing right, on the left when flipped
+    var omenCenter = x + (dir > 0 ? GROUP_W - OMEN_W / 2 : OMEN_W / 2);
+    var left = Math.min(Math.max(8, omenCenter - bw * 0.3), window.innerWidth - bw - 8);
+    bubble.style.left = Math.round(left) + 'px';
+    bubble.style.setProperty('--omp-tail', Math.round(Math.min(Math.max(18, omenCenter - left), bw - 18)) + 'px');
+  }
+
+  function setState(s) {
+    state = s;
+    group.classList.toggle('omp-walking', s === 'walk' && !reduced);
+    group.classList.toggle('omp-pondering', s !== 'walk');
+  }
+
+  function startWalk() {
+    clearTimers();
+    hideBubble();
+    setState('walk');
+    if (Math.random() < 0.35) dir = -dir;
+    if (x <= 4) dir = 1; else if (x >= maxX() - 4) dir = -1;
+    stateEnd = performance.now() + rand(9000, 18000);
+    place();
+  }
+
+  function startPonder(immediate) {
+    clearTimers();
+    setState('ponder');
+    var it = THOUGHTS[thoughtIdx % THOUGHTS.length];
+    thoughtIdx++;
+    kicker.textContent = 'Omen is pondering...';
+    body.innerHTML = '<span class="omp-dots" aria-hidden="true"><i></i><i></i><i></i></span>';
+    actions.hidden = true;
+    showBubble();
+    later(function() {
+      var opener = OPENERS[Math.floor(Math.random() * OPENERS.length)];
+      kicker.textContent = 'Omen\'s thoughts - ' + fmtDate(it.date) + ' update';
+      body.innerHTML = '<p class="omp-text"><b>' + esc(opener) + '</b> ' + esc(shorten(it.label)) + '</p>';
+      readLink.href = it.link || '#whats-new';
+      actions.hidden = false;
+      positionBubble();
+      later(function waitToLeave() {
+        if (hovering) { later(waitToLeave, 1500); return; }
+        if (reduced) { hideBubble(); later(function() { startPonder(); }, rand(25000, 40000)); }
+        else startWalk();
+      }, 9000);
+    }, immediate ? 900 : 1900);
+  }
+
+  function showBubble() { bubble.classList.add('omp-show'); positionBubble(); }
+  function hideBubble() { bubble.classList.remove('omp-show'); }
+
+  function tick(t) {
+    rafId = requestAnimationFrame(tick);
+    var dt = lastT ? Math.min((t - lastT) / 1000, 0.1) : 0;
+    lastT = t;
+    if (state !== 'walk') return;
+    x += dir * SPEED * dt;
+    if (x <= 0) { x = 0; dir = 1; }
+    else if (x >= maxX()) { x = maxX(); dir = -1; }
+    place();
+    if (t >= stateEnd) startPonder();
+  }
+
+  function start() {
+    if (running) return;
+    running = true;
+    layer.hidden = false;
+    restoreBtn.hidden = true;
+    x = reduced ? maxX() : rand(0, maxX());
+    dir = reduced ? -1 : (Math.random() < 0.5 ? 1 : -1);
+    place();
+    if (reduced) { setState('ponder'); later(function() { startPonder(); }, 4000); }
+    else { startWalk(); stateEnd = performance.now() + rand(6000, 10000); }
+    lastT = 0;
+    if (!reduced) rafId = requestAnimationFrame(tick);
+  }
+  function stop() {
+    running = false;
+    clearTimers();
+    cancelAnimationFrame(rafId);
+    hideBubble();
+  }
+
+  omen.addEventListener('click', function() {
+    if (state === 'walk' || !bubble.classList.contains('omp-show') || !actions.hidden) startPonder(true);
+  });
+  bubble.addEventListener('mouseenter', function() { hovering = true; });
+  bubble.addEventListener('mouseleave', function() { hovering = false; });
+  readLink.addEventListener('click', function() { later(startWalk, 400); });
+  restBtn.addEventListener('click', function() {
+    stop(); layer.hidden = true; restoreBtn.hidden = false; store(false, true);
+  });
+  restoreBtn.addEventListener('click', function() { store(false, false); start(); });
+  window.addEventListener('resize', function() { x = Math.min(x, maxX()); place(); });
+  document.addEventListener('visibilitychange', function() {
+    if (layer.hidden) return;
+    if (document.hidden) { cancelAnimationFrame(rafId); }
+    else if (running && !reduced) { lastT = 0; rafId = requestAnimationFrame(tick); }
+  });
+
+  if (store(true)) { layer.hidden = true; restoreBtn.hidden = false; }
+  else setTimeout(start, 2500);
+})();
 </script>
 
 </body>
