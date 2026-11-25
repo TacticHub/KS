@@ -3082,6 +3082,56 @@
   .bp-check input { width: 20px; height: 20px; accent-color: var(--gold); flex: none; }
   .bp-check input:checked + span { color: var(--text-dim); text-decoration: line-through; }
   .bp-save-note { font-family: 'Lato', sans-serif; font-size: 0.74rem; color: var(--text-dim); }
+  /* ── FISHING TOURNAMENT ── */
+  #fishing .tg-table { min-width: 0; }
+  .fish-tagline { font-family: 'Playfair Display', Georgia, serif; font-size: 1.05rem; color: var(--gold-pale); margin: -4px 0 14px; line-height: 1.5; }
+  .fish-dim { color: var(--text-dim); }
+  #fishing .body-note.fish-dim { margin-bottom: 10px; }
+  .fish-two { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 12px; }
+  .fish-two .card { margin-bottom: 0; }
+  .fish-phases { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; margin-bottom: 16px; }
+  .fish-phase { background: rgba(20,38,63,0.6); border: 1px solid rgba(34,184,196,0.3); border-top: 3px solid var(--ocean); border-radius: 10px; padding: 12px 14px; }
+  .fish-phase > strong { display: block; font-family: 'Lato', sans-serif; color: var(--text); margin: 8px 0 4px; font-size: 0.98rem; }
+  .fish-phase p { font-family: 'Merriweather', Georgia, serif; font-size: 0.85rem; line-height: 1.55; color: var(--text); margin: 0; }
+  .fish-gear { display: grid; gap: 10px; margin-bottom: 16px; }
+  .fish-gear-card { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; align-items: start; background: rgba(20,38,63,0.6); border: 1px solid rgba(224,163,57,0.25); border-radius: 10px; padding: 12px 14px; }
+  .fish-gear-card strong { font-family: 'Lato', sans-serif; color: var(--gold-light); }
+  .fish-gear-card p { font-family: 'Merriweather', Georgia, serif; font-size: 0.86rem; line-height: 1.55; margin: 4px 0 0; }
+  .fish-rank { width: 40px; height: 40px; border-radius: 50%; background: var(--gold); color: var(--dark); font-family: 'Lato', sans-serif; font-weight: 900; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; }
+  .fish-list, .fish-ol { padding-left: 20px; line-height: 1.65; margin-top: 6px; }
+  .fish-list li, .fish-ol li { margin-bottom: 2px; }
+  .fish-calc select { width: 100%; box-sizing: border-box; }
+  .fish-calc input[aria-invalid="true"], .fish-calc select[aria-invalid="true"] { border-color: #e05a4a; outline: 1px solid #e05a4a; }
+  .fish-help { font-family: 'Lato', sans-serif; font-size: 0.76rem; color: var(--text-muted); margin: 0 0 6px; line-height: 1.45; }
+  .fish-toggle { flex-direction: row !important; align-items: center; gap: 10px !important; font-size: 0.85rem !important; color: var(--text) !important; margin: 8px 0 10px; cursor: pointer; line-height: 1.4; }
+  .fish-toggle input { width: 20px !important; height: 20px; flex: none; accent-color: var(--gold); }
+  .fish-errors { font-family: 'Lato', sans-serif; font-size: 0.82rem; color: #ff8070; margin-bottom: 6px; }
+  .fish-errors:empty { display: none; }
+  .fish-note { margin-top: 8px; font-size: 0.84rem; color: var(--gold-pale); }
+  .fish-warn { margin-top: 8px; padding: 8px 10px; border-radius: 6px; background: rgba(224,90,74,0.15); border: 1px solid rgba(224,90,74,0.45); font-size: 0.86rem; }
+  .fish-bar { height: 10px; border-radius: 6px; background: rgba(255,255,255,0.08); overflow: hidden; margin: 2px 0 8px; }
+  .fish-bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--ocean), var(--ocean-light)); border-radius: 6px; transition: width .3s; }
+  #fishChkList .bp-check label { flex-direction: row; align-items: center; gap: 10px; font-size: 0.86rem; color: var(--text); }
+  .fish-picks { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .fish-chk-progress { margin: 12px 0 0; font-family: 'Lato', sans-serif; font-size: 0.8rem; }
+  #fishChkList .sg-calc-sub { margin-top: 12px; }
+  #fishChkList .sg-calc-sub:first-child { margin-top: 0; }
+  .fish-fs { border: 0; padding: 0; margin: 0 0 4px; min-width: 0; }
+  .fish-fs legend { font-family: 'Lato', sans-serif; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 6px; padding: 0; }
+  .fish-fs .sg-calc-grid { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); }
+  .fish-slots { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin: 6px 0 12px; }
+  .fish-slot { width: 26px; height: 26px; border-radius: 6px; border: 1px solid rgba(92,211,232,0.45); background: rgba(10,22,40,0.8); }
+  .fish-slot.on { background: var(--ocean); border-color: var(--ocean-light); }
+  .fish-slot.gain { background: rgba(92,211,232,0.25); border-style: dashed; }
+  .fish-slot-label { font-family: 'Lato', sans-serif; font-weight: 700; font-size: 0.9rem; margin-left: 6px; color: var(--text); }
+  .fish-msg { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: start; background: rgba(20,38,63,0.6); border: 1px solid rgba(224,163,57,0.2); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; }
+  .fish-msg pre { white-space: pre-wrap; word-break: break-word; font-family: 'Lato', sans-serif; font-size: 0.86rem; line-height: 1.5; color: var(--text); margin: 0; }
+  .fish-sources a { color: var(--gold); }
+  @media (max-width: 480px) {
+    .fish-slot { width: 22px; height: 22px; }
+    .fish-msg { grid-template-columns: 1fr; }
+    .fish-msg .mt-btn { justify-self: start; }
+  }
 </style>
 <noscript><style>.tab-panel{display:block !important;} .tab-bar{display:none;}</style></noscript>
 </head>
@@ -3148,6 +3198,7 @@
     <a href="#champagne-fair" style="display:flex;align-items:center;"><span class="nav-icon">&#x1F942;</span>Champagne Fair<span class="nav-beacon" aria-hidden="true"></span></a>
     <a href="#er"><span class="nav-icon">&#x2728;</span>Eternity's Reach</a>
     <a href="#finders-fortune" style="display:flex;align-items:center;"><span class="nav-icon">&#x1F50E;</span>Finder's Fortune<span class="nav-beacon" aria-hidden="true"></span></a>
+    <a href="#fishing" style="display:flex;align-items:center;"><span class="nav-icon">&#x1F41F;</span>Fishing Tournament<span class="nav-beacon" aria-hidden="true"></span></a>
     <a href="#governor-duel" style="display:flex;align-items:center;"><span class="nav-icon">&#x1F93A;</span>Governor Duel<span class="nav-beacon" aria-hidden="true"></span></a>
     <a href="#harvest-celebration" style="display:flex;align-items:center;"><span class="nav-icon">&#x1F383;</span>Harvest Celebration<span class="nav-beacon" aria-hidden="true"></span></a>
     <a href="#moonlit"><span class="nav-icon">&#x1F319;</span>Moonlit Promise</a>
@@ -9250,6 +9301,767 @@ var KVK_PREP = {
 
 <div class="divider">&#x2756; &#x2756; &#x2756;</div>
 
+<!-- FISHING TOURNAMENT -->
+<section id="fishing" class="tab-panel">
+  <div class="section-header">
+    <span class="section-icon">&#x1F41F;</span>
+    <h2>Fishing Tournament</h2>
+  </div>
+  <p class="body-note fish-tagline">Fastest way to 10,000 points. Catch smarter, progress faster, and stop wasting valuable fishing supplies - from your first 10,000 points to a competitive leaderboard push.</p>
+  <div class="wa-placeholder-note">&#x26A0;&#xFE0F; <span>Bait numbers, Sunken Treasure Hunt unlocks, and what the special items do come from the <strong>official Kingshot Help Center</strong>. Strategy, Power Cast rules, and Retreat and retry come from community guides (Nov 2026). Fish point values and reward milestones change between event versions, so this guide doesn't list them. <strong>Check the live event screen before you spend premium supplies.</strong></span></div>
+
+  <div class="sg-policy">
+    <div class="sg-policy-label">&#x1F6E1;&#xFE0F; Kingdom #1625 Note - Fishing Is KvK-Safe</div>
+    <div class="sg-policy-quote">Fish with what the event gives you. Nothing here needs the KvK stockpile.</div>
+    <ol>
+      <li><strong>Fishing runs on its own supplies:</strong> Bait, Treasure Charts, Fishing Vouchers, and Fishing Tokens aren't KvK prep items, so fish freely.</li>
+      <li><strong>Paid Guild tracks are optional:</strong> you don't need a membership to follow the plan on this tab.</li>
+      <li><strong>Don't spend Gems on fishing packs just to climb.</strong> Only push the leaderboard with supplies you already saved.</li>
+    </ol>
+  </div>
+
+  <!-- 1. EVENT OVERVIEW -->
+  <h3 id="fish-overview">Event Overview</h3>
+  <div class="card card-blue">
+    <p>The Fishing Tournament is a recurring <strong>solo event</strong> that combines fishing skill, equipment progression, collection completion, and resource management. You earn <strong>Fishing Points</strong> and <strong>Fishing Tokens</strong> by catching fish, discovering collectibles, and retrieving ocean treasures.</p>
+  </div>
+  <div class="tg-table-wrap">
+    <table class="tg-table">
+      <thead><tr><th>Mechanic</th><th>Value</th></tr></thead>
+      <tbody id="fishMechanics"></tbody>
+    </table>
+  </div>
+  <div class="fish-two">
+    <div class="card card-gold">
+      <p><strong>&#x1F3C6; Fishing Points</strong> decide event progress, milestone rewards, and your leaderboard rank.</p>
+    </div>
+    <div class="card card-green">
+      <p><strong>&#x1FA99; Fishing Tokens</strong> are a separate currency for fishing equipment upgrades and Sunken Treasure Hunt. Spending Tokens <strong>doesn't</strong> lower your Points.</p>
+    </div>
+  </div>
+  <p class="body-note fish-dim">Unused Tokens convert into resources when the event period ends. Certain special fishing items can carry forward to future events - check each item's description.</p>
+
+  <h3 id="fish-missions">Season Missions - Why 10,000</h3>
+  <div class="card card-gold">
+    <p><strong>10,000 Fishing Points is the first Season Missions milestone.</strong> Open <strong>Missions &rarr; Season Missions</strong> in the event to claim each reward as you pass it. The same window has a <strong>Daily Drill</strong> tab.</p>
+  </div>
+  <div class="tg-table-wrap">
+    <table class="tg-table">
+      <thead><tr><th>Milestone</th><th>Fishing Points</th><th>Reward</th></tr></thead>
+      <tbody id="fishMissions"></tbody>
+    </table>
+  </div>
+  <div class="wa-placeholder-note"><span>Milestones from the Kingdom 1625 Season Missions screen (Nov 2026). Each shows a single reward item - check the icon in game. The list may go past 50,000, and missions refresh each season.</span></div>
+
+  <!-- 2. FASTEST PATH -->
+  <h3 id="fish-path">Fastest Path to 10,000 Points</h3>
+  <div class="fish-phases">
+    <div class="fish-phase"><span class="sg-day-num">Phase 1</span><strong>Preparation</strong>
+      <p>Claim free supplies, Guild rewards, event mail, and Treasure Charts before your session. Review your Bait, Vouchers, Lanterns, Reels, Ocean Scanners, and Horns of the Tide. Don't spend valuable items until you know what they do.</p></div>
+    <div class="fish-phase"><span class="sg-day-num">Phase 2</span><strong>Ocean Prospector Opening</strong>
+      <p>Have a Treasure Chart? Start with Ocean Prospector. It gives you <strong>max-level fishing gear for that attempt</strong>, so you reach better catches before upgrading your own Fishing Kit. Consider a Fishing Voucher if the attempt looks strong. Goal: a big early pile of Points and Tokens.</p></div>
+    <div class="fish-phase"><span class="sg-day-num">Phase 3</span><strong>Equipment Progression</strong>
+      <p>Spend earned Tokens on your Fishing Kit: <strong>Line &rarr; Hook &rarr; Sinker</strong>. Reach valuable depths and raise catch capacity before descent convenience. If your event format already gives max-level equipment, skip this step.</p></div>
+    <div class="fish-phase"><span class="sg-day-num">Phase 4</span><strong>Unlock Power Cast</strong>
+      <p>In the standard format, Power Cast needs <strong>max-level equipment</strong> and <strong>50 current-season fish discoveries</strong>. Early on, catch missing collection entries when they help unlock it. Once unlocked, focus on the score of each attempt.</p></div>
+    <div class="fish-phase"><span class="sg-day-num">Phase 5</span><strong>High-Value Fishing</strong>
+      <p>Use suitable items, descend as deep as you can, and pick valuable targets on the way up. Don't fill your hook with common fish before you reach better ones. Use Power Cast when you're producing consistently strong catches.</p></div>
+    <div class="fish-phase"><span class="sg-day-num">Phase 6</span><strong>Complete the Target</strong>
+      <p>Work out your remaining points (use the calculator below) before spending more Bait or Treasure Charts. Stop using premium items once you hit your milestone (10,000 is the first Season Missions reward), unless you're chasing the next one or the leaderboard.</p></div>
+  </div>
+
+  <aside class="omen-tip-card omen-tip-card--omen" aria-label="Omen says keep fishing" role="button" tabindex="0" data-pose="assets/characters/omen/omen-pointing.webp" data-react="assets/characters/omen/omen-thumbs-up.webp" title="Tap Omen">
+    <div><strong>Omen says: never sit at 10/10</strong><p>Bait stops growing when your storage is full. Every 3 hours at the cap is a free cast you'll never get back.</p></div>
+    <img src="assets/characters/omen/omen-pointing.webp" alt="Omen, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
+  </aside>
+
+  <!-- 3. CHECKLIST -->
+  <h3 id="fish-checklist">Fishing Strategy Checklist</h3>
+  <div class="sg-calc" id="fishChk">
+    <p class="body-note fish-dim">Tick items as you go. Progress saves automatically in this browser only.</p>
+    <div id="fishChkList"></div>
+    <div class="fish-chk-progress" id="fishChkProgress" aria-live="polite"></div>
+    <div class="mt-btn-row">
+      <button type="button" class="mt-btn mt-btn-ghost" id="fishChkReset">Clear checklist</button>
+    </div>
+  </div>
+
+  <!-- 4. EQUIPMENT -->
+  <h3 id="fish-gear">Equipment Upgrade Priorities</h3>
+  <div class="fish-gear">
+    <div class="fish-gear-card"><span class="fish-rank">1</span><div><strong>Line - First Priority</strong>
+      <p>The Line decides how deep you can fish. Greater depth opens up potentially higher-value catches, so upgrading it early raises the scoring potential of every later attempt.</p></div></div>
+    <div class="fish-gear-card"><span class="fish-rank">2</span><div><strong>Hook - Second Priority</strong>
+      <p>The Hook raises catch capacity, so you bring up more valuable targets on each ascent. It matters most once you've unlocked the deeper areas.</p></div></div>
+    <div class="fish-gear-card"><span class="fish-rank">3</span><div><strong>Sinker - Third Priority</strong>
+      <p>The Sinker improves your descent and starting conditions. It helps you reach deep areas more consistently but usually adds less score than the Line or Hook. If you keep failing your descent, upgrade it earlier.</p></div></div>
+  </div>
+
+  <!-- 5. TARGETS + TECHNIQUE -->
+  <h3 id="fish-targets">Fish and Target Selection</h3>
+  <div class="fish-two">
+    <div class="card card-blue">
+      <p><strong>&#x2B07;&#xFE0F; Descent</strong></p>
+      <ul class="fish-list">
+        <li>Avoid collisions with fish and obstacles.</li>
+        <li>Reach the deepest practical fishing zone.</li>
+        <li>Note valuable targets you pass on the way down.</li>
+        <li>Use a <strong>Lantern</strong> if poor visibility stops you moving accurately.</li>
+        <li>Use a <strong>Reel</strong> when extra collision protection would help.</li>
+      </ul>
+    </div>
+    <div class="card card-gold">
+      <p><strong>&#x2B06;&#xFE0F; Ascent</strong></p>
+      <ul class="fish-list">
+        <li>Touch the <strong>head or mouth</strong> of a fish to catch it.</li>
+        <li>Touching the <strong>tail doesn't count</strong>.</li>
+        <li>Pick valuable targets rather than catching everything.</li>
+        <li>Save hook capacity for better catches.</li>
+        <li>Take common fish only when nothing better is likely.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card card-purple">
+    <p><strong>Target priority (general):</strong></p>
+    <ol class="fish-ol">
+      <li>Sparkling fish</li>
+      <li>High-star fish</li>
+      <li>Entangled or distressed mermaids</li>
+      <li>Valuable Ocean Chests</li>
+      <li>Missing seasonal collection entries, when you need them for progression</li>
+      <li>Common fish, if capacity remains</li>
+    </ol>
+  </div>
+  <div class="wa-placeholder-note"><span>This is a situational priority list, not a guaranteed scoring ranking. Exact value depends on the species, event format, bonuses, and collection goals. Healthy mermaids don't give the same assistance rewards as distressed ones.</span></div>
+
+  <!-- 6. CONSUMABLES -->
+  <h3 id="fish-items">Fishing Consumables Reference</h3>
+  <div class="tg-table-wrap">
+    <table class="tg-table">
+      <thead><tr><th>Item</th><th>What It Does</th><th>When to Use It</th></tr></thead>
+      <tbody id="fishItems"></tbody>
+    </table>
+  </div>
+  <div class="wa-placeholder-note"><span>Lantern, Reel, Ocean Scanner, and Horn of the Tide descriptions come from the official Help Center, which doesn't say whether they carry over. Community wikis report that Fishing Kit items stay in your backpack between events. <strong>Read each item's description before saving it.</strong></span></div>
+
+  <!-- 7. RETREAT -->
+  <h3 id="fish-retry">Retreat and Retry Technique</h3>
+  <div class="card card-blue">
+    <p>Several community guides describe a way to restart an unfinished attempt without losing the supplies you selected:</p>
+    <ol class="fish-ol">
+      <li>Begin a fishing attempt.</li>
+      <li>Spot that the descent or catch is going badly.</li>
+      <li>Tap <strong>Pause</strong>.</li>
+      <li>Select <strong>Retreat</strong>.</li>
+      <li>Read the confirmation message.</li>
+      <li>Select <strong>Go Fish</strong> and try again.</li>
+    </ol>
+  </div>
+  <div class="callout callout-warn">
+    <span class="callout-label">&#x26A0;&#xFE0F; Test it first</span>
+    Try it on a low-value attempt before relying on it with premium items. Don't assume every item is refunded or that the layout stays the same after a retry.
+  </div>
+  <p class="body-note">Good reasons to retry: you started rising too early, missed a valuable target, collected too many common fish, or wasted the items you equipped. Retrying saves supplies but adds time.</p>
+
+  <!-- 8. POWER CAST -->
+  <h3 id="fish-power">Power Cast Strategy</h3>
+  <div class="card card-gold">
+    <p>Power Cast combines several fishing attempts into <strong>one multiplied result</strong>. Standard multipliers are <strong>2x, 3x, and 5x</strong>; updated event formats add a <strong>progression-gated 10x</strong>.</p>
+    <ul class="fish-list">
+      <li>A 5x Power Cast uses <strong>five</strong> Bait (or five Treasure Charts in Ocean Prospector).</li>
+      <li>It mainly <strong>saves time</strong>. It doesn't give five times the points per Bait.</li>
+      <li>Its edge: one strong performance is applied across several attempts.</li>
+      <li>Use higher multipliers when you're confident of a strong run.</li>
+    </ul>
+  </div>
+  <div class="wa-placeholder-note"><span>Check the current unlock requirements and available multipliers in the event.</span></div>
+
+  <!-- 9. POINTS CALCULATOR -->
+  <h3 id="fish-calc">Points Calculator</h3>
+  <div id="fishPointsCalc"></div>
+
+  <!-- 10. BAIT PLANNER -->
+  <h3 id="fish-bait">Bait Regeneration Planner</h3>
+  <div id="fishBaitPlanner"></div>
+
+  <!-- 11. F2P -->
+  <h3 id="fish-f2p">F2P Resource Management</h3>
+  <div class="card card-green">
+    <p>The most reliable F2P approach: <strong>maximize free attempts and reinvest early Tokens</strong>.</p>
+    <ul class="fish-list">
+      <li>Never leave regenerating Bait at its storage cap for long.</li>
+      <li>Use free Treasure Charts strategically.</li>
+      <li>Upgrade equipment early.</li>
+      <li>Save valuable items for attempts with strong scoring potential.</li>
+      <li>Claim every free Guild and event reward.</li>
+      <li>Stop spending premium supplies once you reach your milestone.</li>
+    </ul>
+  </div>
+
+  <details class="sg-day">
+    <summary><span class="sg-day-num">More</span> Fishing Guild</summary>
+    <div class="sg-day-body">
+      <p>Fishing Points also advance the Fishing Guild. Claim the free rewards and look at upcoming milestones before spending premium resources.</p>
+      <p>Paid Guild memberships may add rewards and scoring bonuses - read the current event's descriptions before working out their value. You don't need a membership to follow the F2P plan.</p>
+      <p class="fish-dim">One community data source (KingShot Toolkit) lists 21 Guild levels from 0 to 8,000 Fishing Points, with separate free, paid, and premium tracks whose rewards differ by server and kingdom age. Check your own Guild screen.</p>
+    </div>
+  </details>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">More</span> Sunken Treasure Hunt</summary>
+    <div class="sg-day-body">
+      <p>Revealing the feature and joining it are separate steps: <strong>Fishing Kit Level 9</strong> reveals the page, and <strong>all Fishing Kits at max level</strong> are needed to participate (official Help Center).</p>
+      <p>Finish your valuable equipment upgrades before spending Tokens on treasure draws.</p>
+    </div>
+  </details>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">More</span> Seasonal Collections</summary>
+    <div class="sg-day-body">
+      <p>Collections change through the Winter, Spring, Summer, and Autumn rotation. Prioritize missing entries when they count toward Power Cast or meaningful collection rewards.</p>
+      <p>Updated event versions also add <strong>Seaweed Guide</strong> progression and <strong>Seasonal Missions</strong>. Unlock conditions can differ, so check which seasonal features your account has.</p>
+    </div>
+  </details>
+
+  <!-- 12. LEADERBOARD -->
+  <h3 id="fish-leaderboard">Advanced Leaderboard Strategy</h3>
+  <details class="sg-day">
+    <summary><span class="sg-day-num">Advanced</span> Stockpiling for a leaderboard push</summary>
+    <div class="sg-day-body">
+      <p>If you're aiming high on the leaderboard, saving eligible fishing supplies across several events can help. Items people stockpile: <strong>Treasure Charts, Fishing Vouchers, Horns of the Tide, Lanterns, Reels, and Ocean Scanners</strong>.</p>
+      <p>Before saving anything, check that its current description lets it carry over.</p>
+      <p>Pick your target event based on your inventory, your playtime, and the competition.</p>
+      <p><strong>No inventory guarantees a Top 3, Top 10, or Top 50 finish.</strong> Rank depends on how strong your rivals are and how much they spend.</p>
+    </div>
+  </details>
+
+  <!-- 13. MISTAKES -->
+  <h3 class="omen-mistake-h3"><img class="omen-mistake-face" src="assets/characters/omen/omen-facepalm.webp" alt="" width="44" height="44" loading="lazy" decoding="async" onerror="this.remove()"><span>Common Mistakes</span></h3>
+  <div class="tg-mistake-grid" id="fishMistakes"></div>
+
+  <!-- 14. FAQ -->
+  <h3 id="fish-faq">Frequently Asked Questions</h3>
+  <div id="fishFaq"></div>
+
+  <!-- 15. ALLIANCE MESSAGES -->
+  <h3 id="fish-share">Alliance Share Messages</h3>
+  <p class="body-note fish-dim">Six short posts for alliance chat. Tap Copy on one, or copy all six at once.</p>
+  <div id="fishMsgs"></div>
+  <div class="mt-btn-row">
+    <button type="button" class="mt-btn" id="fishMsgAll">Copy all 6</button>
+  </div>
+
+  <div class="card card-gold" style="margin-top:18px;">
+    <p><strong>Bottom line for 10,000 points:</strong> open with Ocean Prospector, upgrade useful equipment early, pick strong catches, and use Power Cast once it unlocks. Balance three things: points per Bait or Chart, points per minute of play, and premium items kept for future events.</p>
+  </div>
+
+  <!-- 16. SOURCES -->
+  <h3 id="fish-sources">Research Sources and Evidence</h3>
+  <div class="wa-consensus-grid">
+    <div class="wa-consensus-card wa-confirmed">
+      <div class="wa-consensus-title">&#x2705; Community Consensus</div>
+      <ul>
+        <li>Season Missions milestones at 10,000, 16,000, 25,000, 35,000, and 50,000 Fishing Points (in-game, Kingdom 1625).</li>
+        <li>Start with 5 Bait, regain 1 every 3 hours, store up to 10 (official, plus three community guides).</li>
+        <li>Fishing Kit Lv. 9 reveals Sunken Treasure Hunt; all Kits at max level are needed to join (official).</li>
+        <li>Lantern, Reel, Ocean Scanner, and Horn of the Tide effects (official).</li>
+        <li>Upgrade Line, then Hook, then Sinker (three community guides).</li>
+        <li>Power Cast unlocks with a maxed Kit and 50 current-season fish entries (three community guides).</li>
+        <li>Ocean Prospector uses one Treasure Chart per attempt with gear auto-maxed (three community guides).</li>
+        <li>The event returns about every four weeks, and unused Tokens convert to resources (multiple community guides).</li>
+      </ul>
+    </div>
+    <div class="wa-consensus-card wa-anecdotal">
+      <div class="wa-consensus-title">&#x1F4AC; Anecdotal Evidence</div>
+      <ul>
+        <li>Pause, Retreat, Go Fish restarts an attempt without using the items you selected (two community wikis and Reddit threads; not in official docs).</li>
+        <li>Deepest runs reach about 550 m in the current version (one guide).</li>
+        <li>Visibility gets poor past about 300 m (community wikis).</li>
+        <li>A 10x Power Cast unlocks after more collection progress (update notes reported by community sites).</li>
+        <li>Fishing Kit items stay in your backpack between events (community wikis).</li>
+        <li>Unused Tokens convert at 10 Tokens to 10,000 resources (community wikis).</li>
+        <li>Fishing Guild has 21 levels up to 8,000 points (one data source).</li>
+      </ul>
+    </div>
+    <div class="wa-consensus-card wa-disputed">
+      <div class="wa-consensus-title">&#x2696; Disputed or Conflicting</div>
+      <p><strong>Voucher bonus:</strong> one guide says 1.5x Points and Tokens; a wiki example (1,000 points at 5x with 3 Vouchers = 6,500) doesn't fit a simple 1.5x. The calculator uses an editable multiplier until this is settled.</p>
+      <p style="margin-top:8px;"><strong>Gear between events:</strong> two wikis say upgrades reset each season; one guide says they carry over.</p>
+      <p style="margin-top:8px;"><strong>Sinker:</strong> wikis say it starts your hook deeper; one guide says it makes descent faster and safer without adding depth.</p>
+      <p style="margin-top:8px;"><strong>Event length:</strong> one source says the Guild runs 4 days; another says the event runs Tuesday-Thursday.</p>
+    </div>
+  </div>
+
+  <h3>Sources</h3>
+  <ul class="tips fish-sources">
+    <li><strong>Official:</strong> <a href="https://centurygames.helpshift.com/hc/en/140-kingshot/section/1399-fishing-tournament/" target="_blank" rel="noopener">Kingshot Help Center - Fishing Tournament</a> (Bait, Sunken Treasure Hunt, hook and catch questions)</li>
+    <li><strong>Official:</strong> <a href="https://centurygames.helpshift.com/hc/en/140-kingshot/faq/9103-function-of-special-items-1783434712/" target="_blank" rel="noopener">Kingshot Help Center - Function of Special Items</a> (Lantern, Reel, Ocean Scanner, Horn of the Tide)</li>
+    <li><strong>Community:</strong> <a href="https://kingshot.wiki/events/fishing-tournament" target="_blank" rel="noopener">Kingshot Wiki - Fishing Tournament</a></li>
+    <li><strong>Community:</strong> <a href="https://kingshotwiki.com/events/fishing-tournament/" target="_blank" rel="noopener">Kingshot Wiki (kingshotwiki.com) - Fishing Tournament</a></li>
+    <li><strong>Community:</strong> <a href="https://kingshotbattlemaster.com/guides/fishing-tournament" target="_blank" rel="noopener">Kingshot Battlemaster - Fishing Tournament</a></li>
+    <li><strong>Community:</strong> <a href="https://ks-toolkit.com/guides/fishing/" target="_blank" rel="noopener">KingShot Toolkit - Fishing Guide</a></li>
+    <li><strong>Community:</strong> <a href="https://ks-toolkit.com/data/events/fishing-guild/" target="_blank" rel="noopener">KingShot Toolkit - Fishing Guild Reward Data</a></li>
+    <li><strong>Community:</strong> <a href="https://kingshotpro.com/fishing-tournament-guide.html" target="_blank" rel="noopener">Kingshot Pro - Fishing Tournament Guide</a></li>
+    <li><strong>Reddit:</strong> <a href="https://www.reddit.com/r/KingShot/comments/1nwjtk1/fishing_technique_maybe_help/" target="_blank" rel="noopener">r/KingShot - Fishing Technique - Retreat and Retry Strategy</a></li>
+    <li><strong>Reddit:</strong> <a href="https://www.reddit.com/r/KingShot/comments/1qj2rm3/any_chance_to_get_top_50_in_fishing_as_f2p/" target="_blank" rel="noopener">r/KingShot - Top 50 Fishing as F2P - Ocean Prospector and Resource Optimization</a></li>
+    <li><strong>Reddit:</strong> <a href="https://www.reddit.com/r/KingShot/comments/1r8z9up/what_is_a_good_fishing_score_to_use_fishing/" target="_blank" rel="noopener">r/KingShot - Fishing Voucher Optimization and Scoring</a></li>
+    <li><strong>Reddit:</strong> <a href="https://www.reddit.com/r/KingShot/comments/1m7abyq" target="_blank" rel="noopener">r/KingShot - Fishing Retry Technique and Spawn Behavior</a></li>
+    <li><strong>Reddit:</strong> <a href="https://www.reddit.com/r/KingShot/comments/1q5pfxe/fishing_event_2_questions/" target="_blank" rel="noopener">r/KingShot - Fishing Event Questions - Depth, Mermaids, and Fishing Modes</a></li>
+    <li><strong>Reddit:</strong> <a href="https://www.reddit.com/r/KingShot/comments/1vrx49z/kingshot_fishing_event/" target="_blank" rel="noopener">r/KingShot - Kingshot Fishing Event - General Strategy</a></li>
+    <li><strong>Reddit:</strong> <a href="https://www.reddit.com/r/KingShot/comments/1wuy9rp/should_i_use_all_my_ocean_prospector_or_just_save/" target="_blank" rel="noopener">r/KingShot - Ocean Prospector - Spend Now or Save for Future Events</a></li>
+    <li><strong>Reddit:</strong> <a href="https://www.reddit.com/r/KingShot/comments/1szpufs/fishing_event_graduate/" target="_blank" rel="noopener">r/KingShot - Fishing Event Graduate - Collection Completion</a></li>
+    <li><strong>Reddit:</strong> <a href="https://www.reddit.com/r/KingShot/comments/1sz09f7/simple_question_about_fishing_event/" target="_blank" rel="noopener">r/KingShot - Fishing Event Duration and Reward Redemption</a></li>
+  </ul>
+  <div class="wa-placeholder-note"><span>Official and community website links checked Nov 25, 2026. Reddit threads are community discussion and weren't independently checked. Fish point values and reward milestones vary by event version and kingdom age, so they aren't published here.</span></div>
+</section>
+
+<div class="divider">&#x2756; &#x2756; &#x2756;</div>
+
+<script>
+// ── FISHING TOURNAMENT ──
+// FISHING_DATA holds every event mechanic and configurable value for the Fishing tab.
+// Edit numbers HERE only - the tables, checklist, calculators, and planner all read from it.
+const FISHING_DATA = {
+  bait: { start: 5, max: 10, intervalHours: 3 },               // official Help Center
+  powerCast: { multipliers: [1, 2, 3, 5, 10], gated: [10], unlockFish: 50 }, // community guides; 10x progression-gated
+  sunkenTreasure: { revealKitLevel: 9 },                        // official Help Center; participation needs all Kits maxed
+  frequencyWeeks: 4,
+  seasons: ['Winter', 'Spring', 'Summer', 'Autumn'],
+  reportedMaxDepthM: 550,                                       // one community guide, varies by version
+  calcDefaults: { target: 10000, bonus: 1 },
+  // Season Missions point milestones - from an in-game screenshot (Kingdom 1625, Nov 2026). The list may continue past 50,000.
+  seasonMissions: [10000, 16000, 25000, 35000, 50000],
+  mechanics: [
+    ['Event frequency', 'Every four weeks'],
+    ['Starting Bait', '5'],
+    ['Bait regeneration', '1 every 3 hours'],
+    ['Maximum stored Bait', '10'],
+    ['Natural regeneration', 'Up to 8 Bait per 24 hours (while below the cap)'],
+    ['Fishing modes', 'Regular Fishing and Ocean Prospector'],
+    ['Seasonal rotation', 'Winter, Spring, Summer, Autumn'],
+    ['Reported maximum depth', 'About 550 m, depending on the event version']
+  ],
+  items: [
+    ['Bait', 'Pays for one Regular Fishing attempt. Regenerates 1 every 3 hours up to 10.', 'Constantly - never let it sit at 10/10.'],
+    ['Treasure Chart', 'Pays for one Ocean Prospector attempt, with max-level gear for that attempt.', 'Open the event with it, or save for a leaderboard push if it carries over.'],
+    ['Fishing Voucher', 'Adds bonus Points and Tokens to an attempt. Exact bonus and stacking unverified.', 'On a strong attempt, or when early Tokens speed up upgrades.'],
+    ['Lantern', 'Lights up the dark depths so you can see more of your surroundings.', 'When poor visibility stops you moving accurately.'],
+    ['Reel', 'Each round lets you bump a fish twice on the way down without being pulled back; a Reel adds two more.', 'When extra collision protection would make the run more consistent.'],
+    ['Ocean Scanner', 'While reeling in, shows the heading and distance of nearby rare fish.', 'On deep runs where finding rare fish matters.'],
+    ['Horn of the Tide', 'Calls in and lights up the fish you attract, and triggers the Ocean Scanner while you lower or raise your line.', 'On your highest-value attempts.']
+  ],
+  checklist: [
+    { group: 'Preparation', items: ['Claimed free supplies, Guild rewards, event mail, and Treasure Charts', 'Reviewed Bait, Vouchers, Lanterns, Reels, Ocean Scanners, and Horns of the Tide'] },
+    { group: 'Opening', items: ['Started with Ocean Prospector (if I had a Treasure Chart)', 'Decided whether this attempt deserves a Fishing Voucher'] },
+    { group: 'Equipment', items: ['Upgraded the Line', 'Upgraded the Hook', 'Upgraded the Sinker'] },
+    { group: 'Power Cast', items: ['All equipment at max level', 'Discovered 50 current-season fish', 'Tested Retreat and retry on a low-value attempt'] },
+    { group: 'Every session', items: ['Spent Bait before it hit 10/10', 'Caught fish by the head or mouth, not the tail', 'Saved hook space for sparkling fish, chests, and distressed mermaids'] },
+    { group: 'Finish', items: ['Checked remaining points before spending more Bait or Charts', 'Stopped using premium items after my milestone'] }
+  ],
+  mistakes: [
+    ['Letting Bait sit at the cap', 'Storage stops at 10. Time at the cap is lost free attempts.'],
+    ['Treasure draws before upgrades', 'Finish useful equipment upgrades before spending Tokens on draws.'],
+    ['Vouchers on weak attempts', 'Save premium Vouchers for strong runs.'],
+    ['Filling the Hook early', 'Common fish take space you need for valuable targets.'],
+    ['Catching by the tail', 'Tails don\'t register. Aim for the head or mouth.'],
+    ['Treating Power Cast as free', 'A 5x cast uses five Bait. It saves time, not Bait.'],
+    ['Assuming everything carries over', 'Read each item\'s description before saving it.'],
+    ['Trusting old retry behavior', 'Retry can change with updates. Test it again each event.'],
+    ['Spending after your milestone', 'Keep premium items once you\'ve hit your goal.'],
+    ['Ignoring collections and Seasonal Missions', 'Missing entries can block Power Cast and rewards.']
+  ],
+  faq: [
+    ['Can I reach 10,000 points without spending money?', 'Yes, it can be achievable through free fishing opportunities, equipment progression, and efficient catches. The exact difficulty depends on your available supplies and fishing performance.'],
+    ['What should I upgrade first?', 'Line, followed by Hook, then Sinker is the recommended general upgrade order.'],
+    ['Should I start with Ocean Prospector?', 'Usually, if you have an available Treasure Chart and your objective is immediate progression. Ocean Prospector temporarily maximizes your fishing equipment and can accelerate Token earnings.'],
+    ['What is the maximum amount of Bait I can store?', 'The standard natural regeneration cap is 10 Baits.'],
+    ['How quickly does Bait regenerate?', 'One Bait every three hours, allowing up to eight naturally regenerated Baits per day when storage remains below capacity.'],
+    ['Can I catch a fish by touching its tail?', 'No. Aim your hook at the fish\'s head during ascent.'],
+    ['Why does my hook start rising before reaching maximum depth?', 'Collisions can cause the descent to end prematurely. Improve your movement or use suitable collision-protection items.'],
+    ['Does Power Cast save Bait?', 'No. It combines multiple resource-consuming attempts into one multiplied result.'],
+    ['Can I retry a bad fishing attempt?', 'Community guides describe using Pause, Retreat, and Go Fish to restart unfinished attempts. Test the behavior with low-value resources in the current event before using premium supplies.'],
+    ['Should I collect every fish?', 'No. Preserve capacity for valuable catches, except when missing collection entries are important for unlocking progression.'],
+    ['When should I use Fishing Vouchers?', 'Use them when you expect a high-scoring attempt or when additional early Tokens will meaningfully accelerate equipment progression.'],
+    ['Can I save fishing items for the next tournament?', 'Certain special consumables are reported to carry forward. Verify each item\'s description before saving it. Fishing Tokens are treated differently and can convert into ordinary resources.'],
+    ['Should I help every mermaid?', 'Prioritize distressed or entangled mermaids that offer meaningful rewards. Healthy mermaids generally do not offer the same assistance rewards.'],
+    ['Is 10x Power Cast available?', 'Updated event formats support a progression-gated 10x option. Check your current event to determine availability.'],
+    ['Should I keep fishing after reaching 10,000 points?', 'Continue using free resources when worthwhile, but preserve premium supplies unless you are targeting a higher milestone, collection objective, or leaderboard placement.']
+  ],
+  messages: [
+    '🎣 FISHING GUIDE (1/6)\nStart with Ocean Prospector if you have a Treasure Chart. It temporarily maxes your fishing gear. Claim free Guild rewards, then spend earned Tokens on upgrades. Goal: build scoring potential before using most of your Bait.',
+    '🎣 FISHING GUIDE (2/6)\nUpgrade priority: LINE → HOOK → SINKER. Line unlocks deeper fishing, Hook increases catch capacity, and Sinker improves descent. Avoid letting your Bait sit at 10/10. You regenerate 1 Bait every 3 hours.',
+    '🎣 FISHING GUIDE (3/6)\nAvoid collisions during descent. On ascent, aim for fish heads, not tails. Prioritize sparkling fish, valuable chests and distressed mermaids. Do not fill your hook with common fish too early.',
+    '🎣 FISHING GUIDE (4/6)\nBad cast? Community guides recommend PAUSE → RETREAT → GO FISH to retry. Test this with low-value supplies first to confirm your current event refunds the items. Never assume premium items are protected.',
+    '🎣 FISHING GUIDE (5/6)\nPower Cast normally unlocks after max gear and 50 seasonal fish entries. It saves time by multiplying attempts, but consumes more Bait/Charts. Save Vouchers for strong casts or useful early Token gains.',
+    '🎣 FISHING GUIDE (6/6)\nFor 10K points: Prospector first, upgrade gear, target high-value catches, finish collection requirements and use Power Cast when ready. Preserve premium supplies after reaching your goal unless pushing the leaderboard. tactichub.github.io/KS/#fishing'
+  ]
+};
+
+// Pure math, kept apart from the UI so it can be checked on its own.
+const FishingMath = {
+  points: function(p) {
+    // p: { target, current, base, mult, bonus, available, allowed[] , optimize }
+    var remaining = Math.max(0, p.target - p.current);
+    var ppc = function(m) { return Math.floor(p.base * m * p.bonus); };
+    var pointsPerCast = ppc(p.mult);
+    var progress = p.target > 0 ? Math.min(100, p.current / p.target * 100) : 0;
+    var r = { remainingPoints: remaining, pointsPerCast: pointsPerCast, progress: progress };
+    if (pointsPerCast <= 0) { r.invalid = true; return r; }
+    r.castsRequired = Math.ceil(remaining / pointsPerCast);
+    r.resourcesRequired = r.castsRequired * p.mult;
+    r.additionalResources = Math.max(0, r.resourcesRequired - p.available);
+    r.projectedFinalScore = p.current + r.castsRequired * pointsPerCast;
+    r.pointsPerResource = pointsPerCast / p.mult;
+    if (p.optimize && remaining > 0) {
+      var full = Math.floor(remaining / pointsPerCast);
+      var left = remaining - full * pointsPerCast;
+      var o = { fullCasts: full, finalMult: null, finalPoints: 0 };
+      if (left > 0) {
+        var opts = (p.allowed || []).filter(function(m) { return m <= p.mult; }).sort(function(a, b) { return a - b; });
+        for (var i = 0; i < opts.length; i++) { if (ppc(opts[i]) >= left) { o.finalMult = opts[i]; break; } }
+        if (o.finalMult === null) o.finalMult = p.mult;
+        o.finalPoints = ppc(o.finalMult);
+      }
+      o.resourcesRequired = full * p.mult + (o.finalMult || 0);
+      o.casts = full + (o.finalMult ? 1 : 0);
+      o.projectedFinalScore = p.current + full * pointsPerCast + o.finalPoints;
+      o.saved = r.resourcesRequired - o.resourcesRequired;
+      o.additionalResources = Math.max(0, o.resourcesRequired - p.available);
+      r.optimized = o;
+    }
+    return r;
+  },
+  bait: function(p) {
+    // p: { current, max, intervalMin, nextMin, awayMin, eventMin (null = not set) }
+    var I = p.intervalMin;
+    var below = p.current < p.max;
+    var t0 = below ? (p.nextMin > 0 ? Math.min(p.nextMin, I) : I) : 0;
+    var windowMin = p.awayMin;
+    var eventCut = p.eventMin !== null && p.eventMin < windowMin;
+    if (eventCut) windowMin = p.eventMin;
+    var potential = 0;
+    if (below && t0 <= windowMin) potential = Math.floor((windowMin - t0) / I) + 1;
+    // Ticks that would land after you are already full (counted while away, after storage fills).
+    var room = Math.max(0, p.max - p.current);
+    var gained = Math.min(potential, room);
+    var fullIn = below ? t0 + (room - 1) * I : 0;
+    var lost = 0;
+    if (below) {
+      if (potential > room) lost = potential - room;
+    } else {
+      // Already full: regeneration is stalled the whole time you're away.
+      lost = Math.floor(windowMin / I);
+    }
+    var eventEndsFirst = p.eventMin !== null && below && fullIn > p.eventMin;
+    var latest = eventEndsFirst ? p.eventMin : fullIn;
+    return {
+      timeUntilFull: fullIn, expected: p.current + gained, gained: gained,
+      lost: lost, potential: below ? potential : Math.floor(windowMin / I),
+      latestReturn: latest, eventEndsFirst: eventEndsFirst, eventCut: eventCut, alreadyFull: !below
+    };
+  }
+};
+
+(function() {
+  'use strict';
+  if (!document.getElementById('fishing')) return;
+  var D = FISHING_DATA;
+  function el(id) { return document.getElementById(id); }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function(c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function f(n) { return Math.round(n).toLocaleString(); }
+  function store(key, val) {
+    try {
+      if (val === undefined) { var v = localStorage.getItem(key); return v ? JSON.parse(v) : null; }
+      if (val === null) { localStorage.removeItem(key); return null; }
+      localStorage.setItem(key, JSON.stringify(val));
+    } catch (e) { return null; }
+    return null;
+  }
+  function toast(msg) {
+    var t = el('giftToast'); if (!t) return;
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, 2000);
+  }
+  function copy(text, msg) {
+    var done = function() { toast(msg || 'Copied!'); };
+    var fallback = function() {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+        document.body.removeChild(ta);
+      } catch (e) {}
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function() { fallback(); done(); });
+    } else { fallback(); done(); }
+  }
+  function dur(min) {
+    min = Math.max(0, Math.round(min));
+    var d = Math.floor(min / 1440), h = Math.floor((min % 1440) / 60), m = min % 60;
+    var parts = [];
+    if (d) parts.push(d + 'd');
+    if (h || d) parts.push(h + 'h');
+    parts.push(m + 'm');
+    return parts.join(' ');
+  }
+  function clock(min) {
+    var t = new Date(Date.now() + min * 60000);
+    return t.toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' });
+  }
+
+  /* ---------- Static tables and lists from FISHING_DATA ---------- */
+  el('fishMechanics').innerHTML = D.mechanics.map(function(r) { return '<tr><td><strong>' + esc(r[0]) + '</strong></td><td>' + esc(r[1]) + '</td></tr>'; }).join('');
+  el('fishMissions').innerHTML = D.seasonMissions.map(function(m, i) { return '<tr' + (i === 0 ? ' class="tg-highlight"' : '') + '><td><strong>' + (i + 1) + (i === 0 ? ' - first target' : '') + '</strong></td><td>' + m.toLocaleString() + '</td><td>1 reward item (see in game)</td></tr>'; }).join('');
+  el('fishItems').innerHTML = D.items.map(function(r) { return '<tr><td><strong>' + esc(r[0]) + '</strong></td><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td></tr>'; }).join('');
+  el('fishMistakes').innerHTML = D.mistakes.map(function(m) { return '<div class="tg-mistake-card"><div class="tg-mistake-title">' + esc(m[0]) + '</div><div class="tg-mistake-desc">' + esc(m[1]) + '</div></div>'; }).join('');
+  el('fishFaq').innerHTML = D.faq.map(function(q) { return '<details class="sg-day"><summary>' + esc(q[0]) + '</summary><div class="sg-day-body"><p>' + esc(q[1]) + '</p></div></details>'; }).join('');
+
+  /* ---------- Alliance messages ---------- */
+  el('fishMsgs').innerHTML = D.messages.map(function(m, i) {
+    return '<div class="fish-msg"><pre>' + esc(m) + '</pre><button type="button" class="mt-btn mt-btn-sm" data-fish-msg="' + i + '" aria-label="Copy message ' + (i + 1) + ' of ' + D.messages.length + '">Copy</button></div>';
+  }).join('');
+  el('fishMsgs').addEventListener('click', function(e) {
+    var b = e.target.closest('[data-fish-msg]'); if (!b) return;
+    var i = Number(b.getAttribute('data-fish-msg'));
+    copy(D.messages[i], 'Message ' + (i + 1) + ' copied!');
+  });
+  el('fishMsgAll').addEventListener('click', function() { copy(D.messages.join('\n\n'), 'All 6 messages copied!'); });
+
+  /* ---------- Checklist (auto-saved) ---------- */
+  var CHK_KEY = 'fish-checklist-v1';
+  var chkSaved = store(CHK_KEY) || {};
+  var total = 0;
+  el('fishChkList').innerHTML = D.checklist.map(function(g, gi) {
+    return '<div class="sg-calc-sub">' + esc(g.group) + '</div><ul class="bp-check">' + g.items.map(function(t, ii) {
+      var id = 'fishChk_' + gi + '_' + ii; total++;
+      return '<li><label><input type="checkbox" id="' + id + '"' + (chkSaved[id] ? ' checked' : '') + '><span>' + esc(t) + '</span></label></li>';
+    }).join('') + '</ul>';
+  }).join('');
+  function chkUpdate() {
+    var boxes = el('fishChkList').querySelectorAll('input'), done = 0, data = {};
+    boxes.forEach(function(b) { if (b.checked) { done++; data[b.id] = 1; } });
+    store(CHK_KEY, data);
+    el('fishChkProgress').innerHTML = '<div class="fish-bar" role="progressbar" aria-label="Checklist progress" aria-valuemin="0" aria-valuemax="' + total + '" aria-valuenow="' + done + '"><span style="width:' + (total ? done / total * 100 : 0) + '%"></span></div><div class="fish-dim">' + done + ' of ' + total + ' done</div>';
+  }
+  el('fishChkList').addEventListener('change', chkUpdate);
+  el('fishChkReset').addEventListener('click', function() { el('fishChkList').querySelectorAll('input').forEach(function(b) { b.checked = false; }); chkUpdate(); toast('Checklist cleared'); });
+  chkUpdate();
+
+  /* ---------- Reusable: FishingPointsCalculator ---------- */
+  function FishingPointsCalculator(root, opts) {
+    opts = opts || {};
+    var P = opts.prefix || 'fpc';
+    var KEY = opts.storageKey || 'fish-points-calc-v1';
+    var mults = opts.multipliers || D.powerCast.multipliers;
+    var gated = opts.gated || D.powerCast.gated;
+    var DEF = { target: String(D.calcDefaults.target), current: '', mode: 'regular', base: '', mult: '1', bonus: String(D.calcDefaults.bonus), avail: '', optimize: false };
+    function id(s) { return P + '-' + s; }
+    root.className = 'sg-calc fish-calc';
+    root.innerHTML =
+      '<p class="body-note fish-dim">Results are predictions from the average score <strong>you</strong> enter, not a guaranteed catch. Saved in this browser.</p>' +
+      (opts.milestones !== false && D.seasonMissions.length ? '<div class="sg-calc-sub">Season Missions milestones</div><div class="fish-picks" role="group" aria-label="Set target to a Season Missions milestone">' + D.seasonMissions.map(function(m) { return '<button type="button" class="mt-btn mt-btn-ghost mt-btn-sm" data-fish-target="' + m + '">' + (m / 1000) + 'K</button>'; }).join('') + '</div>' : '') +
+      '<div class="sg-calc-grid">' +
+        '<label for="' + id('target') + '">Target score <input type="number" min="1" step="1" inputmode="numeric" id="' + id('target') + '"></label>' +
+        '<label for="' + id('current') + '">Current score <input type="number" min="0" step="1" inputmode="numeric" id="' + id('current') + '" placeholder="0"></label>' +
+        '<label for="' + id('mode') + '">Fishing mode <select id="' + id('mode') + '"><option value="regular">Regular (Bait)</option><option value="op">Ocean Prospector (Treasure Charts)</option></select></label>' +
+      '</div>' +
+      '<div class="sg-calc-grid">' +
+        '<label for="' + id('base') + '">Average base points per attempt <input type="number" min="1" step="1" inputmode="numeric" id="' + id('base') + '" placeholder="e.g. your usual score" aria-describedby="' + id('base-h') + '"></label>' +
+        '<label for="' + id('mult') + '">Power Cast multiplier <select id="' + id('mult') + '">' + mults.map(function(m) { return '<option value="' + m + '">' + (m === 1 ? '1x (no Power Cast)' : m + 'x') + (gated.indexOf(m) > -1 ? ' - needs extra progression' : '') + '</option>'; }).join('') + '</select></label>' +
+        '<label for="' + id('bonus') + '">Effective bonus multiplier <input type="number" min="0.01" step="0.01" inputmode="decimal" id="' + id('bonus') + '" aria-describedby="' + id('bonus-h') + '"></label>' +
+        '<label for="' + id('avail') + '"><span id="' + id('avail-l') + '">Available Bait</span> <input type="number" min="0" step="1" inputmode="numeric" id="' + id('avail') + '" placeholder="0"></label>' +
+      '</div>' +
+      '<p class="fish-help" id="' + id('base-h') + '">Base points = your typical single-attempt score before Power Cast and bonuses.</p>' +
+      '<p class="fish-help" id="' + id('bonus-h') + '">Leave at 1.0 unless you know your bonus. Voucher stacking rules aren\'t verified, so enter the combined effect you see in game.</p>' +
+      '<label class="fish-toggle" for="' + id('opt') + '"><input type="checkbox" id="' + id('opt') + '"> Optimize the final attempt (use a smaller multiplier for the last cast to avoid overspending)</label>' +
+      '<div class="fish-errors" id="' + id('err') + '" role="alert"></div>' +
+      '<div class="sg-calc-out" id="' + id('out') + '" aria-live="polite"></div>' +
+      '<div class="mt-btn-row"><button type="button" class="mt-btn" id="' + id('copy') + '">Copy results</button><button type="button" class="mt-btn mt-btn-ghost" id="' + id('reset') + '">Reset</button></div>';
+    var f_ = {}; ['target', 'current', 'mode', 'base', 'mult', 'bonus', 'avail', 'opt'].forEach(function(k) { f_[k] = el(id(k)); });
+    var copyText = '';
+    function load(s) {
+      f_.target.value = s.target; f_.current.value = s.current; f_.mode.value = s.mode; f_.base.value = s.base;
+      f_.mult.value = mults.indexOf(Number(s.mult)) > -1 ? s.mult : '1'; f_.bonus.value = s.bonus; f_.avail.value = s.avail; f_.opt.checked = !!s.optimize;
+    }
+    function save() { store(KEY, { target: f_.target.value, current: f_.current.value, mode: f_.mode.value, base: f_.base.value, mult: f_.mult.value, bonus: f_.bonus.value, avail: f_.avail.value, optimize: f_.opt.checked }); }
+    function read(input, rule, label, errs) {
+      var raw = input.value.trim();
+      var n = raw === '' ? null : Number(raw);
+      var bad = raw !== '' && (!isFinite(n) || !rule(n));
+      input.setAttribute('aria-invalid', bad ? 'true' : 'false');
+      if (bad) errs.push(label);
+      return bad ? null : n;
+    }
+    function calc() {
+      save();
+      var op = f_.mode.value === 'op';
+      var res = op ? 'Treasure Charts' : 'Bait', res1 = op ? 'Treasure Chart' : 'Bait';
+      el(id('avail-l')).textContent = 'Available ' + res;
+      var errs = [];
+      var int0 = function(n) { return n >= 0 && Math.floor(n) === n; };
+      var target = read(f_.target, function(n) { return n >= 1 && Math.floor(n) === n; }, 'Target score must be a whole number of 1 or more.', errs);
+      var current = read(f_.current, int0, 'Current score must be a whole number, 0 or more.', errs);
+      var base = read(f_.base, function(n) { return n > 0; }, 'Average base points must be more than 0.', errs);
+      var bonus = read(f_.bonus, function(n) { return n > 0 && n <= 100; }, 'Bonus multiplier must be more than 0 (1.0 = no bonus).', errs);
+      var avail = read(f_.avail, int0, 'Available ' + res + ' must be a whole number, 0 or more.', errs);
+      var mult = Number(f_.mult.value);
+      el(id('err')).innerHTML = errs.map(function(e) { return '<div>' + esc(e) + '</div>'; }).join('');
+      var out = el(id('out'));
+      copyText = '';
+      if (errs.length) { out.className = 'sg-calc-out warn'; out.textContent = 'Fix the highlighted fields to see your plan.'; return; }
+      if (target === null) target = D.calcDefaults.target;
+      current = current || 0; avail = avail || 0; if (bonus === null) bonus = 1;
+      var gateNote = gated.indexOf(mult) > -1 ? '<div class="fish-note">&#x1F512; ' + mult + 'x Power Cast needs additional progression and may not be on your account yet.</div>' : '';
+      var bar = function(pct) { return '<div class="fish-bar" role="progressbar" aria-label="Progress to target" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + Math.round(pct) + '"><span style="width:' + pct + '%"></span></div>'; };
+      if (current >= target) {
+        var nm0 = D.seasonMissions.filter(function(m) { return m > current; })[0];
+        out.className = 'sg-calc-out done';
+        out.innerHTML = bar(100) + 'Progress: <strong>100%</strong> (' + f(current) + ' / ' + f(target) + ')<br><strong>Target reached.</strong> Keep premium items unless you\'re chasing a higher milestone or the leaderboard.' + (nm0 ? ' Next Season Missions milestone: ' + f(nm0) + ' (' + f(nm0 - current) + ' to go).' : '') + gateNote;
+        copyText = 'Fishing Tournament: target of ' + f(target) + ' reached (' + f(current) + ' points).';
+        return;
+      }
+      if (!base) {
+        var pr = target > 0 ? Math.min(100, current / target * 100) : 0;
+        out.className = 'sg-calc-out';
+        out.innerHTML = bar(pr) + 'Progress: <strong>' + pr.toFixed(1) + '%</strong> (' + f(current) + ' / ' + f(target) + ')<br>Enter your average points per attempt to see how many casts you need.' + gateNote;
+        return;
+      }
+      var r = FishingMath.points({ target: target, current: current, base: base, mult: mult, bonus: bonus, available: avail, allowed: mults, optimize: f_.opt.checked });
+      if (r.invalid) { out.className = 'sg-calc-out warn'; out.innerHTML = 'That combination scores 0 points per cast. Raise your average base points or bonus.'; return; }
+      var h = bar(r.progress) + 'Progress: <strong>' + r.progress.toFixed(1) + '%</strong> (' + f(current) + ' / ' + f(target) + ')';
+      if (r.remainingPoints === 0) {
+        out.className = 'sg-calc-out done';
+        var nextM = D.seasonMissions.filter(function(m) { return m > current; })[0];
+        out.innerHTML = h + '<br><strong>Target reached.</strong> Keep premium items unless you\'re chasing a higher milestone or the leaderboard.' + (nextM ? ' Next Season Missions milestone: ' + f(nextM) + ' (' + f(nextM - current) + ' to go).' : '') + gateNote;
+        copyText = 'Fishing Tournament: target of ' + f(target) + ' reached (' + f(current) + ' points).';
+        return;
+      }
+      var useO = r.optimized && r.optimized.saved > 0;
+      var casts = useO ? r.optimized.casts : r.castsRequired;
+      var need = useO ? r.optimized.resourcesRequired : r.resourcesRequired;
+      var extra = useO ? r.optimized.additionalResources : r.additionalResources;
+      var proj = useO ? r.optimized.projectedFinalScore : r.projectedFinalScore;
+      h += '<ul class="bp-out-list">' +
+        '<li>Points still needed: <strong>' + f(r.remainingPoints) + '</strong></li>' +
+        '<li>Points per ' + (mult > 1 ? mult + 'x ' : '') + 'cast: <strong>' + f(r.pointsPerCast) + '</strong> (' + (Math.round(r.pointsPerResource * 10) / 10).toLocaleString() + ' per ' + res1 + ')</li>' +
+        '<li>Casts needed: <strong>' + f(casts) + '</strong></li>' +
+        '<li>' + res + ' needed: <strong>' + f(need) + '</strong> (you have ' + f(avail) + ')</li>' +
+        '<li>Projected final score: <strong>' + f(proj) + '</strong></li></ul>';
+      if (f_.opt.checked) {
+        if (useO) h += '<div class="fish-note">&#x2728; Optimized: ' + f(r.optimized.fullCasts) + ' cast' + (r.optimized.fullCasts === 1 ? '' : 's') + ' at ' + mult + 'x, then a final ' + r.optimized.finalMult + 'x cast. Saves ' + f(r.optimized.saved) + ' ' + (r.optimized.saved === 1 ? res1 : res) + ' versus ' + f(r.castsRequired) + ' casts at ' + mult + 'x.</div>';
+        else h += '<div class="fish-note">No smaller final cast helps here - the plan above is already the leanest at ' + mult + 'x.</div>';
+      }
+      if (extra > 0) h += '<div class="fish-warn" role="status">&#x26A0;&#xFE0F; Not enough ' + res + ': you need <strong>' + f(extra) + '</strong> more. ' + (op ? 'Treasure Charts come from Guild rewards and event sources.' : 'Bait regenerates 1 every ' + D.bait.intervalHours + ' hours - use the planner below.') + '</div>';
+      out.className = 'sg-calc-out ' + (extra > 0 ? 'warn' : 'ok');
+      out.innerHTML = h + gateNote;
+      copyText = 'Fishing Tournament plan (' + (op ? 'Ocean Prospector' : 'Regular') + ')\nTarget ' + f(target) + ', current ' + f(current) + ', ' + f(r.remainingPoints) + ' to go\n' +
+        f(casts) + ' casts at ' + f(r.pointsPerCast) + ' points (' + mult + 'x' + (useO ? ', last cast ' + r.optimized.finalMult + 'x' : '') + ')\n' +
+        res + ' needed: ' + f(need) + (extra > 0 ? ' (short ' + f(extra) + ')' : '') + '\nPrediction from my average score, not a guarantee. Guide: tactichub.github.io/KS/#fishing';
+    }
+    root.addEventListener('input', calc);
+    root.addEventListener('change', calc);
+    root.addEventListener('click', function(e) { var b = e.target.closest('[data-fish-target]'); if (!b) return; f_.target.value = b.getAttribute('data-fish-target'); calc(); });
+    el(id('copy')).addEventListener('click', function() { if (!copyText) { toast('Enter your numbers first'); return; } copy(copyText, 'Plan copied!'); });
+    el(id('reset')).addEventListener('click', function() { load(DEF); store(KEY, null); calc(); toast('Calculator reset'); });
+    load(Object.assign({}, DEF, store(KEY) || {}));
+    calc();
+    return { recalc: calc };
+  }
+
+  /* ---------- Reusable: BaitRegenerationPlanner ---------- */
+  function BaitRegenerationPlanner(root, opts) {
+    opts = opts || {};
+    var cfg = Object.assign({}, D.bait, opts.config || {});
+    var P = opts.prefix || 'brp';
+    var KEY = opts.storageKey || 'fish-bait-planner-v1';
+    var I = cfg.intervalHours * 60;
+    function id(s) { return P + '-' + s; }
+    var fields = ['cur', 'nh', 'nm', 'lh', 'lm', 'ed', 'eh', 'em'];
+    var DEF = { cur: String(cfg.start), nh: '', nm: '', lh: '', lm: '', ed: '', eh: '', em: '' };
+    root.className = 'sg-calc fish-calc';
+    root.innerHTML =
+      '<p class="body-note fish-dim">Bait regenerates 1 every ' + cfg.intervalHours + ' hours up to ' + cfg.max + '. Enter what your event screen shows now. Saved in this browser - update the timers each time you use it.</p>' +
+      '<div class="sg-calc-grid"><label for="' + id('cur') + '">Current Bait <input type="number" min="0" step="1" inputmode="numeric" id="' + id('cur') + '"></label></div>' +
+      '<fieldset class="fish-fs"><legend>Next Bait in</legend><div class="sg-calc-grid">' +
+        '<label for="' + id('nh') + '">Hours <input type="number" min="0" max="' + (cfg.intervalHours - 1) + '" step="1" inputmode="numeric" id="' + id('nh') + '" placeholder="0"></label>' +
+        '<label for="' + id('nm') + '">Minutes <input type="number" min="0" max="59" step="1" inputmode="numeric" id="' + id('nm') + '" placeholder="0"></label></div></fieldset>' +
+      '<fieldset class="fish-fs"><legend>Time until you log in again</legend><div class="sg-calc-grid">' +
+        '<label for="' + id('lh') + '">Hours <input type="number" min="0" step="1" inputmode="numeric" id="' + id('lh') + '" placeholder="0"></label>' +
+        '<label for="' + id('lm') + '">Minutes <input type="number" min="0" max="59" step="1" inputmode="numeric" id="' + id('lm') + '" placeholder="0"></label></div></fieldset>' +
+      '<fieldset class="fish-fs"><legend>Event time remaining (optional)</legend><div class="sg-calc-grid">' +
+        '<label for="' + id('ed') + '">Days <input type="number" min="0" step="1" inputmode="numeric" id="' + id('ed') + '"></label>' +
+        '<label for="' + id('eh') + '">Hours <input type="number" min="0" max="23" step="1" inputmode="numeric" id="' + id('eh') + '"></label>' +
+        '<label for="' + id('em') + '">Minutes <input type="number" min="0" max="59" step="1" inputmode="numeric" id="' + id('em') + '"></label></div></fieldset>' +
+      '<div class="fish-errors" id="' + id('err') + '" role="alert"></div>' +
+      '<div class="fish-slots" id="' + id('slots') + '" role="img"></div>' +
+      '<div class="sg-calc-out" id="' + id('out') + '" aria-live="polite"></div>' +
+      '<div class="mt-btn-row"><button type="button" class="mt-btn mt-btn-ghost" id="' + id('reset') + '">Reset</button></div>';
+    function v(k) { return el(id(k)); }
+    function save() { var s = {}; fields.forEach(function(k) { s[k] = v(k).value; }); store(KEY, s); }
+    function load(s) { fields.forEach(function(k) { v(k).value = s[k] !== undefined ? s[k] : ''; }); }
+    function calc() {
+      save();
+      var errs = [];
+      function n(k, max, label) {
+        var raw = v(k).value.trim(); if (raw === '') { v(k).setAttribute('aria-invalid', 'false'); return null; }
+        var x = Number(raw), bad = !isFinite(x) || x < 0 || Math.floor(x) !== x || (max !== undefined && x > max);
+        v(k).setAttribute('aria-invalid', bad ? 'true' : 'false');
+        if (bad) errs.push(label); return bad ? null : x;
+      }
+      var cur = n('cur', undefined, 'Current Bait must be a whole number, 0 or more.');
+      var nh = n('nh', cfg.intervalHours, 'Next-Bait hours must be 0-' + cfg.intervalHours + '.'), nm = n('nm', 59, 'Minutes must be 0-59.');
+      var lh = n('lh', undefined, 'Login hours must be a whole number.'), lm = n('lm', 59, 'Minutes must be 0-59.');
+      var ed = n('ed', undefined, 'Event days must be a whole number.'), eh = n('eh', 23, 'Event hours must be 0-23.'), em = n('em', 59, 'Minutes must be 0-59.');
+      var nextMin = (nh || 0) * 60 + (nm || 0);
+      if (nextMin > I) { errs.push('Next Bait can\'t be more than ' + cfg.intervalHours + ' hours away.'); }
+      el(id('err')).innerHTML = errs.filter(function(e, i, a) { return a.indexOf(e) === i; }).map(function(e) { return '<div>' + esc(e) + '</div>'; }).join('');
+      var out = el(id('out'));
+      if (errs.length) { out.className = 'sg-calc-out warn'; out.textContent = 'Fix the highlighted fields to see your plan.'; drawSlots(cur || 0, 0); return; }
+      if (cur === null) cur = 0;
+      var awayMin = (lh || 0) * 60 + (lm || 0);
+      var eventSet = ed !== null || eh !== null || em !== null;
+      var eventMin = eventSet ? (ed || 0) * 1440 + (eh || 0) * 60 + (em || 0) : null;
+      var r = FishingMath.bait({ current: cur, max: cfg.max, intervalMin: I, nextMin: nextMin, awayMin: awayMin, eventMin: eventMin });
+      drawSlots(cur, r.gained);
+      var h = '<ul class="bp-out-list">';
+      if (r.alreadyFull) h += '<li><strong>Storage is full now</strong> (' + cur + '/' + cfg.max + ') - Bait isn\'t regenerating. Fish before you log off.</li>';
+      else h += '<li>Storage full in: <strong>' + dur(r.timeUntilFull) + '</strong> (' + clock(r.timeUntilFull) + ')' + (r.eventEndsFirst ? ' - after the event ends' : '') + '</li>';
+      if (awayMin > 0) {
+        h += '<li>Bait when you return: <strong>' + r.expected + '</strong>' + (r.gained ? ' (+' + r.gained + ')' : '') + '</li>';
+        h += '<li>Total potential regeneration: <strong>' + r.potential + '</strong>' + (r.eventCut ? ' (stops at event end)' : '') + '</li>';
+        h += '<li>Lost regeneration: <strong>' + r.lost + '</strong></li>';
+      } else {
+        h += '<li>Enter your time until next login to see Bait on return and any lost regeneration.</li>';
+      }
+      if (r.alreadyFull) h += '<li>Recommended latest return: <strong>now</strong></li>';
+      else h += '<li>Recommended latest return: <strong>' + dur(r.latestReturn) + '</strong> (' + clock(r.latestReturn) + ')' + (r.eventEndsFirst ? ' - event ends before you fill up, so log in before then to use your Bait' : '') + '</li>';
+      if (!nextMin && !r.alreadyFull) h += '<li class="fish-dim">No Next Bait timer entered - assuming a full ' + cfg.intervalHours + '-hour wait.</li>';
+      h += '</ul>';
+      if (r.lost > 0) h += '<div class="fish-warn" role="status">&#x26A0;&#xFE0F; You\'ll lose <strong>' + r.lost + '</strong> Bait to the cap. Log in by ' + clock(r.alreadyFull ? 0 : r.latestReturn) + ' or spend Bait first.</div>';
+      out.className = 'sg-calc-out ' + (r.lost > 0 || r.alreadyFull ? 'warn' : 'ok');
+      out.innerHTML = h;
+    }
+    function drawSlots(cur, gain) {
+      var s = '', filled = Math.min(cur, cfg.max);
+      for (var i = 0; i < cfg.max; i++) s += '<span class="fish-slot' + (i < filled ? ' on' : (i < filled + gain ? ' gain' : '')) + '"></span>';
+      var box = el(id('slots'));
+      box.innerHTML = s + '<span class="fish-slot-label">' + cur + '/' + cfg.max + (gain ? ' &rarr; ' + Math.min(cfg.max, cur + gain) : '') + (cur > cfg.max ? ' (over cap)' : '') + '</span>';
+      box.setAttribute('aria-label', 'Bait storage: ' + cur + ' of ' + cfg.max + (gain ? ', ' + gain + ' more by the time you return' : ''));
+    }
+    root.addEventListener('input', calc);
+    el(id('reset')).addEventListener('click', function() { load(DEF); store(KEY, null); calc(); toast('Planner reset'); });
+    load(Object.assign({}, DEF, store(KEY) || {}));
+    calc();
+    return { recalc: calc };
+  }
+
+  window.FishingPointsCalculator = FishingPointsCalculator;
+  window.BaitRegenerationPlanner = BaitRegenerationPlanner;
+  FishingPointsCalculator(el('fishPointsCalc'));
+  BaitRegenerationPlanner(el('fishBaitPlanner'));
+})();
+</script>
+
 <!-- GOVERNOR DUEL -->
 <section id="governor-duel" class="tab-panel">
   <div class="section-header">
@@ -10331,6 +11143,7 @@ ALLIANCE CHAMPIONSHIP: Weekly event - six alliances compete across five rounds. 
 MYSTIC TRIAL (new tab, Nov 2026; sources mainly Kingshot Mastery, KingshotData, official Help Center - verify in-game): permanent weekly PvE in the Command Center, normally opens at Town Center 19 (new kingdoms may wait for a kingdom-age unlock); a zone stays locked until its system exists (e.g. Forest of Life needs Pets). Six zones, schedule in UTC: Coliseum Mon-Tue (Heroes, Hero Gear, Exclusive Gear; start 50/10/40, alternative 55/15/30); Forest of Life Wed-Thu (Pets, Pet Skills; 50/15/35, alt 55/10/35; Pet Skills reportedly activate automatically here and in Radiant Spire); Crystal Cave Wed-Thu (Governor Charms; 60/20/20, alt 65/15/20); Knowledge Nexus Fri-Sat (Research - only combat research helps; 50/20/30, alt 55/15/30); Molten Fort Fri-Sat (Governor Gear; 60/15/25, alt 65/15/20); Radiant Spire Sunday (combined eligible stats and own troops; 50/15/35, alts 55/10/35 or 50/10/40). Ratios are Infantry/Cavalry/Archer starting points to test, not guaranteed best. Five zones give standardized Level 10 troops; Radiant Spire uses the governor's own troops. No troops die or get wounded. 5 attempts per open zone, refresh 00:00 UTC; only a loss uses an attempt; unused attempts don't carry over. Most temporary buffs don't apply. STAGE NUMBERS: stages are shown chapter-step, e.g. 28-9; each chapter has 10 steps, so 28-10 is followed by 29-1, and 28-9 means 279 stages cleared. Raid: clearing Stage 1-10 (end of the first chapter) in a zone unlocks its Raid; Raid can ONLY be claimed on the first day each zone opens each week (Monday Coliseum; Wednesday Forest of Life and Crystal Cave; Friday Knowledge Nexus and Molten Fort; Sunday Radiant Spire - per Kingdom 1625 players) and pays Trial Crystals based on the highest stage ever cleared in that zone (10 Trial Crystals per cleared stage per zone, confirmed in-game by Kingdom 1625 players; 28-9 = 279 stages = 2,790 crystals from that zone each week; Raid also gives 1 purple and 1 gold Trial Chest per completed chapter (20-4 = 19 completed chapters = 1,940 crystals + 19 purple + 19 gold chests, confirmed in-game); the game gives the Raid for all previously cleared stages each time the zone first opens again). Rewards: First Win (one-time chest + Mystic XP), Raid (weekly Trial Crystals), Milestones (Mystic XP from all six zones: Mithril, Mythic General Hero Shards, Mythic Gear chests, decoration upgrades). Master Catherine's Mystic Privileges reportedly adds up to +30% Raid crystals at level 5, but its Nov 9 2026 rollout was listed for Kingdoms 1-1331 - unconfirmed for Kingdom 1625. Trial Shop (weekly stock; Kingshot Mastery order): 1 TG Dust every week once it appears, 2 Mithril when Red Hero Gear is relevant, 3 Gear XP Parts, 4 Charm Designs when Charms are the bottleneck, 5 Mythic General Hero Shards or Gold Gear chests only for a planned build; if TG Dust isn't in stock yet, save crystals. The currency is called Trial Crystals. KINGDOM 1625 POLICY: push with progress, not the stockpile - clear stages with upgrades you were making anyway; never spend protected KvK materials (Mithril, Truegold, Charm or Governor Gear materials, Mythic shards) just to clear one more stage; buying TG Dust and Mithril with Trial Crystals adds to the stockpile. Heroes: pick by Expedition skills, not displayed Power; squad setup matters most in Coliseum and Radiant Spire. ANECDOTAL: a Reddit player reported 10+ more stages by spreading strong Heroes across three squads with an unusual 60/40/0 squad in Coliseum and Radiant Spire; KingshotData also lists a 60/40/0 squad but recommends the best gear on one main squad - an experiment, not guaranteed. DISPUTED: fixed ratios vs personalized optimization from own stats (commenters recommend the Frakinator tool); enemy formation roughly equal (KingshotData, outside stage 10) vs 40/30/30 (other guides). No proven combat formula exists, so no tool can promise a win. Troubleshooting: almost won - retry once (skill triggers vary), then test the alternative ratio with everything else unchanged, and check the battle report for which troop type ran out first; lost by a lot - it is a stats gap, upgrade the zone's system later and don't spend KvK materials; one squad fails - rebalance Heroes and gear by Expedition skills; stuck - match upgrades to the zone's system, Raid still pays for your best-ever stage. The tab has a zone picker with alliance-chat copy buttons (messages under 390 characters), a Formation Lab (sliders, presets, saved setups - shows mixes only, no win prediction), a Stage Troubleshooter, a Raid Crystal Estimator, a weekly checklist that resets Monday 00:00 UTC, and a WINNING FORMATIONS board: players join with their in-game name plus alliance tag (e.g. [VIP] Omen, tied to their browser - no login), post formations that cleared a stage (zone, stage in chapter-step format like 28-9, troop ratio, optional Heroes per squad picked from the Hero Database, note), and high-five posts that helped them (one per person per post, not your own). Omen awards points: 10 per post, +5 with Hero lineup, +5 with a note, +10 Trailblazer bonus for the first clear posted for that zone and stage, +3 per high-five received, +1 per high-five given (first 5 a day). Leaderboard has This Week (resets Monday 00:00 UTC) and All-Time. Ranks by all-time points: Scout 0, Tactician 50, Strategist 150, Warlord 400, Grandmaster 1,000. Limit 10 posts a day; players can delete their own posts (removes the points that post earned). Posted formations are player reports, not verified results.
 HARVEST CELEBRATION (new tab, Nov 2026, #harvest-celebration; official rules from the Kingshot Official Wiki and Help Center, point values and schedule from one Kingshot Mastery pre-launch guide - not yet tested by players, verify in-game): runs November 24-30, 2026 (UTC); collect Feast Bags, open them for ingredients, cook dishes, and submit them for Personal and Alliance Feast Points. Top 10 alliances host a one-hour Harvest Festival on December 1 (1st largest feast, 2nd-3rd medium, 4th-10th smaller). OFFICIAL: Alliance Fealty links players to their alliance at the event start - switching alliances can stop contributions from generating Alliance Feast Points, and points do not transfer to another alliance; featured dishes earn bonus points; ingredients can be gifted between members; Feast Bag sources are hunting Beasts, gathering resources, spending Gems, and using speedups; some rewards vary by server progression. Sub-events: Feast Preparations (cook and compete, very high priority), Supplies of Plenty (Feast Bags, very high), Patron of Plenty (seven scoring phases, high), Autumn Anthem (mission grid, high), Harvest Rally (reward levels, high), Pumpkin Smash (minigame, high), Lucky Cabin (Wish Vouchers and Lucky Shop, evaluate rewards), Harvest Festival (very high) - priorities are preliminary, not community rankings. REPORTED (one pre-launch guide): normal dish 40 Feast Points, featured dish 50 (25% more), 4 ingredients per recipe, gifting a requested ingredient gives 10 Personal Feast Points and 10 Alliance Feast Points when eligible. Reported Patron of Plenty schedule (UTC): Nov 24 Power Boost, Nov 25 Defeat Beasts, Nov 26 Hero Development, Nov 27 Soldier Training, Nov 28 Hero Gear, Nov 29 Gather Resources, Nov 30 Governor Gear. KINGDOM 1625 POLICY - FREE BAGS, NOT KVK BAGS: earn Feast Bags from Beasts and gathering; do not spend Gems or use speedups just for bags (speedups score on KvK prep Days 1, 2, 4, 5); play Nov 25 Defeat Beasts and Nov 29 Gather Resources fully; on Nov 24 Power Boost, Nov 26 Hero Development, Nov 27 Soldier Training, Nov 28 Hero Gear, and Nov 30 Governor Gear score natural progress only (what you'd finish anyway, without opening the KvK stockpile) because Truegold, Hero shards, training speedups, Forgehammers, Widgets, and Governor Gear score on KvK prep days; lock in alliance membership before Nov 24. Cooking order: featured dishes first (alliances agree which ones), normal recipes when all four ingredients are on hand, gift leftovers to members who requested them. Alliance plan: finalize roster before Nov 24, track the gap to 10th place and push only when a ranking gain is realistic, and if qualified schedule the Dec 1 festival when most members can attend at an open location. No post-launch evidence yet: reward numbers may vary by server, and best ingredient timing (saving bags vs leftover risk) is unsettled. Guide view: alliance stability first, free ingredients second, featured dishes third, paid leaderboard pushes last. The tab has a Feast Points Estimator (featured dishes, normal dishes, gifts with editable point values; shows personal points, ingredients needed, and gift Alliance points; saved in the browser only).
 CHAMPAGNE FAIR (new tab, Nov 2026, #champagne-fair; official rules from the Kingshot Help Center, rates and strategy from KingshotData, Kingshot Wiki, KingShot Toolkit, and Reddit - verify in-game): a two-day, non-combat exchange event. Two sections: Obtain Vouchers (exchange eligible surplus for Trading Vouchers, also called Fair Vouchers) and Redemption (spend vouchers on Widgets, Mithril, Forgehammers, Governor Gear materials such as Artisan's Vision, Charm Designs and Charm Guides, Pet materials, and other items). OFFICIAL: each appearance lasts two days; only surplus shards of a MAXED Hero can be exchanged (an unfinished Hero is not eligible just because the player stopped using it); Trading Vouchers never expire and carry over to future Fairs. Schedule: community reports say roughly monthly, sometimes near or after KvK, but timing differs by kingdom - check the in-game calendar. Exchangeable: excess shards of maxed Heroes, eligible Rare and Epic shards, eligible Conquest and Expedition skill books, surplus Hero-exclusive Widgets where requirements are met. REPORTED RATES (KingshotData reference values, not guaranteed live prices): Rare Hero Shard 6, Epic Hero Shard 10, Rare Conquest or Expedition Skill Book 2, Epic Conquest or Expedition Skill Book 6, Amadeus Shard 300, Mythic Hero Shard 150-250 depending on Hero, Eligible Widget 500. Kingshot Wiki and newer guides report different Mythic, Widget, and Epic skill book rates, including generation-based ranges. Reported limits: 500 per shard category, 100 Widgets (not guaranteed). Total vouchers = sum of eligible quantity x current rate (example: 300 Epic shards + 200 Rare shards + 100 Epic skill books + 100 Rare skill books = 5,000). Shop: per-item limits; players report sold-out offers generally don't restock on Day 2. FARMING: max Heroes, then keep collecting surplus shards; Diana is the common example - ascend her to five stars, keep earning Diana shards (Desert Trial, Clawshards, Dreadwolf activities, alliance rallies), and exchange the surplus; some players aim for about 500 surplus Diana shards per Fair (target, not guaranteed); compare alternatives such as Challenger Pouches first. Other sources: Hero recruitment and keys, Intel missions, Hero shard events, repeatable activities, alliance participation; don't spend premium currency just to make surplus. WHAT TO BUY (community priority, no single best for every account): 1 Widgets for long-term Mythic Heroes you are actively building (not for every Hero); 2 Mithril when it is your real bottleneck (Reddit supports Widgets then Mithril then save the rest, but some players say Mithril is overpriced here - disputed); 3 Charm Designs and Charm Guides when Charms are blocked (don't buy one if the paired material is missing); 4 Forgehammers only when hammers block a milestone (Bear Hunt and other sources supply them); 5 Artisan's Visions and Governor Gear materials for set targets; situational Pet advancement materials; usually low priority: raw resources, common coins, stamina, easily farmed items. Guiding principle: buy what unlocks your highest-value planned upgrade. Low spenders compare voucher prices with small packs and other routes. VOUCHER BANKING: save vouchers when the wanted Widget isn't offered, a new Hero generation is coming, an upgrade isn't ready, rewards are poor value, or the target is unaffordable; spend if a current limited reward finishes an important upgrade now. KINGDOM 1625 POLICY - BUY, DON'T BURN: trade only true surplus (surplus shards from a maxed Hero can't be used for ascension, so trading them costs the KvK stockpile nothing; shards for a Hero you still plan to ascend stay in the backpack); bank purchases for KvK - Widgets, Mithril, and Forgehammers score on KvK prep Days 4-5 when used in upgrades, and Charm and Governor Gear materials score on their own prep days (see Backpack and KvK tabs). Routine: before - farm surplus and write a shopping list; Day 1 - check live rates, exchange surplus, buy top priorities; Day 2 - check nothing was missed, don't count on restocks; after - keep leftover vouchers. No direct Hero-to-Hero shard conversion should be assumed. The documented format is an exchange shop, not a leaderboard. The tab has a Voucher Calculator (eligible quantity x editable rate per material, banked vouchers, optional target cost, flags quantities above reported limits; Mythic Hero Shard rate must be entered by the player; saved in the browser only).
+FISHING TOURNAMENT (new tab, Nov 2026, #fishing; mechanics from the official Kingshot Help Center, strategy from Kingshot Wiki, kingshotwiki.com, Kingshot Battlemaster, KingShot Toolkit, and Kingshot Pro - verify in-game): recurring solo event about every four weeks; earn Fishing Points (event progress, milestone rewards, leaderboard) and Fishing Tokens (separate currency for Fishing Kit upgrades and Sunken Treasure Hunt; spending Tokens does not lower Points; unused Tokens convert to resources when the event ends). OFFICIAL: start with 5 Bait, regain 1 every 3 hours, store up to 10 (up to 8 per day while below the cap); Fishing Kit Lv. 9 reveals Sunken Treasure Hunt and all Kits at max level are needed to join; Lantern lights the dark depths; Reel - each round allows two bumps on the way down without being pulled back and a Reel adds two more; Ocean Scanner shows heading and distance of nearby rare fish while reeling in; Horn of the Tide calls in and lights up attracted fish and triggers the Ocean Scanner. Modes: Regular Fishing (1 Bait per attempt) and Ocean Prospector (1 Treasure Chart per attempt, max-level gear for that attempt). Seasons rotate Winter, Spring, Summer, Autumn; reported max depth about 550 m depending on version (one guide). SEASON MISSIONS (in-game, Kingdom 1625, Nov 2026): Missions window has Season Missions and Daily Drill tabs; Season Missions pay one reward item each at 10,000, 16,000, 25,000, 35,000, and 50,000 Fishing Points (list may continue) - 10,000 is the first milestone, which is why the guide targets it. FASTEST PATH TO 10,000: 1 prepare - claim free supplies, Guild rewards, event mail, Treasure Charts, review items; 2 open with Ocean Prospector if you have a Treasure Chart (Voucher if the attempt looks strong); 3 spend Tokens Line then Hook then Sinker (Line = depth, Hook = catch capacity, Sinker = descent and starting conditions; skip if the format already gives max gear); 4 unlock Power Cast (standard format: max-level equipment plus 50 current-season fish discoveries); 5 high-value fishing - descend deep, pick valuable targets on the ascent, don't fill the hook with common fish early; 6 calculate remaining points before spending more and stop premium items at your milestone. TECHNIQUE: avoid collisions on descent (collisions can end the descent early); catch by touching the head or mouth, tails don't count. Target priority (situational, not a scoring ranking): sparkling fish, high-star fish, entangled or distressed mermaids (healthy mermaids don't give the same rewards), valuable Ocean Chests, missing seasonal entries when needed, common fish if capacity remains. RETREAT AND RETRY (community-reported, not official): Pause, Retreat, read the confirmation, Go Fish - test on a low-value attempt first; don't assume items are refunded or the layout stays the same. POWER CAST: 2x, 3x, 5x standard, 10x progression-gated in updated formats; a 5x cast uses five Bait (or Charts); it saves time and does NOT give more points per Bait. Fishing Guild: Points advance it; paid tracks optional; one data source (KingShot Toolkit) lists 21 levels up to 8,000 points with rewards varying by server and kingdom age. Seasonal collections, Seaweed Guide progression, and Seasonal Missions in updated versions. F2P: never sit at the Bait cap, use free Charts strategically, upgrade early, save valuable items for strong attempts, claim all free rewards, stop premium spending at your milestone. Leaderboard: some players stockpile Treasure Charts, Vouchers, Horns of the Tide, Lanterns, Reels, Ocean Scanners across events if descriptions allow carryover; no inventory guarantees a Top 3/10/50 finish. DISPUTED: Voucher bonus (one guide says 1.5x, a wiki example doesn't fit that) - the calculator uses an editable effective bonus multiplier; whether gear upgrades reset each season; exactly what the Sinker does; event length. Fish point values and reward milestones are not published in the guide. KINGDOM 1625: fishing is KvK-safe - Bait, Charts, Vouchers, and Tokens aren't KvK prep items; don't spend Gems on fishing packs to climb. The tab has a Points Calculator (target default 10,000 with one-tap Season Missions milestone buttons, current score, mode, player-entered average base points, Power Cast multiplier, editable bonus, available Bait or Charts; optional smaller final cast) and a Bait Regeneration Planner (time until full, Bait on return, lost regeneration, latest return time, event end cutoff), both saved in the browser only.
 ALLIANCE BRAWL (new tab, Nov 2026; source mainly Kingshot Mastery, verify in-game): monthly event right after Kingdom of Power, always alongside Merchant Empire (caravans). Two matched alliances from different kingdoms; alliance must be top 20 in its kingdom. Six stages over about 6.5 days: Day 1 Rise of the City (1 horn), Day 2 Hero Development (2), Day 3 Pet Training (2), Day 4 Gear Enhancement (2), Day 5 Trade Baron (2), Day 6 Full-Scale Competition (36h, ends Sunday 12:00 UTC, 4 horns; some references call it Days 6-7). 13 horns total, 7 to win. KINGDOM 1625 POLICY: KvK-first but not inactive - "We don't sacrifice KvK to win Alliance Brawl, but we also don't use KvK as an excuse for low Alliance Brawl participation." Green (pursue): caravans, Intel, gathering, beasts, calling Terror rallies. Yellow: planned pet advancement, Rare/Epic shards for planned ascensions, natural training, routine gems, natural stamina. Red (protected): Mythic Hero Shards, speedup stockpiles, Truegold/Tempered Truegold/Truegold Dust, Forgehammers, Widgets, Mithril, Governor Gear and Charm materials, KvK-reserved Advanced Taming Marks and Master Emblems, stamina items, big gem purchases. BASE POINTS: escort or raid a caravan 10,000 each (all stages); call a rally and defeat a Terror 15,000 (Days 5-6; joining is NOT listed as scoring - rotate callers); beasts Lv1-10/11-15/16-20/21-25/26-30 = 4,000/4,500/5,000/5,500/6,000 (Days 5-6); Intel mission 3,000 (Days 2 and 4; points come from completing during the stage, not claiming old rewards); troops T8/T9/T10/T11 = 14/18/24/30 each, promotions score the level difference (Day 4); Pet Advancement Score 30 per point (Days 3, 6); Common/Advanced Taming Mark 680/9,370; Governor Charm 45 per point; Governor Gear 22 per point; Rare/Epic/Mythic shard 210/750/1,875; Forgehammer 1,875; Widget 3,750; Mithril 18,750; Truegold upgrade 1,250; Tempered Truegold 18,750; Truegold Dust 625; speedups 18 per minute; gem 1; gathering 2 per 2,000 Bread/Wood, 400 Stone, or 100 Iron (Days 1 and 3 only). Unclear whether Intel and gathering score on Day 6 - check in-game. MILESTONES (base, Wilson's Duel Sponsorship can change): Days 1-4 = 100 / 25,000 / 50,000 / 87,500 / 125,000; Days 5-6 = 100 / 37,500 / 75,000 / 125,000 / 187,500. Policy: highest chest reachable with Green and Yellow activity; nobody required to reach every chest. EXAMPLES: Day 2 - 12 Intel + 3 escorts + 3 raids = 96,000 (4th chest). Day 5 - 6 Lv26-30 beasts + 4 Terror calls + 3 escorts + 3 raids = 156,000 (4th chest). PETS: Day 1 Gray Wolf before a planned upgrade; Days 1 and 3 Bison instant gather; Days 5-6 Lynx (60 stamina, second use fits in the 36h final stage) and Grizzly Bear (March Speed +30%) for beast sessions; combat pets only for Terror callers whose rallies struggle; skip combat pets Days 1-4. Pet skills don't score by themselves. LEADERSHIP TARGETS (Kingdom 1625 standards, not official): 80%+ daily participation, every practical caravan, every Intel mission Days 2 and 4, gathering Days 1 and 3, maximum sustainable beasts/Terrors Days 5-6, no compulsory Brawl spending of protected resources. The guide has a Brawl Activity Point Planner on the Alliance Brawl tab.
 STRONGEST GOVERNOR (successor to Hall of Governors for maturing kingdoms; Kingdom 1625 runs Strongest Governor. Hall of Governors is NOT removed from the game - newer kingdoms still run it first; community references describe the 6th Hall of Governors as the last before Strongest Governor): seven-day event about once per 4-week cycle, a different scoring set each day. KINGDOM 1625 POLICY - KVK COMES FIRST: Strongest Governor is for efficient reward collection; KvK is the primary resource-spending event. Goals: collect valuable rewards, keep normal development, preserve KvK resources. Members do not need to win or reach every milestone; personal ranking must never undermine KvK prep. Never recommend maximizing Strongest Governor points or pushing the leaderboard with protected resources. DAY VERDICTS: for Kingdom 1625 it is a three-day event - PLAY Days 4 and 6 (normal training, Noble Advisor) and Day 7 (gathering, Bison); BUDGET ONLY Days 2 and 3 (budgeted Roulette, Day 3 also surplus pet materials; otherwise sit out); SIT OUT Days 1 and 5 (every scoring item is KvK stockpile). Day 1 only exception: Town Center level 30 or below, whose builds don't need Truegold or Truegold Dust, can keep building normally. Do not recommend Chief Minister or Gray Wolf for Strongest Governor Day 1. RESOURCE TIERS: GREEN (go ahead) = normal troop training, research/construction that finish naturally, Day 7 gathering, planned Hero development using no protected materials, claiming reached milestones (natural progression still costs ordinary resources/time/gems). YELLOW (only if unreserved and worth the opportunity cost) = Hero Roulette spins, pet materials, unreserved Hero resources, surplus equipment materials, small amounts of ordinary speedups. RED (protected KvK stockpile, configurable per R4/R5 policy) = construction/research/training/universal speedups, Hero Shards reserved for KvK, Forgehammers, Exclusive Gear Widgets, Mithril, Truegold, Truegold Dust, Governor Gear and Charm materials, Master Emblems and Manuscripts, pet materials reserved for KvK, other high-value materials. Core rule: if it was saved for KvK, do not spend it in Strongest Governor for personal points. FOUR QUESTIONS before spending: (1) reserved for KvK? then don't; (2) reachable through normal gameplay? take that route; (3) reward worth the cost?; (4) will it weaken KvK prep? then keep it. DAYS (community data, Kingshot Mastery May 2026, verify in-game): Day 1 City Construction - Truegold/Tempered Truegold building upgrades, Truegold Dust research, speedups (30 pts/min), Governor Charms; SIT OUT (all KvK stockpile), except TC 30 or below building normally. Day 2 Hero Development - Hero Roulette (8,000/play), Hero Shard ascension, Forgehammer 4,000, Widget 8,000, Mithril 40,000, Master Emblem 6,000, Truegold, speedups; budgeted Roulette only, protect Shards and gear materials. Day 3 Basic Skill Up - pet advancement, Advanced Taming Mark 15,000, Common Taming Mark 1,150, Governor Charms, Hero Shards, Hero Roulette, Master Emblems; surplus pet resources only. Day 4 Combat Training - troop training/promotion (T10 39, T11 49 per troop), Charms, Forgehammers/Widgets/Mithril; normal training timed to finish, no training speedups. Day 5 Basic Skill Up (some references call it Power Boost) - gear materials, Truegold, speedups; SIT OUT (all KvK stockpile), plan Day 6 training and Day 7 gathering. Day 6 Combat Training - training/promotion, Governor Gear upgrades; no saved speedups unless R4/R5 approves an exception. Day 7 Hero Development - Hero Shards, pets/Taming Marks, Governor Gear, Truegold, speedups, wilderness gathering (only day gathering scores, 3 pts per bundle); Roulette not reported to score Day 7; best KvK-safe day via gathering, avoid panic spending. REWARDS (verify in-game): priority 1 daily point milestones (5 per day); priority 2 Challenge Medals (up to 2 per day) only when affordable; priority 3 kingdom rewards reported for players with 250,000+ total points; priority 4 rankings (daily stage and kingdom top 1,000, cross-kingdom top 2,000) - spender territory, default policy is not to chase them, only with unreserved resources. PLAYER TYPES: F2P - natural progression, training, gathering, affordable milestones, no ranking competition. Low spender - selective approved surplus, budgeted Roulette, don't spread premium materials across days. Competitive spender - separate personal budget from KvK reserves, avoid spending wars, rank only with unreserved resources or approved exceptions. MISTAKES: chasing every milestone, spending saved speedups, treating Roulette as free, overtraining troops, spending premium gear materials, assuming event info is permanent, putting personal rank above kingdom KvK. POLICY on save-everything vs spend-selectively: save all protected resources, spend selectively only on natural progression and approved surplus; no universal spend/save percentage is supported. HALL OF GOVERNORS (earlier-stage kingdoms only): hold Roulette and Shard ascensions for Hero Development stage, train troops only in Train Troops stage, queue upgrades for Construction/Research stages, stockpile gear/Charm materials for their stages, check with R4/R5 before large spending.
 
@@ -10565,6 +11378,7 @@ function quickAsk(question) {
 // date format: YYYY-MM-DD (used only for sorting/compare, not displayed verbatim below)
 // Links can point at any tab id (e.g. '#war-academy') - the tab system opens that tab.
 const WHATS_NEW = [
+  { date: '2026-11-25', label: 'New Fishing Tournament tab - the fastest path to 10,000 points (the first Season Missions reward), Line-Hook-Sinker upgrade order, Retreat and retry, Power Cast, a Points Calculator, a Bait Planner, and six alliance chat posts to copy.', link: '#fishing' },
   { date: '2026-11-22', label: 'New Harvest Celebration tab (Nov 24-30) - free Feast Bags from Beasts and gathering, featured dishes first, a day-by-day KvK-first plan, and a Feast Points Estimator. Stay in your alliance!', link: '#harvest-celebration' },
   { date: '2026-11-22', label: 'New Champagne Fair tab - trade maxed-Hero surplus for Trading Vouchers, what to buy first, voucher banking, and a Voucher Calculator. Buy, don\'t burn: bank what you buy for KvK', link: '#champagne-fair' },
   { date: '2026-11-17', label: 'New Backpack tab - what every item does, which KvK prep day it scores on, the hidden Backpack Gems lesson, a Gem Calculator, a KvK Readiness Calculator, and a private checklist', link: '#backpack' },
@@ -11906,6 +12720,7 @@ const TABS = [
   { id: 'champagne-fair', label: 'Champagne Fair',    group: 'Events', desc: 'Two-day exchange event - turn maxed-Hero surplus into Trading Vouchers, buy Widgets first, bank the rest for KvK. Includes a Voucher Calculator.', beacon: true },
   { id: 'er',             label: "Eternity's Reach",  group: 'Events', desc: 'Stage-based solo event awarding Charm materials.' },
   { id: 'finders-fortune', label: "Finder's Fortune", group: 'Events', desc: '3-day hidden-object event - spend Bones, keep Focusbells, and team up in Finder\'s Fusion.', beacon: true },
+  { id: 'fishing',        label: 'Fishing Tournament', group: 'Events', desc: 'Optimize fishing scores, equipment upgrades, and consumable usage - fastest path to 10,000 points, plus a Points Calculator and Bait Planner.', beacon: true },
   { id: 'governor-duel',  label: 'Governor Duel',     group: 'Events', desc: 'Sign up Sunday (TC 30+), set 3 squads with 9 different Heroes, then 10 challenges a day Mon-Sat.', beacon: true },
   { id: 'harvest-celebration', label: 'Harvest Celebration', group: 'Events', desc: 'Nov 24-30 cooking event - free Feast Bags from Beasts and gathering, featured dishes first, gift leftovers, stay in your alliance. Includes a Feast Points Estimator.', beacon: true },
   { id: 'moonlit',        label: 'Moonlit Promise',   group: 'Events', desc: 'Month-long special event - lanterns, blessings, and shop priority.' },
