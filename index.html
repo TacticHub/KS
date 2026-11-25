@@ -3355,13 +3355,13 @@
     <img src="assets/characters/omen/omen-wait.webp" alt="Omen, Kingdom 1625 guide mascot" width="108" height="108" loading="lazy" decoding="async" onerror="this.hidden=true">
 </aside>
 <!-- KINGDOM #1 RULE: KVK RESOURCE SAVING -->
-<div class="callout callout-warn">
+<div class="callout callout-warn" id="save-for-kvk">
   <span class="callout-label">&#x26A0; Kingdom #1625 Rule #1 - Save For KvK</span>
   This kingdom's top priority is <strong>KvK preparation</strong>. Every player, in every alliance, should be saving key resources rather than spending them as they're earned. Only spend these resources on the specific <strong>KvK preparation phase days</strong> where they count toward scoring - not before. When in doubt, hold and check with your R4/R5 leadership.
 </div>
 <div class="card card-gold" style="margin-top:8px;">
   <p style="font-family:'Lato',sans-serif;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Save These Items For KvK</p>
-  <ul class="tips" style="margin:0;">
+  <ul class="tips" style="margin:0;" id="save-for-kvk-items">
     <li>Speedups (General &amp; Research)</li>
     <li><strong>Truegold Dust</strong> - War Academy's KvK "Increase Power" stage draws on the same Dust as research; see the <a href="#war-academy" style="color:var(--gold);">War Academy section</a> for the exact timing pattern</li>
     <li>Resource packs</li>
@@ -13528,7 +13528,30 @@ document.addEventListener('DOMContentLoaded', function() {
   var FORM_API = (typeof WORKER_URL !== 'undefined' ? WORKER_URL : 'https://bbq-kingshot.burseer.workers.dev') + '/mt/board?zone=all&sort=new';
   var ZONE_NAMES = { coliseum: 'Coliseum', forest: 'Forest of Life', crystal: 'Crystal Cave', nexus: 'Knowledge Nexus', molten: 'Molten Fort', spire: 'Radiant Spire' };
   var FORM_OPENERS = ['Hmm...', 'Look at this one.', 'Noted for later:', 'Fresh off the board:', 'Now that is a clear.'];
-  var formations = [], formIdx = 0, nextIsForm = false, pendingMine = null;
+  var formations = [], formIdx = 0, cycleStep = 0, pendingMine = null;
+
+  // Save for KvK: read straight from the Home tab's Rule #1 callout and item list,
+  // so Omen's reminders always match the guide with nothing extra to maintain.
+  var KVK_TIPS = (function() {
+    var tips = [];
+    var rule = document.getElementById('save-for-kvk');
+    if (rule) {
+      var clone = rule.cloneNode(true);
+      var lbl = clone.querySelector('.callout-label'); if (lbl) lbl.remove();
+      (clone.textContent.replace(/\s+/g, ' ').trim().match(/[^.!?]+[.!?]+/g) || []).forEach(function(sn) {
+        tips.push({ lead: 'Rule #1:', text: sn.trim() });
+      });
+    }
+    document.querySelectorAll('#save-for-kvk-items li').forEach(function(li) {
+      var t = li.textContent.replace(/\s+/g, ' ').trim();
+      if (t) tips.push({ lead: 'Save this for KvK:', text: t });
+    });
+    return tips;
+  })();
+  var kvkIdx = Math.floor(Math.random() * Math.max(1, KVK_TIPS.length));
+  function kvkThought(t) {
+    return { kicker: 'Omen\'s thoughts - Rule #1: Save for KvK', html: '<b>' + esc(t.lead) + '</b> ' + esc(shorten(t.text)), link: '#save-for-kvk', linkText: 'See Rule #1 &rarr;' };
+  }
   function boardToken() {
     try { var t = JSON.parse(localStorage.getItem('mt-token') || 'null'); return /^[a-f0-9]{32}$/.test(t) ? t : null; } catch (e) { return null; }
   }
@@ -13566,11 +13589,15 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   function nextThought() {
     if (pendingMine) { var m = pendingMine; pendingMine = null; return formationThought(m); }
-    var useForm = nextIsForm && formations.length;
-    nextIsForm = !nextIsForm;
-    if (useForm) return formationThought(formations[formIdx++ % formations.length]);
-    var it = THOUGHTS[thoughtIdx % THOUGHTS.length]; thoughtIdx++;
-    return updateThought(it);
+    // Rotation: What's New update, Winning Formation, Save for KvK reminder (empty sources are skipped)
+    for (var tries = 0; tries < 3; tries++) {
+      var step = cycleStep++ % 3;
+      if (step === 1 && formations.length) return formationThought(formations[formIdx++ % formations.length]);
+      if (step === 2 && KVK_TIPS.length) return kvkThought(KVK_TIPS[kvkIdx++ % KVK_TIPS.length]);
+      if (step === 0) { var it = THOUGHTS[thoughtIdx % THOUGHTS.length]; thoughtIdx++; return updateThought(it); }
+    }
+    var it2 = THOUGHTS[thoughtIdx % THOUGHTS.length]; thoughtIdx++;
+    return updateThought(it2);
   }
 
   function store(get, val) {
